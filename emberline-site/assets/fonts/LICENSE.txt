@@ -1,0 +1,4 @@
+Fonts in this folder are open source, licensed under the SIL Open Font License 1.1 (https://openfontlicense.org):
+- Bricolage Grotesque, by Mathieu Triay
+- Instrument Sans, by Instrument
+- JetBrains Mono, by JetBrains
