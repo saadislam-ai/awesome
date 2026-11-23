@@ -120,7 +120,11 @@ export interface BookSummary {
   author: string;
   genre: string;
   language: string;
+  /** Series name and number as one line for display ("The Delta Books 2"). */
   series: string;
+  /** Series name alone; empty for a standalone book. */
+  seriesName: string;
+  seriesNumber: number | null;
   formats: { id: string; type: string; label: string; enabled: boolean; isbn: string; trim: string; platforms: string[] }[];
   words: number;
   updatedAt: string;
@@ -293,6 +297,8 @@ export class Library {
       genre: book.genre,
       language: book.language,
       series: book.series ? `${book.series.name}${book.series.number !== null ? ' ' + book.series.number : ''}` : '',
+      seriesName: book.series?.name ?? '',
+      seriesNumber: book.series?.number ?? null,
       formats: book.formats.map((f) => ({ id: f.id, type: f.type, label: f.label || f.id, enabled: f.enabled, isbn: f.isbn, trim: f.trim, platforms: f.platforms })),
       words,
       updatedAt: book.updatedAt,
@@ -311,15 +317,19 @@ export class Library {
       const bookFile = joinPath(path, LAYOUT.book);
       const stat = await this.host.stat(bookFile);
       if (!stat) {
-        out.push({ path, id: '', title: path.split('/').pop() ?? path, subtitle: '', author: '', genre: '', language: '', series: '', formats: [], words: 0, updatedAt: '', problem: 'The folder was not found. It may have been moved or the drive is not connected.' });
+        out.push({ path, id: '', title: path.split('/').pop() ?? path, subtitle: '', author: '', genre: '', language: '', series: '', seriesName: '', seriesNumber: null, formats: [], words: 0, updatedAt: '', problem: 'The folder was not found. It may have been moved or the drive is not connected.' });
         continue;
       }
       if (indexed) {
         const rows = await this.host.db!.query<{ summary: string; mtime: number }>('SELECT summary, mtime FROM books WHERE path = ?', [path]).catch(() => []);
         if (rows[0] && Math.abs(rows[0].mtime - stat.mtimeMs) < 1) {
           try {
-            out.push(JSON.parse(rows[0].summary) as BookSummary);
-            continue;
+            const cached = JSON.parse(rows[0].summary) as BookSummary;
+            // A summary stored by an older version lacks newer fields: it is rebuilt below.
+            if (cached.seriesName !== undefined) {
+              out.push(cached);
+              continue;
+            }
           } catch {
             /* fall through and rebuild */
           }
@@ -338,7 +348,7 @@ export class Library {
             .catch(() => undefined);
         }
       } catch (e) {
-        out.push({ path, id: '', title: path.split('/').pop() ?? path, subtitle: '', author: '', genre: '', language: '', series: '', formats: [], words: 0, updatedAt: '', problem: `book.json could not be read: ${(e as Error).message}` });
+        out.push({ path, id: '', title: path.split('/').pop() ?? path, subtitle: '', author: '', genre: '', language: '', series: '', seriesName: '', seriesNumber: null, formats: [], words: 0, updatedAt: '', problem: `book.json could not be read: ${(e as Error).message}` });
       }
     }
     return out.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));

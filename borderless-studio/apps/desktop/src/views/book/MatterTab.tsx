@@ -5,7 +5,7 @@
  */
 import { useState } from 'react';
 import { ArrowDown, ArrowUp, FilePlus2, PenLine, Sparkles, Trash2 } from 'lucide-react';
-import { BACK_KINDS, FRONT_KINDS, GENERATED_KINDS, KIND_TITLES, type BinderNode, type SectionKind } from '@borderless/core';
+import { BACK_KINDS, FRONT_KINDS, GENERATED_KINDS, KIND_TITLES, alsoByFromLibrary, primaryAuthor, type BinderNode, type SectionKind } from '@borderless/core';
 import { useStore } from '../../state/store';
 import { useBookEditor } from '../../ui/useBook';
 import { Field } from '../../ui/kit';
@@ -28,6 +28,7 @@ interface AlsoByGroup { label: string; titles: string[] }
 
 export function MatterTab() {
   const { project, book, update, rev } = useBookEditor();
+  const libraryBooks = useStore((s) => s.books);
   const touch = useStore((s) => s.touch);
   const selectDoc = useStore((s) => s.selectDoc);
   const toast = useStore((s) => s.toast);
@@ -106,6 +107,8 @@ export function MatterTab() {
 
   const alsoBy = project.binder.roots.flatMap((r) => r.children ?? []).find((n) => n.kind === 'also-by');
   const groups: AlsoByGroup[] = (alsoBy?.data?.groups as AlsoByGroup[] | undefined) ?? [];
+  const auto = Boolean(alsoBy?.data?.auto);
+  const fromLibrary = alsoByFromLibrary({ id: book.id, series: book.series, author: primaryAuthor(book) }, libraryBooks);
   const setGroups = (next: AlsoByGroup[]) => alsoBy && void run(() => project.updateNode(alsoBy.id, { data: { ...(alsoBy.data ?? {}), groups: next } }));
 
   return (
@@ -133,8 +136,19 @@ export function MatterTab() {
           <div className="row"><h2 className="grow" style={{ margin: 0 }}>Also by the author</h2>
             <button className="btn small" onClick={() => setGroups([...groups, { label: '', titles: [] }])}><FilePlus2 size={13} /> Add a group</button>
           </div>
-          {groups.length === 0 && <p className="dim small">Add a group such as "Fiction" and list the titles, one on each line.</p>}
-          {groups.map((g, i) => (
+          <label className="check" style={{ marginTop: 8 }}>
+            <input type="checkbox" checked={auto} onChange={(e) => alsoBy && void run(() => project.updateNode(alsoBy.id, { data: { ...(alsoBy.data ?? {}), auto: e.target.checked } }))} />
+            Fill this page from my library: the other books of this series in reading order, then my other books
+          </label>
+          {auto && (
+            <div className="notice small" style={{ marginTop: 8, display: 'block' }}>
+              {fromLibrary.length === 0 ? 'The library holds no other book by this author yet, so the page is left out until there is one.' : fromLibrary.map((g, i) => (
+                <div key={i}>{g.label ? <b>{g.label}: </b> : null}{g.titles.join(', ')}</div>
+              ))}
+            </div>
+          )}
+          {!auto && groups.length === 0 && <p className="dim small">Add a group such as "Fiction" and list the titles, one on each line.</p>}
+          {!auto && groups.map((g, i) => (
             <div className="grid2" key={i} style={{ marginTop: 10, gridTemplateColumns: '200px 1fr auto' }}>
               <Field label="Group heading"><input className="input" defaultValue={g.label} placeholder="Fiction" onBlur={(e) => setGroups(groups.map((x, k) => (k === i ? { ...x, label: e.target.value } : x)))} /></Field>
               <Field label="Titles, one on each line"><textarea className="textarea" rows={3} defaultValue={g.titles.join('\n')} onBlur={(e) => setGroups(groups.map((x, k) => (k === i ? { ...x, titles: e.target.value.split('\n').map((t) => t.trim()).filter(Boolean) } : x)))} /></Field>

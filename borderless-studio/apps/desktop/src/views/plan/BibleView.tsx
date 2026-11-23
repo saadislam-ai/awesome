@@ -6,7 +6,7 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
-import { BIBLE_TYPES, BIBLE_TYPE_LABEL, bibleMentions, bibleTimeline, docLabel, newBibleEntry, textNodes, type BibleEntry, type BibleType, type EntryMentions } from '@borderless/core';
+import { BIBLE_TYPES, BIBLE_TYPE_LABEL, bibleMentions, bibleTimeline, docLabel, mergeSeriesBible, newBibleEntry, textNodes, type BibleEntry, type BibleType, type EntryMentions } from '@borderless/core';
 import { useStore } from '../../state/store';
 import { Field, fmtNumber } from '../../ui/kit';
 
@@ -47,6 +47,26 @@ export function BibleView(props: { onOpen: (id: string, at?: number) => void; on
     save();
   };
 
+  // Books of one series share people and places: entries this book lacks are copied from the others, never overwritten.
+  const seriesName = project.book.series?.name.trim() ?? '';
+  const fromSeries = async () => {
+    const { library, books } = useStore.getState();
+    if (!library || !seriesName) return;
+    let added = 0;
+    let read = 0;
+    for (const b of books) {
+      if (b.problem || b.path === project.dir || (b.seriesName ?? '').trim().toLowerCase() !== seriesName.toLowerCase()) continue;
+      try {
+        added += mergeSeriesBible(project.bible, (await library.openBook(b.path)).bible);
+        read++;
+      } catch {
+        /* a book that cannot be opened is skipped */
+      }
+    }
+    if (added) save();
+    toast(added ? 'ok' : 'info', read === 0 ? `No other book of "${seriesName}" was found in the library.` : added ? `${added} entr${added === 1 ? 'y was' : 'ies were'} brought in from ${read} other book${read === 1 ? '' : 's'} of the series.` : 'This book already has every entry of the other books in the series.');
+  };
+
   // Count mentions when the view opens; "Count again" refreshes after edits.
   const count = async () => {
     const docs = await project.readAllDocs();
@@ -85,6 +105,7 @@ export function BibleView(props: { onOpen: (id: string, at?: number) => void; on
             </div>
           );
         })}
+        {seriesName && <button className="btn small" style={{ marginTop: 10 }} onClick={() => void fromSeries()} title={`Copy the entries this book does not have yet from the other books of "${seriesName}"`}>Bring in entries from the series</button>}
         {entries.length === 0 && <p className="dim small">Keep the facts of your book in one place: who people are, how names are spelled, what happened when. Start by adding a character.</p>}
         {timeline.length > 0 && <button className={`bible-item${showTimeline ? ' on' : ''}`} style={{ marginTop: 10 }} onClick={() => setShowTimeline(true)}>Timeline ({timeline.length})</button>}
       </div>

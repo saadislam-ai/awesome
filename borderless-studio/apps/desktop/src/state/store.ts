@@ -5,7 +5,7 @@
  */
 import { create } from 'zustand';
 import {
-  DEFAULT_SETTINGS, Library, autoBackupIfDue, defaultLibraryDir, loadSettings, saveSettings,
+  DEFAULT_SETTINGS, Library, alsoByFromLibrary, autoBackupIfDue, defaultLibraryDir, loadSettings, primaryAuthor, saveSettings,
   type AppSettings, type BookSummary, type BuildContext, type Host, type Project, type PublisherProfile, type SpecSet,
 } from '@borderless/core';
 import { createHost, isTauri } from '../host';
@@ -188,7 +188,12 @@ export const useStore = create<State>((set, get) => ({
     const { host, project, specs, library } = get();
     if (!project || !specs) throw new Error('No book is open.');
     const { resources } = await host.paths();
-    return { host, project, specs, resourcesDir: resources, isbnRegister: library ? await library.isbnRegister() : null };
+    // The "Also by" page can be kept up to date from the library (set on the page itself, under Book, Front and back matter).
+    const alsoByNode = project.binder.roots.flatMap((r) => r.children ?? []).find((n) => n.kind === 'also-by');
+    const alsoBy = alsoByNode?.data?.auto && library
+      ? alsoByFromLibrary({ id: project.book.id, series: project.book.series, author: primaryAuthor(project.book) }, await library.listBooks())
+      : undefined;
+    return { host, project, specs, resourcesDir: resources, isbnRegister: library ? await library.isbnRegister() : null, alsoBy };
   },
 }));
 

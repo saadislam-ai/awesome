@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
-import { AlertTriangle, FileUp, FolderOpen, FolderPlus, Plus, Search } from 'lucide-react';
+import { AlertTriangle, FileUp, FolderOpen, FolderPlus, Library as LibraryIcon, Plus, Search } from 'lucide-react';
 import { GENRES, GENRE_TEMPLATES, isStale, type BookSummary, type Genre, type PlatformId } from '@borderless/core';
 import { useStore } from '../state/store';
 import { Field, Menu, Modal, fmtNumber, timeAgo, type MenuItem } from '../ui/kit';
 import { ImportWizard } from './ImportWizard';
+import { SeriesManager } from './SeriesManager';
 
 const FORMAT_SHORT: Record<string, string> = { paperback: 'Paperback', hardcover: 'Hardcover', ebook: 'Ebook' };
 const LANGUAGES = [
@@ -24,6 +25,7 @@ export function LibraryView() {
   const setView = useStore((s) => s.setView);
   const [wizard, setWizard] = useState(false);
   const [importing, setImporting] = useState(false);
+  const [seriesOpen, setSeriesOpen] = useState(false);
   const [filter, setFilter] = useState('');
   const [menu, setMenu] = useState<{ x: number; y: number; book: BookSummary } | null>(null);
 
@@ -66,6 +68,7 @@ export function LibraryView() {
           <Search size={14} style={{ position: 'absolute', left: 8, top: 8 }} className="faint" />
           <input className="input" style={{ paddingLeft: 27, width: 220 }} placeholder="Filter books" value={filter} onChange={(e) => setFilter(e.target.value)} />
         </div>
+        <button className="btn" onClick={() => setSeriesOpen(true)} title="Series: reading order, numbering and names across books"><LibraryIcon size={15} /> Series</button>
         <button className="btn" onClick={() => setImporting(true)} title="Start a book from a Word, Markdown, text, EPUB or Scrivener file"><FileUp size={15} /> Import a manuscript</button>
         <button className="btn" onClick={addExisting}><FolderPlus size={15} /> Add existing folder</button>
         <button className="btn primary" onClick={() => setWizard(true)}><Plus size={15} /> New book</button>
@@ -129,6 +132,7 @@ export function LibraryView() {
       </div>
       {wizard && <NewBookWizard onClose={() => setWizard(false)} />}
       {importing && <ImportWizard onClose={() => setImporting(false)} />}
+      {seriesOpen && <SeriesManager onClose={() => setSeriesOpen(false)} />}
       {menu && <Menu x={menu.x} y={menu.y} items={bookMenu(menu.book)} onClose={() => setMenu(null)} />}
     </>
   );
