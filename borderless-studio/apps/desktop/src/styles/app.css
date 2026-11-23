@@ -429,3 +429,4 @@ table.prices td.right, table.prices th.right { text-align: right; }
 .inspector .head .tabs button .lbl { display: none; }
 .inspector .head .tabs button.on .lbl { display: inline; }
 .inspector .head .count.neutral { background: var(--accent-soft); color: var(--accent); }
+.import-list { margin-top: 10px; max-height: 300px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; }

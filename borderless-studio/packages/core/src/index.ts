@@ -58,3 +58,5 @@ export * from './metadata/onix';
 export * from './metadata/sheet';
 export * from './build/publish';
 export * from './editor/analysis';
+export * from './docx/write';
+export * from './import/index';

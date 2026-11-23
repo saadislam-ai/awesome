@@ -3,9 +3,9 @@
  * edition and platform, and run preflight on each finished file.
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { AlertTriangle, CheckCircle2, CircleAlert, FileText, FolderOpen, Image as ImageIcon, Loader2, Play, Tablet } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, CircleAlert, FileText, FileType2, FolderOpen, Image as ImageIcon, Loader2, Play, Tablet } from 'lucide-react';
 import {
-  COVER_KIND_LABEL, coverKindsFor, exportCover, exportEbookCover, exportEpub, exportInterior, preflightCoverFile, preflightEpubFile, preflightInteriorFile,
+  COVER_KIND_LABEL, coverKindsFor, exportCover, exportDocx, exportEbookCover, exportEpub, exportInterior, preflightCoverFile, preflightEpubFile, preflightInteriorFile,
   trimAvailability, validateIsbn,
   type BookFormat, type CoverExport, type CoverKind, type EpubExport, type InteriorExport, type PlatformId, type PreflightReport, type ToolInfo,
 } from '@borderless/core';
@@ -17,6 +17,8 @@ import { saveBookNow } from '../ui/useBook';
 
 interface Result {
   busy: boolean;
+  docxPath?: string;
+  note?: string;
   error?: string;
   seconds?: number;
   interior?: InteriorExport;
@@ -110,6 +112,13 @@ export function ExportView() {
     const preflight: PreflightReport[] = [];
     for (const p of stores) preflight.push(await preflightEpubFile(ctx, epub, p));
     return { epub, preflight };
+  });
+
+  const buildDocx = (layout: 'manuscript' | 'retail') => run(`docx/${layout}`, async () => {
+    const ctx = await buildContext();
+    const formatId = (project.book.formats.find((f) => f.type === 'ebook') ?? project.book.formats[0]).id;
+    const res = await exportDocx(ctx, { formatId, layout, criticView });
+    return { docxPath: res.docxPath, note: `${fmtNumber(Math.round(res.sizeBytes / 1024))} KB, ${res.footnotes} footnote${res.footnotes === 1 ? '' : 's'}${res.warnings.length ? `. ${res.warnings.map((w) => w.message).join(' ')}` : ''}` };
   });
 
   const formats = project.book.formats.filter((f) => f.enabled);
@@ -220,6 +229,17 @@ export function ExportView() {
               </div>
             );
           })}
+          <div className="card" style={{ marginTop: 12 }}>
+            <div className="row"><FileType2 size={18} className="dim" /><h2 style={{ margin: 0 }}>Word files</h2></div>
+            <Target icon={<FileType2 size={15} className="dim" />} title={<><b>Manuscript format</b> <span className="dim">for agents, editors and beta readers</span></>}
+              note="(12 pt, double spaced, header with name, title and page)" result={results['docx/manuscript']} path={results['docx/manuscript']?.docxPath} onBuild={() => void buildDocx('manuscript')}>
+              {results['docx/manuscript']?.note && <div className="small dim" style={{ marginTop: 6 }}>{results['docx/manuscript']!.note}</div>}
+            </Target>
+            <Target icon={<FileType2 size={15} className="dim" />} title={<><b>Word file for stores</b> <span className="dim">that convert it themselves, such as Draft2Digital</span></>}
+              note="(chapters as Heading 1)" result={results['docx/retail']} path={results['docx/retail']?.docxPath} onBuild={() => void buildDocx('retail')}>
+              {results['docx/retail']?.note && <div className="small dim" style={{ marginTop: 6 }}>{results['docx/retail']!.note}</div>}
+            </Target>
+          </div>
         </div>
       </div>
     </>

@@ -24,6 +24,7 @@ import { buildCoverPdf, buildEbookCover, renderCoverPreview, type CoverBuildInpu
 import { coverGeometry, coverKindsFor, type CoverGeometryResult, type CoverKind } from '../cover/geometry';
 import { CoverDesignSchema, type CoverDesign } from '../cover/model';
 import { bookMockup } from '../cover/mockup';
+import { buildDocx, type DocxLayout } from '../docx/write';
 import { decodePng, encodePng, flattenAlpha } from '../image/png';
 import { formatPreflight, manuscriptChecks, preflightCover, preflightEpub, preflightInterior, summarise, type ManuscriptDoc, type PreflightReport } from '../preflight/index';
 import { assembleBook, type AlsoByGroup, type AssembledBook, type BuildWarning } from './assemble';
@@ -615,4 +616,38 @@ export async function exportMockup(ctx: BuildContext, target: CoverTarget & { si
   // The same picture on white, without drawing it twice.
   await ctx.host.writeBinary(`${base}_white.png`, encodePng(flattenAlpha(clear, [255, 255, 255])));
   return { ok: true, pngPath: `${base}.png`, whitePath: `${base}_white.png`, warnings: flat.warnings };
+}
+
+/* ------------------------------------------------------------------ */
+/* Word files                                                          */
+/* ------------------------------------------------------------------ */
+
+export interface DocxExport {
+  ok: boolean;
+  docxPath: string;
+  sizeBytes: number;
+  footnotes: number;
+  warnings: BuildWarning[];
+}
+
+/**
+ * Write the book as a Word file: "manuscript" is the standard submission
+ * format, "retail" is a clean file for stores that convert Word files
+ * themselves (Draft2Digital).
+ */
+export async function exportDocx(ctx: BuildContext, opts: ExportCommon & { layout: DocxLayout; contact?: string[]; outFile?: string }): Promise<DocxExport> {
+  const assembled = await assembleProject(ctx, opts);
+  const images = new Map<string, Uint8Array>();
+  for (const src of assembled.stats.images) {
+    const abs = /^([A-Za-z]:)?\//.test(src) ? src : ctx.project.path(src);
+    if (await ctx.host.exists(abs)) images.set(src, await ctx.host.readBinary(abs));
+  }
+  const res = buildDocx(assembled, { layout: opts.layout, images, contact: opts.contact });
+  const warnings: BuildWarning[] = assembled.warnings.filter((w) => w.severity === 'fail');
+  for (const m of res.missingImages) warnings.push({ severity: 'warn', code: 'docx-image', message: `The picture "${m}" was not found and is replaced by a note in the Word file.` });
+  const suffix = opts.layout === 'manuscript' ? 'manuscript' : 'retail';
+  const outFile = opts.outFile ?? ctx.project.path(LAYOUT.exportsDir, `${slugify(ctx.project.book.title, 40)}_${suffix}.docx`);
+  await ctx.host.mkdirp(outFile.slice(0, outFile.lastIndexOf('/')));
+  await ctx.host.writeBinary(outFile, res.bytes);
+  return { ok: !warnings.some((w) => w.severity === 'fail'), docxPath: outFile, sizeBytes: res.bytes.length, footnotes: res.footnotes, warnings };
 }

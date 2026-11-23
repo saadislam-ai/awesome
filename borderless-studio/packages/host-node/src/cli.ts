@@ -14,10 +14,14 @@
  *       --all                  every enabled format and platform (default)
  *       --no-cover             interiors and ebooks only
  *       --preview              also write a cover preview picture with guides
+ *   bstudio word <book folder> [--layout manuscript|retail]
+ *                                               Word files: manuscript format, and one for stores that convert Word themselves
+ *   bstudio import <file> <parent folder> [--title "..."] [--author "..."]
+ *                                               start a book from a Word, Markdown, text, EPUB or Scrivener file
  *   bstudio new <parent folder> --title "..." --author "..." [--genre novel]
  */
 import {
-  assembleProject, bundledSpecsDir, coverKindsFor, createBook, exportCover, exportEbookCover, exportEpub, exportInterior, previewCover, isStale, loadSpecs, openBook, preflightCoverFile, preflightEpubFile, preflightInteriorFile, unverifiedSections,
+  assembleProject, bundledSpecsDir, coverKindsFor, createBook, exportCover, exportDocx, exportEbookCover, exportEpub, exportInterior, fillNewBookFromImport, importFile, previewCover, isStale, loadSpecs, openBook, preflightCoverFile, preflightEpubFile, preflightInteriorFile, unverifiedSections,
   GENRES, type BuildContext, type BuildWarning, type Genre, type PlatformId, type PreflightReport, type ToolId,
 } from '@borderless/core';
 import * as nodePath from 'node:path';
@@ -173,6 +177,48 @@ async function cmdBuild(host: NodeHost, dir: string): Promise<number> {
   return failures ? 1 : 0;
 }
 
+async function cmdWord(host: NodeHost, dir: string): Promise<number> {
+  const ctx = await context(host, dir);
+  const only = flag('layout');
+  if (only && only !== 'manuscript' && only !== 'retail') {
+    console.error('Choose --layout manuscript or --layout retail.');
+    return 1;
+  }
+  const formats = ctx.project.book.formats;
+  const formatId = (formats.find((f) => f.type === 'ebook') ?? formats[0]).id;
+  let failures = 0;
+  for (const layout of ['manuscript', 'retail'] as const) {
+    if (only && only !== layout) continue;
+    const res = await exportDocx(ctx, { formatId, layout, criticView: has('accept-changes') ? 'accepted' : 'original' });
+    console.log(`${layout}: ${res.ok ? 'OK' : 'FAILED'} (${(res.sizeBytes / 1024).toFixed(0)} KB, ${res.footnotes} footnote(s))`);
+    console.log(`    ${res.docxPath}`);
+    printWarnings(res.warnings);
+    if (!res.ok) failures++;
+  }
+  return failures ? 1 : 0;
+}
+
+async function cmdImport(host: NodeHost, file: string, parent: string | undefined): Promise<number> {
+  if (!parent) {
+    console.error('Usage: bstudio import <file> <parent folder> [--title "Title"] [--author "Name"]');
+    return 1;
+  }
+  const imported = await importFile(host, abs(file));
+  const title = flag('title') ?? imported.title;
+  const author = flag('author') ?? imported.author;
+  if (!title) {
+    console.error('No title was found in the file. Add --title "Title".');
+    return 1;
+  }
+  const language = flag('language') ?? (/^(en|bn)/i.test(imported.language) ? imported.language : undefined);
+  const project = await createBook(host, { parentDir: abs(parent), title, author: author || 'Author', genre: 'novel', language });
+  const summary = await fillNewBookFromImport(project, imported);
+  console.log(`Created ${project.dir}`);
+  console.log(`    ${summary.chapters} chapter(s), ${summary.parts} part(s), ${summary.frontAndBack} front and back matter page(s), ${summary.images} picture(s), ${summary.words} words`);
+  for (const n of imported.notes) console.log(`    note: ${n}`);
+  return 0;
+}
+
 async function cmdNew(host: NodeHost, parent: string): Promise<number> {
   const title = flag('title');
   const author = flag('author');
@@ -204,13 +250,19 @@ async function main(): Promise<number> {
     case 'build':
       if (!target) break;
       return cmdBuild(host, target);
+    case 'word':
+      if (!target) break;
+      return cmdWord(host, target);
+    case 'import':
+      if (!target) break;
+      return cmdImport(host, target, args[2]);
     case 'new':
       if (!target) break;
       return cmdNew(host, target);
     default:
       break;
   }
-  console.log('Usage: bstudio <tools | specs | info <book> | build <book> [--format id] [--platform id] | new <folder> --title .. --author ..>');
+  console.log('Usage: bstudio <tools | specs | info <book> | build <book> [--format id] [--platform id] | word <book> | import <file> <folder> | new <folder> --title .. --author ..>');
   return cmd ? 1 : 0;
 }
 
