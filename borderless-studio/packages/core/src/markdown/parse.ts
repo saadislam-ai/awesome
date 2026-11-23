@@ -104,10 +104,16 @@ export function parseMarkdown(source: string, opts: ParseOptions = {}): ParsedDo
     };
     for (const n of nodes) {
       switch (n.type) {
-        case 'text':
+        case 'text': {
+          const value = String(n.value ?? '');
+          // A note marker with no note text is left as typed by the parser; tell the author.
+          for (const m of value.matchAll(/\[\^([^\]\s]+)\]/g)) {
+            warnings.push({ message: `Footnote [^${m[1]}] has no matching note text.`, line: lineOf(n) });
+          }
           // A single newline inside a paragraph is just a space.
-          pushText(String(n.value ?? '').replace(/\n/g, ' '));
+          pushText(value.replace(/\n/g, ' '));
           break;
+        }
         case 'emphasis':
           out.push({ t: 'em', c: inlines(n.children ?? []) });
           break;

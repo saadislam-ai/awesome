@@ -549,7 +549,8 @@
           "kdp-G202145450",
           "kdp-G202169030",
           "kdp-G202188020"
-        ]
+        ],
+        "note": "KDP gives CMYK guidance for covers only; no page says whether interior files should be RGB or CMYK. Everything else in this section is stated on the submission pages."
       }
     },
     "formats": {

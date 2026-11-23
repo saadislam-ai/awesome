@@ -158,6 +158,11 @@ function splitEpigraph(blocks: Block[], node: BinderNode): { blocks: Block[]; so
   const given = typeof node.data?.source === 'string' ? (node.data.source as string) : '';
   if (given) return { blocks, source: given };
   const last = blocks[blocks.length - 1];
+  // "- Author, Work" on the last line. Markdown reads a line that starts with a
+  // hyphen as a one item list, so both shapes are recognised.
+  if (last && last.t === 'list' && !last.ordered && last.items.length === 1 && blocks.length > 1) {
+    return { blocks: blocks.slice(0, -1), source: blocksText(last.items[0]).trim() };
+  }
   if (last && last.t === 'p') {
     const t = blocksText([last]).trim();
     const m = /^(?:-{1,3}|~|\u2014|\u2013)\s*(.+)$/.exec(t);

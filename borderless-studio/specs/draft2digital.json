@@ -718,7 +718,8 @@
       "verified": false,
       "sources": [
         "draft2digital-com-knowledge-base"
-      ]
+      ],
+      "note": "Draft2Digital does not publish field limits; they are shown in its own screens."
     }
   }
 }

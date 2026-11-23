@@ -21,7 +21,7 @@ import {
 import { designFromTemplate } from '../model/design';
 import { prefixedId, shortId } from '../util/ids';
 import { basename, joinPath, slugify } from '../util/paths';
-import { countWords, fileStamp, isoDate } from '../util/text';
+import { countWords, fileStamp, fileStampMs, isoDate } from '../util/text';
 import { maskMarkdown } from '../markdown/mask';
 import { LAYOUT, PROJECT_README } from './layout';
 import { GENRE_TEMPLATES, genreStructure, instantiate, type NewNodeSpec } from './templates';
@@ -320,8 +320,15 @@ export class Project {
   private async writeSnapshot(node: BinderNode, text: string, label: string): Promise<string> {
     const dir = this.path(LAYOUT.docSnapshotsDir, node.id);
     await this.host.mkdirp(dir);
-    const name = `${fileStamp()}${label ? '--' + slugify(label, 40) : ''}.md`;
-    const p = joinPath(dir, name);
+    // Millisecond stamps keep snapshots in order; the counter guarantees that one
+    // snapshot can never overwrite another, even when two are taken at once.
+    const suffix = label ? '--' + slugify(label, 40) : '';
+    let stamp = fileStampMs();
+    let p = joinPath(dir, `${stamp}${suffix}.md`);
+    for (let n = 1; await this.host.exists(p); n++) {
+      stamp = fileStampMs(new Date(Date.now() + n));
+      p = joinPath(dir, `${stamp}${suffix}.md`);
+    }
     await this.host.writeText(p, text);
     if (node.file) this.lastSnapshotAt.set(node.file, Date.now());
     return p;
@@ -345,7 +352,7 @@ export class Project {
         const [stamp, ...rest] = stem.split('--');
         return { name: e.name, path: joinPath(dir, e.name), stamp, label: rest.join('--').replace(/-/g, ' '), size: e.size };
       })
-      .sort((a, b) => (a.stamp < b.stamp ? 1 : -1));
+      .sort((a, b) => (a.name < b.name ? 1 : -1));
   }
 
   async readSnapshot(nodeId: string, name: string): Promise<string> {
@@ -373,7 +380,7 @@ export class Project {
         keep.add(s.name);
         continue;
       }
-      const t = Date.parse(s.stamp.replace('_', 'T').replace(/T(\d\d)-(\d\d)-(\d\d)/, 'T$1:$2:$3') + 'Z');
+      const t = Date.parse(s.stamp.slice(0, 19).replace('_', 'T').replace(/T(\d\d)-(\d\d)-(\d\d)/, 'T$1:$2:$3') + 'Z');
       if (Number.isNaN(t)) {
         keep.add(s.name);
         continue;

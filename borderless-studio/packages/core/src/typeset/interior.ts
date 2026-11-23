@@ -19,6 +19,7 @@ import { baseLanguage, languageRegion, primaryAuthor, authorsLine } from '../mod
 import { preferredMargins, type Design } from '../model/design';
 import { extname, joinPath } from '../util/paths';
 import { hashString, roundTo } from '../util/text';
+import { finalizePrintPdf } from '../pdf/finalize';
 
 export interface TrimSize {
   id: string;
@@ -256,9 +257,11 @@ function furnitureSizes(design: Design): { headPt: number; footPt: number } {
   const hasHead = design.runningHeads.enabled || design.folio.position === 'top-outside';
   const headSize = Math.max(design.runningHeads.enabled ? design.runningHeads.sizePt : 0, design.folio.position === 'top-outside' ? design.folio.sizePt : 0);
   const hasFoot = design.folio.position !== 'none';
+  // 1.35 x the type size covers the full ascent and descent of the font, so
+  // even accented capitals in a running head stay inside the safe area.
   return {
-    headPt: hasHead ? headSize * 1.05 + (design.runningHeads.rule ? 4 : 0) : 0,
-    footPt: hasFoot ? design.folio.sizePt * 1.05 : 0,
+    headPt: hasHead ? headSize * 1.35 + (design.runningHeads.rule ? 4 : 0) : 0,
+    footPt: hasFoot ? design.folio.sizePt * 1.35 : 0,
   };
 }
 
@@ -482,31 +485,6 @@ export async function typstCompile(
   return { code: res.code, stderr: res.stderr || res.stdout };
 }
 
-/**
- * Append empty pages to a PDF, with the same size as the existing pages.
- * With bleed, the trim box is mirrored on left and right hand pages (bleed is
- * on the outside edge only), so the new pages get the box that matches their side.
- */
-export async function padPdf(bytes: Uint8Array, addPages: number): Promise<Uint8Array> {
-  if (addPages <= 0) return bytes;
-  const doc = await PDFDocument.load(bytes, { updateMetadata: false });
-  const last = doc.getPage(doc.getPageCount() - 1);
-  const { width, height } = last.getSize();
-  const trim = last.getTrimBox();
-  const sideBleed = Math.max(0, width - trim.width);
-  const hasTrim = sideBleed > 0.01 || trim.height < height - 0.01;
-  for (let i = 0; i < addPages; i++) {
-    const p = doc.addPage([width, height]);
-    if (hasTrim) {
-      const pageNumber = doc.getPageCount(); // 1 based; odd pages are right hand pages
-      const x = pageNumber % 2 === 1 ? 0 : sideBleed;
-      p.setTrimBox(x, trim.y, trim.width, trim.height);
-      p.setBleedBox(0, 0, width, height);
-    }
-  }
-  return doc.save({ useObjectStreams: false, updateFieldAppearances: false });
-}
-
 export async function pdfPageCount(bytes: Uint8Array): Promise<number> {
   const doc = await PDFDocument.load(bytes, { updateMetadata: false });
   return doc.getPageCount();
@@ -580,8 +558,16 @@ export async function buildInterior(host: Host, assembled: AssembledBook, opts: 
   let add = 0;
   if (rules.lastPageBlank) add += 1;
   add += paddedPageCount(total + add, rules) - (total + add);
-  if (add > 0 && bytes) {
-    bytes = await padPdf(bytes, add);
+  if (bytes) {
+    // Print files carry no links or bookmarks; reading copies (samples, review copies) keep them.
+    bytes = await finalizePrintPdf(bytes, {
+      addBlankPages: add,
+      removeAnnotations: !opts.bookmarks,
+      removeOutline: !opts.bookmarks,
+      title: assembled.book.subtitle ? `${assembled.book.title}: ${assembled.book.subtitle}` : assembled.book.title,
+      author: authorsLine(assembled.book),
+      version: [1, 4],
+    });
     total += add;
   }
   await host.mkdirp(opts.outFile.slice(0, opts.outFile.lastIndexOf('/')));

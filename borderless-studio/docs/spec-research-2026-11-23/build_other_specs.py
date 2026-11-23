@@ -470,7 +470,7 @@ d2d = {
                   '_meta': dmeta(D2D['4_languages'], verified=False, note='No current page lists supported languages.')},
     'listing': {'keywordSlots': None, 'keywordMaxChars': None, 'categoriesMax': None, 'descriptionMaxChars': None, 'descriptionTags': [],
                 'titleSubtitleMaxChars': None, 'notes': ['Draft2Digital asks for a description, BISAC subjects, search terms and series data in its own screens; limits are not published.'],
-                '_meta': dmeta(e1['required_metadata'], verified=False)},
+                '_meta': dmeta(e1['required_metadata'], verified=False, note='Draft2Digital does not publish field limits; they are shown in its own screens.')},
 }
 d2d['sources'] = S2.list()
 write('draft2digital.json', d2d)

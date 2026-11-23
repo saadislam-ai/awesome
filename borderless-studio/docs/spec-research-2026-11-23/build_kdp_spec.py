@@ -177,7 +177,7 @@ interior_file = {
         'Minimum font size 7 pt. Images at 300 DPI or more.',
         'KDP rounds the page count up to an even number.',
     ],
-    '_meta': meta(F['interior']),
+    '_meta': meta(F['interior'], note='KDP gives CMYK guidance for covers only; no page says whether interior files should be RGB or CMYK. Everything else in this section is stated on the submission pages.'),
 }
 
 # ---------------------------------------------------------------- covers and spines

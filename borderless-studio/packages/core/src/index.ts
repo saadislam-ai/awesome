@@ -29,3 +29,6 @@ export * from './build/pipeline';
 export * from './typeset/interior';
 export * from './epub/build';
 export * from './epub/epubcheck';
+export * from './pdf/content';
+export * from './pdf/inspect';
+export * from './pdf/finalize';

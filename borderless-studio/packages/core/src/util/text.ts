@@ -47,9 +47,14 @@ export function isoDate(d: Date = new Date()): string {
   return `${y}-${m}-${day}`;
 }
 
-/** Timestamp that is safe inside file names on every platform. */
+/** Timestamp that is safe inside file names on every platform: 2026-11-23_04-32-46. */
 export function fileStamp(d: Date = new Date()): string {
   return d.toISOString().replace(/[:.]/g, '-').replace('T', '_').slice(0, 19);
+}
+
+/** The same with milliseconds (2026-11-23_04-32-46-123), for files that can be created in quick succession. */
+export function fileStampMs(d: Date = new Date()): string {
+  return d.toISOString().replace(/[:.]/g, '-').replace('T', '_').slice(0, 23);
 }
 
 /** Round to a fixed number of decimals without floating point noise. */
