@@ -477,3 +477,8 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
 .assistant-tasks .btn { justify-content: flex-start; height: auto; padding: 7px 10px; flex-wrap: wrap; text-align: left; }
 .assistant-tasks .btn .small { flex-basis: 100%; font-weight: 400; }
 .assistant-text { margin-top: 8px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--raised); white-space: pre-wrap; line-height: 1.5; max-height: 320px; overflow: auto; }
+.spec-editor { display: grid; grid-template-columns: 250px 1fr; gap: 16px; }
+.spec-sources { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-top: 4px; max-height: 260px; overflow-y: auto; }
+.spec-sources .btn { text-align: left; height: auto; padding: 3px 6px; white-space: normal; }
+.spec-text { width: 100%; height: 56vh; font-family: var(--font-mono); font-size: 12px; line-height: 1.5; white-space: pre; overflow: auto; resize: none; tab-size: 2; }
+.modal.wide:has(.spec-editor) { width: min(1120px, 96vw); max-height: 94vh; }

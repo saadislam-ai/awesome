@@ -1,13 +1,14 @@
 /**
- * Settings: appearance, editor, publisher details, the external tools the app
- * found, and the status of the platform spec files.
+ * Settings: appearance, editor, publisher details, the optional assistant,
+ * the external tools the app found, and the platform spec files.
  */
 import { useEffect, useState } from 'react';
-import { AlertTriangle, CheckCircle2, CircleAlert, ExternalLink, FolderOpen } from 'lucide-react';
-import { FONT_CATALOG, bundledSpecsDir, isStale, joinPath, monthsSince, unverifiedSections, type PublisherProfile, type ToolId, type ToolInfo } from '@borderless/core';
+import { CheckCircle2, CircleAlert, FolderOpen } from 'lucide-react';
+import { FONT_CATALOG, type PublisherProfile, type ToolId, type ToolInfo } from '@borderless/core';
 import { useStore } from '../state/store';
 import { Field, Seg } from '../ui/kit';
 import { AssistantSettings } from './AssistantSettings';
+import { SpecFilesCard } from './SpecFiles';
 
 const TOOLS: { id: ToolId; name: string; purpose: string; needed: boolean }[] = [
   { id: 'typst', name: 'Typst', purpose: 'Typesets print interiors, covers and graphics', needed: true },
@@ -23,15 +24,11 @@ export function SettingsView() {
   const update = useStore((s) => s.updateSettings);
   const host = useStore((s) => s.host);
   const library = useStore((s) => s.library);
-  const specs = useStore((s) => s.specs);
-  const toast = useStore((s) => s.toast);
   const [tools, setTools] = useState<Record<string, ToolInfo>>({});
   const [publisher, setPublisher] = useState<PublisherProfile | null>(useStore.getState().publisher);
-  const [bundledDir, setBundledDir] = useState('');
 
   useEffect(() => {
     void Promise.all(TOOLS.map((t) => host.toolInfo(t.id))).then((list) => setTools(Object.fromEntries(list.map((i) => [i.id, i]))));
-    void host.paths().then((p) => setBundledDir(bundledSpecsDir(p.resources)));
   }, [host]);
 
   const savePublisher = async (patch: Partial<PublisherProfile>) => {
@@ -40,15 +37,6 @@ export function SettingsView() {
     setPublisher(next);
     await library.savePublisher(next);
     useStore.setState({ publisher: next });
-  };
-
-  const editSpec = async (file: string) => {
-    if (!library) return;
-    // Editing happens on a copy in the library, so the bundled original always remains as a fallback.
-    const target = joinPath(library.specsDir, file);
-    if (!(await host.exists(target))) await host.copy(joinPath(bundledDir, file), target);
-    await host.ui?.openPath(target);
-    toast('info', `Opened ${file} from your library's specs folder. Changes are used the next time the app starts or when you press "Reload spec files".`);
   };
 
   return (
@@ -135,60 +123,7 @@ export function SettingsView() {
             </table>
           </div>
 
-          <div className="card">
-            <div className="row">
-              <h2 className="grow" style={{ margin: 0 }}>Platform spec files</h2>
-              <button className="btn small" onClick={() => void useStore.getState().reloadSpecs().then(() => toast('ok', 'Spec files reloaded.'))}>Reload spec files</button>
-            </div>
-            <p className="dim small" style={{ marginTop: 6 }}>
-              Trim sizes, margins, spine formulas, printing costs, royalty rates and file rules all come from these files. When a platform changes its rules, edit the file: nothing is hard coded in the app.
-            </p>
-            {specs?.problems.map((p) => <div className="notice fail small" key={p.file}>{p.message}</div>)}
-            <table className="table">
-              <thead><tr><th>Platform</th><th>Last verified</th><th>Sources</th><th>In use</th><th /></tr></thead>
-              <tbody>
-                {(['kdp', 'ingramspark', 'draft2digital'] as const).map((id) => {
-                  const spec = specs?.platforms[id];
-                  if (!spec) return <tr key={id}><td>{id}</td><td colSpan={4} className="dim">No spec file found.</td></tr>;
-                  const stale = isStale(spec);
-                  const unverified = unverifiedSections(spec);
-                  return (
-                    <tr key={id}>
-                      <td><b>{spec.displayName}</b></td>
-                      <td>
-                        {spec.lastVerified}{' '}
-                        {stale ? <span className="badge warn"><AlertTriangle size={12} /> {monthsSince(spec.lastVerified)} months ago: please re-check</span> : <span className="badge ok">current</span>}
-                        {unverified.length > 0 && <div className="small dim" style={{ marginTop: 2 }} title={unverified.map((u) => `${u.path}: ${u.note ?? ''}`).join('\n')}>{unverified.length} section{unverified.length === 1 ? '' : 's'} not confirmed on an official page</div>}
-                      </td>
-                      <td>{spec.sources.length} official pages</td>
-                      <td>{specs?.origin[`${id}.json`] === 'user' ? <span className="badge accent">your edited copy</span> : <span className="badge">bundled</span>}</td>
-                      <td className="right"><button className="btn small" onClick={() => void editSpec(`${id}.json`)}><ExternalLink size={13} /> Edit</button></td>
-                    </tr>
-                  );
-                })}
-                {specs?.currencies && (
-                  <tr>
-                    <td><b>Currency rates</b></td>
-                    <td>{specs.currencies.date} <span className="small dim">(base {specs.currencies.base})</span></td>
-                    <td className="dim">{specs.currencies.source}</td>
-                    <td>{specs.origin['currencies.json'] === 'user' ? <span className="badge accent">your edited copy</span> : <span className="badge">bundled</span>}</td>
-                    <td className="right"><button className="btn small" onClick={() => void editSpec('currencies.json')}><ExternalLink size={13} /> Edit</button></td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-            {specs && Object.values(specs.platforms).some((s) => s && s.notes.length) && (
-              <details style={{ marginTop: 10 }}>
-                <summary className="dim" style={{ cursor: 'pointer' }}>Things to know about these rules</summary>
-                {Object.values(specs.platforms).map((s) => s && (
-                  <div key={s.platform} style={{ marginTop: 8 }}>
-                    <b>{s.displayName}</b>
-                    <ul className="selectable" style={{ margin: '4px 0 0 18px', padding: 0 }}>{s.notes.map((n, i) => <li key={i}>{n}</li>)}</ul>
-                  </div>
-                ))}
-              </details>
-            )}
-          </div>
+          <SpecFilesCard />
         </div>
       </div>
     </>
