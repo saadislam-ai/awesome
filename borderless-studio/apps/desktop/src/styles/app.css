@@ -487,3 +487,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; align-items: start; }
 .card-thumb { border: 1px solid var(--border); border-radius: 8px; padding: 0; overflow: hidden; background: none; cursor: pointer; }
 .card-thumb img { width: 100%; display: block; }
+.grammar-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.grammar-item { border: 1px solid var(--border); border-radius: 8px; padding: 7px 9px; background: var(--raised); }
+.grammar-where { border: 0; background: none; padding: 0; cursor: pointer; text-align: left; color: var(--text); font-size: 13px; }
+.grammar-where:hover b { text-decoration: underline; }

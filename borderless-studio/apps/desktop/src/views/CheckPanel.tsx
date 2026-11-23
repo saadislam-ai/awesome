@@ -5,7 +5,8 @@
  */
 import { useMemo, useState } from 'react';
 import { Loader2, Play } from 'lucide-react';
-import { analyseStyle, bibleSpellingIssues, checkConsistency, docLabel, maskMarkdown, textNodes, type ConsistencyIssue, type Finding } from '@borderless/core';
+import { analyseStyle, bibleSpellingIssues, checkConsistency, docLabel, grammarEdit, maskMarkdown, textNodes, type ConsistencyIssue, type Finding, type GrammarFinding, type GrammarSuggestion } from '@borderless/core';
+import { checkGrammar } from '../editor/grammar';
 import { useStore } from '../state/store';
 import type { EditorHandle } from '../editor/MarkdownEditor';
 import type { SpellStatus } from '../editor/spell';
@@ -37,6 +38,41 @@ export function CheckPanel(props: { text: string; editor: React.RefObject<Editor
   const [issues, setIssues] = useState<ConsistencyIssue[] | null>(null);
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
+  // Grammar is checked when asked for; the result belongs to the text it was made from.
+  const [grammar, setGrammar] = useState<{ findings: GrammarFinding[]; text: string } | null>(null);
+  const [grammarBusy, setGrammarBusy] = useState(false);
+  const [grammarNote, setGrammarNote] = useState('');
+
+  const runGrammar = async () => {
+    const source = props.editor.current?.getText() ?? props.text;
+    setGrammarBusy(true);
+    setGrammarNote('');
+    const res = await checkGrammar(source, project.book.style.spelling, project.book.style.dashPolicy.mode);
+    setGrammarBusy(false);
+    if (res.ok) setGrammar({ findings: res.findings, text: source });
+    else {
+      setGrammar(null);
+      setGrammarNote(res.reason);
+    }
+  };
+  /** A finding can be acted on only while the words it points at are still there. */
+  const stillThere = (f: GrammarFinding): boolean => (props.editor.current?.getText() ?? '').slice(f.from, f.to) === f.problem;
+  const applyGrammar = (f: GrammarFinding, s: GrammarSuggestion) => {
+    const view = props.editor.current?.view();
+    if (!view || !grammar) return;
+    if (!stillThere(f)) {
+      setGrammarNote('The text has changed since the check. Check again to get current findings.');
+      return;
+    }
+    const edit = grammarEdit(f, s);
+    // An ordinary edit: it can be undone, and with "Suggest" switched on it is recorded as a tracked change.
+    view.dispatch({ changes: edit, userEvent: 'input.replace', selection: { anchor: edit.from + edit.insert.length }, scrollIntoView: true });
+    const shift = edit.insert.length - (edit.to - edit.from);
+    setGrammar({
+      text: view.state.doc.toString(),
+      findings: grammar.findings.filter((x) => x !== f && (x.to <= f.from || x.from >= f.to)).map((x) => (x.from >= f.to ? { ...x, from: x.from + shift, to: x.to + shift } : x)),
+    });
+  };
 
   const report = useMemo(() => analyseStyle(props.text, { language: project.book.language }), [props.text, project.book.language]);
   const shown: Finding[] = kind ? report.findings.filter((f) => f.kind === kind).slice(0, 200) : [];
@@ -81,6 +117,29 @@ export function CheckPanel(props: { text: string; editor: React.RefObject<Editor
               </div>
             </>
           )
+      )}
+
+      <div className="section-title">Grammar</div>
+      <button className="btn small" disabled={grammarBusy} onClick={() => void runGrammar()}>{grammarBusy ? <Loader2 size={13} className="spin" /> : <Play size={13} />} Check grammar in this document</button>
+      {grammar && <div className="small dim" style={{ marginTop: 6 }}>{grammar.findings.length === 0 ? 'Nothing found in this document.' : `${grammar.findings.length} remark${grammar.findings.length === 1 ? '' : 's'}. A checker can be wrong: take or leave each one.`}</div>}
+      {grammarNote && <div className="notice small" style={{ marginTop: 6 }}>{grammarNote}</div>}
+      {!grammar && !grammarNote && <div className="small faint" style={{ marginTop: 4 }}>Runs on this computer. Agreement, wrong words, doubled words, articles and punctuation; a checker can be wrong, so each remark is yours to take or leave.</div>}
+      {grammar && grammar.findings.length > 0 && (
+        <div className="grammar-list">
+          {grammar.findings.slice(0, 120).map((f, i) => (
+            <div key={`${f.from}:${i}`} className="grammar-item">
+              <button className="grammar-where" title="Show in the text" onClick={() => props.editor.current?.reveal(f.from, f.to)}>
+                <span className="badge">{f.kindLabel}</span> <b>{f.problem.length > 40 ? f.problem.slice(0, 40) + '...' : f.problem}</b>
+              </button>
+              <div className="small dim">{f.message}</div>
+              {f.suggestions.length > 0 && (
+                <div className="chips" style={{ marginTop: 4 }}>
+                  {f.suggestions.map((s, k) => <button key={k} className="chip" title="Use this" onClick={() => applyGrammar(f, s)}>{s.label}</button>)}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       )}
 
       <div className="section-title">Style of this document</div>

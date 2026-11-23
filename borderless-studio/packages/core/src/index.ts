@@ -61,6 +61,7 @@ export * from './editor/analysis';
 export * from './docx/write';
 export * from './import/index';
 export * from './backup/index';
+export * from './editor/grammar';
 export * from './marketing/kit';
 export * from './audio/prep';
 export * from './build/extras';

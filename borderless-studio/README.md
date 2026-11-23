@@ -28,9 +28,11 @@ Built for Borderless Publishing, Sydney.
 7. [How a book is stored](#how-a-book-is-stored)
 8. [Updating the platform spec files](#updating-the-platform-spec-files)
 9. [Platform rules you should verify yourself](#platform-rules-you-should-verify-yourself)
-10. [Tests](#tests)
-11. [Design decisions in plain English](#design-decisions-in-plain-english)
-12. [Licences of bundled material](#licences-of-bundled-material)
+10. [The optional writing assistant](#the-optional-writing-assistant)
+11. [Backups and versions](#backups-and-versions)
+12. [Tests](#tests)
+13. [Design decisions in plain English](#design-decisions-in-plain-english)
+14. [Licences of bundled material](#licences-of-bundled-material)
 
 ## What works today
 
@@ -41,7 +43,7 @@ The app is built in phases. After each phase it builds, runs and is usable.
 | 1 | Library and new book wizard, writer, binder, tracked changes and comments, snapshots, search and replace, typography cleaner with dash policy, EPUB 3 export with EPUBCheck, print interior PDF for KDP and IngramSpark trim sizes | Done |
 | 2 | Book screen (details, editions, interior design with the six templates and a live preview of real pages, front and back matter), cover builder (paperback, hardcover case, dust jacket, barcode, ebook covers, 3D picture), PDF/X-1a for print files, preflight for interiors, covers and ebooks | Done |
 | 3 | Publish screen: Reach First prices for every marketplace, listing editor with KDP preview and copy and paste sheets, Thema lookup, ONIX 3.0 export, ISBN register, publishing checklist with Australian legal deposit; Bangla books from typing to print | Done |
-| 4 | Extras: AI assistant (off by default), large print, sample and ARC builder, marketing kit, audiobook prep, series manager, backup, imports, publishing checklist, spec updater | Planned |
+| 4 | Word export (manuscript format and a file for stores) and import of Word, Markdown, text, EPUB and Scrivener manuscripts; spellcheck (en-AU, en-GB, en-US), grammar check, style analysis and consistency check; outline, corkboard, story bible and split screen; backups, restore and optional Git history; samples, advance reader copies, in-app ebook preview and Kindle Previewer button; series manager; spec file editor; large print checks; marketing kit; audiobook preparation; optional writing assistant (off by default) | Done |
 
 The engine also runs without the interface, from a terminal:
 
@@ -49,10 +51,47 @@ The engine also runs without the interface, from a terminal:
 npm run cli -- build sample-book --all      build interiors, covers and ebooks of every edition, with preflight
 npm run cli -- build sample-book --format paperback --platform kdp --preview
                                             one edition for one platform, plus a cover picture with guides
+npm run cli -- word  sample-book            Word files: manuscript format, and one for stores that convert Word
+npm run cli -- import draft.docx ~/Books    start a book from a Word, Markdown, text, EPUB or Scrivener file
+npm run cli -- marketing sample-book        marketing copy, sell sheet and quote cards
+npm run cli -- audiobook sample-book --narrator "Name"
+                                            narration scripts, recording plan and pronunciation guide
 npm run cli -- info  sample-book            show the structure, word counts and editions
 npm run cli -- specs                        show the spec files and their age
 npm run cli -- tools                        show which helper tools were found
 ```
+
+### Where things are in the app
+
+| Screen | What you do there |
+| --- | --- |
+| Library | All books; new book, import a manuscript, add an existing folder, series |
+| Write | The text with binder and inspector (details, review of changes, spelling and style check, assistant, history, search). The switch at the top changes to the outline, the index cards or the story bible; the split screen button keeps a second document in view |
+| Book | Details, editions (trim, paper, ISBN, large print), interior design with live pages, front and back matter, backups and versions |
+| Cover | Cover design for every edition, ebook cover, 3D picture |
+| Export | Interiors, covers and ebooks with their checks; samples and advance copies; Word files; ebook preview and Kindle Previewer |
+| Publish | Prices, listing, ISBNs, checklist, marketing kit, audiobook preparation |
+| Settings | Appearance, publisher details, the optional assistant, helper tools, platform rules (spec files) |
+
+### What is different from the original plan
+
+* **Grammar is checked by Harper**, an open source checker that runs inside
+  the app with no connection to anything (Apache licence). It knows
+  English only, in the Australian, British, American, Canadian and Indian
+  varieties, and follows the spelling variety of the book. Rules that do
+  not fit are switched off: its own spelling check (the app has one with
+  your dictionary and the names in the story bible), the serial comma
+  outside American English, and every rule that asks for a dash unless the
+  book allows dashes. It adds about 8 MB to the installer. No checker
+  catches everything, and some remarks will be wrong; each one is yours to
+  take or leave.
+* **No Bangla spelling dictionary is bundled**, because no dictionary with a
+  clear licence was found. Put your own `index.aff` and `index.dic` in
+  `dictionaries/bn/` inside the library folder and it is used.
+* **Word files are written and read by the app itself**, not by Pandoc. Old
+  `.doc` files must first be saved as `.docx`.
+* **PDF/X-1a, not X-3**, is written for IngramSpark, which is what its file
+  guide asks for.
 
 ## Install on a Mac
 
@@ -250,6 +289,8 @@ The rules of each platform live in `specs/`:
 | `currencies.json` | exchange rates used by the pricing calculator, with their date |
 | `tax.json` | GST and VAT rates by market |
 | `publishing-checklist.json` | the steps of the publishing checklist, including Australian legal deposit |
+| `large-print.json` | what a large print edition is checked against: type size, line spacing, alignment (from UKAAF guidance G003) |
+| `audiobook.json` | audio file requirements, wording of the credits, and the reading speed used for length estimates |
 
 Each file starts with `lastVerified` and a list of `sources` (official pages).
 Each section carries a `_meta` entry: `verified` says whether the values were
@@ -259,14 +300,17 @@ months.
 
 To change a rule:
 
-1. Open **Settings** in the app, find the file under "Platform spec files"
-   and press **Edit**. The app makes a copy in your library folder
-   (`specs/` inside the library) and opens it. Your copy is used instead of
-   the built in one; the original stays as a fallback.
-2. Change the value, and update `lastVerified` (and the `verified` date of
-   the section) to the day you checked the official page.
-3. Press **Reload spec files**. If the file has a mistake the app tells you
-   which value is wrong and keeps using the built in file meanwhile.
+1. Open **Settings** in the app and find the file under "Platform rules
+   (spec files)". Press **Open**. You see the text of the file, its sources
+   as links, and the parts that are not yet confirmed against an official
+   page.
+2. Change the value. The app checks the file as you type and says in plain
+   words what is wrong; a file with a mistake cannot be saved.
+3. After comparing the file with its sources, press **I checked the sources
+   today**. That sets the date and clears the six month warning.
+4. Press **Save as my copy**. Your copy is stored in the `specs` folder of
+   your library and used from then on. The file that came with the app is
+   never changed: **Go back to the shipped file** deletes your copy.
 
 From the source code you can check all spec files with
 `npx tsx scripts/validate-specs.ts`.
@@ -276,8 +320,9 @@ by page notes, is kept in `docs/spec-research-2026-11-23/`.
 
 ## Platform rules you should verify yourself
 
-These points could not be fully confirmed from public official pages, or they
-differ from what you told me. They are marked in the spec files too.
+These points could not be fully confirmed from public official pages, could
+not be tried on a real Mac or Windows computer, or differ from what you told
+me. Where they concern a platform rule they are marked in the spec files too.
 
 1. **IngramSpark wholesale discount of 30 percent.** Every published minimum
    is higher: 40 percent for the US and Canada, 35 percent for the UK, EU and
@@ -322,6 +367,67 @@ differ from what you told me. They are marked in the spec files too.
 11. **Printing costs, royalty thresholds and fees change.** They are dated in
     the spec files. Compare one book with each platform's own calculator
     before you set prices.
+12. **Audiobook file requirements.** `audiobook.json` holds the long
+    standing ACX figures (loudness, peaks, noise floor, MP3 format, room
+    tone, file length), but the official page needs a web browser and could
+    not be read while the file was made. The file says so itself. Compare
+    it with the ACX page before you record.
+13. **Large print.** The thresholds follow one guideline (UKAAF G003, read
+    on the date in the file). Library services and charities may follow
+    another; ask them and change the numbers.
+14. **Things that could only be tested on Linux.** The installers are built
+    on GitHub for macOS and Windows, but nobody has clicked through them on
+    a real Mac or Windows computer yet. Check in particular: saving the
+    assistant's API key (macOS Keychain, Windows Credential Manager), the
+    Kindle Previewer button, Git version history, and opening exported
+    files from the app.
+15. **The writing assistant was tested against stand-ins, not the live
+    services.** The requests to Claude and to Ollama are checked in the
+    tests by a function that plays the part of each service. Press "Test
+    the connection" in Settings before you rely on it.
+16. **Word import guesses.** Title pages, dedications, epigraphs and
+    copyright pages are recognised by their shape, and chapter titles by
+    the "Heading 1" style or lines such as "Chapter Seven". The import
+    dialog lists what it found before anything is created; read that list.
+
+## The optional writing assistant
+
+The assistant is switched off when the app is installed, and while it is off
+the app contacts no service of any kind. Switch it on under **Settings,
+Writing assistant**. There are two ways to run it:
+
+* **A model on this computer (Ollama).** Install the free Ollama program
+  from ollama.com, download a model in a terminal (for example
+  `ollama pull llama3.2`), then press "Find installed models" in Settings.
+  The selected text goes to that program and nowhere else.
+* **Claude (online).** Make an API key in the Anthropic Console and paste it
+  into Settings. The key is kept in the keychain of your computer (macOS
+  Keychain, Windows Credential Manager), never in a book or settings file.
+  When you press an assistant button, the passage you selected, your
+  instruction and the house style of the book are sent to Anthropic under
+  your own account. Nothing else from the book is sent. You pay Anthropic
+  for what you use. The model is Claude Opus 5.5 unless you choose another
+  in Settings. If a model wrongly declines an ordinary request, the API may
+  hand it to another Claude model so that you still get an answer.
+
+In the Writer, open the **Assistant** tab of the inspector, select a passage
+(or put the cursor in a paragraph) and press Proofread, Tighten or Smooth, or
+type your own instruction. The answer is compared with your text word by
+word and every difference is put into the text as a tracked change signed
+`{>>@ai<<}`. Nothing is replaced silently: accept or reject each change in
+the Review tab. "Just answer" replies beside the text and changes nothing.
+The house style of the book, including your rule about dashes, goes with
+every request.
+
+## Backups and versions
+
+Under **Book, Backups** you can pack the whole book folder into one zip file
+(with a note such as "before the big edit"), and the app makes one such
+backup a day by itself when the book has changed, keeping the newest ten.
+Choose a backup folder on another drive or in a synced folder. Restoring
+always unpacks into a new folder and adds it to the library; it never writes
+over a book. If Git is installed you can also keep a version history in the
+book folder; the app runs Git only in folders you switched it on for.
 
 ## Tests
 
@@ -351,6 +457,27 @@ differ from what you told me. They are marked in the spec files too.
 * a Bangla book built from start to finish, with Bangla letters in its file
   names
 * crash safe saving, snapshots and the trash folder
+* Word export and the importers: both Word layouts are written and read
+  back (chapters, parts, footnotes, italics, pictures), Word tracked
+  changes become suggestions, hand typed manuscripts without styles are
+  split correctly, and the app's own EPUB is read back
+* backups: what goes into the zip, restoring into a new folder, entries
+  that try to write outside the folder, the daily backup and pruning; Git
+  history, including that hooks stored in a folder are not run
+* samples, advance copies and the in-app ebook preview
+* the story bible (mentions in any script, wrong spellings, timeline) and
+  the series manager
+* the grammar check with the real checker: mistakes are found at their
+  exact place past Markdown and notes, Australian spelling is accepted,
+  struck out text is not checked, and no dash is ever proposed
+* the spec file editor: every shipped file is valid, dated and names
+  https sources; a broken file is refused with the reason
+* large print checks on a real large print build
+* the marketing kit (the finished sell sheet and quote cards are measured)
+  and the audiobook plan
+* the writing assistant, without any network: word by word differences as
+  tracked changes, the prompts, and both services played by a stand-in,
+  including a wrong key, a busy service and a declined request
 * end to end exports of the sample book with the real tools. The produced
   PDFs are opened again and measured: page size, the real margins on every
   page, embedded fonts, pure black text, no transparency, PDF/X-1a markers,
@@ -374,9 +501,10 @@ reason:
    CMYK by the app's own converter instead of a colour management engine.
    For black and white interiors, which is nearly all books, this makes no
    difference.
-2. **Pandoc is optional.** Word files are read and written by the app itself,
-   which keeps the installer small and avoids a 150 MB dependency. If Pandoc
-   is installed the app can use it for unusual formats.
+2. **No Pandoc.** Word files are read and written by the app itself, which
+   keeps the installer small and avoids a 150 MB dependency. Trade-off:
+   the old `.doc` format and unusual formats are not read; save them as
+   `.docx` first.
 3. **The editor works directly on Markdown files** (CodeMirror), and tracked
    changes are stored as CriticMarkup inside the text. Trade-off: it is not a
    page-like word processor view. Gain: the manuscript is always a plain,
@@ -384,6 +512,14 @@ reason:
    hidden document format.
 4. **SQLite is only an index.** The files in the book folder are the truth.
    The database can be deleted at any time.
+5. **Spelling and grammar are checked inside the app.** Spelling uses
+   Hunspell dictionaries, grammar uses Harper. Both run in the background,
+   so typing never waits for them, and neither sends a word anywhere.
+6. **The assistant goes through one door.** Requests to Claude are made with
+   Anthropic's official library, but they leave the app through the same
+   small host function as every other outside contact, which only talks to
+   https addresses and to this computer. The web view itself cannot reach
+   the internet. The API key lives in the system keychain.
 
 How the layout engine is driven: the manuscript is converted to a neutral
 structure and handed to Typst as data. No manuscript text is ever pasted into
@@ -403,5 +539,10 @@ More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 * Colour profile for print output: CC0, see `resources/icc/`.
 * Thema subject categories v1.7: EDItEUR, bundled unmodified under its
   licence, see `resources/lookups/`.
+* Spelling dictionaries (Australian, British and American English):
+  from the Hunspell dictionary collection, MIT and BSD licences, texts in
+  `resources/dictionaries/`.
+* Harper, the grammar checker: Apache 2.0.
+* Anthropic's SDK for the optional assistant: MIT.
 * BISAC subject codes are not bundled. The full list needs a licence from
   BISG and may not be redistributed. You can type or paste the codes you use.
