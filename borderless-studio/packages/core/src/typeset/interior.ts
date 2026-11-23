@@ -19,6 +19,7 @@ import { baseLanguage, languageRegion, primaryAuthor, authorsLine } from '../mod
 import { preferredMargins, type Design } from '../model/design';
 import { extname, joinPath } from '../util/paths';
 import { hashString, roundTo } from '../util/text';
+import { minOuterMargin } from '../calc/geometry';
 import { finalizePrint } from '../pdf/finalize';
 import type { PdfxOptions, PdfxSummary } from '../pdf/pdfx';
 import { prepareImageForPrint } from '../image/prepare';
@@ -658,5 +659,95 @@ export async function buildInterior(host: Host, assembled: AssembledBook, opts: 
     pdfStandard,
     pdfx,
     images: stagedImages,
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* Page pictures for the live preview                                   */
+/* ------------------------------------------------------------------ */
+
+export interface InteriorPreviewOptions extends InteriorOptions {
+  /** First and last page to draw (1 based, inclusive). */
+  from: number;
+  to: number;
+  /** Resolution of the pictures; 96 suits a screen at 100 %. */
+  ppi?: number;
+  /** Page count used to choose the inside margin, from the last build when there is one. */
+  pageCount?: number;
+}
+
+export interface InteriorPreview {
+  ok: boolean;
+  /** One picture per page, in order. */
+  pages: { number: number; path: string }[];
+  /** Total pages of the book as laid out for this preview (before blank padding pages). */
+  pageCount: number;
+  margins: ResolvedMargins;
+  page: { trimWidthIn: number; trimHeightIn: number; bleedIn: number; pdfWidthIn: number; pdfHeightIn: number };
+  /** The smallest margins the platform rules allow for this page count: the "safe zone". */
+  safe: { insideIn: number; outerIn: number };
+  warnings: BuildWarning[];
+}
+
+/**
+ * Lay the book out and draw a range of pages as PNG pictures. This uses the
+ * same data and the same Typst library as the real export, so the preview
+ * shows the real line breaks, page breaks and margins.
+ */
+export async function renderInteriorPreview(host: Host, assembled: AssembledBook, opts: InteriorPreviewOptions): Promise<InteriorPreview> {
+  const warnings: BuildWarning[] = [...assembled.warnings];
+  const { rules, trim } = opts;
+  const format = assembled.format;
+  await host.mkdirp(opts.buildDir);
+  await copyLib(host, opts.typstLibDir, joinPath(opts.buildDir, 'lib'));
+  await host.writeText(joinPath(opts.buildDir, 'main.typ'), MAIN_TYP);
+  const { map: imageMap } = await stageImages(host, assembled.stats.images, opts, warnings);
+  const outDir = joinPath(opts.buildDir, 'pages');
+  if (await host.exists(outDir)) await host.remove(outDir);
+  await host.mkdirp(outDir);
+
+  const d = assembled.design;
+  const wordsPerPage = Math.max(100, (trim.widthIn * trim.heightIn * 1560) / (d.fontSizePt * d.fontSizePt * d.lineHeight));
+  let guess = opts.pageCount ?? Math.max(24, Math.round(assembled.stats.words / wordsPerPage) + assembled.sections.length);
+  let margins!: ResolvedMargins;
+  let pageCount = 0;
+  let pages: { number: number; path: string }[] = [];
+  const page = pageSize(trim.widthIn, trim.heightIn, format.bleed, rules);
+  const from = Math.max(1, Math.floor(opts.from));
+  const to = Math.max(from, Math.floor(opts.to));
+  // One run is normally enough; a second follows only when the page count falls into another margin band.
+  for (let pass = 0; pass < 2; pass++) {
+    const built = buildInteriorSpec(assembled, opts, guess, imageMap);
+    margins = built.margins;
+    await host.writeText(joinPath(opts.buildDir, 'build.json'), JSON.stringify(built.spec));
+    const res = await typstCompile(host, opts.buildDir, opts.fontDirs, 'main.typ', joinPath(outDir, 'p{p}-of-{t}.png'), [
+      '--format', 'png', '--ppi', String(opts.ppi ?? 96), '--pages', `${from}-${to}`,
+    ]);
+    if (res.code !== 0) {
+      // Asking for pages beyond the end of the book is not an error worth showing: draw the last pages instead.
+      const parsed = parseTypstLog(res.stderr).filter((w) => w.severity === 'fail');
+      warnings.push(...(parsed.length ? parsed : [{
+        severity: 'fail' as const, code: 'typst',
+        message: res.code === -1 ? 'The typesetting engine (Typst) could not be started. Check Settings, Tools.' : `The preview could not be drawn: ${res.stderr.slice(0, 400)}`,
+      }]));
+      return { ok: false, pages: [], pageCount: 0, margins, page, safe: { insideIn: minInsideMargin(rules, guess), outerIn: minOuterMargin(rules, format.bleed) }, warnings };
+    }
+    pages = [];
+    for (const e of await host.list(outDir)) {
+      const m = /^p(\d+)-of-(\d+)\.png$/.exec(e.name);
+      if (!m) continue;
+      pages.push({ number: Number(m[1]), path: joinPath(outDir, e.name) });
+      pageCount = Number(m[2]);
+    }
+    pages.sort((a, b) => a.number - b.number);
+    const finalCount = paddedPageCount(pageCount + (rules.lastPageBlank ? 1 : 0), rules);
+    if (pageCount === 0 || Math.abs(buildMargins(assembled, opts, finalCount).margins.inside - margins.margins.inside) < 0.0005) break;
+    guess = finalCount;
+    for (const e of await host.list(outDir)) await host.remove(joinPath(outDir, e.name));
+  }
+  return {
+    ok: pages.length > 0, pages, pageCount, margins, page,
+    safe: { insideIn: minInsideMargin(rules, Math.max(pageCount, 1)), outerIn: minOuterMargin(rules, format.bleed) },
+    warnings,
   };
 }

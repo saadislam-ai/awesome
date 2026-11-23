@@ -1,41 +1,59 @@
 /**
- * Export screen: build the print interior PDF for each platform and the EPUB,
- * see the result, the warnings, and the EPUBCheck report with links back into
- * the manuscript.
+ * Export screen: build the files to upload (interior, cover, ebook) for every
+ * edition and platform, and run preflight on each finished file.
  */
-import { useEffect, useMemo, useState } from 'react';
-import { AlertTriangle, CheckCircle2, CircleAlert, FileText, FolderOpen, Info, Loader2, Play, Tablet } from 'lucide-react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { AlertTriangle, CheckCircle2, CircleAlert, FileText, FolderOpen, Image as ImageIcon, Loader2, Play, Tablet } from 'lucide-react';
 import {
-  exportEpub, exportInterior, trimAvailability, validateIsbn,
-  type BookFormat, type BuildContext, type BuildWarning, type EpubExport, type InteriorExport, type PlatformId, type ToolInfo,
+  COVER_KIND_LABEL, coverKindsFor, exportCover, exportEbookCover, exportEpub, exportInterior, preflightCoverFile, preflightEpubFile, preflightInteriorFile,
+  trimAvailability, validateIsbn,
+  type BookFormat, type CoverExport, type CoverKind, type EpubExport, type InteriorExport, type PlatformId, type PreflightReport, type ToolInfo,
 } from '@borderless/core';
 import { useStore } from '../state/store';
 import { BookTitle } from '../App';
 import { fmtNumber } from '../ui/kit';
+import { PreflightList, PreflightVerdict } from '../ui/PreflightList';
+import { saveBookNow } from '../ui/useBook';
 
 interface Result {
   busy: boolean;
-  interior?: InteriorExport;
-  epub?: EpubExport;
   error?: string;
   seconds?: number;
+  interior?: InteriorExport;
+  cover?: CoverExport;
+  epub?: EpubExport;
+  preflight?: PreflightReport[];
 }
 
-function Issues({ list }: { list: BuildWarning[] }) {
-  const selectDoc = useStore((s) => s.selectDoc);
-  if (list.length === 0) return null;
-  const order = { fail: 0, warn: 1, info: 2 } as const;
+function Target(props: { icon: ReactNode; title: ReactNode; note?: ReactNode; result?: Result; path?: string; onBuild: () => void; children?: ReactNode; disabled?: boolean }) {
+  const host = useStore((s) => s.host);
+  const r = props.result;
   return (
-    <div className="issues">
-      {[...list].sort((a, b) => order[a.severity] - order[b.severity]).map((w, i) => (
-        <div key={i} className={`issue ${w.severity}`}>
-          {w.severity === 'fail' ? <CircleAlert size={15} color="var(--fail)" /> : w.severity === 'warn' ? <AlertTriangle size={15} color="var(--warn)" /> : <Info size={15} className="dim" />}
-          <div className="selectable">{w.message}</div>
-          {w.nodeId && (
-            <button className="btn ghost small where" onClick={() => selectDoc(w.nodeId!, { nodeId: w.nodeId!, from: 0, to: 0, line: w.line })}>
-              Show in manuscript
-            </button>
+    <div className="target-block">
+      <div className="target">
+        <div className="row" style={{ gap: 8 }}>{props.icon}<div>{props.title}{props.note && <span className="small faint"> {props.note}</span>}</div></div>
+        <div className="row">
+          {props.path && (
+            <>
+              <button className="btn small" onClick={() => void host.ui?.openPath(props.path!)}>Open</button>
+              <button className="btn small" onClick={() => void host.ui?.revealPath(props.path!)}>Show in folder</button>
+            </>
           )}
+          <button className="btn small primary" disabled={r?.busy || props.disabled} onClick={props.onBuild}>
+            {r?.busy ? <Loader2 size={13} className="spin" /> : <Play size={13} />} {props.path ? 'Rebuild' : 'Build'}
+          </button>
+        </div>
+      </div>
+      {r?.error && <div className="notice fail small selectable" style={{ marginTop: 8 }}>{r.error}</div>}
+      {props.children}
+      {props.path && <div className="small faint selectable" style={{ marginTop: 4 }}>{props.path}</div>}
+      {r?.preflight?.map((p) => (
+        <div key={`${p.platform}-${p.kind}`} style={{ marginTop: 8 }}>
+          <div className="row wrap small">
+            <PreflightVerdict report={p} />
+            {r.preflight!.length > 1 && <span className="dim">{p.target}</span>}
+          </div>
+          <PreflightList report={p} />
         </div>
       ))}
     </div>
@@ -46,8 +64,7 @@ export function ExportView() {
   const project = useStore((s) => s.project)!;
   const host = useStore((s) => s.host);
   const specs = useStore((s) => s.specs);
-  const library = useStore((s) => s.library);
-  const selectDoc = useStore((s) => s.selectDoc);
+  const buildContext = useStore((s) => s.buildContext);
   const toast = useStore((s) => s.toast);
   useStore((s) => s.rev);
   const [results, setResults] = useState<Record<string, Result>>({});
@@ -58,34 +75,42 @@ export function ExportView() {
     void Promise.all([host.toolInfo('typst'), host.toolInfo('epubcheck')]).then(([typst, epubcheck]) => setTools({ typst, epubcheck }));
   }, [host]);
 
-  const ctx = async (): Promise<BuildContext> => {
-    const { resources } = await host.paths();
-    return { host, project, specs: specs!, resourcesDir: resources, isbnRegister: library ? await library.isbnRegister() : null };
-  };
   const set = (key: string, r: Result) => setResults((prev) => ({ ...prev, [key]: r }));
+  const run = async (key: string, work: () => Promise<Omit<Result, 'busy'>>): Promise<Result | null> => {
+    set(key, { ...results[key], busy: true, error: undefined });
+    const t0 = performance.now();
+    try {
+      saveBookNow();
+      const done: Result = { ...(await work()), busy: false, seconds: (performance.now() - t0) / 1000 };
+      set(key, done);
+      return done;
+    } catch (e) {
+      set(key, { busy: false, error: e instanceof Error ? e.message : String(e) });
+      return null;
+    }
+  };
+  const criticView = accept ? 'accepted' as const : 'original' as const;
 
-  const buildInterior = async (f: BookFormat, platform: PlatformId) => {
-    const key = `${f.id}/${platform}`;
-    set(key, { busy: true });
-    const t0 = performance.now();
-    try {
-      const interior = await exportInterior(await ctx(), { formatId: f.id, platform, criticView: accept ? 'accepted' : 'original', pageCountHint: results[key]?.interior?.pageCount || undefined });
-      set(key, { busy: false, interior, seconds: (performance.now() - t0) / 1000 });
-    } catch (e) {
-      set(key, { busy: false, error: e instanceof Error ? e.message : String(e) });
-    }
-  };
-  const buildEpub = async (f: BookFormat) => {
-    const key = `${f.id}/epub`;
-    set(key, { busy: true });
-    const t0 = performance.now();
-    try {
-      const epub = await exportEpub(await ctx(), { formatId: f.id, criticView: accept ? 'accepted' : 'original' });
-      set(key, { busy: false, epub, seconds: (performance.now() - t0) / 1000 });
-    } catch (e) {
-      set(key, { busy: false, error: e instanceof Error ? e.message : String(e) });
-    }
-  };
+  const buildInterior = (f: BookFormat, platform: PlatformId) => run(`${f.id}/${platform}/interior`, async () => {
+    const ctx = await buildContext();
+    const interior = await exportInterior(ctx, { formatId: f.id, platform, criticView });
+    return { interior, preflight: [await preflightInteriorFile(ctx, interior, platform)] };
+  });
+  const buildCover = (f: BookFormat, platform: PlatformId, kind: CoverKind) => run(`${f.id}/${platform}/${kind}`, async () => {
+    const ctx = await buildContext();
+    const cover = await exportCover(ctx, { formatId: f.id, platform, kind });
+    return { cover, preflight: [await preflightCoverFile(ctx, cover, { formatId: f.id, platform, kind })] };
+  });
+  const buildEpub = (f: BookFormat) => run(`${f.id}/epub`, async () => {
+    const ctx = await buildContext();
+    const stores = f.platforms.filter((p) => specs?.platforms[p]?.ebook);
+    // Covers first, so the EPUB carries the current one.
+    for (const p of stores) await exportEbookCover(ctx, { formatId: f.id, platform: p });
+    const epub = await exportEpub(ctx, { formatId: f.id, criticView });
+    const preflight: PreflightReport[] = [];
+    for (const p of stores) preflight.push(await preflightEpubFile(ctx, epub, p));
+    return { epub, preflight };
+  });
 
   const formats = project.book.formats.filter((f) => f.enabled);
   const printTargets = useMemo(
@@ -93,28 +118,37 @@ export function ExportView() {
     [formats, specs],
   );
   const buildAll = async () => {
-    for (const { f, p } of printTargets) await buildInterior(f, p);
+    for (const { f, p } of printTargets) {
+      const done = await buildInterior(f, p);
+      if (!done?.interior?.ok) continue;
+      for (const kind of coverKindsFor(specs!.platforms[p]!, f)) await buildCover(f, p, kind);
+    }
     for (const f of formats.filter((x) => x.type === 'ebook')) await buildEpub(f);
     toast('ok', 'All exports are finished.');
   };
   const anyBusy = Object.values(results).some((r) => r.busy);
+  const reports = Object.values(results).flatMap((r) => r.preflight ?? []);
+  const failing = reports.filter((p) => !p.ready).length;
 
   return (
     <>
       <div className="topbar">
         <BookTitle />
+        {reports.length > 0 && (failing
+          ? <span className="badge fail"><CircleAlert size={12} /> {failing} file{failing === 1 ? '' : 's'} not ready</span>
+          : <span className="badge ok"><CheckCircle2 size={12} /> {reports.length} file check{reports.length === 1 ? '' : 's'} passed</span>)}
         <div className="grow" />
         <label className="check small" title="By default exports ignore pending suggestions and use the original text">
           <input type="checkbox" checked={accept} onChange={(e) => setAccept(e.target.checked)} /> Apply pending tracked changes
         </label>
         <button className="btn" onClick={() => void host.ui?.openPath(project.path('exports'))}><FolderOpen size={15} /> Exports folder</button>
-        <button className="btn primary" disabled={anyBusy} onClick={() => void buildAll()}><Play size={14} /> Build everything</button>
+        <button className="btn primary" disabled={anyBusy} onClick={() => void buildAll()}>{anyBusy ? <Loader2 size={14} className="spin" /> : <Play size={14} />} Build everything</button>
       </div>
       <div className="page">
         <div className="page-narrow">
           {tools.typst && !tools.typst.found && <div className="notice fail"><CircleAlert size={16} /> {tools.typst.hint}</div>}
           {tools.epubcheck && !tools.epubcheck.found && <div className="notice warn"><AlertTriangle size={16} /> {tools.epubcheck.hint}</div>}
-          {formats.length === 0 && <div className="empty"><h2>No formats are switched on</h2><p>Enable a paperback, hardcover or ebook format for this book.</p></div>}
+          {formats.length === 0 && <div className="empty"><h2>No edition is switched on</h2><p>Switch on a paperback, hardcover or ebook edition on the Book screen.</p></div>}
           {formats.map((f) => {
             const isbn = f.isbn ? validateIsbn(f.isbn) : null;
             return (
@@ -128,7 +162,7 @@ export function ExportView() {
                   {!f.isbn ? <span className="badge warn">No ISBN yet</span> : isbn?.valid ? <span className="badge ok">ISBN {f.isbn}</span> : <span className="badge fail" title={isbn?.problem}>ISBN not valid</span>}
                 </div>
                 {f.type === 'ebook' ? (
-                  <EpubRow format={f} result={results[`${f.id}/epub`]} onBuild={() => void buildEpub(f)} onJump={(nodeId, line) => selectDoc(nodeId, { nodeId, from: 0, to: 0, line })} />
+                  <EpubTarget format={f} result={results[`${f.id}/epub`]} onBuild={() => void buildEpub(f)} />
                 ) : (
                   f.platforms.map((p) => {
                     const spec = specs?.platforms[p];
@@ -136,34 +170,53 @@ export function ExportView() {
                       return <div key={p} className="small dim" style={{ marginTop: 10 }}>{spec?.displayName ?? p} has no {f.type} rules in its spec file, so nothing is built for it.</div>;
                     }
                     const avail = trimAvailability(spec, f);
-                    const r = results[`${f.id}/${p}`];
+                    const r = results[`${f.id}/${p}/interior`];
+                    const i = r?.interior;
+                    const m = i?.margins.margins;
                     return (
-                      <div key={p} style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--border)' }}>
-                        <div className="target">
-                          <div>
-                            <b>{spec.displayName}</b> <span className="dim">interior PDF</span>
-                            {avail.pages && <span className="small faint"> ({avail.pages.min} to {avail.pages.max} pages allowed)</span>}
-                          </div>
-                          <div className="row">
-                            {r?.interior?.pdfPath && (
-                              <>
-                                <button className="btn small" onClick={() => void host.ui?.openPath(r.interior!.pdfPath)}>Open</button>
-                                <button className="btn small" onClick={() => void host.ui?.revealPath(r.interior!.pdfPath)}>Show in folder</button>
-                              </>
-                            )}
-                            <button className="btn small primary" disabled={r?.busy} onClick={() => void buildInterior(f, p)}>
-                              {r?.busy ? <Loader2 size={13} className="spin" /> : <Play size={13} />} {r?.interior ? 'Rebuild' : 'Build'}
-                            </button>
-                          </div>
-                        </div>
-                        {avail.problem && !r?.interior && <div className="notice fail small" style={{ marginTop: 8 }}>{avail.problem}</div>}
-                        {r?.error && <div className="notice fail small selectable" style={{ marginTop: 8 }}>{r.error}</div>}
-                        {r?.interior && <InteriorSummary r={r.interior} seconds={r.seconds} />}
+                      <div key={p}>
+                        <Target
+                          icon={<FileText size={15} className="dim" />}
+                          title={<><b>{spec.displayName}</b> <span className="dim">interior</span></>}
+                          note={avail.pages ? `(${avail.pages.min} to ${avail.pages.max} pages allowed)` : undefined}
+                          result={r} path={i?.pdfPath || undefined} onBuild={() => void buildInterior(f, p)}
+                        >
+                          {avail.problem && !i && <div className="notice fail small" style={{ marginTop: 8 }}>{avail.problem}</div>}
+                          {i && i.pageCount > 0 && m && (
+                            <div className="row wrap small" style={{ marginTop: 8 }}>
+                              <span className="badge">{fmtNumber(i.pageCount)} pages{i.blankPagesAdded ? ` (${i.blankPagesAdded} blank added)` : ''}</span>
+                              <span className="badge">trim {i.page.trimWidthIn} x {i.page.trimHeightIn} in{i.page.bleedIn ? `, bleed ${i.page.bleedIn} in` : ''}</span>
+                              <span className="badge" title="Inside (gutter), outside, top and bottom margins of the text block">margins: inside {m.inside}, outside {m.outside}, top {m.top}, bottom {m.bottom} in</span>
+                              {i.pdfStandard && <span className="badge">{i.pdfStandard}</span>}
+                              {r?.seconds !== undefined && <span className="faint">{r.seconds.toFixed(1)} s</span>}
+                            </div>
+                          )}
+                        </Target>
+                        {coverKindsFor(spec, f).map((kind) => {
+                          const cr = results[`${f.id}/${p}/${kind}`];
+                          const g = cr?.cover?.plan.geometry;
+                          return (
+                            <Target key={kind}
+                              icon={<ImageIcon size={15} className="dim" />}
+                              title={<><b>{spec.displayName}</b> <span className="dim">{COVER_KIND_LABEL[kind].toLowerCase()}</span></>}
+                              result={cr} path={cr?.cover?.pdfPath || undefined} onBuild={() => void buildCover(f, p, kind)}
+                            >
+                              {cr?.cover && g && cr.cover.pdfPath && (
+                                <div className="row wrap small" style={{ marginTop: 8 }}>
+                                  <span className="badge">{g.widthIn} x {g.heightIn} in</span>
+                                  <span className="badge" title={g.spineBasis}>spine {g.spineWidthIn} in for {g.pages} pages</span>
+                                  {cr.cover.pdfStandard && <span className="badge">{cr.cover.pdfStandard}</span>}
+                                  {cr.seconds !== undefined && <span className="faint">{cr.seconds.toFixed(1)} s</span>}
+                                </div>
+                              )}
+                            </Target>
+                          );
+                        })}
                       </div>
                     );
                   })
                 )}
-                {f.type !== 'ebook' && f.platforms.length === 0 && <div className="small dim" style={{ marginTop: 8 }}>No platform is selected for this format.</div>}
+                {f.platforms.length === 0 && <div className="small dim" style={{ marginTop: 8 }}>No platform is selected for this edition.</div>}
               </div>
             );
           })}
@@ -173,65 +226,28 @@ export function ExportView() {
   );
 }
 
-function InteriorSummary({ r, seconds }: { r: InteriorExport; seconds?: number }) {
-  const m = r.margins.margins;
-  return (
-    <div style={{ marginTop: 8 }}>
-      <div className="row wrap small">
-        {r.ok ? <span className="badge ok"><CheckCircle2 size={12} /> Built</span> : <span className="badge fail"><CircleAlert size={12} /> Needs attention</span>}
-        {r.pageCount > 0 && (
-          <>
-            <span className="badge">{fmtNumber(r.pageCount)} pages{r.blankPagesAdded ? ` (${r.blankPagesAdded} blank added)` : ''}</span>
-            <span className="badge">trim {r.page.trimWidthIn} x {r.page.trimHeightIn} in{r.page.bleedIn ? `, bleed ${r.page.bleedIn} in` : ''}</span>
-            <span className="badge" title="Inside (gutter), outside, top and bottom margins of the text block">margins: inside {m.inside}, outside {m.outside}, top {m.top}, bottom {m.bottom} in</span>
-            {seconds !== undefined && <span className="faint">{seconds.toFixed(1)} s, {r.passes} pass{r.passes === 1 ? '' : 'es'}</span>}
-          </>
-        )}
-      </div>
-      {r.pdfPath && <div className="small faint selectable" style={{ marginTop: 4 }}>{r.pdfPath}</div>}
-      <Issues list={r.warnings} />
-    </div>
-  );
-}
-
-function EpubRow(props: { format: BookFormat; result?: Result; onBuild(): void; onJump(nodeId: string, line?: number): void }) {
-  const host = useStore((s) => s.host);
+function EpubTarget(props: { format: BookFormat; result?: Result; onBuild(): void }) {
+  const selectDoc = useStore((s) => s.selectDoc);
   const r = props.result;
   const e = r?.epub;
   return (
-    <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--border)' }}>
-      <div className="target">
-        <div><b>EPUB 3</b> <span className="dim">for {props.format.platforms.join(', ') || 'any retailer'}, checked with EPUBCheck</span></div>
-        <div className="row">
-          {e?.epubPath && (
-            <>
-              <button className="btn small" onClick={() => void host.ui?.openPath(e.epubPath)}>Open</button>
-              <button className="btn small" onClick={() => void host.ui?.revealPath(e.epubPath)}>Show in folder</button>
-            </>
-          )}
-          <button className="btn small primary" disabled={r?.busy} onClick={props.onBuild}>
-            {r?.busy ? <Loader2 size={13} className="spin" /> : <Play size={13} />} {e ? 'Rebuild' : 'Build'}
-          </button>
-        </div>
-      </div>
-      {r?.error && <div className="notice fail small selectable" style={{ marginTop: 8 }}>{r.error}</div>}
+    <Target
+      icon={<Tablet size={15} className="dim" />}
+      title={<><b>EPUB 3</b> <span className="dim">with its cover, checked with EPUBCheck</span></>}
+      result={r} path={e?.epubPath || undefined} onBuild={props.onBuild}
+    >
       {e && (
-        <div style={{ marginTop: 8 }}>
-          <div className="row wrap small">
+        <>
+          <div className="row wrap small" style={{ marginTop: 8 }}>
             {e.check.ran ? (
-              e.check.passed ? (
-                <span className="badge ok"><CheckCircle2 size={12} /> {e.check.checker}: no errors{e.check.warnings ? `, ${e.check.warnings} warning${e.check.warnings === 1 ? '' : 's'}` : ''}</span>
-              ) : (
-                <span className="badge fail"><CircleAlert size={12} /> {e.check.checker}: {e.check.errors} error{e.check.errors === 1 ? '' : 's'}</span>
-              )
-            ) : (
-              <span className="badge warn">Not validated</span>
-            )}
+              e.check.passed
+                ? <span className="badge ok"><CheckCircle2 size={12} /> {e.check.checker}: no errors{e.check.warnings ? `, ${e.check.warnings} warning${e.check.warnings === 1 ? '' : 's'}` : ''}</span>
+                : <span className="badge fail"><CircleAlert size={12} /> {e.check.checker}: {e.check.errors} error{e.check.errors === 1 ? '' : 's'}</span>
+            ) : <span className="badge warn">Not validated</span>}
             <span className="badge">{fmtNumber(Math.round(e.sizeBytes / 1024))} KB</span>
             <span className="badge">{e.result.spine.length} files in reading order</span>
             {r?.seconds !== undefined && <span className="faint">{r.seconds.toFixed(1)} s</span>}
           </div>
-          <div className="small faint selectable" style={{ marginTop: 4 }}>{e.epubPath}</div>
           {e.check.issues.length > 0 && (
             <div className="issues">
               {e.check.issues.map((i, k) => (
@@ -241,14 +257,13 @@ function EpubRow(props: { format: BookFormat; result?: Result; onBuild(): void; 
                     <div>{i.explanation}</div>
                     <div className="small dim">{i.id}: {i.message}{i.path ? ` (${i.path}${i.line ? ', line ' + i.line : ''})` : ''}</div>
                   </div>
-                  {i.nodeId && <button className="btn ghost small where" onClick={() => props.onJump(i.nodeId!, i.srcLine)}>Show in "{i.nodeTitle}"</button>}
+                  {i.nodeId && <button className="btn ghost small where" onClick={() => selectDoc(i.nodeId!, { nodeId: i.nodeId!, from: 0, to: 0, line: i.srcLine })}>Show in "{i.nodeTitle}"</button>}
                 </div>
               ))}
             </div>
           )}
-          <Issues list={e.warnings} />
-        </div>
+        </>
       )}
-    </div>
+    </Target>
   );
 }

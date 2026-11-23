@@ -11,7 +11,7 @@ import { displayIsbn, type IsbnRegister } from '../isbn';
 import { LAYOUT } from '../project/layout';
 import type { Project } from '../project/store';
 import { interiorRules, trimAvailability, type SpecSet } from '../specs';
-import { buildInterior, type InteriorResult } from '../typeset/interior';
+import { buildInterior, renderInteriorPreview, type InteriorPreview, type InteriorResult } from '../typeset/interior';
 import { buildEpub, mediaTypeForImage, type EpubFont, type EpubImage, type EpubResult } from '../epub/build';
 import { runEpubCheck, type EpubCheckResult } from '../epub/epubcheck';
 import { joinPath, slugify } from '../util/paths';
@@ -166,6 +166,62 @@ export async function exportInterior(ctx: BuildContext, opts: InteriorExportOpti
     await project.writeData(`${LAYOUT.buildDir}/${opts.formatId}-${opts.platform}/last.json`, { pageCount: result.pageCount, builtAt: new Date().toISOString() });
   }
   return { ...result, platforms: [opts.platform], rules, assembled };
+}
+
+export interface InteriorPreviewRequest {
+  formatId: string;
+  /** Platforms whose rules the preview should respect. Defaults to every print platform of the edition. */
+  platforms?: PlatformId[];
+  from: number;
+  to: number;
+  ppi?: number;
+  criticView?: CriticView;
+}
+
+export interface InteriorPreviewExport extends InteriorPreview {
+  platforms: PlatformId[];
+  rules: InteriorRules;
+  problems: string[];
+}
+
+/**
+ * Draw pages of an edition for the design screen. When the edition goes to
+ * several platforms the strictest rule of each kind is used, which is what a
+ * single design has to satisfy.
+ */
+export async function previewInterior(ctx: BuildContext, req: InteriorPreviewRequest): Promise<InteriorPreviewExport> {
+  const { project, specs, host } = ctx;
+  const format = getFormat(project.book, req.formatId);
+  if (format.type === 'ebook') throw new Error('The ebook edition has no pages to preview. Choose a paperback or hardcover edition.');
+  const type = format.type;
+  const platforms = (req.platforms ?? format.platforms).filter((p) => specs.platforms[p]?.print?.formats[type]);
+  const rules = combinedRules(specs, platforms, type);
+  const problems: string[] = [];
+  let trim: { id: string; widthIn: number; heightIn: number } | null = null;
+  for (const p of platforms) {
+    const avail = trimAvailability(specs.platforms[p]!, format);
+    if (avail.problem) problems.push(avail.problem);
+    if (avail.trim && !trim) trim = { id: avail.trim.id, widthIn: avail.trim.widthIn, heightIn: avail.trim.heightIn };
+  }
+  if (!trim) {
+    // No platform offers this size: still show the pages, so the design can be judged.
+    const m = /^([\d.]+)x([\d.]+)$/.exec(format.trim);
+    trim = { id: format.trim, widthIn: m ? Number(m[1]) : 6, heightIn: m ? Number(m[2]) : 9 };
+    if (platforms.length === 0) problems.push('No print platform is selected for this edition, so general print rules are used for the preview.');
+  }
+  const assembled = await assembleProject(ctx, { formatId: req.formatId, criticView: req.criticView });
+  const known = platforms.length ? await lastPageCount(ctx, req.formatId, platforms[0]) : null;
+  const res = await renderInteriorPreview(host, assembled, {
+    projectDir: project.dir,
+    buildDir: project.path(LAYOUT.buildDir, `preview-${req.formatId}`),
+    outFile: '',
+    trim, rules,
+    typstLibDir: joinPath(ctx.resourcesDir, 'typst', 'lib'),
+    fontDirs: fontDirs(ctx),
+    greyscaleImages: format.ink === 'bw' && assembled.design.greyscaleImages,
+    from: req.from, to: req.to, ppi: req.ppi, pageCount: known ?? undefined,
+  });
+  return { ...res, platforms, rules, problems };
 }
 
 /** Rules strict enough for several platforms at once, used by the live preview. */

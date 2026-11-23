@@ -6,13 +6,13 @@
 import { create } from 'zustand';
 import {
   DEFAULT_SETTINGS, Library, defaultLibraryDir, loadSettings, saveSettings,
-  type AppSettings, type BookSummary, type Host, type Project, type PublisherProfile, type SpecSet,
+  type AppSettings, type BookSummary, type BuildContext, type Host, type Project, type PublisherProfile, type SpecSet,
 } from '@borderless/core';
 import { createHost, isTauri } from '../host';
 import { pushToolPaths } from '../host/tauriHost';
 import { loadEditorFonts } from '../editor/fonts';
 
-export type View = 'library' | 'write' | 'export' | 'settings';
+export type View = 'library' | 'write' | 'book' | 'cover' | 'export' | 'settings';
 export type ToastKind = 'info' | 'ok' | 'warn' | 'fail';
 
 export interface Toast {
@@ -59,6 +59,8 @@ interface State {
   dismissToast(id: number): void;
   updateSettings(patch: Partial<AppSettings>): Promise<void>;
   reloadSpecs(): Promise<void>;
+  /** Everything the engine needs to build files for the open book. */
+  buildContext(): Promise<BuildContext>;
 }
 
 let toastId = 0;
@@ -170,6 +172,13 @@ export const useStore = create<State>((set, get) => ({
   async reloadSpecs() {
     const { library } = get();
     if (library) set({ specs: await library.specs() });
+  },
+
+  async buildContext() {
+    const { host, project, specs, library } = get();
+    if (!project || !specs) throw new Error('No book is open.');
+    const { resources } = await host.paths();
+    return { host, project, specs, resourcesDir: resources, isbnRegister: library ? await library.isbnRegister() : null };
   },
 }));
 

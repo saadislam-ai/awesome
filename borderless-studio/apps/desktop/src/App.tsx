@@ -1,14 +1,18 @@
 import { useEffect } from 'react';
-import { BookOpen, FileOutput, Library as LibraryIcon, PenLine, Settings as SettingsIcon } from 'lucide-react';
+import { BookOpen, BookType, FileOutput, Image as ImageIcon, Library as LibraryIcon, PenLine, Settings as SettingsIcon } from 'lucide-react';
 import { useStore, type View } from './state/store';
 import { LibraryView } from './views/LibraryView';
 import { WriterView } from './views/WriterView';
 import { ExportView } from './views/ExportView';
+import { BookView } from './views/book/BookView';
+import { CoverView } from './views/CoverView';
 import { SettingsView } from './views/SettingsView';
 
 const NAV: { id: View; label: string; icon: typeof PenLine; needsBook: boolean }[] = [
   { id: 'library', label: 'Library', icon: LibraryIcon, needsBook: false },
   { id: 'write', label: 'Write', icon: PenLine, needsBook: true },
+  { id: 'book', label: 'Book', icon: BookType, needsBook: true },
+  { id: 'cover', label: 'Cover', icon: ImageIcon, needsBook: true },
   { id: 'export', label: 'Export', icon: FileOutput, needsBook: true },
 ];
 
@@ -45,7 +49,7 @@ export function App() {
     );
   }
 
-  const current: View = !project && (view === 'write' || view === 'export') ? 'library' : view;
+  const current: View = !project && view !== 'library' && view !== 'settings' ? 'library' : view;
   return (
     <div className={`app${zen ? ' zen' : ''}`}>
       <nav className="rail" aria-label="Main">
@@ -65,6 +69,8 @@ export function App() {
       <div className="main">
         {current === 'library' && <LibraryView />}
         {current === 'write' && project && <WriterView />}
+        {current === 'book' && project && <BookView />}
+        {current === 'cover' && project && <CoverView />}
         {current === 'export' && project && <ExportView />}
         {current === 'settings' && <SettingsView />}
       </div>
