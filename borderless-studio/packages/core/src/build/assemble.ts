@@ -99,6 +99,8 @@ export interface AssembleOptions {
   alsoBy?: AlsoByGroup[];
   /** Sample builder: keep only the first N body chapters. */
   sampleChapters?: number;
+  /** Sample builder: text for a closing page that says where the whole book can be found. */
+  sampleEnding?: string;
   /** List every format's ISBN on the copyright page instead of only this format's. */
   listAllIsbns?: boolean;
   /** Extra notice printed on the copyright page (advance reader copies). */
@@ -363,6 +365,9 @@ export function assembleBook(
 
   const visit = (node: BinderNode, zone: Zone): void => {
     if (!included(node)) return;
+    // A sample stops after its last chapter: no title pages of later parts, and of the back matter only the pages that help a reader find more.
+    if (opts.sampleChapters && zone === 'body' && bodyChapters >= opts.sampleChapters) return;
+    if (opts.sampleChapters && zone === 'back' && !['about-author', 'also-by'].includes(node.kind)) return;
     if (node.type === 'part') {
       partNo++;
       const sec = base(node, zone, 'part');
@@ -384,8 +389,6 @@ export function assembleBook(
     if (node.generated && node.file && (docs.get(node.id) ?? '').trim() === '') return generated(node, zone);
     if (node.kind === 'dedication' || node.kind === 'epigraph') return display(node, zone);
     if (node.type === 'chapter' || CHAPTER_LIKE.has(node.kind) || node.file) {
-      if (opts.sampleChapters && zone === 'body' && bodyChapters >= opts.sampleChapters) return;
-      if (opts.sampleChapters && zone === 'back' && !['about-author', 'also-by'].includes(node.kind)) return;
       return chapterLike(node, zone);
     }
   };
@@ -393,6 +396,14 @@ export function assembleBook(
   for (const root of binder.roots) {
     const zone: Zone = root.role ?? 'body';
     for (const child of root.children ?? []) visit(child, zone);
+    if (zone === 'body' && opts.sampleChapters && opts.sampleEnding?.trim()) {
+      // The last page of a sample says where the rest of the book can be found.
+      const sec = base({ id: 'sample-ending', type: 'doc', kind: 'generic', title: '' } as BinderNode, 'body', 'generic');
+      sec.title = '';
+      sec.head = '';
+      sec.blocks = [{ t: 'align', align: 'center', c: opts.sampleEnding.trim().split(/\n{2,}/).map((line) => para(smart(line.trim()))) }];
+      finish(sec);
+    }
   }
 
   // The first page of the body always starts on a right hand page as page 1.

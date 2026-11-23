@@ -45,6 +45,8 @@ export interface ExportCommon {
   criticView?: CriticView;
   /** Only the first N chapters (sample builder). */
   sampleChapters?: number;
+  /** Text of the closing page of a sample ("The whole book is available from ..."). */
+  sampleEnding?: string;
   /** Advance reader copy: watermark text and a notice on the copyright page. */
   watermark?: string;
   notice?: string;
@@ -58,6 +60,7 @@ export async function assembleProject(ctx: BuildContext, opts: ExportCommon): Pr
     formatId: opts.formatId,
     criticView: opts.criticView,
     sampleChapters: opts.sampleChapters,
+    sampleEnding: opts.sampleEnding,
     notice: opts.notice,
     alsoBy: ctx.alsoBy,
     isbnDisplay: (isbn) => displayIsbn(ctx.isbnRegister ?? null, isbn),

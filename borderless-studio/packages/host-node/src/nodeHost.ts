@@ -284,6 +284,15 @@ export class NodeHost implements Host {
     return run(loc.path, args, opts);
   }
 
+  async launchTool(tool: ToolId, args: string[]): Promise<boolean> {
+    if (tool !== 'kindle-previewer') throw new Error(`"${tool}" cannot be started this way.`);
+    const loc = this.locate(tool);
+    if (!loc.path) return false;
+    const { spawn } = await import('node:child_process');
+    spawn(loc.path, args, { detached: true, stdio: 'ignore' }).unref();
+    return true;
+  }
+
   /* -------------------------------------------------------------- index */
 
   get db(): HostDb {

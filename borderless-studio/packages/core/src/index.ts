@@ -61,3 +61,4 @@ export * from './editor/analysis';
 export * from './docx/write';
 export * from './import/index';
 export * from './backup/index';
+export * from './epub/preview';

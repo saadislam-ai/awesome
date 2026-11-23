@@ -31,6 +31,7 @@ export function createTauriHost(): Host {
     copy: (from, to) => invoke<void>('fs_copy', { from, to }),
     runTool: (tool: ToolId, args: string[], opts?: RunOptions) => invoke<ToolResult>('run_tool', { tool, args, opts: opts ?? null }),
     toolInfo: (tool: ToolId) => invoke<ToolInfo>('tool_info', { tool }),
+    launchTool: (tool: ToolId, args: string[]) => invoke<boolean>('launch_tool', { tool, args }),
     db: {
       exec: (sql, params) => invoke<void>('db_exec', { sql, params: params ?? [] }),
       query: <T,>(sql: string, params?: unknown[]) => invoke<T[]>('db_query', { sql, params: params ?? [] }),

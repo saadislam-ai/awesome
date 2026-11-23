@@ -539,6 +539,35 @@ async fn run_tool(app: AppHandle, state: State<'_, AppState>, tool: String, args
     tauri::async_runtime::spawn_blocking(move || spawn_and_wait(&program, &all, &opts)).await.map_err(err)
 }
 
+/// Programs with a window of their own that may be started and left running.
+const LAUNCHABLE: [&str; 1] = ["kindle-previewer"];
+
+/// Start a program from the launch list and return at once. Ok(false) means it is not installed.
+#[tauri::command]
+fn launch_tool(app: AppHandle, state: State<'_, AppState>, tool: String, args: Vec<String>) -> Result<bool, String> {
+    if !LAUNCHABLE.contains(&tool.as_str()) {
+        return Err(format!("\"{tool}\" cannot be started this way."));
+    }
+    let loc = locate(&app, &state, &tool);
+    let Some(program) = loc.program else {
+        return Ok(false);
+    };
+    let mut all = loc.prefix.clone();
+    all.extend(args);
+    let mut child = Command::new(&program)
+        .args(&all)
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()
+        .map_err(|e| format!("{} could not be started: {e}", program.display()))?;
+    // Collect the exit status when the program is closed, so that no dead process entry is left behind.
+    std::thread::spawn(move || {
+        let _ = child.wait();
+    });
+    Ok(true)
+}
+
 #[derive(Serialize)]
 struct ToolInfo {
     id: String,
@@ -777,6 +806,7 @@ pub fn run() {
             fs_rename,
             fs_copy,
             run_tool,
+            launch_tool,
             tool_info,
             set_tool_paths,
             db_exec,

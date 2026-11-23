@@ -3,12 +3,13 @@
  * edition and platform, and run preflight on each finished file.
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { AlertTriangle, CheckCircle2, CircleAlert, FileText, FileType2, FolderOpen, Image as ImageIcon, Loader2, Play, Tablet } from 'lucide-react';
+import { AlertTriangle, BookOpen, CheckCircle2, CircleAlert, FileText, FileType2, FolderOpen, Image as ImageIcon, Loader2, Play, Tablet } from 'lucide-react';
 import {
   COVER_KIND_LABEL, coverKindsFor, exportCover, exportDocx, exportEbookCover, exportEpub, exportInterior, preflightCoverFile, preflightEpubFile, preflightInteriorFile,
   trimAvailability, validateIsbn,
   type BookFormat, type CoverExport, type CoverKind, type EpubExport, type InteriorExport, type PlatformId, type PreflightReport, type ToolInfo,
 } from '@borderless/core';
+import { EpubPreview } from './EpubPreview';
 import { useStore } from '../state/store';
 import { BookTitle } from '../App';
 import { fmtNumber } from '../ui/kit';
@@ -27,7 +28,7 @@ interface Result {
   preflight?: PreflightReport[];
 }
 
-function Target(props: { icon: ReactNode; title: ReactNode; note?: ReactNode; result?: Result; path?: string; onBuild: () => void; children?: ReactNode; disabled?: boolean }) {
+function Target(props: { icon: ReactNode; title: ReactNode; note?: ReactNode; result?: Result; path?: string; onBuild: () => void; children?: ReactNode; disabled?: boolean; actions?: ReactNode }) {
   const host = useStore((s) => s.host);
   const r = props.result;
   return (
@@ -37,6 +38,7 @@ function Target(props: { icon: ReactNode; title: ReactNode; note?: ReactNode; re
         <div className="row">
           {props.path && (
             <>
+              {props.actions}
               <button className="btn small" onClick={() => void host.ui?.openPath(props.path!)}>Open</button>
               <button className="btn small" onClick={() => void host.ui?.revealPath(props.path!)}>Show in folder</button>
             </>
@@ -122,6 +124,31 @@ export function ExportView() {
   });
 
   const formats = project.book.formats.filter((f) => f.enabled);
+
+  // Samples and advance reader copies: the same builders with a few chapters, or with a notice and a watermark.
+  const firstAuthor = project.book.contributors[0]?.name ?? '';
+  const [sampleChapters, setSampleChapters] = useState(3);
+  const [sampleEnding, setSampleEnding] = useState(
+    `This is the end of the sample.\n\n${project.book.title}${firstAuthor ? ' by ' + firstAuthor : ''} is available as an ebook and in print.${project.book.publisherWebsite ? '\n\n' + project.book.publisherWebsite : ''}`,
+  );
+  const [arcNotice, setArcNotice] = useState('Advance reader copy. Not for sale. This is an uncorrected proof: please check any quotation against the finished book.');
+  const [arcMark, setArcMark] = useState('Advance reader copy');
+  const ebookFormat = formats.find((f) => f.type === 'ebook');
+  const printFormat = formats.find((f) => f.type !== 'ebook' && f.platforms.some((p) => specs?.platforms[p]?.print));
+  const printPlatform = printFormat?.platforms.find((p) => specs?.platforms[p]?.print);
+  const extraEpub = (key: string, opts: { sampleChapters?: number; sampleEnding?: string; notice?: string; variant: string }) => run(key, async () => {
+    const ctx = await buildContext();
+    return { epub: await exportEpub(ctx, { formatId: ebookFormat!.id, criticView, ...opts }) };
+  });
+  // These PDFs are for reading on a screen or a desk printer, so they are ordinary PDFs, not press files.
+  const extraPdf = (key: string, opts: { sampleChapters?: number; sampleEnding?: string; notice?: string; watermark?: string; variant: string }) => run(key, async () => {
+    const ctx = await buildContext();
+    return { interior: await exportInterior(ctx, { formatId: printFormat!.id, platform: printPlatform!, criticView, pdfStandard: 'plain', ...opts }) };
+  });
+  const pdfNote = (key: string) => {
+    const i = results[key]?.interior;
+    return i?.pdfPath ? <div className="small dim" style={{ marginTop: 6 }}>{i.pageCount} pages</div> : null;
+  };
   const printTargets = useMemo(
     () => formats.filter((f) => f.type !== 'ebook').flatMap((f) => f.platforms.filter((p) => specs?.platforms[p]?.print?.formats[f.type as 'paperback' | 'hardcover']).map((p) => ({ f, p }))),
     [formats, specs],
@@ -229,6 +256,30 @@ export function ExportView() {
               </div>
             );
           })}
+          {(ebookFormat || printFormat) && (
+            <div className="card" style={{ marginTop: 12 }}>
+              <div className="row"><BookOpen size={18} className="dim" /><h2 style={{ margin: 0 }}>Samples and advance copies</h2></div>
+              <p className="dim small" style={{ margin: '6px 0 10px' }}>A sample holds the opening chapters and a last page that says where to find the book. An advance reader copy is the whole book for reviewers, marked as not for sale. Neither is a file for a store upload.</p>
+              <div className="row wrap small" style={{ gap: 14, alignItems: 'flex-start' }}>
+                <label>Chapters in the sample<br /><input className="input" type="number" min={1} max={99} value={sampleChapters} style={{ width: 90 }} onChange={(e) => setSampleChapters(Math.max(1, Math.min(99, Number(e.target.value) || 1)))} /></label>
+                <label className="grow" style={{ minWidth: 280 }}>Last page of the sample<br /><textarea className="textarea" rows={3} value={sampleEnding} onChange={(e) => setSampleEnding(e.target.value)} /></label>
+              </div>
+              {ebookFormat && <EpubTarget format={ebookFormat} title={<><b>Sample</b> <span className="dim">as an ebook (EPUB)</span></>} result={results['sample/epub']} onBuild={() => void extraEpub('sample/epub', { sampleChapters, sampleEnding, variant: 'sample' })} />}
+              {printFormat && (
+                <Target icon={<FileText size={15} className="dim" />} title={<><b>Sample</b> <span className="dim">as a PDF with the pages of the {printFormat.label.toLowerCase()}</span></>} result={results['sample/pdf']} path={results['sample/pdf']?.interior?.pdfPath || undefined}
+                  onBuild={() => void extraPdf('sample/pdf', { sampleChapters, sampleEnding, variant: 'sample' })}>{pdfNote('sample/pdf')}</Target>
+              )}
+              <div className="row wrap small" style={{ gap: 14, alignItems: 'flex-start', marginTop: 14 }}>
+                <label>Watermark across each PDF page<br /><input className="input" value={arcMark} style={{ width: 220 }} onChange={(e) => setArcMark(e.target.value)} /></label>
+                <label className="grow" style={{ minWidth: 280 }}>Notice on the copyright page<br /><textarea className="textarea" rows={2} value={arcNotice} onChange={(e) => setArcNotice(e.target.value)} /></label>
+              </div>
+              {ebookFormat && <EpubTarget format={ebookFormat} title={<><b>Advance reader copy</b> <span className="dim">as an ebook (EPUB)</span></>} result={results['arc/epub']} onBuild={() => void extraEpub('arc/epub', { notice: arcNotice, variant: 'arc' })} />}
+              {printFormat && (
+                <Target icon={<FileText size={15} className="dim" />} title={<><b>Advance reader copy</b> <span className="dim">as a PDF with the watermark</span></>} result={results['arc/pdf']} path={results['arc/pdf']?.interior?.pdfPath || undefined}
+                  onBuild={() => void extraPdf('arc/pdf', { notice: arcNotice, watermark: arcMark.trim() || undefined, variant: 'arc' })}>{pdfNote('arc/pdf')}</Target>
+              )}
+            </div>
+          )}
           <div className="card" style={{ marginTop: 12 }}>
             <div className="row"><FileType2 size={18} className="dim" /><h2 style={{ margin: 0 }}>Word files</h2></div>
             <Target icon={<FileType2 size={15} className="dim" />} title={<><b>Manuscript format</b> <span className="dim">for agents, editors and beta readers</span></>}
@@ -246,15 +297,39 @@ export function ExportView() {
   );
 }
 
-function EpubTarget(props: { format: BookFormat; result?: Result; onBuild(): void }) {
+/** Buttons for looking at a finished EPUB: the quick look inside the app, and Amazon's Kindle Previewer when it is installed. */
+function EpubLook(props: { path: string }) {
+  const host = useStore((s) => s.host);
+  const toast = useStore((s) => s.toast);
+  const [open, setOpen] = useState(false);
+  const kindle = async () => {
+    try {
+      const started = await host.launchTool?.('kindle-previewer', [props.path]);
+      if (started) toast('ok', 'Kindle Previewer is starting with this ebook. The first conversion can take a minute.');
+      else toast('info', 'Kindle Previewer was not found on this computer. It is a free program from Amazon for Mac and Windows: search for "Kindle Previewer" on the KDP help pages, install it, then press this button again. If it is installed in an unusual place, set its location in Settings.');
+    } catch (e) {
+      toast('fail', e instanceof Error ? e.message : String(e));
+    }
+  };
+  return (
+    <>
+      <button className="btn small" onClick={() => setOpen(true)} title="A quick look at the ebook at the width of a phone, an e-reader or a tablet">Preview</button>
+      <button className="btn small" onClick={() => void kindle()} title="Open the ebook in Amazon's Kindle Previewer, which shows it exactly as Kindle devices and apps do">Kindle Previewer</button>
+      {open && <EpubPreview path={props.path} onClose={() => setOpen(false)} />}
+    </>
+  );
+}
+
+function EpubTarget(props: { format: BookFormat; result?: Result; onBuild(): void; title?: ReactNode }) {
   const selectDoc = useStore((s) => s.selectDoc);
   const r = props.result;
   const e = r?.epub;
   return (
     <Target
       icon={<Tablet size={15} className="dim" />}
-      title={<><b>EPUB 3</b> <span className="dim">with its cover, checked with EPUBCheck</span></>}
+      title={props.title ?? <><b>EPUB 3</b> <span className="dim">with its cover, checked with EPUBCheck</span></>}
       result={r} path={e?.epubPath || undefined} onBuild={props.onBuild}
+      actions={e?.epubPath ? <EpubLook path={e.epubPath} /> : undefined}
     >
       {e && (
         <>

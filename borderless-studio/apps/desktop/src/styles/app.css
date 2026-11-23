@@ -213,6 +213,7 @@ table.table tr:last-child td { border-bottom: 0; }
 .overlay { position: fixed; inset: 0; background: rgba(15, 15, 12, 0.42); display: grid; place-items: center; z-index: 50; }
 .modal { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); width: min(680px, 92vw); max-height: 88vh; display: flex; flex-direction: column; }
 .modal.wide { width: min(900px, 94vw); }
+.modal.wide:has(.epub-preview) { width: min(1040px, 96vw); max-height: 94vh; }
 .modal header { padding: 14px 18px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
 .modal header h2 { flex: 1; font-size: 15px; }
 .modal .body { padding: 16px 18px; overflow: auto; }
@@ -432,3 +433,11 @@ table.prices td.right, table.prices th.right { text-align: right; }
 .import-list { margin-top: 10px; max-height: 300px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; }
 .backup-settings { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; display: grid; gap: 8px; }
 .check input[type="number"] { width: 64px; height: auto; }
+.epub-preview { display: grid; grid-template-columns: 220px 1fr; gap: 16px; }
+.epub-toc { display: flex; flex-direction: column; gap: 1px; max-height: 740px; overflow-y: auto; border-right: 1px solid var(--border); padding-right: 8px; }
+.epub-toc button { text-align: left; border: 0; background: none; padding: 5px 8px; border-radius: 6px; font-size: 12.5px; color: var(--text-dim); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.epub-toc button:hover { background: var(--accent-soft); }
+.epub-toc button.on { background: var(--accent-soft); color: var(--text); font-weight: 600; }
+.epub-device { border: 10px solid #26282c; border-radius: 22px; overflow: hidden; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22); flex: none; box-sizing: content-box; }
+.epub-device.ereader { filter: grayscale(1); border-color: #4a4a48; border-radius: 12px; }
+.epub-device iframe { width: 100%; height: 100%; border: 0; display: block; }

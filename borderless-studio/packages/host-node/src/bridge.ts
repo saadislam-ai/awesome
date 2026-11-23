@@ -51,6 +51,7 @@ async function rpc(method: string, a: Json): Promise<unknown> {
     case 'copy': return host.copy(s('from'), s('to'));
     case 'runTool': return host.runTool(s('tool') as ToolId, (a.args as string[]) ?? [], (a.opts as object) ?? {});
     case 'toolInfo': return host.toolInfo(s('tool') as ToolId);
+    case 'launchTool': return host.launchTool(s('tool') as ToolId, (a.args as string[]) ?? []);
     case 'dbExec': return host.db.exec(s('sql'), (a.params as unknown[]) ?? []);
     case 'dbQuery': return host.db.query(s('sql'), (a.params as unknown[]) ?? []);
     case 'http': return host.http(a.req as never);

@@ -133,6 +133,12 @@ export interface Host {
 
   runTool(tool: ToolId, args: string[], opts?: RunOptions): Promise<ToolResult>;
   toolInfo(tool: ToolId): Promise<ToolInfo>;
+  /**
+   * Start a program that has a window of its own (Kindle Previewer) and
+   * return at once, without waiting for it to close. Resolves to false when
+   * the program is not installed.
+   */
+  launchTool?(tool: ToolId, args: string[]): Promise<boolean>;
 
   /** Present in the app and the Node host; the index is always rebuildable. */
   db?: HostDb;

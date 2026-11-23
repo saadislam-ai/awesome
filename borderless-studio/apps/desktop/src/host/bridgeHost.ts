@@ -42,6 +42,7 @@ export function createBridgeHost(base = 'http://127.0.0.1:8787'): Host {
     copy: (from, to) => rpc<void>('copy', { from, to }),
     runTool: (tool: ToolId, args: string[], opts?: RunOptions) => rpc<ToolResult>('runTool', { tool, args, opts }),
     toolInfo: (tool: ToolId) => rpc<ToolInfo>('toolInfo', { tool }),
+    launchTool: (tool: ToolId, args: string[]) => rpc<boolean>('launchTool', { tool, args }),
     db: {
       exec: (sql, params) => rpc<void>('dbExec', { sql, params }),
       query: <T,>(sql: string, params?: unknown[]) => rpc<T[]>('dbQuery', { sql, params }),
