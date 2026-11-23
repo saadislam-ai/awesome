@@ -547,7 +547,7 @@
      "height_cm": 25.4,
      "trim_class": "large",
      "source": "https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6",
-     "quote": "7\" x 10\" (17.78 x 25.4 cm) | 75 – 550 | 75 - 550 | Not available | Not available | 75 - 550"
+     "quote": "7\" x 10\" (17.78 x 25.4 cm) | 75 - 550 | 75 - 550 | Not available | Not available | 75 - 550"
     },
     {
      "width_in": 8.25,
@@ -1610,7 +1610,7 @@
       }
      },
      "source": "https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6",
-     "quote": "7\" x 10\" (17.78 x 25.4 cm) | 75 – 550 | 75 - 550 | Not available | Not available | 75 - 550"
+     "quote": "7\" x 10\" (17.78 x 25.4 cm) | 75 - 550 | 75 - 550 | Not available | Not available | 75 - 550"
     },
     {
      "width_in": 8.25,
@@ -4088,7 +4088,7 @@
     },
     "groundwood_note_on_page": {
      "source": "https://kdp.amazon.com/en_US/help/topic/G201834340",
-     "quote": "Note: Groundwood printing costs per page are approximately 5% lower than cream and white paper with black and white ink. For shorter books (24–112 pages) where only the fixed cost applies, groundwood has a lower fixed cost than cream or white paper."
+     "quote": "Note: Groundwood printing costs per page are approximately 5% lower than cream and white paper with black and white ink. For shorter books (24-112 pages) where only the fixed cost applies, groundwood has a lower fixed cost than cream or white paper."
     },
     "cream_same_as_white": {
      "note": "Cream and white share one table ('Black ink paperback with cream or white paper'); the calculator returns identical costs.",
@@ -4941,14 +4941,14 @@
    "text": "(Royalty rate x list price) - printing costs = royalty",
    "list_price_basis": "tax-exclusive list price",
    "source": "https://kdp.amazon.com/en_US/help/topic/G201834330",
-   "quote": "(Royalty rate x list price) – printing costs = royalty",
+   "quote": "(Royalty rate x list price) - printing costs = royalty",
    "tax_exclusive_source": {
     "source": "https://kdp.amazon.com/en_US/help/topic/G8BKPU9AGVZSF9QF",
-    "quote": "For sales through standard distribution channels: (50% or 60% Royalty Rate x tax exclusive List Price) – Printing Costs = Royalty"
+    "quote": "For sales through standard distribution channels: (50% or 60% Royalty Rate x tax exclusive List Price) - Printing Costs = Royalty"
    },
    "hardcover": {
     "source": "https://kdp.amazon.com/en_US/help/topic/G77F3WPD3KQLJTFS",
-    "quote": "(Royalty rate x list price) – printing costs = royalty"
+    "quote": "(Royalty rate x list price) - printing costs = royalty"
    },
    "examples": [
     {
@@ -5800,7 +5800,7 @@
    },
    "formula": {
     "source": "https://kdp.amazon.com/en_US/help/topic/G8BKPU9AGVZSF9QF",
-    "quote": "For sales through Expanded Distribution channels: (40% Royalty Rate x tax exclusive List Price) – Printing Costs = Royalty"
+    "quote": "For sales through Expanded Distribution channels: (40% Royalty Rate x tax exclusive List Price) - Printing Costs = Royalty"
    },
    "example": {
     "source": "https://kdp.amazon.com/en_US/help/topic/G201834330",
@@ -8200,7 +8200,7 @@
   {
    "id": "G202187840",
    "url": "https://kdp.amazon.com/en_US/help/topic/G202187840",
-   "title": "2 – Prepare Your Manuscript",
+   "title": "2 - Prepare Your Manuscript",
    "kind": "help page",
    "fetched_utc": "2026-11-23T02:26:32Z",
    "last_updated_text_on_page": null,
@@ -8210,7 +8210,7 @@
   {
    "id": "G202187850",
    "url": "https://kdp.amazon.com/en_US/help/topic/G202187850",
-   "title": "3 – Prepare Your Cover",
+   "title": "3 - Prepare Your Cover",
    "kind": "help page",
    "fetched_utc": "2026-11-23T02:26:31Z",
    "last_updated_text_on_page": null,
@@ -8250,7 +8250,7 @@
   {
    "id": "G3TQWMMGK8528NDZ",
    "url": "https://kdp.amazon.com/en_US/help/topic/G3TQWMMGK8528NDZ",
-   "title": "Build Your Book – Format a Paperback Manuscript (Pages for Mac)",
+   "title": "Build Your Book - Format a Paperback Manuscript (Pages for Mac)",
    "kind": "help page",
    "fetched_utc": "2026-11-23T02:37:30Z",
    "last_updated_text_on_page": null,
@@ -8290,7 +8290,7 @@
   {
    "id": "G73MVSZ5P69VVCN6",
    "url": "https://kdp.amazon.com/en_US/help/topic/G73MVSZ5P69VVCN6",
-   "title": "4 – Title Setup: Book Details, Content, & Pricing",
+   "title": "4 - Title Setup: Book Details, Content, & Pricing",
    "kind": "help page",
    "fetched_utc": "2026-11-23T02:26:36Z",
    "last_updated_text_on_page": null,

@@ -561,22 +561,22 @@ Also note for Draft2Digital:
   - Date text on the page: none on page
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/kdp_G202173620_timelines.txt
   - Quoted in: not quoted (read for context only)
-- **2 – Prepare Your Manuscript**
+- **2 - Prepare Your Manuscript**
   - URL: https://kdp.amazon.com/en_US/help/topic/G202187840
   - Date text on the page: none on page
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/kdp_G202187840_2_prepare_your_manuscript.txt
   - Quoted in: not quoted (read for context only)
-- **3 – Prepare Your Cover**
+- **3 - Prepare Your Cover**
   - URL: https://kdp.amazon.com/en_US/help/topic/G202187850
   - Date text on the page: none on page
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/kdp_G202187850_3_prepare_your_cover.txt
   - Quoted in: not quoted (read for context only)
-- **4 – Title Setup: Book Details, Content, & Pricing**
+- **4 - Title Setup: Book Details, Content, & Pricing**
   - URL: https://kdp.amazon.com/en_US/help/topic/G73MVSZ5P69VVCN6
   - Date text on the page: none on page
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/kdp_G73MVSZ5P69VVCN6_4_title_setup_book_details_content_pricing.txt
   - Quoted in: kdp-ebook-facts.json
-- **5 – Publishing & Review**
+- **5 - Publishing & Review**
   - URL: https://kdp.amazon.com/en_US/help/topic/G202187860
   - Date text on the page: none on page
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/kdp_G202187860_5_publishing_review.txt
@@ -715,12 +715,12 @@ Also note for Draft2Digital:
   - Date text on the page: Blog post dated Jul 12, 2023
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/d2d_blog_starting_new_ebook_step_by_step.txt
   - Quoted in: d2d-facts.json
-- **Your Top D2D Print Questions—Answered! Part 1**
+- **Your Top D2D Print Questions - Answered! Part 1**
   - URL: https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-1/
   - Date text on the page: Blog post dated Mar 21, 2023
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/d2d_blog_top_print_questions_part1.txt
   - Quoted in: d2d-facts.json
-- **Your Top D2D Print Questions—Answered! Part 2**
+- **Your Top D2D Print Questions - Answered! Part 2**
   - URL: https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-2/
   - Date text on the page: Blog post dated Mar 28, 2023
   - Saved text: /tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages/d2d_blog_top_print_questions_part2.txt

@@ -113,7 +113,7 @@
     "id": "ld.nla.time_limit.statute",
     "claim": "Statute: the delivery period starts on the day of publication (or the day of an NLA request for online material) and ends 1 month later, or later if the Director-General allows.",
     "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
-    "quote": "(2) The delivery period, for National Library material, starts on: (a) for material published in a way covered by paragraph 195CB(1)(a)—the day it was so published; or (b) for material requested under section 195CC—the day the request was made; and ends 1 month later or on a later day allowed by the Director‑General of the National Library.",
+    "quote": "(2) The delivery period, for National Library material, starts on: (a) for material published in a way covered by paragraph 195CB(1)(a) - the day it was so published; or (b) for material requested under section 195CC - the day the request was made; and ends 1 month later or on a later day allowed by the Director‑General of the National Library.",
     "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
     "verified": true,
     "retrieval": "curl",
@@ -322,7 +322,7 @@
      ],
      "preferred": ".epub"
     },
-    "quote2": ".epub – the standard file format for ebooks in the publishing industry that enables them to be read on a wide range of devices. .mobi – an ebook file format commonly associated with Amazon Kindle devices. .pdf – one of the most used file types that preserves the look and layout of a document no matter which device or software you use to view it."
+    "quote2": ".epub - the standard file format for ebooks in the publishing industry that enables them to be read on a wide range of devices. .mobi - an ebook file format commonly associated with Amazon Kindle devices. .pdf - one of the most used file types that preserves the look and layout of a document no matter which device or software you use to view it."
    },
    {
     "id": "ld.nla.ned.file_size",
@@ -402,9 +402,9 @@
     "value": {
      "access_conditions": [
       "Openly on the Internet",
-      "Openly on the Internet – with temporary download restriction",
-      "Openly on the Internet – with download restrictions",
-      "Openly on the Internet – with temporary download and location restrictions",
+      "Openly on the Internet - with temporary download restriction",
+      "Openly on the Internet - with download restrictions",
+      "Openly on the Internet - with temporary download and location restrictions",
       "Onsite only at the national, state and territory libraries",
       "Onsite only at the National Library of Australia and applicable state/territory libraries"
      ]
@@ -493,7 +493,7 @@
     "id": "ld.nsw.libraries",
     "claim": "NSW legal deposit libraries under the Library Act 1939 (NSW): State Library of NSW, University of Sydney Library, NSW Parliamentary Library.",
     "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit",
-    "quote": "The Library Act 1939, as amended, now requires that all print and digital publications be deposited to three legal deposit libraries in NSW — the State Library of NSW, the University of Sydney Library and the NSW Parliamentary Library.",
+    "quote": "The Library Act 1939, as amended, now requires that all print and digital publications be deposited to three legal deposit libraries in NSW - the State Library of NSW, the University of Sydney Library and the NSW Parliamentary Library.",
     "page_file": "pages/slnsw-legal-deposit.txt",
     "verified": true,
     "retrieval": "curl",
@@ -1433,7 +1433,7 @@
     "page_file": "pages/bisg-price-increase-in-add-on.txt",
     "verified": true,
     "retrieval": "curl",
-    "quote2": "10000 – 19999 US$100.00 – US$199.99 Increased range 20000 – 29999 US$200.00 – US$299.99 Increased range 30000 – 39999 US$300.00 – US$399.99 Increased range 40000 – 49999 US$400.00 – US$499.99 Increased range",
+    "quote2": "10000 - 19999 US$100.00 - US$199.99 Increased range 20000 - 29999 US$200.00 - US$299.99 Increased range 30000 - 39999 US$300.00 - US$399.99 Increased range 40000 - 49999 US$400.00 - US$499.99 Increased range",
     "value": {
      "50001-59998": "US$0.01-US$99.98",
      "59999": "price not encoded, understood to exceed US$99.98",
@@ -1659,7 +1659,7 @@
     "id": "gst.books_not_gst_free",
     "claim": "Printed books: the Act's list of GST-free categories (Division 38) has no category for books, so a printed book sold in Australia by a GST-registered seller is taxable at 10%.",
     "source": "https://www.legislation.gov.au/C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1/document_1.html",
-    "quote": "Division 38—GST‑free supplies Table of Subdivisions 38‑A Food 38‑B Health 38‑C Education 38‑D Child care 38‑E Exports and other cross‑border supplies 38‑F Religious services 38‑G Activities of charities etc. 38‑I Water, sewerage and drainage 38‑J Supplies of going concerns 38‑K Transport and related matters 38‑L Precious metals 38‑M Supplies through inwards duty free shops 38‑N Grants of land by governments 38‑O Farm land 38‑P Cars for use by disabled people 38‑Q International Mail 38‑R Telecommunication supplies made under arrangements for global roaming in Australia 38‑S Eligible emissions units 38‑T Inbound intangible consumer supplies",
+    "quote": "Division 38 - GST‑free supplies Table of Subdivisions 38‑A Food 38‑B Health 38‑C Education 38‑D Child care 38‑E Exports and other cross‑border supplies 38‑F Religious services 38‑G Activities of charities etc. 38‑I Water, sewerage and drainage 38‑J Supplies of going concerns 38‑K Transport and related matters 38‑L Precious metals 38‑M Supplies through inwards duty free shops 38‑N Grants of land by governments 38‑O Farm land 38‑P Cars for use by disabled people 38‑Q International Mail 38‑R Telecommunication supplies made under arrangements for global roaming in Australia 38‑S Eligible emissions units 38‑T Inbound intangible consumer supplies",
     "page_file": "pages/cth-gst-act-1999-extract.txt",
     "verified": true,
     "retrieval": "curl",
@@ -1892,7 +1892,7 @@
     "page_file": "pages/editeur-thema.txt",
     "verified": true,
     "retrieval": "curl",
-    "quote2": "Thema version 1.7 contains 44 new core subject categories and 217 new qualifiers (including new national extensions), plus numerous improvements to the wording of headings and notes, but it retains full backward compatibility with version 1.6 and all earlier versions – no existing data needs to be modified or updated.",
+    "quote2": "Thema version 1.7 contains 44 new core subject categories and 217 new qualifiers (including new national extensions), plus numerous improvements to the wording of headings and notes, but it retains full backward compatibility with version 1.6 and all earlier versions - no existing data needs to be modified or updated.",
     "value": {
      "version": "1.7",
      "file_version_number": "v1.7.0",
@@ -1923,7 +1923,7 @@
     "id": "thema.licence.file_header",
     "claim": "Licence terms printed inside the Thema XML file itself: use implies acceptance; no adding to, deleting from, amending or copying parts for use outside the scheme except strictly internally; notify EDItEUR first of any non-internal additions, amendments or extracts.",
     "source": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xml",
-    "quote": "All EDItEUR standards and documentation – including this document – are copyright materials, made available free of charge for general use. A full license agreement that governs their use is available on the EDItEUR website (at https://doi.org/10.4400/nwgj). In particular, if you use the Thema Subject Classification Scheme, you will be deemed to have accepted these terms and conditions: 1. You agree that you will not add to, delete from, amend, or copy for use outside of the scheme, any part thereof except for strictly internal use in your own organization; 2. You agree that if your business would benefit from future additions or amendments to or extracts of the scheme for any purpose that is not strictly internal to your own organization, you will in the first instance notify EDItEUR and allow EDItEUR to review and comment on your proposed use, in the interest of securing an orderly development of the Scheme for the benefit of other users. If you do not accept these terms, you must not use the scheme.",
+    "quote": "All EDItEUR standards and documentation - including this document - are copyright materials, made available free of charge for general use. A full license agreement that governs their use is available on the EDItEUR website (at https://doi.org/10.4400/nwgj). In particular, if you use the Thema Subject Classification Scheme, you will be deemed to have accepted these terms and conditions: 1. You agree that you will not add to, delete from, amend, or copy for use outside of the scheme, any part thereof except for strictly internal use in your own organization; 2. You agree that if your business would benefit from future additions or amendments to or extracts of the scheme for any purpose that is not strictly internal to your own organization, you will in the first instance notify EDItEUR and allow EDItEUR to review and comment on your proposed use, in the interest of securing an orderly development of the Scheme for the benefit of other users. If you do not accept these terms, you must not use the scheme.",
     "page_file": "pages/editeur-thema-v1.7-en-xml-header.txt",
     "verified": true,
     "retrieval": "curl"
@@ -1932,7 +1932,7 @@
     "id": "thema.licence.no_translate_modify",
     "claim": "The file header also says Thema should not be translated or modified without permission.",
     "source": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xml",
-    "quote": "If you wish to translate Thema into another language, or otherwise modify it in any way, please note that it is copyright material and – while EDItEUR wishes it to be as widely available as possible – it should not be translated or modified without permission.",
+    "quote": "If you wish to translate Thema into another language, or otherwise modify it in any way, please note that it is copyright material and - while EDItEUR wishes it to be as widely available as possible - it should not be translated or modified without permission.",
     "page_file": "pages/editeur-thema-v1.7-en-xml-header.txt",
     "verified": true,
     "retrieval": "curl"

@@ -204,7 +204,7 @@
    "value": "100% black only (0/0/0/100 CMYK) on a white box/background",
    "see": "cover_file/barcode/colour",
    "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-   "quote": "–Barcodes created by the publisher should be 100% black only, and placed on a white box/background.",
+   "quote": "-Barcodes created by the publisher should be 100% black only, and placed on a white box/background.",
    "verified": true
   },
   "barcode_area_in": {
@@ -214,7 +214,7 @@
    ],
    "see": "cover_file/barcode/reserved_area_if_not_supplied",
    "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-   "quote": "–If you’re unable to supply a barcode, please leave an area of at least 1.75\" wide x 1\" high for LS to place a barcode on the back cover.",
+   "quote": "-If you’re unable to supply a barcode, please leave an area of at least 1.75\" wide x 1\" high for LS to place a barcode on the back cover.",
    "verified": true,
    "unit": "in (width x height)"
   },
@@ -325,7 +325,7 @@
    "value": "AUD list price is entered GST-exclusive",
    "see": "pricing_and_compensation/aud_list_price_and_gst/official_statement",
    "source": "https://www.ingramspark.com/blog/pricing-your-book",
-   "quote": "AUD (Australia – GST Exclusive)",
+   "quote": "AUD (Australia - GST Exclusive)",
    "verified": true
   },
   "ebook_compensation": {
@@ -11219,7 +11219,7 @@
     "also": [
      {
       "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-      "quote": "Images submitted in a file as RGB or CMYK will be converted to grayscale when printing–this can sometimes cause a color shift.",
+      "quote": "Images submitted in a file as RGB or CMYK will be converted to grayscale when printing-this can sometimes cause a color shift.",
       "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)"
      },
      {
@@ -11416,12 +11416,12 @@
    "file_format": {
     "value": "PDF",
     "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-    "quote": "Preferred file format: PDF (.pdf) file–dimensions vary by trim size",
+    "quote": "Preferred file format: PDF (.pdf) file-dimensions vary by trim size",
     "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)",
     "also": [
      {
       "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-      "quote": "Required file format: PDF (.pdf) file–dimensions vary by trim size",
+      "quote": "Required file format: PDF (.pdf) file-dimensions vary by trim size",
       "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)"
      }
     ],
@@ -12248,12 +12248,12 @@
      "PDF/X-3:2002"
     ],
     "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-    "quote": "Acrobat Distiller–PDF/X-1a:2001, PDF/X-3:2002",
+    "quote": "Acrobat Distiller-PDF/X-1a:2001, PDF/X-3:2002",
     "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)",
     "also": [
      {
       "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-      "quote": "Export from InDesign–PDF/X-1a:2001, PDF/X-3:2002",
+      "quote": "Export from InDesign-PDF/X-1a:2001, PDF/X-3:2002",
       "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)"
      },
      {
@@ -12322,7 +12322,7 @@
    "colour": {
     "value": "100% black only (0/0/0/100 CMYK) on a white box/background",
     "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-    "quote": "–Barcodes created by the publisher should be 100% black only, and placed on a white box/background.",
+    "quote": "-Barcodes created by the publisher should be 100% black only, and placed on a white box/background.",
     "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)",
     "also": [
      {
@@ -12345,7 +12345,7 @@
     ],
     "unit": "in (width x height)",
     "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-    "quote": "–If you’re unable to supply a barcode, please leave an area of at least 1.75\" wide x 1\" high for LS to place a barcode on the back cover.",
+    "quote": "-If you’re unable to supply a barcode, please leave an area of at least 1.75\" wide x 1\" high for LS to place a barcode on the back cover.",
     "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)",
     "also": [
      {
@@ -12447,7 +12447,7 @@
    "ingram_may_replace_barcode": {
     "value": true,
     "source": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
-    "quote": "–LS will add/replace barcodes that are unscannable or incorrect.",
+    "quote": "-LS will add/replace barcodes that are unscannable or incorrect.",
     "source_version": "cover page dated 8.24.26 (PDF created 2026-08-24, server last-modified 2026-08-25)",
     "also": [
      {
@@ -16346,7 +16346,7 @@
      "CAD"
     ],
     "source": "https://www.ingramspark.com/blog/pricing-your-book",
-    "quote": "USD (United States), GBP (United Kingdom), EUR (European Union), AUD (Australia – GST Exclusive), and CAD (Canada).",
+    "quote": "USD (United States), GBP (United Kingdom), EUR (European Union), AUD (Australia - GST Exclusive), and CAD (Canada).",
     "source_version": "dated May 23, 2022",
     "verified": true,
     "note": "CAD/Canada appears in the 2022 pricing blog and in the Nov 2025 title-setup blog (\"US and Canada markets\") but not in the public calculator market list or on the rate card."
@@ -16425,7 +16425,7 @@
    "official_statement": {
     "value": "AUD list price is entered GST-exclusive",
     "source": "https://www.ingramspark.com/blog/pricing-your-book",
-    "quote": "AUD (Australia – GST Exclusive)",
+    "quote": "AUD (Australia - GST Exclusive)",
     "source_version": "dated May 23, 2022",
     "verified": true,
     "note": "Only official statement found, in a blog post dated 23 May 2022. The User Guide v3.3 and the 2026 rate card do not mention GST."
@@ -16672,12 +16672,12 @@
    "also": [
     {
      "source": "https://www.ingramspark.com/blog/how-to-set-up-a-title-with-ingramspark-part-1",
-     "quote": "Language – This is the primary language in which the book is written.",
+     "quote": "Language - This is the primary language in which the book is written.",
      "source_version": "dated November 27, 2018; \"Updated November 25, 2025\""
     },
     {
      "source": "https://www.ingramspark.com/blog/how-to-set-up-a-title-with-ingramspark-part-1",
-     "quote": "Contributor – At least one contributor is required",
+     "quote": "Contributor - At least one contributor is required",
      "source_version": "dated November 27, 2018; \"Updated November 25, 2025\""
     },
     {

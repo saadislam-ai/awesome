@@ -713,12 +713,12 @@
     "royalty_formula_35": {
       "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
       "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
-      "quote": "35% Royalty Rate x (List Price – applicable VAT) = Royalty"
+      "quote": "35% Royalty Rate x (List Price - applicable VAT) = Royalty"
     },
     "royalty_formula_70": {
       "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
       "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
-      "quote": "70% Royalty Rate x (List Price – applicable VAT - Delivery Costs) = Royalty"
+      "quote": "70% Royalty Rate x (List Price - applicable VAT - Delivery Costs) = Royalty"
     },
     "delivery_cost_per_mb": {
       "applies_to": "70% royalty option only",
@@ -987,7 +987,7 @@
     "both_rates_shown_on_bookshelf": {
       "source": "https://kdp.amazon.com/en_US/help/topic/G200644210",
       "saved_page": "pages/kdp_G200644210_ebook_royalties.txt",
-      "quote": "On your Bookshelf, you may see both 70% and 35% royalty rates displayed for the same book on Amazon.com. This is expected behavior — it is not an error with your pricing."
+      "quote": "On your Bookshelf, you may see both 70% and 35% royalty rates displayed for the same book on Amazon.com. This is expected behavior - it is not an error with your pricing."
     },
     "royalty_option_can_be_changed_after_publishing": {
       "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
@@ -2569,7 +2569,7 @@
       {
         "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
         "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
-        "quote": "Have you included enough line breaks? Remember – to have an empty line, you will need two line breaks : <br><br>"
+        "quote": "Have you included enough line breaks? Remember - to have an empty line, you will need two line breaks : <br><br>"
       },
       {
         "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",

@@ -172,7 +172,7 @@
       "if_invalid": {
         "source": "https://draft2digital.com/knowledge-base/",
         "saved_page": "pages/d2d_knowledge_base.txt",
-        "quote": "If your book fails Epubcheck and cannot be automatically repaired you may see the message “Warning – Invalid Epub.” You can still continue to publish your file, but you will not be able to publish to Apple Books, Amazon, Tolino, OverDrive, Hoopla, cloudLibrary, Vivlio, and BorrowBox. These stores all require valid epubs.",
+        "quote": "If your book fails Epubcheck and cannot be automatically repaired you may see the message “Warning - Invalid Epub.” You can still continue to publish your file, but you will not be able to publish to Apple Books, Amazon, Tolino, OverDrive, Hoopla, cloudLibrary, Vivlio, and BorrowBox. These stores all require valid epubs.",
         "stores_requiring_valid_epub": [
           "Apple Books",
           "Amazon",
@@ -202,7 +202,7 @@
       "word_conversion_strips_formatting": {
         "source": "https://draft2digital.com/knowledge-base/",
         "saved_page": "pages/d2d_knowledge_base.txt",
-        "quote": "Draft2Digital’s automated conversion process will strip out things that force formatting to be one exact way— embedded fonts, extra line breaks, empty pages, footnotes, or anything the system considers unnecessary to the final file."
+        "quote": "Draft2Digital’s automated conversion process will strip out things that force formatting to be one exact way - embedded fonts, extra line breaks, empty pages, footnotes, or anything the system considers unnecessary to the final file."
       },
       "expert_route": {
         "source": "https://draft2digital.com/knowledge-base/",
@@ -254,7 +254,7 @@
         "comparison": "under",
         "source": "https://draft2digital.com/faq/",
         "saved_page": "pages/d2d_faq.txt",
-        "quote": "There is no maximum page count or length requirement for our ebooks, but there are file size limitations— ebooks must be under 100 MB in file size."
+        "quote": "There is no maximum page count or length requirement for our ebooks, but there are file size limitations - ebooks must be under 100 MB in file size."
       },
       "knowledge_base": {
         "value_mb": 90,
@@ -720,7 +720,7 @@
       "opt_in_per_store": {
         "source": "https://draft2digital.com/faq/",
         "saved_page": "pages/d2d_faq.txt",
-        "quote": "When you publish an ebook through D2D, you control which stores you want to distribute to—choosing who to sell with is as easy as clicking a checkbox."
+        "quote": "When you publish an ebook through D2D, you control which stores you want to distribute to - choosing who to sell with is as easy as clicking a checkbox."
       },
       "new_stores_not_automatic": {
         "source": "https://draft2digital.com/faq/",
@@ -1300,7 +1300,7 @@
       "charged_per_upload_not_per_edit": {
         "source": "https://draft2digital.com/blog/d2d-print-masterclass-3-making-changes/",
         "saved_page": "pages/d2d_blog_print_masterclass_3_making_changes.txt",
-        "quote": "Note that we don’t charge per change—just per new file upload.",
+        "quote": "Note that we don’t charge per change - just per new file upload.",
         "date": "2022-08-29"
       },
       "cover_finish_switch_counts_as_change": {
@@ -1412,7 +1412,7 @@
       "listing_time": {
         "source": "https://draft2digital.com/faq/",
         "saved_page": "pages/d2d_faq.txt",
-        "quote": "Print books have longer listing times— somewhere in the neighborhood of 2 weeks."
+        "quote": "Print books have longer listing times - somewhere in the neighborhood of 2 weeks."
       },
       "kdp_select_does_not_block_print": {
         "source": "https://draft2digital.com/knowledge-base/",
