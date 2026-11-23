@@ -17,6 +17,10 @@ import { runEpubCheck, type EpubCheckResult } from '../epub/epubcheck';
 import { joinPath, slugify } from '../util/paths';
 import { rgbToCmykConverter } from '../color/cmyk';
 import type { PdfxOptions } from '../pdf/pdfx';
+import { inspectPdf } from '../pdf/inspect';
+import { imageInfo } from '../image/info';
+import { textNodes } from '../model/book';
+import { formatPreflight, manuscriptChecks, preflightEpub, preflightInterior, summarise, type ManuscriptDoc, type PreflightReport } from '../preflight/index';
 import { assembleBook, type AlsoByGroup, type AssembledBook, type BuildWarning } from './assemble';
 
 export interface BuildContext {
@@ -282,4 +286,59 @@ function uuidFromId(id: string): string {
   s[16] = ['8', '9', 'a', 'b'][parseInt(s[16], 16) % 4];
   const j = s.join('');
   return `${j.slice(0, 8)}-${j.slice(8, 12)}-${j.slice(12, 16)}-${j.slice(16, 20)}-${j.slice(20, 32)}`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Preflight                                                           */
+/* ------------------------------------------------------------------ */
+
+async function manuscriptDocs(ctx: BuildContext): Promise<ManuscriptDoc[]> {
+  const docs = await ctx.project.readAllDocs();
+  return textNodes(ctx.project.binder)
+    .filter((n) => n.include !== false)
+    .map((n) => ({ nodeId: n.id, title: n.title, text: docs.get(n.id) ?? '' }));
+}
+
+/**
+ * Open a finished interior PDF and check it against the platform's rules.
+ * The report is also written next to the PDF as a text file.
+ */
+export async function preflightInteriorFile(ctx: BuildContext, res: InteriorExport, platform: PlatformId): Promise<PreflightReport> {
+  const spec = ctx.specs.platforms[platform];
+  if (!spec?.print) throw new Error(`There is no print spec file for ${platform}.`);
+  const format = res.assembled.format;
+  let report: PreflightReport;
+  if (!res.pdfPath) {
+    report = summarise(`${format.label || format.type} interior for ${spec.displayName}`, 'interior', platform, format.id,
+      res.warnings.filter((w) => w.severity !== 'info').map((w) => ({ id: `build-${w.code}`, group: 'book' as const, title: 'Reported while building', status: w.severity === 'fail' ? 'fail' as const : 'warn' as const, detail: w.message, nodeId: w.nodeId })));
+  } else {
+    const bytes = await ctx.host.readBinary(res.pdfPath);
+    const pdf = await inspectPdf(bytes);
+    report = preflightInterior({
+      report: pdf, spec, rules: res.rules, book: ctx.project.book, format,
+      trim: { widthIn: res.page.trimWidthIn, heightIn: res.page.trimHeightIn },
+      pageLimits: trimAvailability(spec, format).pages ?? null,
+      fileSizeBytes: bytes.length, buildWarnings: res.warnings, images: res.images, isbnRegister: ctx.isbnRegister,
+    });
+    const extra = manuscriptChecks(await manuscriptDocs(ctx), ctx.project.book);
+    report = summarise(report.target, report.kind, platform, format.id, [...report.checks, ...extra]);
+    await ctx.host.writeText(res.pdfPath.replace(/_interior\.pdf$|\.pdf$/, '_preflight.txt'), formatPreflight(report));
+  }
+  return report;
+}
+
+/** Check a finished EPUB against one platform's ebook rules. */
+export async function preflightEpubFile(ctx: BuildContext, res: EpubExport, platform: PlatformId): Promise<PreflightReport> {
+  const spec = ctx.specs.platforms[platform];
+  if (!spec) throw new Error(`There is no spec file for ${platform}.`);
+  const cover = await findEbookCover(ctx);
+  const report = preflightEpub({
+    spec, book: ctx.project.book, format: res.assembled.format, check: res.check, fileSizeBytes: res.sizeBytes,
+    cover: cover ? { info: imageInfo(cover.data), sizeBytes: cover.data.length } : null,
+    buildWarnings: res.warnings, isbnRegister: ctx.isbnRegister,
+  });
+  const extra = manuscriptChecks(await manuscriptDocs(ctx), ctx.project.book);
+  const full = summarise(report.target, report.kind, platform, res.assembled.format.id, [...report.checks, ...extra]);
+  if (res.epubPath) await ctx.host.writeText(res.epubPath.replace(/\.epub$/, `_${platform}_preflight.txt`), formatPreflight(full));
+  return full;
 }

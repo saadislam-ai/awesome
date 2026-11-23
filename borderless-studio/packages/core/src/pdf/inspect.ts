@@ -66,6 +66,8 @@ export interface PdfPageInfo {
   colors: ColorFamily[];
   annotations: number;
   usesTransparency: boolean;
+  /** Smallest type size on the page in points; null when there is no text or the page was not analysed. */
+  minFontPt: number | null;
 }
 
 export interface PdfReport {
@@ -287,6 +289,8 @@ interface PageAnalysis {
   colors: Set<ColorFamily>;
   images: Omit<PdfImageInfo, 'page'>[];
   transparency: boolean;
+  /** Smallest type size drawn, points. Infinity when the page has no text. */
+  minFont: number;
 }
 
 const cloneState = (s: GState): GState => ({ ...s, ctm: [...s.ctm] as Matrix });
@@ -331,6 +335,8 @@ function analyse(r: Reader, content: Uint8Array, resources: PDFDict | undefined,
     }
     if (advance !== 0) {
       const m = multiply(tm, st.ctm);
+      const size = Math.abs(st.fontSize) * Math.hypot(m[2], m[3]);
+      if (size > 0 && size < out.minFont) out.minFont = size;
       const y0 = (f.descent / 1000) * st.fontSize + st.rise;
       const y1 = (f.ascent / 1000) * st.fontSize + st.rise;
       for (const [x, y] of [[0, y0], [advance, y0], [0, y1], [advance, y1]] as const) {
@@ -603,6 +609,7 @@ export async function inspectPdf(bytes: Uint8Array, opts: InspectOptions = {}): 
       colors: [],
       annotations: r.array(node.get(PDFName.of('Annots'))).length,
       usesTransparency: false,
+      minFontPt: null,
     };
     const resources = node.Resources();
     // Fonts on this page (including those only used inside form XObjects one level down).
@@ -640,7 +647,7 @@ export async function inspectPdf(bytes: Uint8Array, opts: InspectOptions = {}): 
     collectFonts(resources, 0);
 
     if (!opts.shallow && (!opts.pages || opts.pages.includes(number))) {
-      const analysis: PageAnalysis = { ink: emptyBox(), text: emptyBox(), colors: new Set(), images: [], transparency: false };
+      const analysis: PageAnalysis = { ink: emptyBox(), text: emptyBox(), colors: new Set(), images: [], transparency: false, minFont: Infinity };
       try {
         analyse(r, r.contents(node.Contents()), resources, IDENTITY, analysis, notes);
       } catch (e) {
@@ -648,6 +655,7 @@ export async function inspectPdf(bytes: Uint8Array, opts: InspectOptions = {}): 
       }
       info.ink = isEmptyBox(analysis.ink) ? null : analysis.ink;
       info.text = isEmptyBox(analysis.text) ? null : analysis.text;
+      info.minFontPt = Number.isFinite(analysis.minFont) ? Math.round(analysis.minFont * 100) / 100 : null;
       info.colors = [...analysis.colors].filter((c) => c !== 'pattern' || analysis.colors.size === 1);
       info.usesTransparency = analysis.transparency;
       for (const img of analysis.images) images.push({ page: number, ...img });

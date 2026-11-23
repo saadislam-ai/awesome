@@ -15,8 +15,8 @@
  *   bstudio new <parent folder> --title "..." --author "..." [--genre novel]
  */
 import {
-  assembleProject, bundledSpecsDir, createBook, exportEpub, exportInterior, isStale, loadSpecs, openBook, unverifiedSections,
-  GENRES, type BuildContext, type BuildWarning, type Genre, type PlatformId, type ToolId,
+  assembleProject, bundledSpecsDir, createBook, exportEpub, exportInterior, isStale, loadSpecs, openBook, preflightEpubFile, preflightInteriorFile, unverifiedSections,
+  GENRES, type BuildContext, type BuildWarning, type Genre, type PlatformId, type PreflightReport, type ToolId,
 } from '@borderless/core';
 import * as nodePath from 'node:path';
 import { NodeHost } from './nodeHost';
@@ -35,6 +35,16 @@ function printWarnings(list: BuildWarning[]): void {
   const icon = { fail: 'FAIL', warn: 'warn', info: 'info' } as const;
   for (const w of [...list].sort((a, b) => order[a.severity] - order[b.severity])) {
     console.log(`    [${icon[w.severity]}] ${w.message}`);
+  }
+}
+
+/** Print the outcome of a preflight: the verdict, then everything that is not a plain pass. */
+function printPreflight(report: PreflightReport): void {
+  const { pass, warn, fail } = report.counts;
+  console.log(`    preflight: ${report.ready ? 'ready to upload' : 'NOT READY'} (${pass} passed, ${warn} to look at, ${fail} failed)`);
+  for (const c of report.checks) {
+    if (c.status === 'pass' || c.status === 'info') continue;
+    console.log(`      [${c.status === 'fail' ? 'FAIL' : 'warn'}] ${c.title}: ${c.detail}`);
   }
 }
 
@@ -111,6 +121,11 @@ async function cmdBuild(host: NodeHost, dir: string): Promise<number> {
         }
       }
       printWarnings(res.warnings);
+      for (const platform of f.platforms.filter((p) => ctx.specs.platforms[p]?.ebook)) {
+        const pre = await preflightEpubFile(ctx, res, platform);
+        console.log(`    for ${platform}:`);
+        printPreflight(pre);
+      }
       if (!res.ok) failures++;
       continue;
     }
@@ -125,8 +140,10 @@ async function cmdBuild(host: NodeHost, dir: string): Promise<number> {
       if (res.pageCount) {
         console.log(`    trim ${res.page.trimWidthIn} x ${res.page.trimHeightIn} in, margins inside ${m.inside} outside ${m.outside} top ${m.top} bottom ${m.bottom} in${res.blankPagesAdded ? `, ${res.blankPagesAdded} blank page(s) added` : ''}`);
       }
-      printWarnings(res.warnings);
-      if (!res.ok) failures++;
+      printWarnings(res.warnings.filter((w) => w.severity === 'info'));
+      const pre = await preflightInteriorFile(ctx, res, platform);
+      printPreflight(pre);
+      if (!res.ok || !pre.ready) failures++;
     }
   }
   return failures ? 1 : 0;

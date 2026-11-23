@@ -40,3 +40,4 @@ export * from './pdf/pdfx';
 export * from './project/search';
 export * from './library/library';
 export * from './editor/cleaner';
+export * from './preflight/index';
