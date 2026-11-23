@@ -100,7 +100,7 @@ jobs:
       matrix:
         include:
           - name: macOS (Apple Silicon)
-            os: macos-14
+            os: macos-latest
             bundles: dmg
             artifact: borderless-studio-macos-apple-silicon
             files: |

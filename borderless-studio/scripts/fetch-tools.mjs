@@ -60,13 +60,38 @@ async function download(url, dest) {
   return createHash('sha256').update(buf).digest('hex');
 }
 
-function extract(archive, destDir) {
+/**
+ * Unpack an archive. Zip files are unpacked here in JavaScript, so nothing
+ * depends on which "tar" or "unzip" program a computer happens to have (on
+ * Windows the tar that comes with Git cannot read a path such as C:\...).
+ * The .tar.xz files Typst publishes for macOS and Linux go through the
+ * system tar, which reads them on both.
+ */
+async function extract(archive, destDir) {
   fs.mkdirSync(destDir, { recursive: true });
-  // bsdtar (macOS, Windows 10+) and GNU tar both read .tar.xz; bsdtar also reads .zip.
-  if (archive.endsWith('.zip') && process.platform !== 'win32' && process.platform !== 'darwin') {
-    execFileSync('unzip', ['-q', '-o', archive, '-d', destDir], { stdio: 'inherit' });
-  } else {
+  if (!archive.endsWith('.zip')) {
     execFileSync('tar', ['-xf', archive, '-C', destDir], { stdio: 'inherit' });
+    return;
+  }
+  let unzipSync;
+  try {
+    ({ unzipSync } = await import('fflate'));
+  } catch {
+    throw new Error('Run "npm install" first: unpacking needs a package from node_modules.');
+  }
+  const files = unzipSync(new Uint8Array(fs.readFileSync(archive)));
+  for (const [name, data] of Object.entries(files)) {
+    // Never write outside the destination, whatever the archive says.
+    const target = path.resolve(destDir, name);
+    if (target !== path.resolve(destDir) && !target.startsWith(path.resolve(destDir) + path.sep)) {
+      throw new Error(`Refusing to unpack "${name}": it points outside the destination folder.`);
+    }
+    if (name.endsWith('/')) {
+      fs.mkdirSync(target, { recursive: true });
+    } else {
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, data);
+    }
   }
 }
 
@@ -105,7 +130,7 @@ async function fetchTypst(triple) {
     const hash = await download(`https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/${asset.file}`, tmp);
     recordHash(asset.file, hash);
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'typst-'));
-    extract(tmp, tmpDir);
+    await extract(tmp, tmpDir);
     fs.mkdirSync(outDir, { recursive: true });
     fs.copyFileSync(path.join(tmpDir, asset.name, exe), outBin);
     for (const extra of ['LICENSE', 'NOTICE']) {
@@ -138,7 +163,7 @@ async function fetchEpubCheck() {
   const hash = await download(`https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK_VERSION}/${file}`, tmp);
   recordHash(file, hash);
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'epubcheck-'));
-  extract(tmp, tmpDir);
+  await extract(tmp, tmpDir);
   fs.rmSync(outDir, { recursive: true, force: true });
   fs.cpSync(path.join(tmpDir, `epubcheck-${EPUBCHECK_VERSION}`), outDir, { recursive: true });
   fs.rmSync(tmpDir, { recursive: true, force: true });

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "fflate": "^0.8.2",
+    "jpeg-js": "^0.4.4",
     "mdast-util-directive": "^3.0.0",
     "mdast-util-from-markdown": "^2.0.2",
     "mdast-util-gfm-footnote": "^2.0.0",
