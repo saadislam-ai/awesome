@@ -40,6 +40,7 @@ export interface SheetInput {
   ingramDiscountPercent?: number;
 }
 
+const LANGUAGE_NAME: Record<string, string> = { en: 'English', bn: 'Bengali (Bangla)', fr: 'French', de: 'German', es: 'Spanish', it: 'Italian', hi: 'Hindi', ar: 'Arabic', pt: 'Portuguese', nl: 'Dutch', ja: 'Japanese' };
 const INK: Record<string, string> = { bw: 'Black and white', 'standard-color': 'Standard colour', 'premium-color': 'Premium colour' };
 
 function splitName(name: string): { first: string; last: string } {
@@ -62,7 +63,7 @@ export function listingSheet(input: SheetInput): ListingSheet {
   const prices = input.prices ?? [];
   const priceLines = prices.filter((p) => p.price !== null).map((p) => `${p.marketLabel}: ${p.currency} ${p.price!.toFixed(p.decimals)}${p.taxNote ? ` (${p.taxNote})` : ''}${p.plan ? `, ${p.plan}% royalty plan` : ''}`).join('\n');
 
-  add('Language', book.language);
+  add('Language', LANGUAGE_NAME[book.language.split(/[-_]/)[0].toLowerCase()] ?? book.language);
   add('Title', book.title);
   add('Subtitle', book.subtitle);
   if (book.series) add('Series', `${book.series.name}${book.series.number ? `, book ${book.series.number}` : ''}`);

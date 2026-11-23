@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { BookOpen, BookType, FileOutput, Image as ImageIcon, Library as LibraryIcon, PenLine, Settings as SettingsIcon } from 'lucide-react';
+import { BookOpen, BookType, FileOutput, Image as ImageIcon, Library as LibraryIcon, PenLine, Send, Settings as SettingsIcon } from 'lucide-react';
 import { useStore, type View } from './state/store';
 import { LibraryView } from './views/LibraryView';
 import { WriterView } from './views/WriterView';
 import { ExportView } from './views/ExportView';
 import { BookView } from './views/book/BookView';
 import { CoverView } from './views/CoverView';
+import { PublishView } from './views/publish/PublishView';
 import { SettingsView } from './views/SettingsView';
 
 const NAV: { id: View; label: string; icon: typeof PenLine; needsBook: boolean }[] = [
@@ -14,6 +15,7 @@ const NAV: { id: View; label: string; icon: typeof PenLine; needsBook: boolean }
   { id: 'book', label: 'Book', icon: BookType, needsBook: true },
   { id: 'cover', label: 'Cover', icon: ImageIcon, needsBook: true },
   { id: 'export', label: 'Export', icon: FileOutput, needsBook: true },
+  { id: 'publish', label: 'Publish', icon: Send, needsBook: true },
 ];
 
 export function App() {
@@ -72,6 +74,7 @@ export function App() {
         {current === 'book' && project && <BookView />}
         {current === 'cover' && project && <CoverView />}
         {current === 'export' && project && <ExportView />}
+        {current === 'publish' && project && <PublishView />}
         {current === 'settings' && <SettingsView />}
       </div>
       <div className="toasts" aria-live="polite">

@@ -385,3 +385,23 @@ html[data-theme="dark"] .cm-critic-highlight { background: #86691566; }
 .issue.ok { background: transparent; }
 h3 { font-size: 13px; margin: 0 0 6px; }
 .target-block { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+/* ------------------------------------------------------------ publish screen */
+table.prices td { vertical-align: top; padding-top: 7px; padding-bottom: 7px; }
+table.prices td.right, table.prices th.right { text-align: right; }
+.input.price { width: 96px; text-align: right; }
+.kdp-preview { border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-top: 8px; background: #fff; color: #111; font-family: Arial, Helvetica, sans-serif; font-size: 13.5px; line-height: 1.5; max-height: 360px; overflow-y: auto; }
+.kdp-preview p { margin: 0 0 0.8em; }
+.kdp-preview h4, .kdp-preview h5, .kdp-preview h6 { margin: 0.6em 0 0.4em; font-size: 15px; }
+.kdp-preview ul, .kdp-preview ol { margin: 0 0 0.8em 1.4em; padding: 0; }
+.thema-hit { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 4px 2px; cursor: pointer; border-radius: 6px; font-size: 12.5px; }
+.thema-hit:hover { background: var(--sunken); }
+.thema-hit:disabled { opacity: 0.45; cursor: default; }
+.sheet { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; max-height: 620px; overflow-y: auto; }
+.sheet-row { border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+.sheet-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.sheet-value { white-space: pre-wrap; word-break: break-word; }
+.sheet-value.long { font-size: 12.5px; background: var(--sunken); border-radius: 6px; padding: 6px 8px; max-height: 150px; overflow-y: auto; }
+.check-item { display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px solid var(--border); }
+.check-item:first-of-type { border-top: 0; }
+.check-item input { margin-top: 3px; width: 15px; height: 15px; accent-color: var(--accent); }

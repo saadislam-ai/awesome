@@ -12,7 +12,7 @@ import { createHost, isTauri } from '../host';
 import { pushToolPaths } from '../host/tauriHost';
 import { loadEditorFonts } from '../editor/fonts';
 
-export type View = 'library' | 'write' | 'book' | 'cover' | 'export' | 'settings';
+export type View = 'library' | 'write' | 'book' | 'cover' | 'export' | 'publish' | 'settings';
 export type ToastKind = 'info' | 'ok' | 'warn' | 'fail';
 
 export interface Toast {
