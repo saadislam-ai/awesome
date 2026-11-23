@@ -309,6 +309,7 @@ table.table tr:last-child td { border-bottom: 0; }
 .cm-critic-ins { color: var(--ok); text-decoration: underline; text-decoration-color: var(--ok); text-underline-offset: 3px; background: var(--ok-soft); }
 .cm-critic-del { color: var(--fail); text-decoration: line-through; background: var(--fail-soft); }
 .cm-critic-comment { font-family: var(--font-ui); font-size: 0.74em; color: var(--warn); background: var(--warn-soft); border-radius: 3px; }
+.cm-critic-sign { font-family: var(--font-ui); font-size: 0.5em; color: var(--text-faint); vertical-align: super; letter-spacing: 0; }
 .cm-critic-highlight { background: #ffe58a66; }
 html[data-theme="dark"] .cm-critic-highlight { background: #86691566; }
 .cm-entity { border-bottom: 1px dotted var(--gold); }
@@ -426,7 +427,7 @@ table.prices td.right, table.prices th.right { text-align: right; }
 .inspector .head .count { font-size: 10px; background: var(--fail-soft); color: var(--fail); border-radius: 8px; padding: 0 5px; margin-left: 2px; }
 /* Inspector tabs: only the open tab shows its name, so five tabs fit the narrow pane. */
 .inspector .head .tabs { display: flex; width: 100%; }
-.inspector .head .tabs button { display: inline-flex; align-items: center; gap: 5px; padding: 0 9px; }
+.inspector .head .tabs button { display: inline-flex; align-items: center; gap: 5px; padding: 0 7px; }
 .inspector .head .tabs button .lbl { display: none; }
 .inspector .head .tabs button.on .lbl { display: inline; }
 .inspector .head .count.neutral { background: var(--accent-soft); color: var(--accent); }
@@ -471,3 +472,8 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
 .bible-fields { margin-top: 12px; }
 .reference-pane { flex: 1; min-width: 0; display: flex; flex-direction: column; border-left: 1px solid var(--border); }
 .reference-text { flex: 1; overflow: auto; padding: 22px 28px; white-space: pre-wrap; line-height: 1.6; color: var(--text-dim); }
+.assistant { display: flex; flex-direction: column; gap: 8px; }
+.assistant-tasks { display: grid; gap: 6px; }
+.assistant-tasks .btn { justify-content: flex-start; height: auto; padding: 7px 10px; flex-wrap: wrap; text-align: left; }
+.assistant-tasks .btn .small { flex-basis: 100%; font-weight: 400; }
+.assistant-text { margin-top: 8px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--raised); white-space: pre-wrap; line-height: 1.5; max-height: 320px; overflow: auto; }

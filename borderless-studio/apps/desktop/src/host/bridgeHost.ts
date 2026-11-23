@@ -48,6 +48,11 @@ export function createBridgeHost(base = 'http://127.0.0.1:8787'): Host {
       query: <T,>(sql: string, params?: unknown[]) => rpc<T[]>('dbQuery', { sql, params }),
     },
     http: (req: HttpRequest) => rpc<HttpResponse>('http', { req }),
+    secrets: {
+      get: (name) => rpc<string | null>('secretGet', { name }),
+      set: (name, value) => rpc<'keychain' | 'file'>('secretSet', { name, value }),
+      remove: (name) => rpc<void>('secretRemove', { name }),
+    },
     ui: {
       pickFolder: async (title, defaultPath) => ask(title, defaultPath ?? ''),
       pickFile: async (title, _filters, defaultPath) => ask(title, defaultPath ?? ''),

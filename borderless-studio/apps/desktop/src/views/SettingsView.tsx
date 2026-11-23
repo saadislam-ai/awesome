@@ -7,6 +7,7 @@ import { AlertTriangle, CheckCircle2, CircleAlert, ExternalLink, FolderOpen } fr
 import { FONT_CATALOG, bundledSpecsDir, isStale, joinPath, monthsSince, unverifiedSections, type PublisherProfile, type ToolId, type ToolInfo } from '@borderless/core';
 import { useStore } from '../state/store';
 import { Field, Seg } from '../ui/kit';
+import { AssistantSettings } from './AssistantSettings';
 
 const TOOLS: { id: ToolId; name: string; purpose: string; needed: boolean }[] = [
   { id: 'typst', name: 'Typst', purpose: 'Typesets print interiors, covers and graphics', needed: true },
@@ -99,6 +100,8 @@ export function SettingsView() {
               </div>
             </div>
           )}
+
+          <AssistantSettings />
 
           <div className="card">
             <h2>Tools</h2>

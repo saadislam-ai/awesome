@@ -3,7 +3,7 @@
  * tracked changes and typography, version history, and search across the book.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Check, ChevronRight, History, ListChecks, MessageSquare, RotateCcw, Search, SlidersHorizontal, SpellCheck, X } from 'lucide-react';
+import { Check, ChevronRight, History, ListChecks, MessageSquare, RotateCcw, Search, SlidersHorizontal, Sparkles, SpellCheck, X } from 'lucide-react';
 import {
   KIND_TITLES, STATUSES, applyAllChanges, applyEdits, changeResult, findDashes, parseCritic, replaceInProject, searchProject, summariseEdits,
   typographyEdits, type BinderNode, type CriticSpan, type DocStatus, type SearchMatch, type SnapshotInfo,
@@ -13,8 +13,9 @@ import { Field, Modal, fmtNumber } from '../ui/kit';
 import type { EditorHandle } from '../editor/MarkdownEditor';
 import type { SpellStatus } from '../editor/spell';
 import { CheckPanel } from './CheckPanel';
+import { AssistantPanel } from './AssistantPanel';
 
-export type InspectorTab = 'details' | 'review' | 'check' | 'history' | 'search';
+export type InspectorTab = 'details' | 'review' | 'check' | 'assistant' | 'history' | 'search';
 
 interface Props {
   node: BinderNode | null;
@@ -29,6 +30,8 @@ interface Props {
   /** Words of the open document that the spell checker does not know. */
   misspelled: Set<string>;
   spellStatus: SpellStatus;
+  /** Words in the current selection, for the assistant. */
+  selectionWords: number;
 }
 
 export function Inspector(props: Props) {
@@ -43,6 +46,7 @@ export function Inspector(props: Props) {
             <ListChecks size={14} /><span className="lbl">Review</span>{pending > 0 && <span className="count neutral">{pending}</span>}
           </button>
           <button className={tab === 'check' ? 'on' : ''} onClick={() => props.onTab('check')} title="Spelling, style and consistency"><SpellCheck size={14} /><span className="lbl">Check</span>{props.misspelled.size > 0 && <span className="count">{props.misspelled.size}</span>}</button>
+          <button className={tab === 'assistant' ? 'on' : ''} onClick={() => props.onTab('assistant')} title="Writing assistant (optional, off unless you switch it on)"><Sparkles size={14} /><span className="lbl">Assistant</span></button>
           <button className={tab === 'history' ? 'on' : ''} onClick={() => props.onTab('history')} title="Earlier versions"><History size={14} /><span className="lbl">History</span></button>
           <button className={tab === 'search' ? 'on' : ''} onClick={() => props.onTab('search')} title="Search the whole book"><Search size={14} /><span className="lbl">Search</span></button>
         </div>
@@ -52,6 +56,7 @@ export function Inspector(props: Props) {
         {tab === 'review' && <Review {...props} />}
         {tab === 'history' && (node?.file ? <Snapshots node={node} editor={props.editor} onReload={props.onReload} /> : <div className="dim">Open a document to see its earlier versions.</div>)}
         {tab === 'check' && <CheckPanel text={props.text} editor={props.editor} misspelled={props.misspelled} spellStatus={props.spellStatus} />}
+        {tab === 'assistant' && (node?.file ? <AssistantPanel editor={props.editor} selectionWords={props.selectionWords} onReview={() => props.onTab('review')} /> : <div className="dim">Open a document to use the assistant.</div>)}
         {tab === 'search' && <SearchPanel editor={props.editor} onReload={props.onReload} />}
       </div>
     </div>

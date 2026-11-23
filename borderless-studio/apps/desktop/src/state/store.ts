@@ -90,6 +90,10 @@ export const useStore = create<State>((set, get) => ({
       const override = new URLSearchParams(window.location.search).get('library');
       if (override) settings.libraryDir = override;
       if (!settings.libraryDir) settings.libraryDir = await defaultLibraryDir(host);
+      // An API key that an earlier version kept in the settings file moves to the system keychain.
+      if (settings.ai.claudeApiKey && host.secrets) {
+        await host.secrets.set('claude-api-key', settings.ai.claudeApiKey).then(() => { settings.ai.claudeApiKey = ''; }, () => undefined);
+      }
       document.documentElement.dataset.theme = settings.theme;
       if (isTauri()) await pushToolPaths(settings.toolPaths).catch(() => undefined);
       const library = await Library.open(host, settings.libraryDir);

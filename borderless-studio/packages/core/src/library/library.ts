@@ -57,7 +57,10 @@ export interface AppSettings {
     ollamaUrl: string;
     ollamaModel: string;
     claudeModel: string;
-    /** Stored only in the app's own settings file on this computer, never in a book or library folder. */
+    /**
+     * No longer used: the key is kept in the operating system's keychain (see Host.secrets).
+     * A key found here from an earlier version is moved there and this field is emptied.
+     */
     claudeApiKey: string;
   };
 }
@@ -77,7 +80,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   lastBook: '',
   backup: { dir: '', auto: true, keep: 10 },
   gitBooks: [],
-  ai: { enabled: false, provider: 'ollama', ollamaUrl: 'http://localhost:11434', ollamaModel: 'llama3.1', claudeModel: 'claude-sonnet-5-5', claudeApiKey: '' },
+  ai: { enabled: false, provider: 'ollama', ollamaUrl: 'http://localhost:11434', ollamaModel: 'llama3.1', claudeModel: 'claude-opus-5-5', claudeApiKey: '' },
 };
 
 export interface PublisherProfile {

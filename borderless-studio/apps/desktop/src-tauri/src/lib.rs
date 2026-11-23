@@ -693,6 +693,100 @@ fn db_query(app: AppHandle, state: State<'_, AppState>, sql: String, params: Opt
 
 /// Open a file, folder or web address with the system's default program, or
 /// show a file in Finder / Explorer.
+/* ------------------------------------------------------------------ */
+/* Secrets                                                             */
+/* ------------------------------------------------------------------ */
+
+/// The secrets this app may keep. A fixed list, so the interface cannot be used to read anything else from the keychain.
+const SECRET_NAMES: [&str; 1] = ["claude-api-key"];
+const SECRET_SERVICE: &str = "Borderless Studio";
+
+fn check_secret_name(name: &str) -> Result<(), String> {
+    if SECRET_NAMES.contains(&name) {
+        Ok(())
+    } else {
+        Err(format!("\"{name}\" is not a secret this app keeps."))
+    }
+}
+
+/// macOS and Windows have a keychain that survives restarts and is protected by the user's login.
+/// On Linux (used for development only) there is no such store that works everywhere, so a private file is used.
+fn keychain_available() -> bool {
+    !cfg!(target_os = "linux")
+}
+
+fn secrets_file(app: &AppHandle) -> Result<PathBuf, String> {
+    Ok(app.path().app_data_dir().map_err(err)?.join("secrets.json"))
+}
+
+fn read_secrets_file(app: &AppHandle) -> HashMap<String, String> {
+    secrets_file(app).ok().and_then(|p| fs::read_to_string(p).ok()).and_then(|t| serde_json::from_str(&t).ok()).unwrap_or_default()
+}
+
+fn write_secrets_file(app: &AppHandle, map: &HashMap<String, String>) -> Result<(), String> {
+    let path = secrets_file(app)?;
+    if map.is_empty() {
+        let _ = fs::remove_file(&path);
+        return Ok(());
+    }
+    atomic_write(&path, serde_json::to_string_pretty(map).map_err(err)?.as_bytes()).map_err(err)?;
+    // Readable by the owner only.
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let _ = fs::set_permissions(&path, fs::Permissions::from_mode(0o600));
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn secret_get(app: AppHandle, name: String) -> Result<Option<String>, String> {
+    check_secret_name(&name)?;
+    if keychain_available() {
+        match keyring::Entry::new(SECRET_SERVICE, &name).and_then(|e| e.get_password()) {
+            Ok(value) => return Ok(Some(value)),
+            Err(keyring::Error::NoEntry) => {}
+            Err(e) => return Err(format!("The system keychain could not be read: {e}")),
+        }
+    }
+    Ok(read_secrets_file(&app).get(&name).cloned())
+}
+
+/// Stores a secret and says where it went: "keychain" or "file".
+#[tauri::command]
+fn secret_set(app: AppHandle, name: String, value: String) -> Result<String, String> {
+    check_secret_name(&name)?;
+    let mut file = read_secrets_file(&app);
+    if keychain_available() {
+        let entry = keyring::Entry::new(SECRET_SERVICE, &name).map_err(|e| format!("The system keychain could not be opened: {e}"))?;
+        entry.set_password(&value).map_err(|e| format!("The system keychain did not accept the key: {e}"))?;
+        // A copy left in the file by an earlier version must not outlive the move to the keychain.
+        if file.remove(&name).is_some() {
+            write_secrets_file(&app, &file)?;
+        }
+        return Ok("keychain".to_string());
+    }
+    file.insert(name, value);
+    write_secrets_file(&app, &file)?;
+    Ok("file".to_string())
+}
+
+#[tauri::command]
+fn secret_remove(app: AppHandle, name: String) -> Result<(), String> {
+    check_secret_name(&name)?;
+    if keychain_available() {
+        match keyring::Entry::new(SECRET_SERVICE, &name).and_then(|e| e.delete_credential()) {
+            Ok(()) | Err(keyring::Error::NoEntry) => {}
+            Err(e) => return Err(format!("The key could not be removed from the system keychain: {e}")),
+        }
+    }
+    let mut file = read_secrets_file(&app);
+    if file.remove(&name).is_some() {
+        write_secrets_file(&app, &file)?;
+    }
+    Ok(())
+}
+
 #[tauri::command]
 fn os_open(target: String, reveal: Option<bool>) -> Result<(), String> {
     let is_url = target.starts_with("https://") || target.starts_with("http://") || target.starts_with("mailto:");
@@ -812,6 +906,9 @@ pub fn run() {
             db_exec,
             db_query,
             os_open,
+            secret_get,
+            secret_set,
+            secret_remove,
             http_request
         ])
         .run(tauri::generate_context!())

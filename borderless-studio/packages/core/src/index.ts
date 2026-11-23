@@ -62,4 +62,6 @@ export * from './docx/write';
 export * from './import/index';
 export * from './backup/index';
 export * from './bible/index';
+export * from './ai/diff';
+export * from './ai/index';
 export * from './epub/preview';

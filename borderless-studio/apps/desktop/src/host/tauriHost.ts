@@ -37,6 +37,11 @@ export function createTauriHost(): Host {
       query: <T,>(sql: string, params?: unknown[]) => invoke<T[]>('db_query', { sql, params: params ?? [] }),
     },
     http: (req: HttpRequest) => invoke<HttpResponse>('http_request', { req }),
+    secrets: {
+      get: (name) => invoke<string | null>('secret_get', { name }),
+      set: (name, value) => invoke<'keychain' | 'file'>('secret_set', { name, value }),
+      remove: (name) => invoke<void>('secret_remove', { name }),
+    },
     ui: {
       pickFolder: async (title, defaultPath) => {
         const r = await open({ directory: true, multiple: false, title, defaultPath });

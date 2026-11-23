@@ -400,7 +400,7 @@ export function WriterView() {
               onPick={(id) => setSplitId(id || null)} onSwap={() => void swapSplit()} onClose={() => setSplitId(undefined)} refreshKey={splitRefresh} />
           )}
           {mode === 'text' && showInspector && (
-            <Inspector node={node} tab={tab} onTab={setTab} editor={editor} text={text} words={stats.words} onReload={() => setReloadKey((k) => k + 1)} misspelled={misspelled} spellStatus={spellStatus} />
+            <Inspector node={node} tab={tab} onTab={setTab} editor={editor} text={text} words={stats.words} onReload={() => setReloadKey((k) => k + 1)} misspelled={misspelled} spellStatus={spellStatus} selectionWords={stats.selectionWords} />
           )}
           {spellMenu && <Menu x={spellMenu.x} y={spellMenu.y} items={spellItems()} onClose={() => setSpellMenu(null)} />}
         </div>

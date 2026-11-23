@@ -136,7 +136,8 @@ function buildDecorations(view: EditorView): DecorationSet {
       if (s.endWithMeta > s.end) {
         const m0 = start + s.end;
         const m1 = start + s.endWithMeta;
-        decos.push(markDeco('cm-critic-comment').range(m0, m1));
+        // A bare signature ("who suggested this") is drawn small, so a passage with many changes stays readable.
+        decos.push(markDeco(s.note ? 'cm-critic-comment' : 'cm-critic-sign').range(m0, m1));
         covered.push([m0, m1]);
       }
     }

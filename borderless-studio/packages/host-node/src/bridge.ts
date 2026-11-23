@@ -12,7 +12,7 @@
 import * as http from 'node:http';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { ToolId } from '@borderless/core';
+import type { SecretName, ToolId } from '@borderless/core';
 import { NodeHost } from './nodeHost';
 
 const PORT = Number(process.env.BRIDGE_PORT ?? 8787);
@@ -55,6 +55,9 @@ async function rpc(method: string, a: Json): Promise<unknown> {
     case 'dbExec': return host.db.exec(s('sql'), (a.params as unknown[]) ?? []);
     case 'dbQuery': return host.db.query(s('sql'), (a.params as unknown[]) ?? []);
     case 'http': return host.http(a.req as never);
+    case 'secretGet': return host.secrets.get(s('name') as SecretName);
+    case 'secretSet': return host.secrets.set(s('name') as SecretName, s('value'));
+    case 'secretRemove': return host.secrets.remove(s('name') as SecretName);
     case 'os': return { os: host.os };
     default: throw new Error(`Unknown bridge method: ${method}`);
   }

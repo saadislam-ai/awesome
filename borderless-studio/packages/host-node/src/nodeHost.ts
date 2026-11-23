@@ -317,6 +317,38 @@ export class NodeHost implements Host {
     };
   }
 
+  /**
+   * Secrets for the command line tool and for development: a private file in
+   * the user data folder (readable by the owner only). The desktop app uses
+   * the system keychain instead.
+   */
+  get secrets(): NonNullable<Host['secrets']> {
+    const file = path.join(this.userDataDir, 'secrets.json');
+    const read = async (): Promise<Record<string, string>> => {
+      try {
+        return JSON.parse(await fsp.readFile(file, 'utf8')) as Record<string, string>;
+      } catch {
+        return {};
+      }
+    };
+    const write = async (map: Record<string, string>): Promise<void> => {
+      await fsp.mkdir(this.userDataDir, { recursive: true });
+      await fsp.writeFile(file, JSON.stringify(map, null, 2), { mode: 0o600 });
+    };
+    return {
+      get: async (name) => (await read())[name] ?? null,
+      set: async (name, value) => {
+        await write({ ...(await read()), [name]: value });
+        return 'file';
+      },
+      remove: async (name) => {
+        const map = await read();
+        delete map[name];
+        await write(map);
+      },
+    };
+  }
+
   async http(req: HttpRequest): Promise<HttpResponse> {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), req.timeoutMs ?? 60_000);

@@ -15,6 +15,9 @@
 /** External programs the app may run. The host decides where they live. */
 export type ToolId = 'typst' | 'epubcheck' | 'java' | 'pandoc' | 'git' | 'kindle-previewer';
 
+/** The secrets the app may keep. A fixed list, checked again by the host. */
+export type SecretName = 'claude-api-key';
+
 export interface FileStat {
   isFile: boolean;
   isDir: boolean;
@@ -142,6 +145,17 @@ export interface Host {
 
   /** Present in the app and the Node host; the index is always rebuildable. */
   db?: HostDb;
+  /**
+   * A small store for secrets (the API key of the optional assistant). In
+   * the app this is the operating system's keychain; set() resolves to where
+   * the secret went, "keychain" or "file" (a private file, where there is no
+   * keychain).
+   */
+  secrets?: {
+    get(name: SecretName): Promise<string | null>;
+    set(name: SecretName, value: string): Promise<'keychain' | 'file'>;
+    remove(name: SecretName): Promise<void>;
+  };
   /** Only used by opt in online features (AI assistant, rate updates). */
   http?(req: HttpRequest): Promise<HttpResponse>;
   ui?: HostUi;
