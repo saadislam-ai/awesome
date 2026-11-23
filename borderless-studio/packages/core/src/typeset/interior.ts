@@ -102,7 +102,7 @@ export function splitWords(inlines: Inline[]): Inline[][] {
   return words.filter((w, i) => w.length > 0 || i === 0);
 }
 
-const OPENING_QUOTES = /^[“‘"'«‹(\[]+/;
+const OPENING_QUOTES = /^[\u201C\u2018"'\u00AB\u2039(\[]+/;
 
 /** First letter of the paragraph for a drop capital, or null when the text does not start with a cased letter. */
 function takeCap(words: Inline[][]): { cap: string; words: Inline[][] } | null {

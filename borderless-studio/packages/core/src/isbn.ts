@@ -13,7 +13,7 @@ export interface IsbnCheck {
 
 /** Remove hyphens, spaces and an "ISBN" prefix. */
 export function cleanIsbn(input: string): string {
-  return input.replace(/^\s*isbn(?:-1[03])?:?\s*/i, '').replace(/[\s‐-―-]/g, '').toUpperCase();
+  return input.replace(/^\s*isbn(?:-1[03])?:?\s*/i, '').replace(/[\s\u2010-\u2015-]/g, '').toUpperCase();
 }
 
 /** Check digit for the first 12 digits of an ISBN-13 (weights 1 and 3 alternating). */

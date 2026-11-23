@@ -1,0 +1,1496 @@
+{
+  "meta": {
+    "platform": "Draft2Digital (ebook distribution and D2D Print)",
+    "researched_on": "2026-11-23",
+    "method": "Pages fetched with curl from draft2digital.com, converted to plain text and saved under pages/. Every 'quote' below was machine-checked to be a substring of the saved page named in 'saved_page' (whitespace collapsed).",
+    "quote_conventions": [
+      "Quotes are verbatim from the saved page text with runs of whitespace collapsed to one space.",
+      "List items appear in the saved text as lines starting with '- '; a quote that spans several list items therefore contains ' - ' between them.",
+      "Table rows are quoted with cells joined by ' | '.",
+      "The print calculator is a JavaScript page. Its quotes come from the inline script in the page HTML and from the script bundle the page loads; the saved page file says which part is which.",
+      "Quotes from podcast transcripts are spoken remarks published on the official blog and are labelled as such."
+    ],
+    "verified_false_means": "The item could not be found on an official page. It carries a 'note' and no number was filled in from memory.",
+    "derived_true_means": "A conclusion drawn here from quoted facts, not a statement made by Draft2Digital.",
+    "pages_directory": "/tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages",
+    "official_hosts_used": [
+      "draft2digital.com (www.draft2digital.com redirects to it)",
+      "draft2digital-prod-static.s3.amazonaws.com (script bundle loaded by the print calculator page)"
+    ],
+    "official_hosts_unreachable": [
+      "help.draft2digital.com"
+    ]
+  },
+  "account_fees": {
+    "summary": "Since April 2026 a new D2D account must pay a one-time USD 20 activation fee before it can publish, and a USD 12 annual maintenance fee applies when the account earns under USD 100 in a year. This applies even if books are listed for free.",
+    "activation_fee_usd": {
+      "value": 20,
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "For accounts that want to publish, there is a non-refundable, one-time activation fee of $20 (USD) for new accounts and an annual maintenance fee of $12 (USD) for accounts that earn less than one-hundred dollars a year in book sales."
+    },
+    "maintenance_fee_usd_per_year": {
+      "value": 12,
+      "source": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/",
+      "saved_page": "pages/d2d_blog_activation_maintenance_fees.txt",
+      "quote": "Annual Maintenance Fee: An annual maintenance fee of $12 will apply to accounts whose earnings from book sales, meaning your net proceeds after D2D’s commission, total less than $100 over the preceding 12-month period."
+    },
+    "maintenance_fee_waiver_threshold_usd": {
+      "value": 100,
+      "source": "https://draft2digital.com/terms-of-service/",
+      "saved_page": "pages/d2d_terms_of_service.txt",
+      "quote": "The annual Account Maintenance Fee shall be waived if your account earns $100 USD or more in royalties over the prior twelve-month period."
+    },
+    "announcement": {
+      "source": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/",
+      "saved_page": "pages/d2d_blog_activation_maintenance_fees.txt",
+      "quote": "For the first time in our history, we’re introducing account activation and maintenance fees.",
+      "date": "2026-04-14"
+    },
+    "existing_accounts_exempt_from_activation": {
+      "source": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/",
+      "saved_page": "pages/d2d_blog_activation_maintenance_fees.txt",
+      "quote": "Activation Fee for New Accounts: If you already have a D2D account, the activation fee doesn’t apply to you. New accounts will include a one-time fee of $20 (USD)."
+    },
+    "maintenance_start": {
+      "source": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/",
+      "saved_page": "pages/d2d_blog_activation_maintenance_fees.txt",
+      "quote": "Maintenance fees will start going into effect in 30 days, on May 14, 2026, and will be based on your account anniversary date."
+    },
+    "must_pay_before_publishing": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "All accounts must pay an activation fee and complete tax verification before publication is allowed."
+    },
+    "tax_form_needed_even_for_free_books": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "You must submit a tax form, even if you intend to list your book(s) for free."
+    },
+    "no_fee_when_nothing_is_distributed": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "Accounts with no titles in distribution (no active request to list at stores) are not subject to the maintenance fee."
+    },
+    "first_year": {
+      "terms": {
+        "source": "https://draft2digital.com/terms-of-service/",
+        "saved_page": "pages/d2d_terms_of_service.txt",
+        "quote": "To activate distribution privileges, a one-time Account Activation Fee is required, which also covers the first year of account maintenance. After the first year of a new account, an Account Maintenance Fee of $12 USD is charged annually for as long as you have Works distributed through your Program account."
+      },
+      "home_page": {
+        "source": "https://draft2digital.com/",
+        "saved_page": "pages/d2d_home.txt",
+        "quote": "we have a nominal, one-time activation fee that’ll last the life of your account, and an annual maintenance that’s waived your first year."
+      }
+    },
+    "billing": {
+      "source": "https://draft2digital.com/terms-of-service/",
+      "saved_page": "pages/d2d_terms_of_service.txt",
+      "quote": "Account Maintenance Fees are billed against royalties due and owing to you, unless such royalties are insufficient in which case we will charge the difference to your account."
+    },
+    "negative_balance_consequence": {
+      "source": "https://draft2digital.com/terms-of-service/",
+      "saved_page": "pages/d2d_terms_of_service.txt",
+      "quote": "If your account carries a negative balance for more than thirty (30) consecutive days, we reserve the right to terminate this Agreement, suspend or close your Program accounts, and/or cease all distribution of your Works."
+    },
+    "abandoned_accounts": {
+      "source": "https://draft2digital.com/terms-of-service/updates/",
+      "saved_page": "pages/d2d_terms_of_service_updates.txt",
+      "quote": "At Draft2Digital’s discretion, accounts for which the user has not logged in at least once in the prior 12 months are now subject to account closure and removal of books from distribution."
+    },
+    "terms_effective_date": {
+      "source": "https://draft2digital.com/terms-of-service/",
+      "saved_page": "pages/d2d_terms_of_service.txt",
+      "quote": "Effective April 14, 2026",
+      "value": "2026-04-14"
+    },
+    "free_books_and_the_100_dollar_waiver": {
+      "derived": true,
+      "text": "A catalogue made only of free books earns nothing, so it stays under the USD 100 waiver threshold and the USD 12 annual fee applies after the first year."
+    }
+  },
+  "1_ebook": {
+    "accepted_source_formats": {
+      "value": [
+        ".doc",
+        ".docx",
+        ".rtf",
+        ".odt",
+        ".txt",
+        ".epub"
+      ],
+      "evidence": [
+        {
+          "source": "https://draft2digital.com/faq/",
+          "saved_page": "pages/d2d_faq.txt",
+          "quote": "The most popular file format that authors upload is a Word document. Upload your book in .doc or .docx file format, and we'll convert your manuscript into an ebook or print book. Anything Word can read, we can read. (RTF, OTF, TXT, too!)"
+        },
+        {
+          "source": "https://draft2digital.com/faq/",
+          "saved_page": "pages/d2d_faq.txt",
+          "quote": "Please submit your digital manuscripts and related materials through our designated digital upload system as a word doc, docx, odt, rtf, or epub file format."
+        },
+        {
+          "source": "https://draft2digital.com/steps/",
+          "saved_page": "pages/d2d_steps.txt",
+          "quote": "All you need to get started is a Word document (.doc or .docx format), RTF, or any other file type Word can read."
+        }
+      ],
+      "note": "Two answers print 'OTF' (a font format); the 'file types we will not accept' answer on the same page prints 'odt'. ODT is the reading used here; the 'OTF' spelling is D2D's.",
+      "epub_ebook_only": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "If you already have an epub of your own, Draft2Digital accepts epub files for ebook, but not print. We won't make any changes to your epub formatting, but we'll gladly distribute it to all our digital stores for you."
+      },
+      "pdf_for_ebook": {
+        "verified": false,
+        "note": "No D2D page lists PDF as an ebook source format. PDF is documented only as a print interior upload."
+      },
+      "conversion_outputs": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Convert complete manuscript Word documents (.doc .docx, .rtf, .otf) to beautiful epub, mobi, or PDF."
+      }
+    },
+    "epub_requirements": {
+      "passed_through_unchanged": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Epub files are mostly passed through Draft2Digital’s system without conversion, but you can choose for D2D to include automated end matter if you choose."
+      },
+      "validated_with_epubcheck": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital will validate all user uploaded epubs using the Epubcheck tool which ensures that an epub will work on an standards-compliant epub reader."
+      },
+      "epubcheck_tool_url": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "You can test your books against the newest version of EpubCheck here <https://draft2digital.com/book/epubcheck/upload>."
+      },
+      "if_invalid": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "If your book fails Epubcheck and cannot be automatically repaired you may see the message “Warning – Invalid Epub.” You can still continue to publish your file, but you will not be able to publish to Apple Books, Amazon, Tolino, OverDrive, Hoopla, cloudLibrary, Vivlio, and BorrowBox. These stores all require valid epubs.",
+        "stores_requiring_valid_epub": [
+          "Apple Books",
+          "Amazon",
+          "Tolino",
+          "OverDrive",
+          "Hoopla",
+          "cloudLibrary",
+          "Vivlio",
+          "BorrowBox"
+        ]
+      },
+      "auto_repair": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital will automatically try to repair common problems."
+      },
+      "no_template_styles_on_uploaded_epub": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital cannot apply template styles to user-uploaded epubs."
+      },
+      "uploaded_epub_cannot_become_print": {
+        "source": "https://draft2digital.com/steps/",
+        "saved_page": "pages/d2d_steps.txt",
+        "quote": "Draft2Digital can also create paperbacks for any books generated through our conversion service (that is, everything except pre-formatted epub uploads)."
+      },
+      "word_conversion_strips_formatting": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital’s automated conversion process will strip out things that force formatting to be one exact way— embedded fonts, extra line breaks, empty pages, footnotes, or anything the system considers unnecessary to the final file."
+      },
+      "expert_route": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "If you are an expert, we suggest you format and upload an epub (or for print, a PDF). No direct file editing will be done to epubs (or print PDF interior files) and your formatting should be allowed to pass through the system unchanged."
+      },
+      "epub_version_or_other_technical_rules": {
+        "verified": false,
+        "note": "Apart from 'must pass EpubCheck' and the size limit, no public D2D page states an EPUB version, a required cover-in-EPUB rule, font rules or image limits."
+      }
+    },
+    "cover_image": {
+      "recommended_pixels": {
+        "width": 1600,
+        "height": 2400,
+        "aspect_ratio_width_to_height": "2:3",
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "For your ebook, give us a JPEG at 1600x2400. But really, all we need is a tall rectangle."
+      },
+      "format": {
+        "value": "JPEG recommended; most common image formats accepted",
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "We accept most common image formats and will faithfully resize whatever you upload to meet the requirements of the digital stores you choose to distribute to."
+      },
+      "steps_page": {
+        "source": "https://draft2digital.com/steps/",
+        "saved_page": "pages/d2d_steps.txt",
+        "quote": "A 1600x2400 JPEG works best, but any tall rectangle will do. We’ll resize whatever you send to meet the requirements of your chosen sales channels."
+      },
+      "must_show_title_and_author": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Book covers must include the book title and the author name."
+      },
+      "aspect_ratio_note": {
+        "derived": true,
+        "text": "1600 x 2400 is 1:1.5 (2:3). KDP's ideal is 1600 x 2560 (1:1.6), so one cover file cannot hit both ideals exactly."
+      },
+      "minimum_size_max_file_size_colour_profile": {
+        "verified": false,
+        "note": "No public D2D page gives a minimum pixel size, a maximum cover file size or a colour profile for ebook covers."
+      }
+    },
+    "file_size_limits": {
+      "faq": {
+        "value_mb": 100,
+        "comparison": "under",
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "There is no maximum page count or length requirement for our ebooks, but there are file size limitations— ebooks must be under 100 MB in file size."
+      },
+      "knowledge_base": {
+        "value_mb": 90,
+        "comparison": "larger than this may not be accepted",
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Epub files larger than 90MB may not be accepted."
+      },
+      "contradiction": "FAQ says under 100 MB; the Knowledge Base says EPUBs over 90MB may not be accepted. Staying under 90 MB satisfies both."
+    },
+    "minimum_length": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "For ebooks, our sales partners make determinations regarding minimum book length on a book-by-book basis taking into account genre, content, and other factors."
+    },
+    "required_metadata": {
+      "source": "https://draft2digital.com/knowledge-base/",
+      "saved_page": "pages/d2d_knowledge_base.txt",
+      "quote": "Other than a manuscript, you must have a book title, one BISAC subject (the standard way to classify your book), a book description, and a release date."
+    },
+    "metadata_fields": {
+      "source": "https://draft2digital.com/knowledge-base/",
+      "saved_page": "pages/d2d_knowledge_base.txt",
+      "quote": "At Draft2Digital we consider Front Cover Art, Book Title, Series name, Publisher Name, Author name, Book language, Volume number (if in a series), Search terms, and BISAC subjects to be metadata. This metadata is shared between your Print and ebooks."
+    },
+    "isbn": {
+      "own_isbn_allowed": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Can I provide my own ISBN if I already have one? Absolutely!"
+      },
+      "free_isbn": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Draft2Digital will automatically assign an ISBN to any book published through our system free of charge."
+      },
+      "free_isbn_not_usable_elsewhere": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "No, you can not use a Draft2Digital provided ISBN anywhere outside of Draft2Digital's services"
+      },
+      "not_usable_at_kdp": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "you can not use your D2D free ISBN at KDP to set up direct sales for a Kindle version of your book."
+      },
+      "not_required_for_ebooks": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "While ISBNs are not required for ebooks, they are required for a print edition."
+      },
+      "choice_is_final": {
+        "source": "https://draft2digital.com/blog/starting-your-new-ebook-with-d2d-step-by-step/",
+        "saved_page": "pages/d2d_blog_starting_new_ebook_step_by_step.txt",
+        "quote": "This decision cannot be changed when an ISBN is set for the Book Project."
+      },
+      "cannot_change_after_publish": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Once a book has been published to one of our partner stores, we cannot change the ISBN."
+      },
+      "disabling_free_isbn_blocks_some_stores": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "You may disable free ISBNs provided by Draft2Digital, but this will block your book from distribution to some stores unless you provide your own ISBNs."
+      }
+    },
+    "content_not_accepted": {
+      "public_domain": {
+        "source": "https://draft2digital.com/content-guidelines/",
+        "saved_page": "pages/d2d_content_guidelines.txt",
+        "quote": "We do not accept Public Domain works."
+      },
+      "low_content": {
+        "source": "https://draft2digital.com/content-guidelines/",
+        "saved_page": "pages/d2d_content_guidelines.txt",
+        "quote": "We do not accept content that has insufficient content and is centered around being filled out by an end user, such as journals, notebooks, diaries or planners."
+      },
+      "ai": {
+        "source": "https://draft2digital.com/content-guidelines/",
+        "saved_page": "pages/d2d_content_guidelines.txt",
+        "quote": "While we support AI-assisted content we do not accept content that has been generated entirely by AI/LLMs that has not gone through extensive editing from a human."
+      },
+      "guidelines_last_updated": {
+        "source": "https://draft2digital.com/content-guidelines/",
+        "saved_page": "pages/d2d_content_guidelines.txt",
+        "quote": "Last Updated October 27, 2025",
+        "value": "2025-10-27"
+      }
+    },
+    "preorders": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "At this time we are unable to support ebook pre-orders through Amazon."
+    },
+    "exclusivity": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "We don't acquire rights or require any kind of exclusivity, so you can do whatever you want with your book."
+    },
+    "converted_epub_reusable": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "Yes. You are allowed to use your Draft2Digital converted epub anywhere."
+    }
+  },
+  "2_pricing_royalties_stores": {
+    "free_price": {
+      "allowed_for_ebooks": true,
+      "evidence": [
+        {
+          "source": "https://draft2digital.com/faq/",
+          "saved_page": "pages/d2d_faq.txt",
+          "quote": "For ebooks the answer is yes! You can price your ebook for free except for certain stores and libraries. Be sure to check the \"Special Considerations\" section when you select a vendor for any exceptions."
+        },
+        {
+          "source": "https://draft2digital.com/steps/",
+          "saved_page": "pages/d2d_steps.txt",
+          "quote": "Want to list your book for free? No problem. Choose a list price of $0.00 on the publishing page, and we'll make it happen."
+        }
+      ],
+      "stores_that_do_not_take_free": {
+        "fallback_price_usd": {
+          "value": 0.99,
+          "source": "https://draft2digital.com/faq/",
+          "saved_page": "pages/d2d_faq.txt",
+          "quote": "For vendors that don't accept free, your book will be submitted at $0.99 (99-cents USD)."
+        },
+        "amazon": {
+          "source": "https://draft2digital.com/partners/amazon/",
+          "saved_page": "pages/d2d_partners_amazon.txt",
+          "quote": "We are unable to support free pricing direct to Amazon. If you set your book’s price to free, it will be submitted to Amazon for 99 cents."
+        },
+        "libraries": {
+          "source": "https://draft2digital.com/knowledge-base/",
+          "saved_page": "pages/d2d_knowledge_base.txt",
+          "quote": "Library books cannot be listed for free; the minimum price is US $0.99."
+        },
+        "full_list_of_exceptions": {
+          "verified": false,
+          "note": "The public pages name Amazon and libraries only. The per-vendor 'Special Considerations' text is inside the logged-in publishing screen and was not readable, so which other stores (if any) refuse free is not confirmed."
+        }
+      },
+      "other_stores_keep_zero": {
+        "source": "https://draft2digital.com/partners/amazon/",
+        "saved_page": "pages/d2d_partners_amazon.txt",
+        "quote": "This does not affect your free pricing on other platforms. Books priced for free on other platforms, where allowed, will retain their price of $0.00, unless you specifically change the price."
+      },
+      "print_cannot_be_free": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Print books cannot be offered for free as there is a cost for the materials to produce a physical book."
+      },
+      "smashwords_coupon_to_free": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Yes, you can use a coupon to make your book free ($0.00) at the Smashwords store."
+      },
+      "fees_still_apply": "See account_fees: activation and maintenance fees apply to accounts that publish free books."
+    },
+    "ebook_price_range_usd": {
+      "minimum_paid": 0.99,
+      "maximum": 39.99,
+      "not_accepted_from": 0.01,
+      "not_accepted_to": 0.98,
+      "recommended_min": 2.99,
+      "recommended_max": 9.99,
+      "source": "https://draft2digital.com/knowledge-base/",
+      "saved_page": "pages/d2d_knowledge_base.txt",
+      "quote": "For ebook pricing, Draft2Digital recommends you keep your price between US$2.99 and US$9.99, though we will accept anything from US$0.99 to US$39.99. Ebooks can be listed for free, though Amazon will only allow you to list at US$0.99 and may or may not choose to price match to free. D2D can't accept any ebook prices from US$0.01 to US$0.98 due to store restrictions."
+    },
+    "library_pricing": {
+      "minimum_usd": {
+        "value": 0.99,
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Library books cannot be listed for free; the minimum price is US $0.99."
+      },
+      "recommendation": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "For library pricing, D2D recommends a library price approximately two to three times higher than your digital book price."
+      },
+      "cpc_cost": {
+        "source": "https://draft2digital.com/library-pricing/",
+        "saved_page": "pages/d2d_library_pricing.txt",
+        "quote": "For each checkout through CPC, the cost to libraries is 1/10 of the purchase price.*"
+      }
+    },
+    "price_entry": {
+      "entered_in_usd": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "When you publish, you’ll enter your book’s list price in US dollars. By default, we convert the provided price into the various currencies of your selected digital stores using the currency conversion rate at the time of publishing."
+      },
+      "territorial_prices": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "you can click the link labeled Manage Territorial Prices directly below the Book Price field. There, you'll be able to set the exact price in any of our supported currencies."
+      },
+      "currencies_usually_overridden": {
+        "source": "https://draft2digital.com/blog/starting-your-new-ebook-with-d2d-step-by-step/",
+        "saved_page": "pages/d2d_blog_starting_new_ebook_step_by_step.txt",
+        "quote": "Typically, you will need to override CAD, GBP, AUD, NZD and EUR"
+      },
+      "apple_99_rule": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "some of our partners, like Apple Books, require all prices in USD to end in $.99."
+      },
+      "tax": {
+        "knowledge_base": {
+          "source": "https://draft2digital.com/knowledge-base/",
+          "saved_page": "pages/d2d_knowledge_base.txt",
+          "quote": "This varies by currency. Prices in US$ (United States) or CA$ (Canada) are tax-exclusive, meaning any sales tax will be added to the price you provide. Prices in all other currencies are tax-inclusive, meaning the price provided is the actual customer price, and any sales tax (including VAT) will be taken out of that amount before calculating royalties."
+        },
+        "terms_of_service": {
+          "source": "https://draft2digital.com/terms-of-service/",
+          "saved_page": "pages/d2d_terms_of_service.txt",
+          "quote": "The List Price you provide will be exclusive of sales, value-added or similar taxes which are assessed in connection with the sales of your Works."
+        },
+        "contradiction": "The Knowledge Base says non-USD/CAD prices are tax-inclusive; the Terms of Service say the List Price is exclusive of taxes."
+      },
+      "scheduled_promotions": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "You can also schedule a promotional price so that your book’s price will automatically change on the day of your choosing, and change back to your original price when your promotional period is over."
+      }
+    },
+    "royalty_share": {
+      "d2d_commission": {
+        "terms_of_service_percent_of_net": {
+          "value": 15,
+          "source": "https://draft2digital.com/terms-of-service/",
+          "saved_page": "pages/d2d_terms_of_service.txt",
+          "quote": "for ebooks and audiobooks distributed through sales channels other than Smashwords.com, we will deduct fifteen percent (15%) from the payments received from sales channels for each Work sold, leased, rented or otherwise distributed"
+        },
+        "approx_percent_of_retail_price": {
+          "value": 10,
+          "source": "https://draft2digital.com/faq/",
+          "saved_page": "pages/d2d_faq.txt",
+          "quote": "Draft2Digital earns revenue primarily through commission on book sales, which equates to approximately 10% of the retail price of every book sale."
+        },
+        "steps_page": {
+          "source": "https://draft2digital.com/steps/",
+          "saved_page": "pages/d2d_steps.txt",
+          "quote": "we’ll subtract our 10% and send the rest on to you."
+        },
+        "how_the_two_numbers_fit": {
+          "derived": true,
+          "text": "15% of what the store pays D2D (about 70% of list at most retailers) is roughly 10% of the list price, which leaves the author about 60% of list, as the royalty table shows."
+        },
+        "definition_of_net": {
+          "source": "https://draft2digital.com/terms-of-service/",
+          "saved_page": "pages/d2d_terms_of_service.txt",
+          "quote": "less the sales channel’s commission, and less Draft2Digital’s Commission."
+        }
+      },
+      "author_share_by_store": {
+        "page": "https://draft2digital.com/blog/royalty-rates/",
+        "caveat": {
+          "source": "https://draft2digital.com/blog/royalty-rates/",
+          "saved_page": "pages/d2d_blog_royalty_rates.txt",
+          "quote": "Royalty percentages shown are approximations due to rounding and currency exchange rates."
+        },
+        "retail_stores": [
+          {
+            "store": "Amazon",
+            "author_percent": [
+              60,
+              30
+            ],
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Amazon | 60% or 30% | 60% when list price is $2.99-$9.99, otherwise 30%."
+          },
+          {
+            "store": "Apple",
+            "author_percent": 60,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Apple | 60% | Applies to all prices."
+          },
+          {
+            "store": "Barnes & Noble",
+            "author_percent": 60,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Barnes & Noble | 60% | Applies to all prices."
+          },
+          {
+            "store": "Fable",
+            "author_percent": 60,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Fable | 60% | Applies to all prices."
+          },
+          {
+            "store": "Gardners",
+            "author_percent": 60,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Gardners | 60% | Applies to all prices."
+          },
+          {
+            "store": "Kobo",
+            "author_percent": 60,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Kobo | 60% | Applies to all prices."
+          },
+          {
+            "store": "Smashwords",
+            "author_percent": [
+              75,
+              40
+            ],
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Smashwords | 75% or 40% | 75% when list price is $2.99 or higher, otherwise 40%."
+          },
+          {
+            "store": "Tolino",
+            "author_percent": 60,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Tolino | 60% | Applies to all prices."
+          },
+          {
+            "store": "Vivlio",
+            "author_percent": 55,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Vivlio | 55% | Applies to all prices."
+          }
+        ],
+        "subscription_services": [
+          {
+            "store": "Everand",
+            "author_percent": 60,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Everand | 60% | 60% when a subscriber reads past 20% of your ebook."
+          },
+          {
+            "store": "Kobo Plus",
+            "author_percent": 51,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Kobo Plus | 51% of your portion of the subscription pool | 51% of revenue generated from subscription readers, calculated by total revenue/minutes read."
+          }
+        ],
+        "library_services": [
+          {
+            "store": "BorrowBox",
+            "ocou_percent": 46,
+            "cpc_percent": null,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "BorrowBox | 46% | Not Offered | OCOU is when a library purchases a digital copy."
+          },
+          {
+            "store": "cloudLibrary",
+            "ocou_percent": 46,
+            "cpc_percent": null,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "cloudLibrary | 46% | Not Offered | OCOU is when a library purchases a digital copy."
+          },
+          {
+            "store": "Hoopla",
+            "ocou_percent": null,
+            "cpc_percent": 3.8,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "Hoopla | Not Offered | 3.8% | CPC is paid per each check out from a participating library."
+          },
+          {
+            "store": "OverDrive",
+            "ocou_percent": 46,
+            "cpc_percent": 4.6,
+            "source": "https://draft2digital.com/blog/royalty-rates/",
+            "saved_page": "pages/d2d_blog_royalty_rates.txt",
+            "quote": "OverDrive | 46% | 4.6% | OCOU is when a library purchases a digital copy."
+          }
+        ],
+        "store_share": {
+          "derived": true,
+          "text": "D2D publishes the author's share, not the store's. With D2D taking about 10% of list, a 60% author share implies the store keeps about 30% of list."
+        },
+        "smashwords_in_terms": {
+          "source": "https://draft2digital.com/terms-of-service/",
+          "saved_page": "pages/d2d_terms_of_service.txt",
+          "quote": "75% of List Price for Work sales of $2.99 or more; 40% of List Price for Work sales under $2.99"
+        }
+      },
+      "print": {
+        "source": "https://draft2digital.com/terms-of-service/",
+        "saved_page": "pages/d2d_terms_of_service.txt",
+        "quote": "for Works distributed through the D2D Print program, you will be entitled to 45% of the List Price minus the unit cost, with the remainder being our Commission."
+      },
+      "payment_method_fees": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "PayPal Fee: 2.5% of royalties paid, not to exceed a maximum fee of $1.50 for US-based authors and not to exceed $25 for authors outside the US."
+      },
+      "payment_thresholds": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Direct deposit ($10 USD minimum) - International Direct Deposit ($20 USD minimum) - Payoneer ($20 USD minimum) - Paypal ($10 USD minimum) - Check ($100 USD minimum)"
+      },
+      "withholding_for_non_us": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Draft2Digital is required to withhold 30% income tax for all international publishers and submit that percentage to the IRS."
+      }
+    },
+    "stores": {
+      "faq_list": {
+        "value": [
+          "Amazon (invite only)",
+          "Apple Books",
+          "Barnes & Noble",
+          "Kobo (including Kobo Plus)",
+          "Smashwords Store",
+          "Bookshop.org",
+          "Tolino",
+          "OverDrive",
+          "cloudLibrary",
+          "Everand",
+          "Hoopla",
+          "Vivlio",
+          "BorrowBox",
+          "Gardners"
+        ],
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Amazon (invite only) - Apple Books - Barnes & Noble - Kobo (including Kobo Plus) - Smashwords Store - Bookshop.org - Tolino - OverDrive - cloudLibrary - Everand - Hoopla - Vivlio - BorrowBox - Gardners"
+      },
+      "partners_page_list": {
+        "value": [
+          "Amazon",
+          "Apple Books",
+          "Barnes & Noble",
+          "Kobo",
+          "Everand",
+          "Smashwords",
+          "Tolino",
+          "OverDrive",
+          "cloudLibrary",
+          "BorrowBox",
+          "Hoopla",
+          "Vivlio & Vivlio Libraries",
+          "Gardners",
+          "Fable",
+          "Bookshop.org"
+        ],
+        "source": "https://draft2digital.com/partners/",
+        "saved_page": "pages/d2d_partners.txt",
+        "quote": "Amazon - Apple Books - Barnes & Noble - Kobo - Everand - Smashwords - Tolino - OverDrive - cloudLibrary - BorrowBox - Hoopla - Vivlio & Vivlio Libraries - Gardners - Fable - Bookshop.org"
+      },
+      "difference": "Fable is on the Partners page and in the royalty table but not in the FAQ/Knowledge Base store list.",
+      "opt_in_per_store": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "When you publish an ebook through D2D, you control which stores you want to distribute to—choosing who to sell with is as easy as clicking a checkbox."
+      },
+      "new_stores_not_automatic": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "we won’t automatically add your books to any new stores."
+      },
+      "print_distribution": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Print books published through D2D Print are made available to Amazon and to all distribution channels served by Ingram, including Barnes and Noble and most independent bookstores in the US."
+      }
+    },
+    "amazon_via_d2d": {
+      "invitation_only": {
+        "source": "https://draft2digital.com/partners/amazon/",
+        "saved_page": "pages/d2d_partners_amazon.txt",
+        "quote": "Draft2Digital offers Amazon distribution by invitation only."
+      },
+      "eligibility": {
+        "source": "https://draft2digital.com/partners/amazon/",
+        "saved_page": "pages/d2d_partners_amazon.txt",
+        "quote": "We receive far more requests than we can accept, and we will only consider titles that are top-tier in editorial quality and clearly distinctive in the ebook marketplace."
+      },
+      "no_kdp_select": {
+        "source": "https://draft2digital.com/partners/amazon/",
+        "saved_page": "pages/d2d_partners_amazon.txt",
+        "quote": "authors distributing to Amazon through our platform will not be able to participate in the KDP Select program."
+      },
+      "minimum_price_by_file_size_usd": {
+        "up_to_3mb": 0.99,
+        "from_3mb_to_10mb": 1.99,
+        "from_10mb": 2.99,
+        "source": "https://draft2digital.com/partners/amazon/",
+        "saved_page": "pages/d2d_partners_amazon.txt",
+        "quote": "In addition, we can only submit books that meet certain minimum pricing for files sizes: $0.99 up to 3MB, $1.99 for 3MB to 10MB, and $2.99 for 10MB or greater."
+      },
+      "royalty": [
+        {
+          "source": "https://draft2digital.com/partners/amazon/",
+          "saved_page": "pages/d2d_partners_amazon.txt",
+          "quote": "For eBooks priced between $2.99 and $9.99, you will receive a standard royalty (approximately 60% of list price)"
+        },
+        {
+          "source": "https://draft2digital.com/partners/amazon/",
+          "saved_page": "pages/d2d_partners_amazon.txt",
+          "quote": "For eBooks priced outside that range (below $2.99 or above $9.99), you will receive a reduced royalty (approximately 30% of list price)"
+        },
+        {
+          "source": "https://draft2digital.com/partners/amazon/",
+          "saved_page": "pages/d2d_partners_amazon.txt",
+          "quote": "D2D pays 51% royalty for Andorra, Austria, Germany, Liechtenstein, Luxembourg, Spain, and Switzerland."
+        }
+      ],
+      "possibly_stale": "D2D's pages still give $2.99-$9.99 as the higher-royalty band for Amazon, although KDP raised its own 70% maximum to $12.99 on 2026-07-07. No D2D page fetched mentions the change.",
+      "no_preorders": {
+        "source": "https://draft2digital.com/partners/amazon/",
+        "saved_page": "pages/d2d_partners_amazon.txt",
+        "quote": "Draft2Digital is currently unable to offer preorders for Amazon Kindle."
+      },
+      "no_ams_ads": {
+        "source": "https://draft2digital.com/partners/amazon/",
+        "saved_page": "pages/d2d_partners_amazon.txt",
+        "quote": "At this time, Draft2Digital does not support AMS Ads."
+      },
+      "blocked_books": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "No, if your book has been blocked on a retailer’s site Draft2Digital will not be able to publish it on your behalf."
+      }
+    },
+    "using_a_free_d2d_listing_to_trigger_an_amazon_price_match": {
+      "official_d2d_statements": [
+        {
+          "source": "https://draft2digital.com/partners/amazon/",
+          "saved_page": "pages/d2d_partners_amazon.txt",
+          "quote": "Amazon may price-match to free, to bring prices in line with other vendors."
+        },
+        {
+          "source": "https://draft2digital.com/knowledge-base/",
+          "saved_page": "pages/d2d_knowledge_base.txt",
+          "quote": "If you set your book’s price to free, it will be submitted to Amazon for 99 cents. Amazon may price-match to free to bring prices in line with other vendors, but they do not allow submitting a free price."
+        },
+        {
+          "source": "https://draft2digital.com/knowledge-base/",
+          "saved_page": "pages/d2d_knowledge_base.txt",
+          "quote": "Ebooks can be listed for free, though Amazon will only allow you to list at US$0.99 and may or may not choose to price match to free."
+        }
+      ],
+      "is_a_match_promised": {
+        "value": false,
+        "note": "D2D's wording is 'may' and 'may or may not'. D2D does not describe any way to request the match."
+      },
+      "how_it_relates_to_a_direct_kdp_listing": {
+        "derived": true,
+        "text": "These D2D statements describe a book that D2D itself delivers to Amazon (invitation only). For a book published directly on KDP, D2D can only make the other stores free; whether Amazon then matches is Amazon's decision under the KDP Pricing Page ('we may also make it available for free')."
+      },
+      "double_listing_warning": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "We do not recommend double-listing your books as this will split your sales ranking."
+      },
+      "d2d_guidance_on_requesting_a_match": {
+        "verified": false,
+        "note": "No D2D page gives instructions for getting Amazon to price match (for example reporting a lower price)."
+      }
+    }
+  },
+  "3_d2d_print": {
+    "service": {
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "D2D Print is a Print on Demand (POD) service where your published book will be listed as in-stock through online booksellers; and, when your reader purchases your book, only then will it be printed and shipped."
+    },
+    "trim_sizes": {
+      "value_inches": [
+        [
+          5,
+          8
+        ],
+        [
+          5.25,
+          8
+        ],
+        [
+          5.5,
+          8.5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          7.5,
+          9.25
+        ],
+        [
+          8.5,
+          11
+        ]
+      ],
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "5\" x 8\" - 5.25\" x 8\" - 5.5\" x 8.5\" - 6\" x 9\" - 7.5\" x 9.25\" - 8.5\" x 11\"",
+      "calculator_list": {
+        "source": "https://draft2digital.com/podcalc",
+        "saved_page": "pages/d2d_podcalc.txt",
+        "quote": "var Xh=[\"5x8\",\"5.25x8\",\"5.5x8.5\",\"6x9\",\"7.5x9.25\",\"8.5x11\"]"
+      },
+      "older_post_differs": {
+        "note": "A 2022 blog post lists 5.25\" x 8.5\" instead of 5.25\" x 8\". The current FAQ, Knowledge Base and calculator all say 5.25 x 8.",
+        "source": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/",
+        "saved_page": "pages/d2d_blog_print_masterclass_1.txt",
+        "quote": "5.25” x 8.5”"
+      }
+    },
+    "binding_and_colour": {
+      "value": "Perfect bound paperback only; black and white (grayscale) interior; colour cover",
+      "evidence": [
+        {
+          "source": "https://draft2digital.com/faq/",
+          "saved_page": "pages/d2d_faq.txt",
+          "quote": "D2D Print only offers perfect bound paperback books in black & white (grayscale)."
+        },
+        {
+          "source": "https://draft2digital.com/knowledge-base/",
+          "saved_page": "pages/d2d_knowledge_base.txt",
+          "quote": "NOTE: D2D Print supports grayscale interior files only."
+        },
+        {
+          "source": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/",
+          "saved_page": "pages/d2d_blog_print_masterclass_1.txt",
+          "quote": "D2D Print does full four-color cover image prints, but we only print black and white interiors (for now) to keep prices reasonable."
+        }
+      ],
+      "hardcover_and_colour_not_offered": {
+        "source": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-2/",
+        "saved_page": "pages/d2d_blog_top_print_questions_part2.txt",
+        "quote": "some features we hope to add in the future include: - Hardcover Books - Full-Color Printing - Autoformatted Large Print Options - Print Sales on the Smashwords Store"
+      }
+    },
+    "page_count": {
+      "minimum": 32,
+      "maximum": 1050,
+      "source": "https://draft2digital.com/faq/",
+      "saved_page": "pages/d2d_faq.txt",
+      "quote": "For print, the minimum page count is 32. The maximum is 1050. This is true across all print trim sizes.",
+      "calculator": {
+        "source": "https://draft2digital.com/podcalc",
+        "saved_page": "pages/d2d_podcalc.txt",
+        "quote": "window.MIN_NUM_PAGES = 32; window.MAX_NUM_PAGES = 1050;"
+      },
+      "even_page_count": {
+        "source": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/",
+        "saved_page": "pages/d2d_blog_ep197_print_update.txt",
+        "quote": "if your manuscript, rounds, ends up being an odd number, we will round it to an even number because print books have to have an even number of pages."
+      },
+      "older_posts_differ": {
+        "note": "Older official blog posts give other limits (64 to 740 in 2022, minimum 64 in 2023). The current FAQ and the live calculator say 32 to 1050.",
+        "evidence": [
+          {
+            "source": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/",
+            "saved_page": "pages/d2d_blog_print_masterclass_1.txt",
+            "quote": "your book must be a minimum of 64 pages and a maximum of 740 pages across all print trim sizes."
+          },
+          {
+            "source": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-1/",
+            "saved_page": "pages/d2d_blog_top_print_questions_part1.txt",
+            "quote": "D2D Print also has a minimum page count of 64 pages."
+          }
+        ]
+      }
+    },
+    "paper_options": {
+      "value": [
+        "cream",
+        "white"
+      ],
+      "evidence": [
+        {
+          "source": "https://draft2digital.com/knowledge-base/",
+          "saved_page": "pages/d2d_knowledge_base.txt",
+          "quote": "Print several different book trim sizes and two paper colors."
+        },
+        {
+          "source": "https://draft2digital.com/blog/press-release-draft2digital-opens-d2d-print-to-every-author/",
+          "saved_page": "pages/d2d_blog_press_release_print_open.txt",
+          "quote": "Users can choose from matte or glossy covers and white or cream interiors.",
+          "date": "2023-03-14"
+        },
+        {
+          "source": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/",
+          "saved_page": "pages/d2d_blog_ep197_print_update.txt",
+          "quote": "You'll notice the paper color choices are cream and white",
+          "date": "2024-10-17"
+        }
+      ],
+      "paper_weight_or_thickness": {
+        "verified": false,
+        "note": "No public D2D page states paper weight, thickness or pages-per-inch for cream or white paper."
+      }
+    },
+    "cover_finish": {
+      "value": [
+        "matte",
+        "glossy"
+      ],
+      "evidence": [
+        {
+          "source": "https://draft2digital.com/blog/press-release-draft2digital-opens-d2d-print-to-every-author/",
+          "saved_page": "pages/d2d_blog_press_release_print_open.txt",
+          "quote": "Users can choose from matte or glossy covers and white or cream interiors."
+        },
+        {
+          "source": "https://draft2digital.com/knowledge-base/",
+          "saved_page": "pages/d2d_knowledge_base.txt",
+          "quote": "if you intend to change your cover’s finish from matte to glossy, it is best to make this change at the same time that you are uploading a new interior"
+        }
+      ]
+    },
+    "interior_file": {
+      "accepted_formats": {
+        "value": [
+          ".doc",
+          ".docx",
+          ".odt",
+          ".rtf",
+          ".pdf"
+        ],
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "You can upload your print manuscript as either a Word document (.Doc, .Docx) or ODT or RTF and D2D’s automated conversion software will generate a print-ready PDF version of your book."
+      },
+      "own_pdf_allowed": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Upload your preformatted PDF interior file on Step 1: Details. We do not accept preformatted epub or mobi files for print conversion."
+      },
+      "ebook_file_can_be_reused": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital will allow you to use your ebook file to generate a print-ready PDF."
+      },
+      "bleed_inches": {
+        "value": 0.125,
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "We support a bleed of 1/8 of an inch (0.125 inch) at the top, bottom, and outside edges of the pages."
+      },
+      "bleed_rule": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Add .125 inch to all outside edges of your file. Do not add bleed to your gutter."
+      },
+      "colour_converted_automatically": {
+        "source": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/",
+        "saved_page": "pages/d2d_blog_print_masterclass_1.txt",
+        "quote": "If you’re starting with a full-color ebook file, you don’t need to do anything to convert the interior to grayscale. We do it for you!"
+      },
+      "limited_options_with_own_pdf": {
+        "source": "https://draft2digital.com/blog/d2d-print-how-to-publish-a-print-book/",
+        "saved_page": "pages/d2d_blog_d2d_print_how_to.txt",
+        "quote": "Be advised, if you provide your own custom PDF, the customization options will be very limited"
+      },
+      "margins_fonts_pdf_standard_resolution": {
+        "verified": false,
+        "note": "No public D2D page states required margins or gutter, font embedding, a PDF/X standard or image resolution for an uploaded interior PDF."
+      }
+    },
+    "cover_file": {
+      "auto_generated": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "For print, Draft2Digital will automatically generate a wraparound cover based on your ebook art (AKA front cover art) and we provide some basic customization options like spine text and back cover text editing."
+      },
+      "own_cover_formats": {
+        "value": [
+          "PDF",
+          "PNG"
+        ],
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "click the Browse button to choose your PDF or PNG Print wraparound cover (must include, front, spine, and back in one file)."
+      },
+      "template": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "download the print cover template file Draft2Digital provides for a template that is custom-sized to fit your interior book file and paper choices."
+      },
+      "must_match_template": {
+        "source": "https://draft2digital.com/blog/d2d-print-how-to-publish-a-print-book/",
+        "saved_page": "pages/d2d_blog_d2d_print_how_to.txt",
+        "quote": "Please make sure if you provide your own wraparound cover, it is in line with the Template provided when you click “Download Blank Template”."
+      },
+      "barcode": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "you can upload your print wraparound book cover and Draft2Digital will place your barcode for you."
+      },
+      "resolution_mention": {
+        "source": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/",
+        "saved_page": "pages/d2d_blog_ep197_print_update.txt",
+        "quote": "You don't wanna go below 300 pixels per inch.",
+        "note": "Spoken remark in a 2024 podcast transcript on the D2D blog, not a written specification."
+      },
+      "template_contents": {
+        "source": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/",
+        "saved_page": "pages/d2d_blog_ep197_print_update.txt",
+        "quote": "the red area is the area that's expected to be in the trim area that's gonna get trimmed off most likely. The blue area is it's a trim safety zone.",
+        "note": "Podcast transcript, 2024."
+      },
+      "colour_profile_and_exact_dimensions": {
+        "verified": false,
+        "note": "No public D2D page gives cover bleed, safe-zone sizes, colour profile or a formula for the full cover width. They come from the per-book template in the logged-in tool."
+      }
+    },
+    "spine": {
+      "how_calculated": {
+        "verified": false,
+        "note": "D2D does not publish a spine-width formula or a pages-per-inch figure. The spine is sized by D2D's tool and by the downloadable template, from the interior page count and the paper choice.",
+        "evidence": [
+          {
+            "source": "https://draft2digital.com/faq/",
+            "saved_page": "pages/d2d_faq.txt",
+            "quote": "a template that is custom-sized to fit your interior book file and paper choices"
+          },
+          {
+            "source": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/",
+            "saved_page": "pages/d2d_blog_ep197_print_update.txt",
+            "quote": "we automatically make a print ready file. Machine perfect print ready file based on the the the trim and the page count that you put in there"
+          }
+        ]
+      },
+      "spine_text": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "scroll to the bottom of the page to edit your upper spine text, lower spine text, back cover author image, publisher icon, back cover biography, print cover description, background color, text color, or cover finish type."
+      },
+      "minimum_pages_for_spine_text": {
+        "verified": false,
+        "note": "Not stated on any public D2D page."
+      }
+    },
+    "pricing_and_cost": {
+      "page": "https://draft2digital.com/podcalc",
+      "author_royalty": {
+        "percent_of_list": 45,
+        "formula": "royalty = list price x 0.45 - unit cost",
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "you can expect to make about 45% of the list price of your book minus the printing cost.",
+        "terms": {
+          "source": "https://draft2digital.com/terms-of-service/",
+          "saved_page": "pages/d2d_terms_of_service.txt",
+          "quote": "you will be entitled to 45% of the List Price minus the unit cost"
+        },
+        "calculator_constant": {
+          "source": "https://draft2digital.com/podcalc",
+          "saved_page": "pages/d2d_podcalc.txt",
+          "quote": "window.ROYALTY_RATE = 45"
+        }
+      },
+      "unit_cost_formula": {
+        "formula": "unit cost = base cost per unit + (cost per page x page count), with an odd page count first raised to the next even number; 0.004999 is added before rounding to 2 decimals",
+        "code": {
+          "source": "https://draft2digital.com/podcalc",
+          "saved_page": "pages/d2d_podcalc.txt",
+          "quote": "function Uo(e,t,r){return e%2===1&&(e+=1),(.004999+t+r*e).toFixed(2)}"
+        },
+        "ui_text": {
+          "source": "https://draft2digital.com/podcalc",
+          "saved_page": "pages/d2d_podcalc.txt",
+          "quote": "Number of Pages x Cost Per Page = Page Cost; Base Cost + Page Cost = Unit Cost; Book Sale Price x Royalties (<royaltyRate>%) = Total Royalties; Total Royalties - Unit Cost = Expected Royalty"
+        }
+      },
+      "unit_cost_rates": {
+        "size_classes": {
+          "small": [
+            "5x8",
+            "5.25x8",
+            "5.5x8.5",
+            "6x9"
+          ],
+          "large": [
+            "7.5x9.25",
+            "8.5x11"
+          ],
+          "source": "https://draft2digital.com/podcalc",
+          "saved_page": "pages/d2d_podcalc.txt",
+          "quote": "kl=[\"5x8\",\"5.25x8\",\"5.5x8.5\",\"6x9\"]"
+        },
+        "USD": {
+          "base_small": 1.34,
+          "per_page_small": 0.0147,
+          "base_large": 1.4,
+          "per_page_large": 0.0213
+        },
+        "AUD": {
+          "base_small": 2.53,
+          "per_page_small": 0.025,
+          "base_large": 2.53,
+          "per_page_large": 0.0355
+        },
+        "CAD": {
+          "base_small": 1.85,
+          "per_page_small": 0.0202,
+          "base_large": 1.92,
+          "per_page_large": 0.0293
+        },
+        "EUR": {
+          "base_small": 1.61,
+          "per_page_small": 0.0136,
+          "base_large": 1.61,
+          "per_page_large": 0.0231
+        },
+        "GBP": {
+          "base_small": 1.36,
+          "per_page_small": 0.0115,
+          "base_large": 1.36,
+          "per_page_large": 0.0195
+        },
+        "source": "https://draft2digital.com/podcalc",
+        "saved_page": "pages/d2d_podcalc.txt",
+        "quote": "window.UNIT_COST_RATES = {\"USD\": {\"costPerUnitSmall\": 1.34, \"costPerPageSmall\": 0.0147, \"costPerUnitLarge\": 1.4, \"costPerPageLarge\": 0.0213}, \"AUD\": {\"costPerUnitSmall\": 2.53, \"costPerPageSmall\": 0.025, \"costPerUnitLarge\": 2.53, \"costPerPageLarge\": 0.0355}, \"CAD\": {\"costPerUnitSmall\": 1.85, \"costPerPageSmall\": 0.0202, \"costPerUnitLarge\": 1.92, \"costPerPageLarge\": 0.0293}, \"EUR\": {\"costPerUnitSmall\": 1.61, \"costPerPageSmall\": 0.0136, \"costPerUnitLarge\": 1.61, \"costPerPageLarge\": 0.0231}, \"GBP\": {\"costPerUnitSmall\": 1.36, \"costPerPageSmall\": 0.0115, \"costPerUnitLarge\": 1.36, \"costPerPageLarge\": 0.0195}};",
+        "where_found": "Inline script data in the HTML of https://draft2digital.com/podcalc on 2026-11-23. The calculator can also carry 'future' rates with an effective date; none were present.",
+        "caveat": {
+          "source": "https://draft2digital.com/faq/",
+          "saved_page": "pages/d2d_faq.txt",
+          "quote": "The numbers presented on the calculator are estimates and actual costs and royalties may vary"
+        }
+      },
+      "minimum_list_price": {
+        "formula": "minimum list price = unit cost / 0.45, then 0.005 is added and the result is rounded to 2 decimals (in effect rounded up to the next cent)",
+        "source": "https://draft2digital.com/podcalc",
+        "saved_page": "pages/d2d_podcalc.txt",
+        "quote": "function Ol(e){return(.005+e/Zh).toFixed(2)}",
+        "constant": {
+          "source": "https://draft2digital.com/podcalc",
+          "saved_page": "pages/d2d_podcalc.txt",
+          "quote": "Zh=.45,Jh=250"
+        },
+        "negative_royalty_rule": {
+          "source": "https://draft2digital.com/terms-of-service/",
+          "saved_page": "pages/d2d_terms_of_service.txt",
+          "quote": "provided that your desired List Price does not fall below minimum unit cost for that particular Work and result in a negative royalty."
+        }
+      },
+      "maximum_list_price": {
+        "value": 250,
+        "currency": "calculator currency",
+        "source": "https://draft2digital.com/podcalc",
+        "saved_page": "pages/d2d_podcalc.txt",
+        "quote": "Price for this sales channel must be under <maxSalePrice>",
+        "note": "250 is the calculator's maxSalePrice constant (Jh=250). No help page states a maximum print price in words."
+      },
+      "worked_example": {
+        "derived": true,
+        "text": "200 pages at 5.5 x 8.5 in USD: 1.34 + 200 x 0.0147 = 4.28 unit cost; minimum list price 4.28 / 0.45 = 9.511, which the calculator shows as 9.52 because it adds half a cent before rounding; at a 12.99 list price the royalty is 12.99 x 0.45 - 4.28 = 1.57. Recomputed here with the calculator's own three formulas; not a figure printed by D2D."
+      },
+      "words_per_page_estimates": {
+        "source": "https://draft2digital.com/podcalc",
+        "saved_page": "pages/d2d_podcalc.txt",
+        "quote": "var Nl={\"5x8\":130,\"5.25x8\":170,\"5.5x8.5\":210,\"6x9\":245,\"7.5x9.25\":275,\"8.5x11\":290}",
+        "note": "Used by the calculator to estimate pages from a word count."
+      },
+      "no_upfront_print_cost": {
+        "source": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-2/",
+        "saved_page": "pages/d2d_blog_top_print_questions_part2.txt",
+        "quote": "there is no up-front cost to publishing with D2D Print.",
+        "note": "2023 post, written before the 2026 account activation fee."
+      },
+      "price_changes_free": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "You do NOT need a Print Change Token to change your book price or other online metadata."
+      },
+      "not_in_scheduled_promotions": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Library pricing and Print pricing are not included in scheduled promotions."
+      }
+    },
+    "fees_for_changes": {
+      "print_change_token_required": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Once either the Physical or Digital Proof has been approved by you, a Change Token will be required in order to update the manuscript or cover file."
+      },
+      "free_token_every_days": {
+        "value": 90,
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Your next Free Print Change Token is issued 90 days from the time you publish (for the first time, or when you publish a change)."
+      },
+      "free_tokens_do_not_accumulate": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Free Print Change Tokens do not roll over. You cannot bank free changes for later use. You will only ever see 1 free Print Change Token at a time, per book."
+      },
+      "paid_token": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "If you need to make a change and do not have a Print Change Token, you'll need to purchase a Print Change Token for a fee <https://draft2digital.com/account/printbooktokens/>."
+      },
+      "paid_token_price": {
+        "verified": false,
+        "note": "The price of a purchased Print Change Token is shown only on a logged-in account page. The one figure on a public official page is a spoken remark that D2D's print partner charges D2D $25 per change.",
+        "related": [
+          {
+            "source": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/",
+            "saved_page": "pages/d2d_blog_ep197_print_update.txt",
+            "quote": "So every time that happens, they charge us $25.",
+            "date": "2024-10-17",
+            "note": "Podcast transcript; this is the partner's charge to D2D, not a published token price."
+          },
+          {
+            "source": "https://draft2digital.com/blog/everything-you-need-to-know-about-d2d-print/",
+            "saved_page": "pages/d2d_blog_everything_about_d2d_print.txt",
+            "quote": "The cost of a change token may be adjusted from time-to-time as the cost of changes shifts"
+          }
+        ]
+      },
+      "what_needs_a_token": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Only changes that will affect the physical product of your printed book require a Print Change Token."
+      },
+      "one_change_can_bundle": {
+        "source": "https://draft2digital.com/steps/",
+        "saved_page": "pages/d2d_steps.txt",
+        "quote": "One free submission of print changes is allowed per 90 day period (content and cover can all be submitted as one change)."
+      },
+      "terms": {
+        "source": "https://draft2digital.com/terms-of-service/",
+        "saved_page": "pages/d2d_terms_of_service.txt",
+        "quote": "Change Tokens have no cash value, are non-transferrable, non-refundable, non-exchangeable"
+      },
+      "charged_per_upload_not_per_edit": {
+        "source": "https://draft2digital.com/blog/d2d-print-masterclass-3-making-changes/",
+        "saved_page": "pages/d2d_blog_print_masterclass_3_making_changes.txt",
+        "quote": "Note that we don’t charge per change—just per new file upload.",
+        "date": "2022-08-29"
+      },
+      "cover_finish_switch_counts_as_change": {
+        "source": "https://draft2digital.com/blog/d2d-print-masterclass-3-making-changes/",
+        "saved_page": "pages/d2d_blog_print_masterclass_3_making_changes.txt",
+        "quote": "we mean any change to your cover (including replacing or updating the design, or switching from matte to glossy or vice versa) or the interior.",
+        "date": "2022-08-29"
+      },
+      "allow_time_after_a_change": {
+        "source": "https://draft2digital.com/blog/d2d-print-masterclass-3-making-changes/",
+        "saved_page": "pages/d2d_blog_print_masterclass_3_making_changes.txt",
+        "quote": "When you push a print update, plan to wait at least a week to order copies including that update.",
+        "date": "2022-08-29"
+      },
+      "ebook_changes_free": {
+        "source": "https://draft2digital.com/steps/",
+        "saved_page": "pages/d2d_steps.txt",
+        "quote": "Draft2Digital will push ebook changes through immediately at no charge to you."
+      }
+    },
+    "proofs_and_author_copies": {
+      "digital_or_physical_proof": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital offers 2 types of proofs, a Digital Proof or a Physical Proof Copy."
+      },
+      "physical_proof_optional": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "You are not required to order the Physical Proof Copy. You can approve the Digital Proof at any time."
+      },
+      "changes_before_approval_are_free": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "you can amend any errors that you find and upload a new version of the manuscript file to your print book project without having to wait for or purchase a Change Token."
+      },
+      "author_copies_at_cost": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Author Copies are a way to order a short printing run of your book at the cost of production plus the cost of shipping and handling."
+      },
+      "proof_priority_charge": {
+        "source": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-2/",
+        "saved_page": "pages/d2d_blog_top_print_questions_part2.txt",
+        "quote": "there would be a $30 priority charge that would include high-priority shipping.",
+        "date": "2023-03-28",
+        "note": "The same post says cheaper shipping options were added later."
+      }
+    },
+    "isbn": {
+      "required": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "While ISBNs are not required for ebooks, they are required for a print edition."
+      },
+      "own_isbn_allowed": true,
+      "options": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital will provide one for you for free OR - You can buy a new ISBN for yourself from Bowker"
+      },
+      "must_be_unique_to_format": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Your ISBN must be unique to your ebook or your D2D Print version of your book, meaning that you cannot reuse an ISBN that has been used on another version of your book."
+      },
+      "locked_to_trim_size": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Double check that your ISBN was used with the same trim size. (Print ISBNs are locked to one trim size.)"
+      },
+      "previous_vendor_must_release": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Double check that any previous Vendor of Record has released your ISBN so that Draft2Digital can use it."
+      },
+      "free_isbn_only_within_d2d": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "A free ISBN from Draft2Digital can only be used when distributing through Draft2Digital. You may not use your D2D-provided ISBN at any other retailer or distributor."
+      },
+      "choice_is_final": {
+        "source": "https://draft2digital.com/blog/d2d-print-how-to-publish-a-print-book/",
+        "saved_page": "pages/d2d_blog_d2d_print_how_to.txt",
+        "quote": "Please note that this decision cannot be changed once an ISBN is set for the Book Project."
+      },
+      "vendor_of_record": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "The ISBN recording agency will denote Draft2Digital as the \"vendor of record\" on their website for any ISBN D2D purchases, but that label does not give us any rights to your work nor will it show publicly."
+      }
+    },
+    "distribution": {
+      "channels": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Your book will be made available to Amazon and to all distribution channels served by Ingram, including Barnes and Noble and most independent bookstores in the US, including Bookshop.org."
+      },
+      "all_or_nothing": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "At this time all print distribution is a complete package and à la carte print distribution is not available."
+      },
+      "conflict_with_kdp_expanded_distribution": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "we recommend only enrolling titles into D2D Print if your direct-with-Amazon books are not in Amazon's Expanded Distribution network."
+      },
+      "listing_time": {
+        "source": "https://draft2digital.com/faq/",
+        "saved_page": "pages/d2d_faq.txt",
+        "quote": "Print books have longer listing times— somewhere in the neighborhood of 2 weeks."
+      },
+      "kdp_select_does_not_block_print": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Yes! Being in KU or any other exclusive program for ebooks does not limit your distribution for print books."
+      },
+      "low_content_not_accepted": {
+        "source": "https://draft2digital.com/knowledge-base/",
+        "saved_page": "pages/d2d_knowledge_base.txt",
+        "quote": "Draft2Digital will not distribute journals, workbooks, planners, calendars, or content that is primarily interactive in nature to digital stores as an ebook or print book."
+      }
+    },
+    "preorders": {
+      "source": "https://draft2digital.com/knowledge-base/",
+      "saved_page": "pages/d2d_knowledge_base.txt",
+      "quote": "D2D Print preorders are limited to 1 year out from your intended release date."
+    },
+    "gpsr": {
+      "source": "https://draft2digital.com/knowledge-base/",
+      "saved_page": "pages/d2d_knowledge_base.txt",
+      "quote": "Draft2Digital’s print partner will be handling all compliance issues required by this law."
+    }
+  },
+  "4_languages": {
+    "ebook": {
+      "official_language_list": {
+        "verified": false,
+        "note": "No public D2D page lists the ebook languages it accepts. The language is picked from a drop-down inside the logged-in 'Create New Ebook' screen, which was not readable.",
+        "related": [
+          {
+            "source": "https://draft2digital.com/blog/starting-your-new-ebook-with-d2d-step-by-step/",
+            "saved_page": "pages/d2d_blog_starting_new_ebook_step_by_step.txt",
+            "quote": "Make sure to select the accurate Language from the Language Drop-Down list"
+          }
+        ]
+      },
+      "informal_statement": {
+        "source": "https://draft2digital.com/blog/touching-base-with-d2d-ask-us-anything-ep187/",
+        "saved_page": "pages/d2d_blog_ep187_ask_us_anything.txt",
+        "quote": "there's a lot of languages we support, and you can because, again, several of our partners.",
+        "date": "2024-08-08",
+        "note": "Spoken answer in a podcast transcript on the D2D blog. The speaker declined to give a number."
+      },
+      "support_is_in_english": {
+        "source": "https://draft2digital.com/blog/touching-base-with-d2d-ask-us-anything-ep187/",
+        "saved_page": "pages/d2d_blog_ep187_ask_us_anything.txt",
+        "quote": "you can publish in all those languages, but we don't have support."
+      },
+      "notices_in_english": {
+        "source": "https://draft2digital.com/terms-of-service/",
+        "saved_page": "pages/d2d_terms_of_service.txt",
+        "quote": "All notices and communication shall only be effective if received in the English language."
+      }
+    },
+    "print": {
+      "restriction": {
+        "source": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/",
+        "saved_page": "pages/d2d_blog_print_masterclass_1.txt",
+        "quote": "We accept all books written in a Latin-based language.",
+        "date": "2022-08-15"
+      },
+      "caveat": "This is from a 2022 blog post whose page-count and trim-size details have since been superseded. No current FAQ or Knowledge Base entry repeats or withdraws the language restriction."
+    },
+    "bengali": {
+      "ebook_supported": {
+        "verified": false,
+        "note": "Bengali (Bangla) is not mentioned on any D2D page fetched. Whether it is in the language drop-down, and whether partner stores accept it, could not be confirmed from public pages."
+      },
+      "print_supported": {
+        "value": false,
+        "confidence": "based on a 2022 statement",
+        "basis": "Bengali is not written in the Latin script, and the only published D2D Print language rule is 'We accept all books written in a Latin-based language.'",
+        "source": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/",
+        "saved_page": "pages/d2d_blog_print_masterclass_1.txt",
+        "quote": "We accept all books written in a Latin-based language."
+      },
+      "what_to_do": "Ask D2D support before relying on either answer; the Contact Us form is the route D2D names for questions."
+    },
+    "hosts_not_reachable": "help.draft2digital.com did not accept connections from this sandbox (connection failed, no HTTP status). All D2D facts come from draft2digital.com pages."
+  }
+}

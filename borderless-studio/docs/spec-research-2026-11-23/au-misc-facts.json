@@ -1,0 +1,2607 @@
+{
+ "meta": {
+  "title": "AU publishing reference facts (legal deposit, ISBN, barcodes, GST/VAT, FX, Thema, BISAC, ONIX)",
+  "compiled_on": "2026-11-23",
+  "compiled_for": "independent publisher in Sydney NSW (ISBNs from Thorpe-Bowker Australia)",
+  "field_legend": {
+   "claim": "the fact, in my words",
+   "source": "URL of the official page/document the fact was read on",
+   "quote": "text copied from that source (whitespace normalised). For retrieval=curl the quote is checked by script against page_file.",
+   "page_file": "saved plain text of the source, relative to this folder (first line of each file = URL)",
+   "verified": "true = read on the official source named; false = could NOT be confirmed on an official page (see note)",
+   "retrieval": "curl = fetched with curl, text saved verbatim; webfetch = official page read through the WebFetch tool (quotes relayed by a summarising model, see note); none = not retrieved",
+   "derived": "true where the claim is my arithmetic/synthesis from quoted facts rather than a sentence on the page"
+  },
+  "rule": "Nothing here is filled from memory. Anything not confirmed on an official page has verified=false and a note."
+ },
+ "task1_legal_deposit": {
+  "national_library_of_australia": [
+   {
+    "id": "ld.nla.basis",
+    "claim": "National legal deposit is a requirement of the Copyright Act 1968 (Cth); one copy of everything published in Australia goes to the National Library of Australia (NLA). Electronic publications have been covered since 2016.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit",
+    "quote": "One copy of everything that is published in Australia is to be given to the National Library under the legal deposit provisions of the Copyright Act 1968. In 2016 the laws were expanded to include electronic publications.",
+    "page_file": "pages/nla-legal-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "page_published": "24 Feb 2026"
+   },
+   {
+    "id": "ld.nla.who",
+    "claim": "Who must deposit: any Australian person, group or organisation that distributes their work to the public, for sale or free. You do not have to be a professional publisher.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit",
+    "quote": "You don't have to be a publishing professional to be considered a publisher - you might for example be an individual or a community organisation. Legal deposit applies to any Australian person, group or organisation that distributes their work to the public for sale or for free.",
+    "page_file": "pages/nla-legal-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.who.selfpub",
+    "claim": "Self-publishers are the publisher and are responsible for the deposit, even when using an overseas platform (Amazon, IngramSpark etc.).",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "If you are based in Australia and self-published your work using a platform or service that is based outside of Australia (e.g. Amazon, Smashwords, Ingram Spark), then your publication is required under legal deposit because you (the publisher of the work) are based in Australia.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "page_published": "20 Apr 2026"
+   },
+   {
+    "id": "ld.nla.who.responsibility",
+    "claim": "Deposit is the publisher's responsibility, not the printer's or distributor's.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "Legal deposit is always the responsibility of the publisher or self-publisher, not any other involved parties.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.what",
+    "claim": "What must be deposited: all Australian publications made available to the public in print or electronic format, for sale or free; print books and eBooks are listed first.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "Legal deposit applies to all Australian publications that have been made available to the public in a print or electronic format, whether for sale or for free. This includes: Print books and eBooks Graphic novels, comic books, and zines Newspapers, magazines, journals, and newsletters Annual reports, corporate plans, and other reports Government publications Maps Sheet music Websites",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.what.not",
+    "claim": "Not required: unpublished works (drafts, uncorrected proofs, advance reader copies), privately distributed works; selectively collected: blank forms, calendars and diaries, colouring/puzzle books without significant text, etc.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "Uncorrected proofs and advance reader copies",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "Works that have only been distributed privately",
+    "quote3": "Activity-based materials such as colouring books, puzzle books, and games that do not have significant text"
+   },
+   {
+    "id": "ld.nla.copies",
+    "claim": "Copies required by the NLA: one copy only. Duplicates are discarded.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "Australian publishers are required to deposit only one copy of their publications to meet their national legal deposit obligations. Duplicate copies will be discarded in accordance with our Collection Deaccessioning and Disposal policy.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "copies": 1
+    }
+   },
+   {
+    "id": "ld.nla.time_limit",
+    "claim": "Time limit (NLA guidance): deposit within one month of publication. Late deposits are still accepted.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "In accordance with the Copyright Act 1968, published works should be deposited within one month of publication. However, we understand that this is not always possible. There is no expiry date on legal deposit, so your publication will be gratefully received even if it is deposited late.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "period": "1 month",
+     "counted_from": "publication"
+    }
+   },
+   {
+    "id": "ld.nla.time_limit.factsheet",
+    "claim": "NLA fact sheet wording of the same time limit.",
+    "source": "https://www.library.gov.au/sites/default/files/documents/2025-03/legal-deposit-fact-sheet-20250226.pdf",
+    "quote": "You should deposit your work within one month of the publication’s release date.",
+    "page_file": "pages/nla-legal-deposit-factsheet.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "PDF fact sheet dated Feb 2025 (file name 20250226)."
+   },
+   {
+    "id": "ld.nla.time_limit.statute",
+    "claim": "Statute: the delivery period starts on the day of publication (or the day of an NLA request for online material) and ends 1 month later, or later if the Director-General allows.",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "(2) The delivery period, for National Library material, starts on: (a) for material published in a way covered by paragraph 195CB(1)(a)—the day it was so published; or (b) for material requested under section 195CC—the day the request was made; and ends 1 month later or on a later day allowed by the Director‑General of the National Library.",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Copyright Act 1968 (Cth) s 195CD(2)",
+    "compilation": "Compilation No. 65, compilation date 2 April 2026"
+   },
+   {
+    "id": "ld.nla.statute.outline",
+    "claim": "Statute outline: publishers must deliver copies to the NLA; for works available online the NLA may request delivery.",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "Persons publishing certain literary, dramatic, musical or artistic works in Australia must deliver copies of the works to the National Library. The National Library may also request the delivery of works that are available online.",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Copyright Act 1968 (Cth) s 195CA"
+   },
+   {
+    "id": "ld.nla.statute.offence_offline",
+    "claim": "Statutory offence for material published in Australia but NOT available online: failing to deliver within the delivery period. Strict liability, maximum 10 penalty units.",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "(1) A person commits an offence if: (a) the person publishes National Library material in Australia on a particular day, but not in such a way that makes the material available online; and (b) the person is not requested under section 195CC, during the period of 1 month starting on that day, to cause a copy of the material to be delivered under section 195CD; and (c) the person contravenes section 195CD. Penalty: 10 penalty units.",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Copyright Act 1968 (Cth) s 195CB(1)"
+   },
+   {
+    "id": "ld.nla.statute.offence_online",
+    "claim": "For material that IS available online (e.g. an ebook sold on the internet) the statutory offence only arises after the NLA requests a copy under s 195CC. NLA guidance nevertheless asks publishers to deposit ebooks through NED within a month.",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "(2) A person commits an offence if: (a) the person publishes National Library material; and (b) the material is available online; and (c) the person is requested under section 195CC to cause a copy of the material to be delivered under section 195CD; and (d) the person contravenes section 195CD. Penalty: 10 penalty units.",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "The second sentence of the claim is my reading of how s 195CB(2) sits beside the NLA guidance quoted in ld.nla.time_limit; it is not legal advice.",
+    "section": "Copyright Act 1968 (Cth) s 195CB(2)"
+   },
+   {
+    "id": "ld.nla.statute.copy_requirements",
+    "claim": "Statutory requirements for the deposited copy: whole of the material; electronic copies free of technological protection measures (DRM); hardcopy as the best copies supplied to the public; delivered at the publisher's expense.",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "(c) if the copy is in an electronic form: (i) is free from any technological protection measure; and (ii) is accompanied by any software or additional information necessary for the National Library to access the material from the copy; and (d) if the copy is in hardcopy form: (i) is finished and coloured, and bound, sewed, stitched or otherwise fastened together, in the same manner as the best copies of the material are supplied to the public; and (ii) is on the best paper on which the material is printed; and (e) is delivered at the person’s own expense, unless the copy was requested under section 195CC and the request stated otherwise; and",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Copyright Act 1968 (Cth) s 195CD(1)(c)-(e)"
+   },
+   {
+    "id": "ld.nla.statute.same_material",
+    "claim": "Statute: the print and electronic forms of the same work are the same material (so one deposit covers both).",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "Note: The same work in hardcopy form and an electronic form is the same National Library material.",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Copyright Act 1968 (Cth) s 195CE (note)"
+   },
+   {
+    "id": "ld.nla.statute.material",
+    "claim": "Statutory definition of what is covered includes books (in electronic form or otherwise) in which copyright subsists; new editions only if they contain additions or alterations.",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "A literary, dramatic, musical or artistic work, or an edition of such a work, (whether in an electronic form or otherwise) is National Library material if: (a) the work or edition is: (i) a website, web page, web file, book, periodical, newspaper, pamphlet, sheet of music, map, plan, chart or table; or",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Copyright Act 1968 (Cth) s 195CE"
+   },
+   {
+    "id": "ld.nla.statute.states",
+    "claim": "The Commonwealth scheme does not displace State/Territory legal deposit laws.",
+    "source": "https://www.legislation.gov.au/C1968A00063/2026-04-02/2026-04-02/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "This Division is not intended to exclude or limit the operation of any law of a State or Territory (whether made before or after the commencement of this Division) that makes provision for or in relation to the delivery to a specified public or other library in or of the State or Territory of copies of National Library material published in the State or Territory.",
+    "page_file": "pages/cth-copyright-act-1968-legal-deposit-s195CA-195CJ.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Copyright Act 1968 (Cth) s 195CH"
+   },
+   {
+    "id": "ld.nla.print_vs_electronic",
+    "claim": "Print vs electronic: if a work is available in both, the NLA prefers the electronic version via NED, and an electronic deposit means no print copy is needed.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "If your work is published and available to the public in both print and electronic formats, we prefer to collect the electronic version via National edeposit (NED). If you deposit an electronic copy of a publication via NED, you do not need to provide a print copy of the same publication.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.one_format",
+    "claim": "Only one format is required nationally.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/how-make-legal-deposit",
+    "quote": "We require Australian publishers to deposit only one format of their publications to meet their legal deposit obligations. If you send multiple copies, duplicate copies may be discarded.",
+    "page_file": "pages/nla-how-to-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "page_published": "24 Feb 2026"
+   },
+   {
+    "id": "ld.nla.print_formats",
+    "claim": "If only print exists and there are several print formats (hardcover, paperback), only one is required. Electronic print proofs and scans are not accepted as the electronic version.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "If your work has been published in multiple print formats (e.g. hardcover, paperback, board book), we only require one format. Please provide whichever version you feel best represents the work in the way it was intended to be distributed and viewed.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.no_proofs",
+    "claim": "Print-ready proofs/scans are not accepted in place of the published ebook.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "Please note that electronic print proofs and scans will not be accepted.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.new_editions",
+    "claim": "New editions are deposited when they have a new edition statement, a change of publisher, a new ISBN or significant content changes; reprints, same content in a new format and minor corrections are not.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "To be accepted, a new edition should have one or more of the following: An updated edition statement on the imprint page (e.g. second edition, revised edition) A change of publisher A new ISBN Significant changes to the content (e.g. new chapters) If your revised work is a reprint, the same content in a new format, or contains only minor changes or corrections, you do not need to supply a copy of the new version to the National Library of Australia.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.isbn_not_required",
+    "claim": "An ISBN is not required to deposit (but is required for the Australian Lending Right schemes).",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "ISBNs (International Standard Book Numbers), ISSNs (International Standard Serial Numbers) or ISMNs (International Standard Music Numbers) assist in identifying your unique publication and are encouraged, but are not needed to make a deposit. ISBNs are required to be eligible for the Australian Lending Rights Scheme.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.preferred",
+    "claim": "National edeposit (NED) is the NLA's preferred way to receive deposits; access conditions are set at deposit time.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/how-make-legal-deposit",
+    "quote": "Electronic deposit is quick and easy and is our preferred way to receive collection items. You can deposit an electronic copy of your publication through the National edeposit service (NED). You can set access conditions at the time of deposit.",
+    "page_file": "pages/nla-how-to-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.portal_url",
+    "claim": "NED portal URL: https://ned.gov.au/ned/ (the NLA page's \"Go to National edeposit\" button links there; https://ned.gov.au/ redirects to it; the NLA fact sheet cites it as ned.gov.au).",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/national-edeposit",
+    "quote": "Go to National edeposit",
+    "page_file": "pages/nla-national-edeposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "Link target read from the page HTML (href=\"https://ned.gov.au/ned/\"); HTTP 200 on 2026-11-23. The NLA FAQ also links https://www.ned.gov.au/portal/ (HTTP 200).",
+    "value": {
+     "portal_url": "https://ned.gov.au/ned/",
+     "help_url": "https://ned.gov.au/resources/about.html"
+    },
+    "page_published": "25 Jun 2025"
+   },
+   {
+    "id": "ld.nla.ned.what_it_is",
+    "claim": "NED is a joint service of Australia's nine national, state and territory libraries for deposit, preservation and access to published electronic material.",
+    "source": "https://ned.gov.au/resources/about.html",
+    "quote": "The NED members are the National Library of Australia, ACT Heritage Library, Libraries Tasmania, Library & Archives NT, State Library of New South Wales, State Library of Queensland, State Library of South Australia, State Library Victoria and the State Library of Western Australia.",
+    "page_file": "pages/ned-about.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.free",
+    "claim": "NED deposit is free.",
+    "source": "https://www.library.gov.au/sites/default/files/documents/2025-03/legal-deposit-fact-sheet-20250226.pdf",
+    "quote": "Electronic deposit is free, easy, safe and fast, and is our preferred way to receive collection items.",
+    "page_file": "pages/nla-legal-deposit-factsheet.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.satisfies_national",
+    "claim": "A NED deposit satisfies the national obligation; state/territory obligations may remain.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/national-edeposit",
+    "quote": "By depositing electronically, you will have met your legal deposit obligations to the National Library of Australia. You may still have obligations to your state or territory library.",
+    "page_file": "pages/nla-national-edeposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.drm",
+    "claim": "Files deposited through NED must be DRM-free.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/how-make-legal-deposit",
+    "quote": "Electronic files need to be free of Digital Rights Management restrictions (DRM) so they can be preserved and made available into the future.",
+    "page_file": "pages/nla-how-to-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.formats",
+    "claim": "NED accepts .epub, .mobi and .pdf for books; .epub is preferred when several exist.",
+    "source": "https://ned.gov.au/resources/deposit-step-1.html",
+    "quote": "If your publication is available in more than one of these formats, our preference is .epub.",
+    "page_file": "pages/ned-deposit-step-1.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "accepted_book_formats": [
+      ".epub",
+      ".mobi",
+      ".pdf"
+     ],
+     "preferred": ".epub"
+    },
+    "quote2": ".epub – the standard file format for ebooks in the publishing industry that enables them to be read on a wide range of devices. .mobi – an ebook file format commonly associated with Amazon Kindle devices. .pdf – one of the most used file types that preserves the look and layout of a document no matter which device or software you use to view it."
+   },
+   {
+    "id": "ld.nla.ned.file_size",
+    "claim": "NED file size limit: under 1 GB; the portal rejects files with DRM, viruses or over 1 GB.",
+    "source": "https://ned.gov.au/resources/deposit-step-1.html",
+    "quote": "If the NED service detects any DRM protections, viruses or if your file is larger than 1GB, you will not be able to complete your deposit.",
+    "page_file": "pages/ned-deposit-step-1.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "max_file_size": "1GB"
+    }
+   },
+   {
+    "id": "ld.nla.ned.cover",
+    "claim": "NED auto-generates a cover thumbnail from the file; an own cover image may be uploaded as .jpg/.jpeg or .tif/.tiff, RGB recommended.",
+    "source": "https://ned.gov.au/resources/deposit-step-1.html",
+    "quote": "We recommend that your cover image use the RGB colour mode, which is the primary colour mode for digital design.",
+    "page_file": "pages/ned-deposit-step-1.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "When you upload your electronic publication file the NED portal will automatically generate a cover image based on your file."
+   },
+   {
+    "id": "ld.nla.ned.metadata",
+    "claim": "Metadata NED requires for a monograph (book).",
+    "source": "https://ned.gov.au/resources/deposit-step-2.html",
+    "quote": "Information that must be provided if your ePublication is a Monograph includes: Title (as shown on the title page or cover of your publication, do not use the file name as the title). Scale (if you are depositing a map). Who owns the intellectual content of the publication (author/creator). Year of publication. Edition statement (if applicable). ISBN/ISSN/ISMN (if applicable). Indicating if the publication is a work of fiction. Indicating if the publication contains sensitive information (if applicable).",
+    "page_file": "pages/ned-deposit-step-2.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.steps",
+    "claim": "The six NED deposit steps.",
+    "source": "https://ned.gov.au/resources/make-an-edeposit.html",
+    "quote": "Choose what type of electronic publication is being deposited and upload the file. Provide information about the publication you are depositing. Nominate access conditions for the publication you are depositing. Nominate a Creative Commons licence for the publication you are depositing (optional). Provide information about you as the publisher. Review the information you have provided prior to submitting your deposit.",
+    "page_file": "pages/ned-make-an-edeposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.account",
+    "claim": "No account is needed for a one-off NED deposit; an account is recommended for repeat depositors.",
+    "source": "https://ned.gov.au/resources/getting-started.html",
+    "quote": "If you wish to make a one-off deposit to NED, you do not need to create an account.",
+    "page_file": "pages/ned-getting-started.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.browser",
+    "claim": "NED works in current Chrome, Firefox or Edge; Safari is not compatible.",
+    "source": "https://ned.gov.au/resources/getting-started.html",
+    "quote": "You can use the latest two versions of Chrome, Firefox, or Edge to deposit your electronic publication. Safari is currently not compatible with the NED service.",
+    "page_file": "pages/ned-getting-started.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.ebook_isbn",
+    "claim": "Use the ebook's own ISBN in NED, never the print ISBN.",
+    "source": "https://ned.gov.au/resources/deposit-step-2.html",
+    "quote": "The ISBN for your electronic publication will be different to the ISBN for a print edition of the same publication. Do not use the print ISBN for the NED deposit.",
+    "page_file": "pages/ned-deposit-step-2.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.access_conditions",
+    "claim": "NED offers six access conditions, from open on the internet to onsite-only at the libraries; onsite-only is available for commercially sold titles.",
+    "source": "https://ned.gov.au/resources/deposit-step-3.html",
+    "quote": "If your publication is available commercially, you may choose to limit access to ‘onsite only’. Choosing ‘onsite only’ means the item can be viewed, but will not be able to be downloaded, transferred, saved, printed or copied.",
+    "page_file": "pages/ned-deposit-step-3.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "access_conditions": [
+      "Openly on the Internet",
+      "Openly on the Internet – with temporary download restriction",
+      "Openly on the Internet – with download restrictions",
+      "Openly on the Internet – with temporary download and location restrictions",
+      "Onsite only at the national, state and territory libraries",
+      "Onsite only at the National Library of Australia and applicable state/territory libraries"
+     ]
+    }
+   },
+   {
+    "id": "ld.nla.ned.scope",
+    "claim": "NED is not a publishing platform: the ebook must already be publicly available elsewhere.",
+    "source": "https://ned.gov.au/resources/getting-started.html",
+    "quote": "NED is not a publishing platform. If the content has not been made available to the public elsewhere it is out of scope for NED.",
+    "page_file": "pages/ned-getting-started.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.ned.timing",
+    "claim": "NED deposits usually appear in the NLA catalogue and Trove within about 48 hours, with an automatic acknowledgement.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/how-make-legal-deposit",
+    "quote": "Electronic deposits through NED are usually discoverable in our catalogue and in Trove within 48 hours.",
+    "page_file": "pages/nla-how-to-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.print_address",
+    "claim": "Print deposit address for books (post, no form needed; include name and address).",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/how-make-legal-deposit",
+    "quote": "Send books to: Legal Deposit National Library of Australia Parkes Place Canberra ACT 2600",
+    "page_file": "pages/nla-how-to-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "address_lines": [
+      "Legal Deposit",
+      "National Library of Australia",
+      "Parkes Place",
+      "Canberra ACT 2600"
+     ],
+     "street_address_if_needed": "25 Parkes Place W"
+    }
+   },
+   {
+    "id": "ld.nla.print_address.street",
+    "claim": "Street number if a courier needs one.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/how-make-legal-deposit",
+    "quote": "Note: If a street number is required, you can include street address 25 Parkes Place W.",
+    "page_file": "pages/nla-how-to-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nla.print_no_form",
+    "claim": "No form is needed for postal deposit; no acknowledgement is sent for print; print items appear in the catalogue within about 3 months.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/how-make-legal-deposit",
+    "quote": "When depositing in print by post there is no standard form to be completed, simply include your name and address on the package or on a slip with the publication.",
+    "page_file": "pages/nla-how-to-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "Your publication will appear in our catalogue and in Trove within 3 months of your date of deposit."
+   },
+   {
+    "id": "ld.nla.contact",
+    "claim": "NLA legal deposit contact email.",
+    "source": "https://www.library.gov.au/sites/default/files/documents/2025-03/legal-deposit-fact-sheet-20250226.pdf",
+    "quote": "Alternatively, you can email the legal deposit team at legaldeposit@nla.gov.au.",
+    "page_file": "pages/nla-legal-deposit-factsheet.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "email": "legaldeposit@nla.gov.au",
+     "enquiry_form": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-enquiry-form"
+    }
+   },
+   {
+    "id": "ld.nla.also_state",
+    "claim": "A deposit with the home state/territory library is required in addition to the NLA.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit",
+    "quote": "As well as depositing with us, you need to deposit your publication with your home state or territory library.",
+    "page_file": "pages/nla-legal-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   }
+  ],
+  "new_south_wales": [
+   {
+    "id": "ld.nsw.libraries",
+    "claim": "NSW legal deposit libraries under the Library Act 1939 (NSW): State Library of NSW, University of Sydney Library, NSW Parliamentary Library.",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit",
+    "quote": "The Library Act 1939, as amended, now requires that all print and digital publications be deposited to three legal deposit libraries in NSW — the State Library of NSW, the University of Sydney Library and the NSW Parliamentary Library.",
+    "page_file": "pages/slnsw-legal-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "libraries": [
+      "State Library of New South Wales",
+      "University of Sydney Library",
+      "NSW Parliamentary Library"
+     ]
+    }
+   },
+   {
+    "id": "ld.nsw.act_history",
+    "claim": "The Library Amendment Act 2019 (NSW) extended legal deposit to digital formats and repealed the Copyright Act 1879 (NSW).",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit",
+    "quote": "In June 2019, the New South Wales Parliament passed the Library Amendment Act 2019. This legislation extended legal deposit to cover all published formats, including digital formats. The previous legal deposit legislation, the Copyright Act 1879 (NSW), applicable to only print formats, was repealed.",
+    "page_file": "pages/slnsw-legal-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nsw.who",
+    "claim": "Who: NSW publishers, including self-publishers residing in NSW.",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit/how-deposit",
+    "quote": "As a New South Wales or Australian Government publisher, you are required to deposit your works with the State Library. This also applies to self-publishers residing in New South Wales.",
+    "page_file": "pages/slnsw-how-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nsw.slnsw.copies",
+    "claim": "State Library of NSW (non-government publishers): one copy of EVERY format; if a title is published in print and digital, both must be deposited. (Stricter than the NLA, which wants one format only.)",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit/how-deposit",
+    "quote": "The State Library requires one copy of all formats of a publication for legal deposit. If a title is published in both print and digital formats, the Library requires both versions to be deposited.",
+    "page_file": "pages/slnsw-how-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "copies_per_format": 1,
+     "both_print_and_digital_required": true
+    }
+   },
+   {
+    "id": "ld.nsw.slnsw.print_address",
+    "claim": "State Library of NSW print deposit address.",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit/how-deposit",
+    "quote": "Send one copy to: Legal Deposit Level 2 State Library of New South Wales 1 Shakespeare Place Sydney, NSW 2000",
+    "page_file": "pages/slnsw-how-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "address_lines": [
+      "Legal Deposit",
+      "Level 2",
+      "State Library of New South Wales",
+      "1 Shakespeare Place",
+      "Sydney, NSW 2000"
+     ]
+    }
+   },
+   {
+    "id": "ld.nsw.slnsw.digital",
+    "claim": "State Library of NSW digital deposit: one copy through NED.",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit/how-deposit",
+    "quote": "Deposit one copy to the National edeposit (NED) service.",
+    "page_file": "pages/slnsw-how-deposit.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nsw.slnsw.contact",
+    "claim": "State Library of NSW legal deposit contacts.",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit/how-deposit",
+    "quote": "contact the Library at legal.deposit@sl.nsw.gov.au or (02) 9273 1490",
+    "page_file": "pages/slnsw-how-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "email": "legal.deposit@sl.nsw.gov.au",
+     "phone": "(02) 9273 1490",
+     "ned_email": "ned@sl.nsw.gov.au"
+    }
+   },
+   {
+    "id": "ld.nsw.other_libraries_contact",
+    "claim": "For the NSW Parliamentary Library and the University of Sydney Library, the State Library says to contact those libraries.",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit/how-deposit",
+    "quote": "You may also be required to deposit your publications with the National Library of Australia, NSW Parliamentary Library, or the University of Sydney Library. For more information about these requirements contact the National Library of Australia, collections@parliament.nsw.gov.au or the University of Sydney Library.",
+    "page_file": "pages/slnsw-how-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "nsw_parliamentary_library_email": "collections@parliament.nsw.gov.au"
+    }
+   },
+   {
+    "id": "ld.nsw.summary_nongov",
+    "claim": "State Library summary for non-government NSW publishers: State Library (print AND digital if both published), NSW Parliamentary Library, University of Sydney Library and the NLA; digital to the State Library and NLA goes through NED.",
+    "source": "https://www.sl.nsw.gov.au/research-and-collections/building-collections/legal-deposit/legislative-background-legal-deposit",
+    "quote": "deposit their print and digital publications with the State Library of NSW (both print and digital if both published), the NSW Parliamentary Library, the University of Sydney Library and National Library of Australia. To satisfy their obligations for depositing digital publications to the State Library of NSW and the National Library of Australia, publishers should deposit to the National edeposit service - www.ned.gov.au",
+    "page_file": "pages/slnsw-legislative-background.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nsw.ned_does_not_cover_others",
+    "claim": "A NED deposit does not discharge the obligation to the NSW Parliamentary Library and the University of Sydney Library (neither is a NED member).",
+    "source": "https://ned.gov.au/resources/legal-deposit-obligations.html",
+    "quote": "In New South Wales, publishers are required as well to deposit publications to the Parliamentary Library of New South Wales, the Library of the University of Sydney (except NSW Government publications) and the Western Sydney University Library (for NSW Government publications only). Depositing material through the NED deposit processes does not remove a publisher’s obligation to deposit publications with these libraries.",
+    "page_file": "pages/ned-legal-deposit-obligations.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nsw.usyd",
+    "claim": "University of Sydney Library: non-government NSW publishers must OFFER a copy of all print publications; submit details and the Library advises what to send. Digital-only titles go to NED.",
+    "source": "https://www.library.sydney.edu.au/about/legal-deposit",
+    "quote": "In accordance with the Library Act 1939 (NSW), all NSW non-government publishers must offer a copy of all print publications to the University of Sydney Library. This requirement includes independent and self-publishers. Publications only available in digital format are to be deposited into the National eDeposit.",
+    "page_file": "pages/usyd-legal-deposit-about.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "form_url": "https://www.library.sydney.edu.au/about/legal-deposit/deposit-an-item"
+    }
+   },
+   {
+    "id": "ld.nsw.usyd.process",
+    "claim": "University of Sydney process: submit publication details first.",
+    "source": "https://www.library.sydney.edu.au/about/legal-deposit",
+    "quote": "If you have published a new print work in New South Wales, please submit details of your publication and we will advise you of your deposit requirements.",
+    "page_file": "pages/usyd-legal-deposit-about.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "ld.nsw.ablis_conflict",
+    "claim": "CONFLICT: the Australian Government ABLIS listing says the State Library of NSW takes two copies and that either an electronic or a physical copy may be submitted. The State Library's own page (ld.nsw.slnsw.copies) says one copy of each format, both formats if both exist. Treat the State Library page as authoritative.",
+    "source": "https://ablis.business.gov.au/service/nsw/legal-deposit/45672",
+    "quote": "the State Library of New South Wales (two copies)",
+    "page_file": "pages/ablis-nsw-legal-deposit.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "Conflicting official sources. \"Two copies\" matches the State Library's rule for NSW GOVERNMENT publications published only in print, which may be the origin of the ABLIS figure (my inference, not stated).",
+    "quote2": "You may either submit an electronic or physical copy.",
+    "value": {
+     "ablis_usyd_email": "legal.deposit@sydney.edu.au",
+     "ablis_parliamentary_library_email": "DPS.Library@parliament.nsw.gov.au",
+     "ablis_parliamentary_library_phone": "02 9230 2380"
+    }
+   },
+   {
+    "id": "ld.nsw.time_limit",
+    "claim": "NSW time limit for deposit after publication.",
+    "source": "https://legislation.nsw.gov.au/view/html/inforce/current/act-1939-040",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED. None of the reachable State Library of NSW, NED or University of Sydney pages states a deadline. The Library Act 1939 (NSW) could not be read: legislation.nsw.gov.au, AustLII and parliament.nsw.gov.au all answer HTTP 403 (Cloudflare challenge) to curl and to WebFetch. Search-engine summaries (unverified, not read on the official page) say the Act works through \"legal deposit orders\" under s 14C that \"may specify a reasonable time\", with a maximum penalty of 10 penalty units, i.e. possibly no fixed statutory period. Ask the State Library (legal.deposit@sl.nsw.gov.au) or read the Act before stating a NSW deadline. NED's general guidance is the only timing found: see ld.nsw.ned_timing_guidance."
+   },
+   {
+    "id": "ld.nsw.ned_timing_guidance",
+    "claim": "NED general guidance on timing (all jurisdictions): deposit electronic material within 1-2 months of publication.",
+    "source": "https://ned.gov.au/resources/getting-started.html",
+    "quote": "Publishers are encouraged to deposit electronic materials within 1-2 months of publication to help build the national collection.",
+    "page_file": "pages/ned-getting-started.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "Guidance from the NED service, not a NSW statutory deadline."
+   },
+   {
+    "id": "ld.nsw.parliamentary_library_details",
+    "claim": "NSW Parliamentary Library: number of copies, address and process.",
+    "source": "https://www.parliament.nsw.gov.au/",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED. www.parliament.nsw.gov.au answers HTTP 403 (Cloudflare challenge). Only the contact addresses given by the State Library (collections@parliament.nsw.gov.au) and ABLIS (DPS.Library@parliament.nsw.gov.au, 02 9230 2380) were found."
+   }
+  ],
+  "prepublication_data_service": [
+   {
+    "id": "pds.what",
+    "claim": "The NLA Prepublication Data Service (PDS), formerly Cataloguing in Publication (CiP), is a free service that puts a catalogue record for an UPCOMING Australian publication into the national database and Trove.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+    "quote": "The Prepublication Data Service (formerly Cataloguing in Publication (CiP)) is a free service offered by the Library. This service is for Australian publishers and self-publishing authors who want the details of their upcoming publications made available to Australian libraries, library suppliers, and other members of the book industry for acquisition purposes.",
+    "page_file": "pages/nla-prepublication-data-service.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "page_published": "23 Oct 2024",
+    "value": {
+     "url": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+     "application_form_url": "https://cipismnref.nla.gov.au/reft100.aspx?key=CiP_Application",
+     "how_to_apply_url": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data",
+     "enquiry_form_url": "https://cipismnref.nla.gov.au/reft100.aspx?key=PDS_Enquire"
+    }
+   },
+   {
+    "id": "pds.still_offered",
+    "claim": "Still offered as at 2026-11-23: the service page and application link are live, and the NLA legal deposit FAQ (published 20 Apr 2026) describes it in the present tense as an optional service that does not replace legal deposit.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+    "quote": "Our Prepublication Data Service (PDS) is an optional service that you can use to have a prepublication catalogue record created for your work prior to publishing. This does not replace your legal deposit requirements; therefore, you will still need to deposit a copy of your work once it has been published.",
+    "page_file": "pages/nla-legal-deposit-faq.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "Service page HTTP 200 (page published 23 Oct 2024); application process page HTTP 200 (page published 30 May 2025); the application endpoint cipismnref.nla.gov.au answered HTTP 200 (form itself needs a browser session, not opened further).",
+    "value": {
+     "still_offered": true
+    }
+   },
+   {
+    "id": "pds.record_timing",
+    "claim": "A brief prepublication record appears in the Australian National Bibliographic Database and Trove within 48 hours of applying.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+    "quote": "After submitting your application, a brief prepublication catalogue record is automatically generated, and will appear in Australian National Bibliographic Database and Trove, the national discovery service, within 48 hours.",
+    "page_file": "pages/nla-prepublication-data-service.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "pds.cataloguing_statement",
+    "claim": "Applicants receive a cataloguing statement (image) that may be printed on the imprint/copyright page. It is optional and may be resized but not otherwise altered.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data",
+    "quote": "The cataloguing statement should be printed on the imprint page with the publication details and copyright information. This is usually located on the reverse side of the title page.",
+    "page_file": "pages/nla-pds-general.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "page_published": "30 May 2025",
+    "value": {
+     "statement_download": "https://www.library.gov.au/sites/default/files/documents/2024-11/Cataloguing%20Statement%202024.zip"
+    }
+   },
+   {
+    "id": "pds.statement_rules",
+    "claim": "Rules for the cataloguing statement artwork.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data",
+    "quote": "The cataloguing statement may be resized (with constraints maintained), ranged left or centred to suit your design arrangements. The cataloguing statement may not be altered in any other way.",
+    "page_file": "pages/nla-pds-general.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "pds.eligibility",
+    "claim": "Eligible: upcoming books published in Australia, including ebooks, self-published and print-on-demand books. Not eligible: books already published, books published overseas, unchanged reprints.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+    "quote": "To be eligible for the Prepublication Data Service, your upcoming publication should be published in Australia. If you are Australian and you have self-published, you are considered to be the publisher even if your book was printed overseas.",
+    "page_file": "pages/nla-prepublication-data-service.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "Books published overseas",
+    "quote3": "Reprints where the imprint, publisher, content and format are unchanged"
+   },
+   {
+    "id": "pds.not_eligible_published",
+    "claim": "Must apply BEFORE publication.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+    "quote": "Books that have already been published",
+    "page_file": "pages/nla-prepublication-data-service.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "pds.subjects",
+    "claim": "The PDS form uses a defined selection of Thema subjects: one fiction subject or up to two non-fiction subjects.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data",
+    "quote": "You may select one fiction subject or up to two non-fiction subjects.",
+    "page_file": "pages/nla-pds-general.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "The Prepublication Data Service form uses a defined selection of Thema subjects."
+   },
+   {
+    "id": "pds.no_changes",
+    "claim": "The NLA does not change prepublication records after submission, so the data must be right first time.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data",
+    "quote": "Please ensure your application has the most accurate and up-to-date information possible as we do not make changes to prepublication catalogue records.",
+    "page_file": "pages/nla-pds-general.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "pds.ned_link",
+    "claim": "The PDS reference number (NLAppxxxx) pre-fills the NED deposit form.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data",
+    "quote": "Take note of your reference number (NLAppxxxx) contained in your confirmation email after submitting your online PDS application, as this is needed if you also deposit via NED.",
+    "page_file": "pages/nla-pds-general.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "pds.contact",
+    "claim": "PDS enquiries are by online form only; response within 10 working days.",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+    "quote": "We can no longer be contacted directly by telephone. You will receive a response within 10 working days.",
+    "page_file": "pages/nla-prepublication-data-service.txt",
+    "verified": true,
+    "retrieval": "curl"
+   }
+  ],
+  "practical_summary_for_a_sydney_publisher": {
+   "derived": true,
+   "text": [
+    "Ebook edition: deposit one DRM-free EPUB (preferred) through NED (https://ned.gov.au/ned/) using the ebook ISBN. That meets the NLA obligation and the State Library of NSW digital obligation.",
+    "Print edition: the NLA does not need it if the ebook went to NED; the State Library of NSW still wants one print copy (Legal Deposit, Level 2, State Library of New South Wales, 1 Shakespeare Place, Sydney NSW 2000).",
+    "University of Sydney Library: offer the print edition via its form; it replies with what to send.",
+    "NSW Parliamentary Library: contact collections@parliament.nsw.gov.au (requirements not confirmed).",
+    "Print-only title: one print copy to the NLA (Legal Deposit, National Library of Australia, Parkes Place, Canberra ACT 2600) within one month of publication, plus the NSW libraries.",
+    "NLA deadline is one month from publication; no NSW deadline could be confirmed."
+   ],
+   "based_on": [
+    "ld.nla.print_vs_electronic",
+    "ld.nla.ned.satisfies_national",
+    "ld.nsw.slnsw.copies",
+    "ld.nsw.slnsw.print_address",
+    "ld.nsw.usyd",
+    "ld.nsw.other_libraries_contact",
+    "ld.nla.time_limit",
+    "ld.nsw.time_limit"
+   ]
+  }
+ },
+ "task2_isbn_thorpe_bowker": {
+  "status": "Thorpe-Bowker's own site could not be read (HTTP 403, Cloudflare challenge). Everything marked verified below comes from the National Library of Australia, the International ISBN Agency, GS1 Australia or NED.",
+  "facts": [
+   {
+    "id": "isbn.au.agency",
+    "claim": "The Australian ISBN Agency is Thorpe-Bowker (site: https://www.myidentifiers.com.au).",
+    "source": "https://www.library.gov.au/services/publishers-and-self-publishers/international-standard-book-number-isbn",
+    "quote": "Apply for an International Standard Book Number through the Australian ISBN Agency at Thorpe-Bowker in Victoria, Australia.",
+    "page_file": "pages/nla-isbn.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "page_published": "31 Mar 2022",
+    "value": {
+     "name": "Thorpe-Bowker",
+     "postal": "PO Box 42, Prahran, VIC 3181",
+     "tel": "+61 3 6185 0043",
+     "email": "myidentifiers@thorpe.com.au",
+     "web": "https://www.myidentifiers.com.au"
+    },
+    "quote2": "ISBN Agency Thorpe-Bowker PO Box 42 Prahran, VIC 3181 Tel: +61 3 6185 0043 Email: myidentifiers@thorpe.com.au Internet: https://www.myidentifiers.com.au"
+   },
+   {
+    "id": "isbn.au.bowker_steps",
+    "claim": "Thorpe-Bowker's own steps for assigning and registering an ISBN to a title in My Identifiers.",
+    "source": "https://www.myidentifiers.com.au/EmailInstructions",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED. www.myidentifiers.com.au (and www.myidentifiers.com, www.bowker.com, www.isbn.org, thorpe.com.au which redirects to bowker.com) answer HTTP 403 with a Cloudflare \"Just a moment...\" challenge to curl, and HTTP 403 to WebFetch. Search-engine summaries of the site (NOT read on the page, do not quote) describe: sign in > My Identifiers / My Account > ISBN Dashboard (or Manage ISBNs) > \"Assign Title\" beside the ISBN > complete every field marked with a red asterisk; the title is said not to be registered in Books In Print until all required fields are complete. Pages to open in a browser: /EmailInstructions (\"HOW TO ASSIGN TITLE DATA TO YOUR ISBN(s)\"), /faq/isbn-editing, /faq/general, /identify-protect-your-book/isbn/buy-isbn, /isbn/market_your_book."
+   },
+   {
+    "id": "isbn.au.bowker_metadata",
+    "claim": "The exact list of title fields Thorpe-Bowker asks for (and which are mandatory).",
+    "source": "https://www.myidentifiers.com.au/faq/isbn-editing",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED (site blocked, see isbn.au.bowker_steps). A search-engine summary mentions title, subtitle, author or editor, format, publication date, publisher and price. The verified international minimum metadata set is in isbn.metadata.minimum below."
+   },
+   {
+    "id": "isbn.au.bowker_format_statement",
+    "claim": "Thorpe-Bowker's own statement that each format needs its own ISBN.",
+    "source": "https://www.myidentifiers.com.au/identify-protect-your-book/isbn/buy-isbn",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED on the Thorpe-Bowker site (blocked). A search-engine summary attributes to it \"you will need one ISBN for each edition and format of your book\". The rule itself IS verified from the International ISBN Agency (isbn.format.rule and following) and from NED (ld.nla.ned.ebook_isbn)."
+   },
+   {
+    "id": "isbn.au.bowker_barcode",
+    "claim": "Thorpe-Bowker's barcode product and guidance, including whether its Australian barcode carries a price add-on.",
+    "source": "https://www.myidentifiers.com.au/identify-protect-your-book/barcode",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED (site blocked). Search-engine summaries (not read on the page) are inconsistent: one myidentifiers.com.au page is summarised as describing a Bookland EAN with a 5-digit supplemental price code, while www.bowker.com/barcode is summarised as saying the Australian barcode only encodes the ISBN whereas the US version also encodes the retail price. Check in a browser."
+   },
+   {
+    "id": "isbn.metadata.minimum",
+    "claim": "International rule: the publisher must give its ISBN agency at least these metadata elements for each ISBN. Mandatory: ISBN, product form, title, language(s) of text, imprint, publisher, country of publication, publication date (and edition number after the first edition). Optional: series, contributor(s), product form detail/features, measurements, parent ISBN.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "It is the responsibility of publishers/registrants to inform their ISBN registration agency, or organisation responsible for the maintenance of publication registration, of the ISBNs that will be assigned to forthcoming publications. The information shall include the following minimum metadata (descriptive) elements and shall be compatible with the ONIX for Books product information standards maintained by EDItEUR and its associated organisations:",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "The manual prints this as a table; the value block transcribes its rows (table cells are separate lines in the saved text). What Thorpe-Bowker's form actually asks for is not confirmed.",
+    "section": "ISBN Users' Manual, 7th edition (2017), section 8",
+    "value": {
+     "mandatory": [
+      {
+       "element": "ISBN",
+       "comment": "In the 13-digit ISBN format, without spaces or hyphens",
+       "onix3": "<ProductIdentifier>"
+      },
+      {
+       "element": "Product form",
+       "comment": "Coding which indicates the medium and/or format of the product",
+       "onix3": "<ProductComposition>, <ProductForm> (mandatory); <ProductFormDetail>, <ProductFormFeature> (optional)"
+      },
+      {
+       "element": "Title",
+       "comment": "The title of the publication, together with sub-title or other title elements where applicable",
+       "onix3": "<TitleDetail> composite"
+      },
+      {
+       "element": "Edition",
+       "comment": "Edition number (for editions after the first), type, and statement",
+       "onix3": "<EditionNumber> mandatory after first edition; <EditionTypeCode>, <EditionStatement> optional"
+      },
+      {
+       "element": "Language(s) of text",
+       "comment": "Using ISO 639-2/B language codes",
+       "onix3": "<Language> composite"
+      },
+      {
+       "element": "Imprint",
+       "comment": "The brand name under which the publication is published",
+       "onix3": "<Imprint> composite"
+      },
+      {
+       "element": "Publisher",
+       "comment": "The person or organisation that owns the imprint at the date of publication",
+       "onix3": "<Publisher> composite"
+      },
+      {
+       "element": "Country of publication",
+       "comment": "Using ISO 3166-1 country codes",
+       "onix3": "<CountryOfPublication>"
+      },
+      {
+       "element": "Publication date",
+       "comment": "The date of first publication under this ISBN. In the ISO 8601 format (YYYYMMDD).",
+       "onix3": "<PublishingDate> composite"
+      }
+     ],
+     "optional": [
+      "Series (<Collection>)",
+      "Contributor (<Contributor>)",
+      "Physical measurements (<Measure>)",
+      "ISBN of parent publication (<RelatedProduct>)"
+     ]
+    }
+   },
+   {
+    "id": "isbn.metadata.agency_advises",
+    "claim": "The national agency tells the publisher which metadata is required and how to submit it.",
+    "source": "https://www.isbn-international.org/content/how-get-isbn/24",
+    "quote": "Publishers must supply the national ISBN agency (or its designated local bibliographic agency) with a specified amount of metadata about the publication (such as title, author, format etc) to which the ISBN is assigned.",
+    "page_file": "pages/isbn-intl-how-get-isbn.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "isbn.format.rule",
+    "claim": "Each separate edition or format needs its own ISBN.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "A separate ISBN shall be assigned to each separate monographic publication or separate edition or format of a monographic publication issued by a publisher.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 6.1"
+   },
+   {
+    "id": "isbn.format.product_form",
+    "claim": "Hardback vs paperback, and PDF vs EPUB, are changes that require a separate ISBN.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "product form (e.g., from hardback to paperback; from audiobook on a physical carrier to audiobook available to download) product form detail (e.g., from .pdf to EPUB; change of book dimension)",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 6.2"
+   },
+   {
+    "id": "isbn.format.ebook_formats",
+    "claim": "Each ebook file format that is separately available (EPUB, PDF) should have its own ISBN.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "Where a specific qualifying e-book is available in different underlying file formats such as EPUB, .pdf etc., each different format that is published and made separately available should be given a separate ISBN.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 9.3"
+   },
+   {
+    "id": "isbn.format.kindle_exception",
+    "claim": "A retailer-exclusive proprietary format (e.g. Amazon Kindle) does not strictly need an ISBN; if one is assigned it must be unique to that version.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "However, where digital publications are being supplied by a retailer that is the sole provider of e-books in a proprietary format that can only be bought through their own websites (e.g. Amazon Kindle, Apple i-books) and that retailer does not require ISBNs, it may not be necessary to assign ISBNs to those versions.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 9.3"
+   },
+   {
+    "id": "isbn.format.same_epub_one_isbn",
+    "claim": "The same EPUB sold through several retailers with substantially the same usage constraints uses a single ISBN.",
+    "source": "https://www.isbn-international.org/content/guidelines-assignment-e-books/26",
+    "quote": "If the different versions are in the same format and use the same DRM software (e.g. Adobe ACS4) with substantially the same usage constraints and are interoperable on different devices or software, then a single ISBN should be used.",
+    "page_file": "pages/isbn-intl-ebook-guidelines.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "isbn.format.listing_example",
+    "claim": "How to list the ISBNs of all formats on the copyright page.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "Examples: ISBN 978-951-45-9693-3 (hardback) ISBN 978-951-45-9694-0 (paperback) ISBN 978-951-45-9695-7 (PDF) ISBN 978-951-45-9696-4 (EPUB)",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 13.1"
+   },
+   {
+    "id": "isbn.no_new_isbn",
+    "claim": "No new ISBN for a price change, a cover change or an unchanged reprint.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "A change to the cover design or colour or to the price of a monographic publication does not require a separate ISBN, although a separate ISBN may be assigned if required by the supply chain (e.g., media tie-in).",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 6.2",
+    "quote2": "A separate ISBN should not be assigned to an unchanged edition or unchanged reprint of the same publication, issued in the same product form, product form detail, product form feature, with the same usage constraints, by the same publisher or imprint."
+   },
+   {
+    "id": "isbn.new_isbn_changes",
+    "claim": "A new ISBN is needed for a change of title/subtitle, language, publisher or imprint, author name, or textual content beyond minor corrections.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "the title and/or the subtitle of a publication language publisher name or imprint author name textual content other than minor corrections to misprints",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 6.2"
+   },
+   {
+    "id": "isbn.pod",
+    "claim": "Print on demand is just a print technology: same ISBN unless the product form changes; minor trim-size changes for POD machines need no new ISBN.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "Minor changes to trim sizes in order to comply with the specifications of on-demand printing machines do not require a new ISBN.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 10"
+   },
+   {
+    "id": "isbn.selfpub.publisher_of_record",
+    "claim": "If a platform supplies the ISBN, the platform is likely to be listed as the publisher; own ISBNs come from the agency of the country where the publisher is based.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "Self-publishers should be aware that if a third-party service provider offers to assign one of their range of ISBNs, then that service provider is likely to be listed as the publisher in ISBN-related databases.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 12",
+    "quote2": "N.B. ISBNs should be obtained from the appropriate ISBN registration agency responsible for the country in which the publisher is based, regardless of the location of any platform or self-publishing service."
+   },
+   {
+    "id": "isbn.never_reused",
+    "claim": "An ISBN can never be reused or transferred to another publisher.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "Once assigned to a monographic publication, an ISBN can never be reused to identify another monographic publication, even if the original ISBN is found to have been assigned in error.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 7.8"
+   },
+   {
+    "id": "isbn.display",
+    "claim": "Where the ISBN must appear on a printed book, and minimum type size.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "In the case of printed publications, the ISBN must appear on the: Verso of the title page (copyright page) Foot of the title page, if there is no space on the title verso Lower section of the outside back cover Foot of the back of the jacket, or any other protective case, or wrapper",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 13.1",
+    "quote2": "The ISBN should always be printed in type large enough to be easily legible (i.e., 9-point or larger)."
+   },
+   {
+    "id": "isbn.display.hyphens",
+    "claim": "When printed, the ISBN is preceded by \"ISBN\" and its five elements are separated by hyphens or spaces.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "When printed, the ISBN is always preceded by the letters “ISBN”.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 5",
+    "quote2": "The elements should each be separated clearly by hyphens or spaces when displayed in human readable form:"
+   },
+   {
+    "id": "isbn.barcode.form",
+    "claim": "The ISBN is encoded as an EAN-13 barcode; the human-readable ISBN, preceded by \"ISBN\", goes immediately above the symbol.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "When used in a bar code, the ISBN must be displayed in human readable form immediately above the EAN-13 bar code symbol, preceded by “ISBN”.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 13.2"
+   },
+   {
+    "id": "isbn.barcode.location",
+    "claim": "Recommended barcode position: lower right quadrant of the back cover, near the spine.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "The recommended location of the EAN-13 bar code symbol for publications is the lower right quadrant of the back, near the spine.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 13.2"
+   },
+   {
+    "id": "isbn.barcode.no_gs1_membership",
+    "claim": "No GS1 membership is needed to print an ISBN as a barcode.",
+    "source": "https://www.isbn-international.org/content/isbn-bar-coding",
+    "quote": "If you only want to use the ISBN in bar-coded form, you do not have to become a member of GS1 in order to do so.",
+    "page_file": "pages/isbn-intl-bar-coding.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "isbn.barcode.gs1au",
+    "claim": "GS1 Australia: an ISBN is already a GTIN, so no separate GS1 number is needed for a book.",
+    "source": "https://www.gs1au.org/resources/frequently-asked-questions/selling-on-amazon-faqs",
+    "quote": "As the ISBN is incorporated in the GTIN standard, you do not need to assign a separate GTIN in addition to the ISBN to your product.",
+    "page_file": "pages/gs1au-selling-on-amazon-faqs.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "isbn.barcode.addon_outside_us_canada",
+    "claim": "KEY RULE FOR AUSTRALIA: the International ISBN Agency says the five-digit add-on is used for price only in the United States and Canada and should NOT be used for price information in other countries; elsewhere it may only carry a publisher's in-house code in the range 90000-98999.",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "In the United States and Canada, a five-digit add-on to the bar code is used in the book trade to indicate the price. For further information on bar codes in the United States and Canada visit the Book Industry Study Group website http://bisg.org. The five-digit add-on code should not be used for price information in other countries, although it may be used with a “9” prefix for a publisher’s own in-house use (e.g., for handling returns). These supplementary codes always start with “9” within the range “90000-98999”.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 13.3"
+   }
+  ]
+ },
+ "task3_barcode": {
+  "facts": [
+   {
+    "id": "bc.nominal.x",
+    "claim": "Nominal (100%) X-dimension of EAN-13: 0.330 mm.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The X-dimension at nominal size is 0.330 millimetre (0.0130 inch).",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.3.1",
+    "value": {
+     "x_mm": 0.33
+    }
+   },
+   {
+    "id": "bc.nominal.size",
+    "claim": "Nominal EAN-13 size: 37.29 mm wide (113 modules including both quiet zones) with 22.85 mm bar height.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "an EAN-13 symbol with an X-dimension of 0.330 mm (0.0130 inch), its nominal dimension, has a width of 37.29 mm (1.468 inch) and a bar height of 22.85 mm (0.900 inch).",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "37.29 mm = 113 modules x 0.330 mm, i.e. it includes the 11X and 7X quiet zones (GS1 Table 5-12 gives EAN-13 length 113 modules \"including the minimum Quiet Zones\"). The bars alone are 31.35 mm wide (GS1 Australia fact sheet, bc.nominal.gs1au).",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.12.2.2",
+    "value": {
+     "width_incl_quiet_zones_mm": 37.29,
+     "bar_height_mm": 22.85
+    }
+   },
+   {
+    "id": "bc.nominal.gs1au",
+    "claim": "GS1 Australia table row for 100%: X 0.33 mm, width 31.35 mm excluding quiet zones, bar height 22.85 mm, left quiet zone 3.63 mm, right quiet zone 2.31 mm.",
+    "source": "https://assets.ctfassets.net/9uypwcnuzbqi/5IT2th65cxXq7qywp8feBK/41190020a596307942fab78e38857e9c/GS1au-fact-sheet-EAN-13-barcode.pdf",
+    "quote": "100% 0.33 31.35 22.85 3.63 2.31",
+    "page_file": "pages/gs1au-ean13-factsheet.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 Australia EAN-13 barcode Fact Sheet, August 2026, Table 1",
+    "value": {
+     "magnification": "100%",
+     "x_mm": 0.33,
+     "width_excl_quiet_zones_mm": 31.35,
+     "bar_height_mm": 22.85,
+     "left_quiet_zone_mm": 3.63,
+     "right_quiet_zone_mm": 2.31
+    },
+    "quote2": "Width = width of barcode excluding Quiet Zones."
+   },
+   {
+    "id": "bc.nominal.height",
+    "claim": "Bar height at nominal size is 22.85 mm; guard bars extend a further 5X (1.65 mm) downward. The human-readable digits are not part of the specified height.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "For EAN-13, UPC-A and UPC-E barcodes the height of the symbol at the nominal size is 22.85 millimetres (0.900 inch).",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.3.2"
+   },
+   {
+    "id": "bc.nominal.overall_height",
+    "claim": "Overall nominal height including human-readable digits (often quoted as 25.93 mm).",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED in text. The GS1 General Specifications give the overall figure only in a dimensioned drawing (section 5.2.6.6), which is an image and did not survive text extraction. Use the text-verified figures: 37.29 mm x 22.85 mm bar height plus 5X guard-bar extension."
+   },
+   {
+    "id": "bc.magnification.range",
+    "claim": "Allowed size range at retail point of sale: 80% to 200% of nominal (X-dimension 0.264 mm to 0.660 mm; target 0.330 mm).",
+    "source": "https://assets.ctfassets.net/9uypwcnuzbqi/5IT2th65cxXq7qywp8feBK/41190020a596307942fab78e38857e9c/GS1au-fact-sheet-EAN-13-barcode.pdf",
+    "quote": "Retail POS: 80% - 200% (X-dimension 0.26mm - 0.66mm).",
+    "page_file": "pages/gs1au-ean13-factsheet.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 Australia EAN-13 barcode Fact Sheet, August 2026",
+    "value": {
+     "min_pct": 80,
+     "max_pct": 200,
+     "x_min_mm": 0.264,
+     "x_target_mm": 0.33,
+     "x_max_mm": 0.66
+    }
+   },
+   {
+    "id": "bc.magnification.gs1_table",
+    "claim": "GS1 global symbol specification table 1 row for EAN-13 and EAN-13 + 5: X min 0.264 / target 0.330 / max 0.660 mm; minimum bar height 18.28 / 22.85 / 45.70 mm; quiet zones 11X left, 7X right.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "EAN-13 0.264 0.330 0.660 18.28 22.85 45.70 11X 7X 1.5/06/660",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "In the +5 row the columns are: left quiet zone 11X, minimum separation between symbols 7X, maximum separation 12X, right quiet zone 5X.",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.12.3.1 Table 5-44",
+    "quote2": "EAN-13 + 5 0.264 0.330 0.660 18.28 22.85 45.70 11X 7X 12X 5X 1.5/06/ 660",
+    "value": {
+     "ean13_plus_5": {
+      "left_quiet_zone": "11X",
+      "min_separation_main_to_addon": "7X",
+      "max_separation_main_to_addon": "12X",
+      "right_quiet_zone_after_addon": "5X",
+      "min_quality": "1.5/06/660"
+     }
+    }
+   },
+   {
+    "id": "bc.magnification.term",
+    "claim": "GS1 no longer specifies \"magnification\"; it specifies X-dimension. 100% = 0.330 mm.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The term magnification has been used to refer to a range of sizes below, at, or above the nominal dimension (100% magnification) for EAN/UPC symbols used in the omnidirectional scanning environment. The symbol specification tables (SSTs) do not use magnification values and instead list the target, minimum and maximum values for the symbol's X-dimension and height.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.12.2.2"
+   },
+   {
+    "id": "bc.magnification.below_80",
+    "claim": "Below 80% (X 0.249-0.264 mm) is allowed only for on-demand (thermal, laser) printing.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The allowance for X-dimensions between 0.249 millimetre (0.0098 inch) and 0.264 millimetre (0.0104 inch) is only applicable to on demand (e.g., thermal, laser) print processes.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, Table 5-44 note (*)"
+   },
+   {
+    "id": "bc.truncation",
+    "claim": "Bar height may be truncated for packaging reasons but not below 60% of the minimum height for the X-dimension (GS1 Australia).",
+    "source": "https://assets.ctfassets.net/9uypwcnuzbqi/5IT2th65cxXq7qywp8feBK/41190020a596307942fab78e38857e9c/GS1au-fact-sheet-EAN-13-barcode.pdf",
+    "quote": "the symbol height SHALL NOT be reduced below 60% of the minimum height specified for the applicable X-dimension.",
+    "page_file": "pages/gs1au-ean13-factsheet.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "bc.quiet_zones",
+    "claim": "Quiet zones for EAN-13: left 11 modules (3.63 mm at nominal), right 7 modules (2.31 mm). After an add-on: 5 modules (1.65 mm). Gap between main symbol and add-on: 7 to 12 modules.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "EAN-13 11 3.63 7 2.31",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.3.4 Table 5-11",
+    "quote2": "Add-ons (EAN) 7-12 2.31-3.96 5 1.65",
+    "value": {
+     "left_modules": 11,
+     "left_mm_at_nominal": 3.63,
+     "right_modules": 7,
+     "right_mm_at_nominal": 2.31,
+     "addon_gap_modules": "7-12",
+     "addon_right_modules": 5
+    }
+   },
+   {
+    "id": "bc.quiet_zone.min",
+    "claim": "General minimum quiet zone for the main symbol.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The minimum Quiet Zone width required by the main symbol is 7x.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.3.4"
+   },
+   {
+    "id": "bc.length.modules",
+    "claim": "Symbol lengths in modules including minimum quiet zones: EAN-13 = 113; five-digit add-on = 52; EAN-13 + five-digit add-on = 165 (54.45 mm at nominal).",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "EAN-13 or UPC-A and five-digit add-on 165",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.3.5 Table 5-12",
+    "value": {
+     "ean13": 113,
+     "addon5": 52,
+     "ean13_plus_addon5": 165,
+     "ean13_plus_addon5_mm_at_nominal_derived": 54.45
+    },
+    "derived_part": "54.45 mm = 165 x 0.330 mm (my arithmetic)"
+   },
+   {
+    "id": "bc.ean13.structure",
+    "claim": "EAN-13 structure: left quiet zone, normal guard, six characters from sets A/B, centre guard, six characters from set C, normal guard, right quiet zone; the 13th (leading) digit is encoded by the A/B parity pattern.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The EAN-13 barcode SHALL be made up as follows, reading from left to right: ■ A left Quiet Zone. ■ A normal guard bar pattern. ■ Six symbol characters from number sets A and B. ■ A centre guard bar pattern. ■ Six symbol characters from number set C. ■ A normal guard bar pattern. ■ A right Quiet Zone.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.2.1"
+   },
+   {
+    "id": "bc.ean5.structure",
+    "claim": "Structure of the five-digit add-on (EAN-5): add-on guard pattern, then five digits from number sets A or B separated by add-on delineators, then a right quiet zone. No right guard bars and no explicit check digit.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "A five-digit add-on symbol may be used in specific applications to accompany an EAN-13, UPC-A, or UPC-E barcode. The five-digit add-on symbol is positioned following the right Quiet Zone of the main symbol and consists of the following: 1. Add-on guard bar pattern. 2. First digit of the add-on number from number sets A or B. 3. Add-on delineator. 4. Second digit of the add-on number from number sets A or B. 5. Add-on delineator. 6. Third digit of the add-on number from number sets A or B. 7. Add-on delineator. 8. Fourth digit of the add-on number from number sets A or B. 9. Add-on delineator. 10. Fifth digit of the add-on number from number sets A or B. 11. A right Quiet Zone.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.2.5.2",
+    "value": {
+     "addon_guard_pattern_modules": 4,
+     "addon_guard_pattern_widths": "bar 1, space 1, bar 2",
+     "addon_delineator_modules": 2,
+     "addon_delineator_widths": "space 1, bar 1"
+    },
+    "quote2": "Add-on guard bar pattern 4 1 1 2 Add-on delineator 2 1 1"
+   },
+   {
+    "id": "bc.ean5.parity",
+    "claim": "EAN-5 parity check: V = units digit of 3 x (d1 + d3 + d5) + 9 x (d2 + d4); V selects the A/B pattern of the five digits.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The add-on symbol has no right guard bar pattern. It does not have an explicit check digit. Checking is done through the mix of the number sets (A or B) used for the five digits. A value V is determined by the following procedure: 1. Sum the digits in Positions one, three and five. 2. Multiply the result of step 1 by 3. 3. Sum the remaining digits (Positions two and four). 4. Multiply the result of step 3 by 9. 5. Sum the results of steps 2 and 4.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "parity_table_V_to_sets transcribes GS1 Table 5-9 (cells are whitespace-separated in the saved text). Step 6 of the procedure (\"The value of V is the unit's position (lowest-order digit) of the result of step.\") follows a page break in the PDF.",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.2.5.2 and Table 5-9",
+    "value": {
+     "parity_table_V_to_sets": {
+      "0": "BBAAA",
+      "1": "BABAA",
+      "2": "BAABA",
+      "3": "BAAAB",
+      "4": "ABBAA",
+      "5": "AABBA",
+      "6": "AAABB",
+      "7": "ABABA",
+      "8": "ABAAB",
+      "9": "AABAB"
+     },
+     "worked_example": {
+      "addon": "86104",
+      "V": 3,
+      "sets": "BAAAB"
+     }
+    },
+    "quote2": "Since V = 3 in Table 5-9, the sequence of number sets used to encode the value 86104 is B A A A B."
+   },
+   {
+    "id": "bc.ean5.position",
+    "claim": "Add-on placement: must not encroach on the main symbol's right quiet zone; at most 12X away; bottom of its bars aligned with the bottom of the main symbol's guard bars; same X-dimension; not taller than the main symbol.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The add-on symbol SHALL NOT encroach on the right Quiet Zone of the main symbol. The maximum separation SHALL be 12X. The bottom edge of the bars (dark bars) in the add-on symbol SHALL be horizontally aligned with the bottom edge of the guard bars of the main symbol.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 5.2.3.6",
+    "quote2": "The X-dimension of an add-on symbol SHALL be the same as the X- dimension of its associated main symbol."
+   },
+   {
+    "id": "bc.ean5.meaning_gs1",
+    "claim": "GS1 assigns NO meaning to the add-on digits: content is defined by the publisher, reading it at point of sale is optional, and it must not carry information that belongs in the GTIN.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "The supplementary information consists of numeric data of any structure and meaning. It is the publisher's responsibility to define the numbering scheme. The data carrier for this element string is the five-digit add-on symbol.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 2.1.3.4",
+    "quote2": "The reading of the add-on symbol by the retailer's point-of-sale system is optional."
+   },
+   {
+    "id": "bc.books.carrier",
+    "claim": "GS1: books should carry EAN-13 (or UPC); the 2- or 5-digit add-on is optional. ISBNs use GS1 prefix 978 or 979.",
+    "source": "https://ref.gs1.org/standards/genspecs/",
+    "quote": "Individual books and paperbacks SHOULD be marked with an EAN-13, UPC-A, or UPC-E barcode that complies with the print quality specifications applicable to all GS1 system barcodes. The EAN/UPC 2-digit or 5-digit Add-on symbols are options used with the above EAN/UPC symbols.",
+    "page_file": "pages/gs1-general-specifications-r26.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "GS1 General Specifications Standard, Release 26.0, Ratified, Jan 2026, 2.1.3.4",
+    "quote2": "ISBN using GS1 Prefix 978 or 979"
+   },
+   {
+    "id": "bc.currency.original_scheme",
+    "claim": "Currency indicator as originally designed (1980s), per BISG: leading 0 and 1 = UK pounds sterling; 2, 3, 4, 5 and 6 = currencies of other English-speaking countries; 5 = US dollars; 6 = Canadian dollars; 9 = internal and industry-wide uses.",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+    "quote": "When the Bookland EAN was configured in the 1980s, the leading digit of the 5-digit Add-On bar code was designated as the currency indicator. Leading digits of ‘0’ and ‘1’ were assigned to UK pounds sterling, while leading digits of ‘2’, ‘3’, ‘4’, ‘5’, and ‘6’ were assigned to the currencies of other English speaking countries. A leading digit of ‘5’ was assigned to US dollars, and a leading digit of ‘6’ to Canadian dollars. A leading digit of ‘9’ was set aside for internal use by organizations in the supply chain and for some industry-wide uses.",
+    "page_file": "pages/bisg-price-increase-in-add-on.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "BISG Machine Readable Coding Committee, \"Dollar Price Limit Increase in the Bookland EAN Add-On Bar Code\", (c) 2005",
+    "value": {
+     "USD": "5",
+     "CAD": "6",
+     "GBP": "0 and 1 (original assignment)",
+     "AUD": null,
+     "NZD": null
+    }
+   },
+   {
+    "id": "bc.currency.usd_current",
+    "claim": "CURRENT BISG rule: 50001-59998 = US$0.01-US$99.98; 10000-49999 = US$100.00-US$499.99 (since September 2004); 59999 = price over US$99.98 not encoded.",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+    "quote": "An increase in US dollar price limit for the Bookland EAN Add-On bar code from $99.98 to $499.99 was approved during BISG’s Annual Meeting in September 2004.",
+    "page_file": "pages/bisg-price-increase-in-add-on.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "10000 – 19999 US$100.00 – US$199.99 Increased range 20000 – 29999 US$200.00 – US$299.99 Increased range 30000 – 39999 US$300.00 – US$399.99 Increased range 40000 – 49999 US$400.00 – US$499.99 Increased range",
+    "value": {
+     "50001-59998": "US$0.01-US$99.98",
+     "59999": "price not encoded, understood to exceed US$99.98",
+     "10000-49999": "US$100.00-US$499.99",
+     "00000": "do not use",
+     "50000": "do not use",
+     "60000-89999": "no current meaning for price; ignore for pricing",
+     "90000": "price not encoded for this title",
+     "90001-99989": "reserved for industry-wide uses",
+     "99990-99999": "reserved for NACS (college stores)"
+    }
+   },
+   {
+    "id": "bc.currency.usd_current_page",
+    "claim": "The live BISG guidelines page (last updated August 2025) repeats this: leading 5 = US dollars.",
+    "source": "https://www.bisg.org/barcoding-guidelines-for-the-us-book-industry",
+    "quote": "A leading digit (Currency Indicator) of \"5\" designates prices from US$00.01 (50001) to US$99.98 (59998).",
+    "page_file": "pages/bisg-barcoding-guidelines.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it.",
+    "quote2": "The information presented here was last updated in August 2025."
+   },
+   {
+    "id": "bc.currency.aud_nzd_not_assigned_in_practice",
+    "claim": "AUD and NZD: BISG found NO price encoding with leading digits 2, 3 or 4 in Australia or New Zealand, and reassigned 10000-49999 to US dollar prices of $100-$499.99. An add-on such as 32995 would therefore be read under current BISG rules as US$329.95, not A$29.95.",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+    "quote": "no instances of price encoding for the leading digits of ‘2’, ‘3’, or ‘4’ according to book industry groups in Australia, New Zealand, South Africa, and India",
+    "page_file": "pages/bisg-price-increase-in-add-on.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "The \"US$329.95\" illustration is my application of the table in bc.currency.usd_current.",
+    "quote2": "the range of 10000 to 49999 could be used for US dollars between $100.00 and $499.99"
+   },
+   {
+    "id": "bc.currency.aud_digit",
+    "claim": "Which single digit means Australian dollars.",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED by any authoritative source. BISG only says digits 2, 3, 4, 5 and 6 \"were assigned to the currencies of other English speaking countries\" without naming Australia's digit; the live BISG page mentions no currency except US dollars; GS1 assigns no meaning to add-on digits; the International ISBN Agency says the add-on should not carry price outside the US and Canada; Bowker's sites are blocked. The widely repeated \"3 = Australian dollars\" comes from non-authoritative sources and conflicts with the current BISG table. Do not encode AUD prices in the add-on."
+   },
+   {
+    "id": "bc.currency.nzd_digit",
+    "claim": "Which single digit means New Zealand dollars.",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT CONFIRMED by any authoritative source, for the same reasons as bc.currency.aud_digit. The widely repeated \"4 = New Zealand dollars\" is not supported by BISG, GS1 or the International ISBN Agency."
+   },
+   {
+    "id": "bc.currency.gbp_digit",
+    "claim": "GBP: leading 0 and 1 were the original assignment, but BISG found 0xxxx used only by some UK publishers for title information (no point-of-sale price scanning) and no use of 1 at all; 1xxxx now means US$100-199.99.",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+    "quote": "the range of 00000 to 09999 still in use by some publishers in the UK for conveying title related information, including price in some cases (however, no instances were found of price encoding for scanning at point of sale in the UK)",
+    "page_file": "pages/bisg-price-increase-in-add-on.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "no instances of any use of the leading digit of ‘1’ for any purpose in the UK"
+   },
+   {
+    "id": "bc.currency.cad_digit",
+    "claim": "CAD: leading 6 (original assignment per BISG; BookNet Canada in September 2025 still describes 6 as Canadian currency). The US BISG table treats 60000-89999 as having no meaning for (US) pricing.",
+    "source": "https://www.booknetcanada.ca/blog/2025/9/8/updated-guidance-on-barcode-price-extensions",
+    "quote": "the leading digit of 5 is used to indicate a price in US currency and a 6 is used to signify prices in Canadian currency.",
+    "page_file": "pages/booknet-canada-barcode-price-extensions-2025.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it. The original assignment of 6 to Canadian dollars is byte-verified in bc.currency.original_scheme."
+   },
+   {
+    "id": "bc.90000",
+    "claim": "\"90000\" means no price is encoded / no suggested price (net-priced title).",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+    "quote": "90000 Price is not encoded for 90000 is understood to mean a net this title. priced title or a title for which a list price is not suggested",
+    "page_file": "pages/bisg-price-increase-in-add-on.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "The quote is one table row whose two columns were interleaved by PDF text extraction. Read as: Pricing interpretation = \"Price is not encoded for this title.\"; Comments = \"90000 is understood to mean a net priced title or a title for which a list price is not suggested\".",
+    "value": {
+     "code": "90000",
+     "pricing_interpretation": "Price is not encoded for this title.",
+     "comment": "90000 is understood to mean a net priced title or a title for which a list price is not suggested"
+    }
+   },
+   {
+    "id": "bc.90000.recommended",
+    "claim": "BISG recommends 90000 when the US$ cover price is not encoded or there is no cover price.",
+    "source": "https://www.bisg.org/barcoding-guidelines-for-the-us-book-industry",
+    "quote": "It is recommended that publishers use the add-on 90000 if they are not encoding the US$ cover price",
+    "page_file": "pages/bisg-barcoding-guidelines.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it."
+   },
+   {
+    "id": "bc.9xxxx.inhouse",
+    "claim": "Outside the US and Canada an add-on, if used at all, should be a 9-prefixed in-house code in 90000-98999 (International ISBN Agency).",
+    "source": "https://www.isbn-international.org/sites/default/files/ISBN%20International%20Users%20Manual%20-%207th%20edition_absolutely_final.docx",
+    "quote": "These supplementary codes always start with “9” within the range “90000-98999”.",
+    "page_file": "pages/isbn-users-manual-7th-edition.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "ISBN Users' Manual 7th ed., section 13.3"
+   },
+   {
+    "id": "bc.bisg.size",
+    "claim": "BISG (US): symbol including price extension is 1 inch high x 2-3/16 inches wide at 100%; any size between 80% and 200% is allowed.",
+    "source": "https://www.bisg.org/barcoding-guidelines-for-the-us-book-industry",
+    "quote": "Magnification may be any size between 80% and 200%.",
+    "page_file": "pages/bisg-barcoding-guidelines.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it.",
+    "quote2": "The symbol, which may includes the 5-digit price extension, is 1\" high x 2-3/16\" wide at 100% magnification."
+   },
+   {
+    "id": "bc.bisg.symbology",
+    "claim": "BISG (US) policy: books carry the ISBN as EAN-13+5.",
+    "source": "https://assets-002.noviams.com/novi-file-uploads/bisg/Policy_Statements/BISG_Policy_0701-79e55656.pdf",
+    "quote": "Bar Code Symbology: EAN‐13+5 (where ‘+5’ indicates the Add‐On Symbol)",
+    "page_file": "pages/bisg-policy-0701.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "BISG Policy Statement POL-0701, updated November 19, 2007"
+   },
+   {
+    "id": "bc.bisg.optional",
+    "claim": "BISG (US): the price extension may be included, and may be omitted after consultation with trading partners; some retailers require it.",
+    "source": "https://www.bisg.org/barcoding-guidelines-for-the-us-book-industry",
+    "quote": "As noted elsewhere, a price extension may be omitted after consultation with a trading partner.",
+    "page_file": "pages/bisg-barcoding-guidelines.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it."
+   },
+   {
+    "id": "bc.kdp.requirements",
+    "claim": "Amazon KDP print covers: suggested barcode box 2\" x 1.2\" (50.8 x 30.5 mm), minimum 1.4\" x 0.8\" (35.56 x 20.3 mm), 100% black on white, at least 0.25\" from spine and trim; if a price code is included it must match the list price.",
+    "source": "https://kdp.amazon.com/en_US/help/topic/G5HDYGP4BXLX4RUW",
+    "quote": "Suggested size is 2\" x 1.2\" (50.8 x 30.5 mm) (Minimum size is 1.4\" x .8\" (35.56 x 20.3 mm))",
+    "page_file": "pages/kdp-barcodes.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "Price code should match list price (if included)"
+   }
+  ],
+  "conclusion_for_an_australian_publisher": {
+   "derived": true,
+   "text": "Print the ISBN as a plain EAN-13 at 80%-200% (X 0.264-0.660 mm; 100% = 37.29 mm wide including quiet zones, bars 22.85 mm high), with \"ISBN 978-...\" in human-readable form above it. If a printer or US retailer wants a five-digit add-on, use 90000 (no price). Never encode an Australian-dollar price: no authoritative source assigns a digit to AUD, the International ISBN Agency says the add-on is for price only in the US and Canada, and leading digits 1-4 are now US$100-$499.99.",
+   "based_on": [
+    "bc.magnification.range",
+    "bc.nominal.size",
+    "isbn.barcode.form",
+    "isbn.barcode.addon_outside_us_canada",
+    "bc.90000",
+    "bc.currency.aud_nzd_not_assigned_in_practice"
+   ]
+  }
+ },
+ "task4_gst_vat": {
+  "facts": [
+   {
+    "id": "gst.ato_unreachable",
+    "claim": "ATO pages on GST for books and e-books.",
+    "source": "https://www.ato.gov.au/",
+    "quote": "",
+    "page_file": null,
+    "verified": false,
+    "retrieval": "none",
+    "note": "NOT RETRIEVED. www.ato.gov.au answers HTTP 403 \"Access Denied\" (Akamai) to curl and HTTP 403 to WebFetch. The facts below are taken instead from the GST Act on the Federal Register of Legislation and from business.gov.au (Australian Government), plus Amazon KDP for Amazon's practice."
+   },
+   {
+    "id": "gst.rate",
+    "claim": "Australian GST rate: 10% of the value of a taxable supply.",
+    "source": "https://www.legislation.gov.au/C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "The amount of GST on a *taxable supply is 10% of the *value of the taxable supply.",
+    "page_file": "pages/cth-gst-act-1999-extract.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "A New Tax System (Goods and Services Tax) Act 1999 (Cth), Compilation No. 96, 1 January 2026, s 9-70",
+    "value": {
+     "rate_percent": 10
+    }
+   },
+   {
+    "id": "gst.rate.business_gov",
+    "claim": "Plain-language statement: GST is 10% on most goods and services; it is one-eleventh of the GST-inclusive price.",
+    "source": "https://business.gov.au/registrations/register-for-taxes/register-for-goods-and-services-tax-gst",
+    "quote": "Goods and services tax (GST) is a tax of 10% on most goods, services and other items sold or consumed in Australia. If your business is registered for GST, you have to collect this extra money (one-eleventh of the sale price) from your customers.",
+    "page_file": "pages/business-gov-register-gst.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "gst.registration_threshold",
+    "claim": "GST registration is required at A$75,000 GST turnover; below that it is optional, and an unregistered business does not add GST to its prices.",
+    "source": "https://business.gov.au/registrations/register-for-taxes/register-for-goods-and-services-tax-gst",
+    "quote": "If your GST turnover is under $75,000 and you haven’t chosen to register for GST, you don't include GST in your prices.",
+    "page_file": "pages/business-gov-register-gst.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "threshold_aud": 75000
+    },
+    "quote2": "your business has a GST turnover of $75,000 or more"
+   },
+   {
+    "id": "gst.taxable_supply",
+    "claim": "A supply is taxable when made for consideration by a registered (or required-to-be-registered) enterprise and connected with Australia, unless it is GST-free or input taxed.",
+    "source": "https://www.legislation.gov.au/C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "You make a taxable supply if: (a) you make the supply for *consideration; and (b) the supply is made in the course or furtherance of an *enterprise that you *carry on; and (c) the supply is *connected with the indirect tax zone; and (d) you are *registered, or *required to be registered. However, the supply is not a *taxable supply to the extent that it is *GST‑free or *input taxed.",
+    "page_file": "pages/cth-gst-act-1999-extract.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "A New Tax System (Goods and Services Tax) Act 1999 (Cth), Compilation No. 96, 1 January 2026, s 9-5"
+   },
+   {
+    "id": "gst.books_not_gst_free",
+    "claim": "Printed books: the Act's list of GST-free categories (Division 38) has no category for books, so a printed book sold in Australia by a GST-registered seller is taxable at 10%.",
+    "source": "https://www.legislation.gov.au/C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "Division 38—GST‑free supplies Table of Subdivisions 38‑A Food 38‑B Health 38‑C Education 38‑D Child care 38‑E Exports and other cross‑border supplies 38‑F Religious services 38‑G Activities of charities etc. 38‑I Water, sewerage and drainage 38‑J Supplies of going concerns 38‑K Transport and related matters 38‑L Precious metals 38‑M Supplies through inwards duty free shops 38‑N Grants of land by governments 38‑O Farm land 38‑P Cars for use by disabled people 38‑Q International Mail 38‑R Telecommunication supplies made under arrangements for global roaming in Australia 38‑S Eligible emissions units 38‑T Inbound intangible consumer supplies",
+    "page_file": "pages/cth-gst-act-1999-extract.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "The conclusion is an inference from the absence of a books category (I also searched Volume 1 of the Act, ss 1-1 to 113-5, for the word \"book\": the only hit is \"books and records\"). No ATO sentence saying \"books are taxable\" was retrieved because ato.gov.au is blocked. Narrow exception seen in the Act: s 38-95, \"A supply of *course materials for a subject undertaken in an *education course is GST-free.\" Exports are GST-free under Subdivision 38-E.",
+    "section": "A New Tax System (Goods and Services Tax) Act 1999 (Cth), Compilation No. 96, 1 January 2026, Division 38",
+    "derived": true
+   },
+   {
+    "id": "gst.books_imported",
+    "claim": "Official statement that GST applies to books: low value imported goods (A$1,000 or less) sold to Australian consumers, with books given as an example.",
+    "source": "https://business.gov.au/finance/tax/international-tax",
+    "quote": "This affects goods valued at A$1000 or less including items like clothing, cosmetics, books and electric appliances.",
+    "page_file": "pages/business-gov-international-tax.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "gst.ebooks",
+    "claim": "E-books are \"digital products\" and GST applies to retail sales of them to Australian consumers, including by overseas sellers and platforms.",
+    "source": "https://business.gov.au/finance/tax/international-tax",
+    "quote": "GST applies to most retail sales to Australian consumers of imported: services (such as legal services) digital products Digital products include streaming or downloading of movies, apps, games and e-books.",
+    "page_file": "pages/business-gov-international-tax.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "gst.ebooks.statute",
+    "claim": "Statutory hook for digital supplies from overseas: a supply of anything other than goods or real property is connected with Australia if the recipient is an \"Australian consumer\".",
+    "source": "https://www.legislation.gov.au/C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1/document_1.html",
+    "quote": "(5) A supply of anything other than goods or *real property is connected with the indirect tax zone if: (a) the thing is done in the indirect tax zone; or (b) the supplier makes the supply through an *enterprise that the supplier *carries on in the indirect tax zone; or",
+    "page_file": "pages/cth-gst-act-1999-extract.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "A New Tax System (Goods and Services Tax) Act 1999 (Cth), Compilation No. 96, 1 January 2026, s 9-25(5)",
+    "quote2": "(d) the *recipient of the supply is an *Australian consumer."
+   },
+   {
+    "id": "gst.kdp.ebooks_au",
+    "claim": "Amazon KDP: eBooks sold to customers in Australia carry 10% GST (India 18%); Amazon.com.au list prices are GST-inclusive and KDP deducts GST before calculating royalties.",
+    "source": "https://kdp.amazon.com/en_US/help/topic/G202169970",
+    "quote": "eBooks sold to customers in Australia are subject to a 10% Goods and Services Tax (GST), and eBooks sold to customers in India are subject to an 18% GST.",
+    "page_file": "pages/kdp-gst-ebooks-australia-india.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "List prices you set for Amazon.com.au and Amazon.in include GST. You don't need to calculate GST separately when setting your list prices.",
+    "quote3": "KDP deducts GST from your list price before calculating royalties on sales to customers in Australia and India."
+   },
+   {
+    "id": "gst.kdp.print_tax_exclusive",
+    "claim": "Amazon KDP print books: list prices are entered EXCLUDING tax; Amazon adds VAT (Europe), GST (Australia) or JCT (Japan) for the customer.",
+    "source": "https://kdp.amazon.com/en_US/help/topic/G8BKPU9AGVZSF9QF",
+    "quote": "You will provide us with a list price (excluding tax) for each print book. This means VAT (Value Added Tax in Europe), GST (Goods and Services Tax in Australia) and JCT (Consumption Tax in Japan) should not be included in your list price.",
+    "page_file": "pages/kdp-print-book-pricing-page.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "KDP does not state the Australian print GST percentage on this page; the 10% rate is from the GST Act (gst.rate)."
+   },
+   {
+    "id": "gst.kdp.print_vat_table",
+    "claim": "Amazon KDP table of VAT rates applied to PRINT books by marketplace (EU and UK).",
+    "source": "https://kdp.amazon.com/en_US/help/topic/GPQL5W3J6WNRCZTV",
+    "quote": "Books with reduced rate VAT | 5.50% | 4% | 4% | 7% | 0% | 9% | 5% | 6% | 0% | 6% | Books with standard rate VAT | 20% | 22% | 21% | 19% | 20% | 21% | 23% | 25% | 23% | 21% |",
+    "page_file": "pages/kdp-eu-uk-taxes-print-books.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "columns": [
+      "FR",
+      "IT",
+      "ES",
+      "DE",
+      "UK",
+      "NL",
+      "PL",
+      "SE",
+      "IE",
+      "BE"
+     ],
+     "reduced_rate_percent": {
+      "FR": 5.5,
+      "IT": 4,
+      "ES": 4,
+      "DE": 7,
+      "UK": 0,
+      "NL": 9,
+      "PL": 5,
+      "SE": 6,
+      "IE": 0,
+      "BE": 6
+     },
+     "standard_rate_percent": {
+      "FR": 20,
+      "IT": 22,
+      "ES": 21,
+      "DE": 19,
+      "UK": 20,
+      "NL": 21,
+      "PL": 23,
+      "SE": 25,
+      "IE": 23,
+      "BE": 21
+     },
+     "standard_rate_may_apply_to": [
+      "Children's Books",
+      "Notebooks, planners, diaries, coloring books, activity books, etc.",
+      "Books with digital or print bonus content."
+     ]
+    },
+    "quote2": "In the European Union and the UK, the Value Added Tax (VAT) will be charged for books sold on Amazon.co.uk, Amazon.de, Amazon.es, Amazon.fr, Amazon.it, Amazon.nl, Amazon.pl, Amazon.se, Amazon.ie, and Amazon.com.be.",
+    "quote3": "Your royalties are not impacted by VAT rate variations. We will use the VAT exclusive list price that you provide to calculate royalties on your book’s sales."
+   },
+   {
+    "id": "gst.kdp.ebook_vat_table",
+    "claim": "Amazon KDP table of VAT rates for EBOOKS (stated \"as of 5/1/2020\", i.e. 1 May 2020): UK 0%, Germany 7%, France 5.5%, Italy 4% (with ISBN) or 22% (without), Spain 4%, Netherlands 9%.",
+    "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+    "quote": "United Kingdom | 0% |",
+    "page_file": "pages/kdp-eu-taxes-ebooks.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "The page lists only these six locations for eBooks and does not give eBook VAT rates for PL, SE, IE or BE. EU eBook prices are VAT-inclusive; royalties are calculated on the VAT-exclusive price.",
+    "value": {
+     "as_of": "5/1/2020 (US date format = 1 May 2020)",
+     "vat_percent": {
+      "United Kingdom": 0,
+      "Germany": 7,
+      "France": 5.5,
+      "Italy": "4 or 22",
+      "Spain": 4,
+      "Netherlands": 9
+     }
+    },
+    "quote2": "*Due to legislation specific to Italy, a lower VAT rate of 4% will apply to eBooks with ISBNs purchased on the amazon.it Kindle store by customers in Italy. A higher VAT rate of 22% will apply to eBooks without ISBNs.",
+    "quote3": "Germany | 7% |",
+    "quote4": "France | 5.5% |",
+    "quote5": "Spain | 4% |",
+    "quote6": "Netherlands | 9% |",
+    "quote7": "Italy | 4% or 22%* |"
+   },
+   {
+    "id": "gst.kdp.japan",
+    "claim": "Amazon KDP: Japan consumption tax of 10% applies to eBooks and print books; eBook prices are tax-inclusive, print list prices are tax-exclusive.",
+    "source": "https://kdp.amazon.com/en_US/help/topic/G201849770",
+    "quote": "A consumption tax of 10% is applied to all eBooks and print books sold to customers living in Japan.",
+    "page_file": "pages/kdp-setting-prices-amazon-japan.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "gst.kdp.taiwan",
+    "claim": "Amazon KDP: eBooks sold to customers in Taiwan carry a 5% ESS VAT added on top of the Amazon.com list price.",
+    "source": "https://kdp.amazon.com/en_US/help/topic/G202183400",
+    "quote": "As of September 1, 2017, eBooks sold to customers located in Taiwan are subject to a 5% Electronically Supplied Services Value Added Tax (ESS VAT).",
+    "page_file": "pages/kdp-taiwan-vat.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "gst.kdp.ebook_isbn_note",
+    "claim": "Amazon KDP: do not reuse a print ISBN for the digital edition.",
+    "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+    "quote": "Note: Do not use an ISBN from a print edition for your digital edition. If you want to include an ISBN for the digital version of your book, it must be a unique ISBN.",
+    "page_file": "pages/kdp-eu-taxes-ebooks.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "gst.kdp.other_marketplaces",
+    "claim": "A single KDP page listing tax rates for every marketplace (US, CA, MX, BR, IN print, AU print, etc.).",
+    "source": "https://kdp.amazon.com/en_US/help/topic/GR6ZLYMF5VLS27PY",
+    "quote": "",
+    "page_file": "pages/kdp-how-taxes-affect-list-prices.txt",
+    "verified": false,
+    "retrieval": "curl",
+    "note": "NOT FOUND. The KDP hub page \"How Taxes Affect List Prices\" links only to the Japan page and the two EU/UK pages; with the Australia/India GST and Taiwan VAT pages those are all the tax-rate pages in the KDP help index. No official KDP rates were found for print books in Australia (percentage), Canada, Mexico, Brazil, India (print) or the United States."
+   }
+  ],
+  "summary": {
+   "derived": true,
+   "australia": {
+    "gst_rate_percent": 10,
+    "printed_books_taxable": true,
+    "ebooks_taxable": true,
+    "basis": "GST Act s 9-70 (10%); no GST-free category for books in Division 38 (inference); business.gov.au names books among taxable low-value imports and e-books among taxable digital products; KDP charges 10% GST on eBooks to Australian customers. ATO wording not retrieved."
+   }
+  }
+ },
+ "task5_currency_rates": {
+  "file": "rates.json",
+  "facts": [
+   {
+    "id": "fx.ecb.date",
+    "claim": "Rate date exactly as stated by the ECB feed: 2026-11-20 (the latest available when fetched on 2026-11-23, before that day's publication).",
+    "source": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+    "quote": "<Cube time='2026-11-20'>",
+    "page_file": "pages/ecb-eurofxref-daily.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "date": "2026-11-20"
+    }
+   },
+   {
+    "id": "fx.ecb.aud",
+    "claim": "ECB reference rate: 1 EUR = 1.6487 AUD. All AUD-base rates in rates.json are cross rates ECB[CUR] / 1.6487 (EUR = 1 / 1.6487), rounded to 6 decimals.",
+    "source": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+    "quote": "<Cube currency='AUD' rate='1.6487'/>",
+    "page_file": "pages/ecb-eurofxref-daily.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "derived_part": "AUD-base cross rates are my arithmetic, not ECB-published figures"
+   },
+   {
+    "id": "fx.ecb.usd",
+    "claim": "ECB reference rate: 1 EUR = 1.0990 USD (so 1 AUD = 0.666586 USD).",
+    "source": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+    "quote": "<Cube currency='USD' rate='1.0990'/>",
+    "page_file": "pages/ecb-eurofxref-daily.txt",
+    "verified": true,
+    "retrieval": "curl"
+   }
+  ]
+ },
+ "task6_thema": {
+  "facts": [
+   {
+    "id": "thema.version",
+    "claim": "Current Thema version: 1.7 (file VersionNumber v1.7.0, IssueDate 20261020), released 28 October 2026. Backward compatible with 1.6 and earlier.",
+    "source": "https://www.editeur.org/151/Thema/",
+    "quote": "Thema version 1.7 - released October 28th 2026",
+    "page_file": "pages/editeur-thema.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "Thema version 1.7 contains 44 new core subject categories and 217 new qualifiers (including new national extensions), plus numerous improvements to the wording of headings and notes, but it retains full backward compatibility with version 1.6 and all earlier versions – no existing data needs to be modified or updated.",
+    "value": {
+     "version": "1.7",
+     "file_version_number": "v1.7.0",
+     "issue_date": "20261020",
+     "released": "2026-10-28",
+     "codes_in_english_file": 9448,
+     "CodeListNumber_field_in_file": 214
+    }
+   },
+   {
+    "id": "thema.download",
+    "claim": "Official machine-readable downloads (English): JSON, XML, Excel and HTML. All four were downloaded.",
+    "source": "https://www.editeur.org/151/Thema/",
+    "quote": "Version 1.7 categories and codes in English (Excel, HTML, XML and JSON)",
+    "page_file": "pages/editeur-thema.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "json": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.json",
+     "xml": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xml",
+     "xlsx": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xlsx",
+     "html": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.html",
+     "interactive_browser": "https://ns.editeur.org/thema",
+     "skos_complete": "https://ns.editeur.org/themacomplete.rdf"
+    }
+   },
+   {
+    "id": "thema.licence.file_header",
+    "claim": "Licence terms printed inside the Thema XML file itself: use implies acceptance; no adding to, deleting from, amending or copying parts for use outside the scheme except strictly internally; notify EDItEUR first of any non-internal additions, amendments or extracts.",
+    "source": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xml",
+    "quote": "All EDItEUR standards and documentation – including this document – are copyright materials, made available free of charge for general use. A full license agreement that governs their use is available on the EDItEUR website (at https://doi.org/10.4400/nwgj). In particular, if you use the Thema Subject Classification Scheme, you will be deemed to have accepted these terms and conditions: 1. You agree that you will not add to, delete from, amend, or copy for use outside of the scheme, any part thereof except for strictly internal use in your own organization; 2. You agree that if your business would benefit from future additions or amendments to or extracts of the scheme for any purpose that is not strictly internal to your own organization, you will in the first instance notify EDItEUR and allow EDItEUR to review and comment on your proposed use, in the interest of securing an orderly development of the Scheme for the benefit of other users. If you do not accept these terms, you must not use the scheme.",
+    "page_file": "pages/editeur-thema-v1.7-en-xml-header.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "thema.licence.no_translate_modify",
+    "claim": "The file header also says Thema should not be translated or modified without permission.",
+    "source": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xml",
+    "quote": "If you wish to translate Thema into another language, or otherwise modify it in any way, please note that it is copyright material and – while EDItEUR wishes it to be as widely available as possible – it should not be translated or modified without permission.",
+    "page_file": "pages/editeur-thema-v1.7-en-xml-header.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "thema.licence.free",
+    "claim": "Thema is free of charge to implement under the EDItEUR licence; no membership required.",
+    "source": "https://www.editeur.org/files/Thema/1.7/Using%20Thema%201%20Executive%20briefing_20261030.pdf",
+    "quote": "Like other EDItEUR standards, Thema is free of charge for anyone to implement, under a permissive EDItEUR license (DOI: 10.4400/nwgj). In particular, there is no requirement for EDItEUR membership",
+    "page_file": "pages/editeur-thema-executive-briefing.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Using Thema 1: Executive briefing, revised 30/10/2026"
+   },
+   {
+    "id": "thema.licence.grant",
+    "claim": "EDItEUR licence grant: non-exclusive, royalty-free, perpetual, worldwide, including implementation on behalf of third parties and for commercial use.",
+    "source": "https://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2020260225.pdf",
+    "quote": "3.1. All EDItEUR Standards are copyright documents. EDItEUR grants You a non-exclusive, non- transferable, royalty-free, perpetual worldwide licence to use the EDItEUR Standards and the proprietary know-how and information they contain for the purposes of: 3.1.1. Assessing the suitability of the EDItEUR Standards; 3.1.2. Implementing any of the EDItEUR Standards, on Your own behalf or on behalf of third parties, whether for commercial use or otherwise;",
+    "page_file": "pages/editeur-licence-doi-10.4400-nwgj.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "Licence to use EDItEUR Standards, revised 25 February 2026 (https://doi.org/10.4400/nwgj), clause 3.1"
+   },
+   {
+    "id": "thema.licence.copy_vocabularies",
+    "claim": "The licence expressly allows copying and using controlled vocabularies (code lists) to implement the standards, and making copies available to others subject to clauses 4 and 5.3.",
+    "source": "https://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2020260225.pdf",
+    "quote": "3.2.2. Copy and use as required any controlled vocabularies, schemas or other technical tools as published and updated from time to time on the EDItEUR website in support of implementation of the EDItEUR Specifications; and 3.2.3. Subject to paragraph 4 and paragraph 5.3 below, make copies of the EDItEUR Standards available in print or electronic form to others.",
+    "page_file": "pages/editeur-licence-doi-10.4400-nwgj.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "clause 3.2"
+   },
+   {
+    "id": "thema.licence.integrity",
+    "claim": "Conditions when bundling: keep copyright notices and licence references intact; do not translate, abridge, abstract from or modify without written permission (except for wholly internal systems); attribute to EDItEUR with links where practicable.",
+    "source": "https://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2020260225.pdf",
+    "quote": "4.1. You must ensure that any copyright notices, and/or references to This Licence, which appear in the EDItEUR Standards are kept intact. 4.2. Except as provided in paragraph 4.3, You may not translate, abridge, abstract from or otherwise modify the EDItEUR Standards without written permission from EDItEUR.",
+    "page_file": "pages/editeur-licence-doi-10.4400-nwgj.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "clauses 4.1-4.2",
+    "quote2": "4.3. Notwithstanding paragraph 4.2, You may abstract from or modify any EDItEUR Specifications or subsets of them, to support any computer system implementation which is wholly internal to Your organisation and which may need to make use of these.",
+    "quote3": "4.4. You must ensure that any documents which You create (whether in print or electronic form, and whether wholly internal to Your organisation or made available to others) which contain any reference to or unmodified or modified content from any EDItEUR Standards will attribute those standards and content clearly to EDItEUR and where practicable, links should be made to the EDItEUR Website and to This Licence."
+   },
+   {
+    "id": "thema.licence.keep_current",
+    "claim": "If copies are distributed to others (e.g. inside a software product), reasonable efforts must be made to keep them up to date.",
+    "source": "https://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2020260225.pdf",
+    "quote": "5.3. If You make copies of the EDItEUR Standards available in print or electronic form to others, You must make reasonable efforts to ensure those copies are kept up to date with such changes, improvements and withdrawals EDItEUR makes to the Standards and that outdated versions are archived or removed.",
+    "page_file": "pages/editeur-licence-doi-10.4400-nwgj.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "clause 5.3"
+   },
+   {
+    "id": "thema.licence.no_registration",
+    "claim": "No registration or fee.",
+    "source": "https://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2020260225.pdf",
+    "quote": "2.2. No registration is required to use any of EDItEUR’s Standards, and use within the terms and conditions set out in This Licence is without charge.",
+    "page_file": "pages/editeur-licence-doi-10.4400-nwgj.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "clause 2.2"
+   },
+   {
+    "id": "thema.licence.definition_covers_codelists",
+    "claim": "The licence definition of \"EDItEUR Specifications\" expressly covers controlled vocabularies and code lists.",
+    "source": "https://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2020260225.pdf",
+    "quote": "“EDItEUR Specifications” means the EDItEUR message format specifications and controlled vocabularies, schemas and other technical tools (including, without limitation, ‘codelists’ associated with the message format specifications, ‘DTDs’, ‘XSDs’ and similar, ‘XSLTs’, sample data files and other software);",
+    "page_file": "pages/editeur-licence-doi-10.4400-nwgj.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "section": "clause 1.1"
+   },
+   {
+    "id": "thema.website_terms",
+    "claim": "EDItEUR's general website terms separately say material from the site must not be republished without written permission. The standards licence (DOI 10.4400/nwgj) is the specific instrument for the standards and code lists.",
+    "source": "https://www.editeur.org/67/Terms-and-Conditions/",
+    "quote": "4.3 You must not republish material from our site (whether in digital or physical form) without our written permission. You may link however direct to the pages and documents on our site (see below).",
+    "page_file": "pages/editeur-terms-and-conditions.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "How the general website terms and the specific standards licence interact for redistribution inside a desktop app is a legal question; the file header asks you to notify EDItEUR of any non-internal extracts. Bundling the unmodified official file with its notices, attribution and an update mechanism is the reading best supported by clauses 3.2.2, 3.2.3, 4.1, 4.4 and 5.3; a re-structured or trimmed list distributed to users is what clause 4.2 and the file header put behind permission/notification."
+   }
+  ],
+  "downloaded_files": {
+   "thema/20261020_Thema_v1.7_en.html": {
+    "bytes": 2336118,
+    "sha256": "37b58755fc76858bb579d4edf09f7dc90301b804a15fb628f8517a0407eabc43",
+    "downloaded_from": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.html"
+   },
+   "thema/20261020_Thema_v1.7_en.json": {
+    "bytes": 3772641,
+    "sha256": "6d3adecb56bbca14e5884e5caf2b71bfba511d8a1c0c5cb4f5fd6e2c5d2c38b5",
+    "downloaded_from": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.json"
+   },
+   "thema/20261020_Thema_v1.7_en.xlsx": {
+    "bytes": 11496722,
+    "sha256": "6a6685a5658b8f3f9fcec5905bfebec7ac289400316ffeda37f3fd5c728ade22",
+    "downloaded_from": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xlsx"
+   },
+   "thema/20261020_Thema_v1.7_en.xml": {
+    "bytes": 2881192,
+    "sha256": "03636ea20d1fd8dbb32f8b9679ebcdb4421bad75bb944ada71a8e512c08d27e3",
+    "downloaded_from": "https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.xml"
+   },
+   "thema/THEMA_VERSION_AND_LICENCE.json": {
+    "bytes": 4518,
+    "sha256": "6f75ec1feb24b336d4891c59798a3031da59e8571ff9e749be30716ff0e61210",
+    "derived": true
+   },
+   "thema/thema_v1.7_en_simplified.json": {
+    "bytes": 1813493,
+    "sha256": "2f934e3a16f5b1f5abaa250ad11fc343863db4c0e71d2ad18e99340f6b86feec",
+    "derived": true
+   }
+  },
+  "licence_gist": {
+   "derived": true,
+   "text": "Free, no registration, perpetual royalty-free licence that covers commercial implementations and copying of the code lists; you may pass copies on if you keep copyright notices and licence references intact, attribute EDItEUR, keep the copy current and do not translate, abridge, extract from or modify it without written permission (internal systems excepted). The Thema file header additionally asks to be notified before any non-internal additions, amendments or extracts."
+  },
+  "downloaded_files_note": "thema/thema_v1.7_en_simplified.json is my conversion of the official JSON to an array of {code, heading, parent?, notes?} (9,448 entries, every parent resolves). It drops the per-code IssueNumber/Modified fields, so treat it as an internal working copy (see thema.licence.integrity) and ship the official file."
+ },
+ "task7_bisac": {
+  "facts": [
+   {
+    "id": "bisac.reachability",
+    "claim": "www.bisg.org is not blocked by the session proxy, but its Web Application Firewall refuses curl's default client (HTTP 403). robots.txt is served and permits crawling of these pages, and the WebFetch tool could read them.",
+    "source": "https://www.bisg.org/robots.txt",
+    "quote": "This request has been blocked by the Web Application Firewall policy.",
+    "page_file": "pages/bisg-waf-403-response.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "The quote is the 69-byte body of the HTTP 403 response to curl for https://www.bisg.org/ (saved as raw/bisg-home.bin). All BISAC licensing facts below were read through WebFetch."
+   },
+   {
+    "id": "bisac.free_lookup",
+    "claim": "Looking up and using individual BISAC codes for your own books is free and needs no permission.",
+    "source": "https://www.bisg.org/purchasedownload-complete-bisac-list",
+    "quote": "There’s no fee to browse the current list and select and use BISAC codes to categorize a book.",
+    "page_file": "pages/bisg-bisac-licensing.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it.",
+    "quote2": "Additionally, no permission is required to use BISAC codes"
+   },
+   {
+    "id": "bisac.paid_licence",
+    "claim": "Downloading the entire list for use in business systems needs a paid licence (free to BISG members).",
+    "source": "https://www.bisg.org/complete-bisac-subject-headings-list",
+    "quote": "You only need a paid license to download the entire list for use in business systems.",
+    "page_file": "pages/bisg-bisac-licensing.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it.",
+    "quote2": "Non-members can purchase a license and download the list with pricing based on your annual company revenue."
+   },
+   {
+    "id": "bisac.no_redistribution",
+    "claim": "The lists may not be distributed or reproduced without BISG's express permission.",
+    "source": "https://www.bisg.org/complete-bisac-subject-headings-list",
+    "quote": "No part of these lists or any attached documents may be distributed or reproduced in any manner whatsoever",
+    "page_file": "pages/bisg-bisac-licensing.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it. The tool returned this notice in two fragments; the second is \"without the express permission of the Book Industry Study Group, Inc.\"",
+    "quote2": "without the express permission of the Book Industry Study Group, Inc."
+   },
+   {
+    "id": "bisac.not_transferable",
+    "claim": "A licensed download is company-wide but not transferable, including to clients; no copies or access for anyone outside the organisation.",
+    "source": "https://www.bisg.org/purchasedownload-complete-bisac-list",
+    "quote": "Don’t provide a copy or access to a copy of the licensed product to anyone outside your organization.",
+    "page_file": "pages/bisg-bisac-licensing.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it.",
+    "quote2": "isn’t transferable, including to clients of any company."
+   },
+   {
+    "id": "bisac.software_vendors",
+    "claim": "Software or services that include access to the complete BISAC list must verify that each end user holds a BISAC licence; non-members must buy a licence to access the list inside any third-party platform.",
+    "source": "https://www.bisg.org/purchasedownload-complete-bisac-list",
+    "quote": "If your organization provides products or services that include access to the complete BISAC subject codes list,",
+    "page_file": "pages/bisg-bisac-licensing.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it. The tool returned the sentence in two fragments; the continuation is \"you’re responsible for verifying that the end user has a license for the BISAC version they’re accessing.\"",
+    "quote2": "you’re responsible for verifying that the end user has a license for the BISAC version they’re accessing.",
+    "quote3": "All non-members must purchase a license in order to access the list within any third-party platform."
+   },
+   {
+    "id": "bisac.fees",
+    "claim": "Non-member licence fee tiers by annual book-related revenue (members free): under $1M $590; $1-5M $790; $5-10M $1,190; $10-50M $1,790; $50-100M $2,390; $100M-$1B $2,990; over $1B $3,590 (US dollars).",
+    "source": "https://www.bisg.org/purchasedownload-complete-bisac-list",
+    "quote": "Level B (under $1 million in annual book-related revenue): free to members; $590 for non-members",
+    "page_file": "pages/bisg-bisac-licensing.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it.",
+    "value": {
+     "currency": "USD",
+     "tiers": {
+      "B (<$1M)": 590,
+      "C ($1-5M)": 790,
+      "D ($5-10M)": 1190,
+      "E1 ($10-50M)": 1790,
+      "E2 ($50-100M)": 2390,
+      "F ($100M-$1B)": 2990,
+      "G (>$1B)": 3590
+     }
+    }
+   },
+   {
+    "id": "bisac.edition",
+    "claim": "Edition on the site: BISAC 2025; the licensed download comes in Excel, Word, PDF and JSON.",
+    "source": "https://www.bisg.org/purchasedownload-complete-bisac-list",
+    "quote": "BISAC 2025 in Excel, Word, PDF, and JSON formats.",
+    "page_file": "pages/bisg-bisac-licensing.webfetch.txt",
+    "verified": true,
+    "retrieval": "webfetch",
+    "note": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it.",
+    "quote2": "Find the right code for your book: 2025 Edition"
+   }
+  ],
+  "not_scraped": "No BISAC headings or codes were requested, downloaded or stored.",
+  "gist": {
+   "derived": true,
+   "text": "Do not bundle the BISAC list in the app. Individual codes may be chosen on bisg.org and typed in freely; a product that ships or exposes the complete list needs a BISG licence and must check that each end user is licensed."
+  }
+ },
+ "task8_onix": {
+  "facts": [
+   {
+    "id": "onix.current",
+    "claim": "Current ONIX for Books revisions: 3.0.8 and 3.1.3; current code lists: Issue 75.",
+    "source": "https://www.editeur.org/93/Release-3.0-and-3.1-Downloads/",
+    "quote": "ONIX 3.0 and 3.1 Specifications latest revision 3.1.3",
+    "page_file": "pages/editeur-onix-3-downloads.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "quote2": "ONIX for Books 3.0.8 Specification (PDF in ZIP)",
+    "quote3": "Code Lists for Release 3.0 and 3.1 latest issue 75",
+    "value": {
+     "onix_3_0_revision": "3.0.8",
+     "onix_3_1_revision": "3.1.3",
+     "codelist_issue": 75
+    }
+   },
+   {
+    "id": "onix.codelists.issue",
+    "claim": "Code lists Issue 75 is the up-to-date issue for ONIX 3.0 and 3.1; released 2026-10-12 (file header), \"published in mid October 2026\" (changes document).",
+    "source": "https://www.editeur.org/14/Code-Lists/",
+    "quote": "Codelists Issue 75 is the up-to-date issue for use with Releases 3.0 and 3.1 of ONIX for Books.",
+    "page_file": "pages/editeur-onix-codelists.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "issue": 75,
+     "release_date": "2026-10-12"
+    }
+   },
+   {
+    "id": "onix.codelists.release_date",
+    "claim": "Issue 75 release date in the XML header.",
+    "source": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.xml",
+    "quote": "2026-10-12: Module for public release based upon the ONIX International Code lists Issue 75 (October 2026)",
+    "page_file": "pages/editeur-onix-codelists-issue75-xml-header.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "onix.codelists.formats",
+    "claim": "Code lists are downloadable as CSV, tab-delimited TXT, XML and JSON (plus DTD/XSD/RNG modules).",
+    "source": "https://www.editeur.org/14/Code-Lists/",
+    "quote": "Complete copies of the current codelist files can be downloaded either in comma-delimited (CSV), tab-delimited (TXT), DTD, XSD, JSON or XML format.",
+    "page_file": "pages/editeur-onix-codelists.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "json": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.json",
+     "xml": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.xml",
+     "csv": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.csv",
+     "html": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.html",
+     "changes_pdf": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75_Changes.pdf",
+     "json_schema": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelist_Structure.json",
+     "online_browser": "https://ns.editeur.org/onix"
+    }
+   },
+   {
+    "id": "onix.spec.urls",
+    "claim": "Official URLs for the ONIX 3.0 / 3.1 specification packages (all answered HTTP 200 on 2026-11-23; not downloaded).",
+    "source": "https://www.editeur.org/93/Release-3.0-and-3.1-Downloads/",
+    "quote": "ONIX for Books 3.1.3 Specification (PDF in ZIP)",
+    "page_file": "pages/editeur-onix-3-downloads.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "value": {
+     "downloads_page": "https://www.editeur.org/93/Release-3.0-and-3.1-Downloads/",
+     "about_page": "https://www.editeur.org/12/About-Release-3.0-and-3.1/",
+     "overview_page": "https://www.editeur.org/83/Overview/",
+     "codelists_page": "https://www.editeur.org/14/Code-Lists/",
+     "spec_3_0_8_pdf_zip": "https://www.editeur.org/files/ONIX%203/ONIX_for_Books_Release_3-0_pdf_docs+codes_Issue_75.zip",
+     "spec_3_1_3_pdf_zip": "https://www.editeur.org/files/ONIX%203/ONIX_for_Books_Release_3-1_pdf_docs+codes_Issue_75.zip",
+     "spec_3_0_8_html_zip_with_best_practice_guide": "https://www.editeur.org/files/ONIX%203/ONIX_for_Books_Release_3-0_html_docs+codes_Issue_75_v1-8-7.zip",
+     "spec_3_1_3_html_zip_with_best_practice_guide": "https://www.editeur.org/files/ONIX%203/ONIX_for_Books_Release_3-1_html_docs+codes_Issue_75_v1-12-3.zip",
+     "xsd_3_0_8_zip": "https://www.editeur.org/files/ONIX%203/ONIX_BookProduct_3.0_XSDs+codes_Issue_75.zip",
+     "xsd_3_1_3_zip": "https://www.editeur.org/files/ONIX%203/ONIX_BookProduct_3.1_XSDs+codes_Issue_75.zip"
+    }
+   },
+   {
+    "id": "onix.licence",
+    "claim": "ONIX specifications and tools are free of charge under the same EDItEUR licence; no registration, royalty or membership.",
+    "source": "https://www.editeur.org/83/Overview/",
+    "quote": "EDItEUR provides these specifications, various XML tools, plus guidance on how to implement ONIX, and use of all these materials is free of charge under the terms of a highly-permissive licence. No registration, royalty fee or membership is required to implement ONIX.",
+    "page_file": "pages/editeur-onix-overview.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "onix.codelists.never_deleted",
+    "claim": "Code values are never deleted or redefined, only deprecated; issues appear quarterly.",
+    "source": "https://www.editeur.org/14/Code-Lists/",
+    "quote": "To maintain backwards compatibility in respect of code values as well as message formats, code values, once published, are never deleted or substantively redefined.",
+    "page_file": "pages/editeur-onix-codelists.txt",
+    "verified": true,
+    "retrieval": "curl"
+   },
+   {
+    "id": "onix.list26_absent",
+    "claim": "List 26 is not in Issue 75 (the file goes from list 25 to list 27), so it could not be kept. EDItEUR says lists not used by supported message specifications may be removed.",
+    "source": "https://www.editeur.org/14/Code-Lists/",
+    "quote": "Certain codelists that are not used in currently-supported message specifications may be removed from new Issues of the codelists.",
+    "page_file": "pages/editeur-onix-codelists.txt",
+    "verified": true,
+    "retrieval": "curl",
+    "note": "Checked in the downloaded JSON and XML: CodeListNumber 25 is followed directly by 27. All 24 other requested lists are present."
+   }
+  ],
+  "downloaded_files": {
+   "onix-codelists/ONIX_BookProduct_Codelist_Structure.json": {
+    "bytes": 1371,
+    "sha256": "489777079452bc296341b4a656a6a5daa5b2141ede01b6e7ee69990b1d83bef0",
+    "downloaded_from": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelist_Structure.json"
+   },
+   "onix-codelists/ONIX_BookProduct_Codelists_Issue_75.csv": {
+    "bytes": 640434,
+    "sha256": "d5ce4861b82571a32140b269dd6a62bd076436ae978d579cbaadcdec07125a4c",
+    "downloaded_from": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.csv"
+   },
+   "onix-codelists/ONIX_BookProduct_Codelists_Issue_75.json": {
+    "bytes": 1382618,
+    "sha256": "5b4345995d57b44c301b1ec0ff8ca29b02503e96e2760ca57cad05f1c473f59a",
+    "downloaded_from": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.json"
+   },
+   "onix-codelists/ONIX_BookProduct_Codelists_Issue_75.xml": {
+    "bytes": 1479433,
+    "sha256": "e83b8a17fb5db9eeea3741e338121210d7a1e30226a503a39355f7333e077acf",
+    "downloaded_from": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75.xml"
+   },
+   "onix-codelists/ONIX_BookProduct_Codelists_Issue_75_Changes.pdf": {
+    "bytes": 311353,
+    "sha256": "580e39defae32144d3a7b99dfb3f4d6c043237cee11b4f723dd71988e5502efa",
+    "downloaded_from": "https://www.editeur.org/files/ONIX%20for%20books%20-%20code%20lists/ONIX_BookProduct_Codelists_Issue_75_Changes.pdf"
+   },
+   "onix-codelists/subset/list_001.json": {
+    "bytes": 3820,
+    "sha256": "67d3412aac25c7d2913950c57ccc316a4ab9d70b0c6e73ac3ad904e3e7d0546f",
+    "derived": true
+   },
+   "onix-codelists/subset/list_002.json": {
+    "bytes": 2351,
+    "sha256": "f2abd716ee687277f67b3df7befb1105907085fbc7d3486be855a06cc16efe2e",
+    "derived": true
+   },
+   "onix-codelists/subset/list_005.json": {
+    "bytes": 8516,
+    "sha256": "58ae3862c8f4628d06d8b43e1a2a588cc8d5766ed49f73761b50fe76e534e2b1",
+    "derived": true
+   },
+   "onix-codelists/subset/list_015.json": {
+    "bytes": 5394,
+    "sha256": "bf4ea11d811e5c4b2969c7d62b865210782e7a341eba1fbd90d985e71b2c7ea8",
+    "derived": true
+   },
+   "onix-codelists/subset/list_017.json": {
+    "bytes": 29474,
+    "sha256": "908a2628d03ff920e423e81be6e2e6358e55ce9430fb74fbca34d69fb3b75992",
+    "derived": true
+   },
+   "onix-codelists/subset/list_021.json": {
+    "bytes": 14435,
+    "sha256": "d4b6e34eea850c7dd3aa1689cdb88d1047a85d1cb247ca85a7105c88786c7769",
+    "derived": true
+   },
+   "onix-codelists/subset/list_022.json": {
+    "bytes": 4290,
+    "sha256": "14e479837c66b2426eb746db7683a74d0b78355c5e098d3493ce2fcc2867801e",
+    "derived": true
+   },
+   "onix-codelists/subset/list_027.json": {
+    "bytes": 39376,
+    "sha256": "e12f870aeaeee5c1bf2dec06bf233c9f831cd9555a487182c5659c0ef2d82c91",
+    "derived": true
+   },
+   "onix-codelists/subset/list_028.json": {
+    "bytes": 4647,
+    "sha256": "95f97b6fb8871237a8c8a43a898237c6b1cab8966034b1d90d9b332a90cececb",
+    "derived": true
+   },
+   "onix-codelists/subset/list_029.json": {
+    "bytes": 9753,
+    "sha256": "0145551a1163342829b4a49e416b11c48dfbce55d17266590c6548c9a9d9622f",
+    "derived": true
+   },
+   "onix-codelists/subset/list_030.json": {
+    "bytes": 5926,
+    "sha256": "adc4c0d3394bc3749f13686b9ec9070a13e17f62f584c7722ee6d2978ab7baca",
+    "derived": true
+   },
+   "onix-codelists/subset/list_044.json": {
+    "bytes": 13389,
+    "sha256": "3ffaecb88c5588ef650a447afb5d6b9df2b8198e16e83c882743e3c08242c079",
+    "derived": true
+   },
+   "onix-codelists/subset/list_045.json": {
+    "bytes": 5686,
+    "sha256": "40c8ba55c70cb4db915907455b6d0e2045cac52f5f9fc264df8ed8706fe6332c",
+    "derived": true
+   },
+   "onix-codelists/subset/list_048.json": {
+    "bytes": 10650,
+    "sha256": "c3a06ab94bdc686332ad20ecfc32dac48eda06963f788ad848c41779f0a8a017",
+    "derived": true
+   },
+   "onix-codelists/subset/list_050.json": {
+    "bytes": 1543,
+    "sha256": "301d28cd27cf4b7f35067e14dc2647cd36b9d1c4ce0c9ba5d28d8e4b0d4263f3",
+    "derived": true
+   },
+   "onix-codelists/subset/list_058.json": {
+    "bytes": 12599,
+    "sha256": "8bfe44ee1d1624e80227b0ca11fd0f36f38046b1ef2368273d429774ac521414",
+    "derived": true
+   },
+   "onix-codelists/subset/list_064.json": {
+    "bytes": 7783,
+    "sha256": "b63d466147798b16a8f2d1d36aaf063e9bef9bf93a4159a5ed3e3fee07dc5d02",
+    "derived": true
+   },
+   "onix-codelists/subset/list_065.json": {
+    "bytes": 11199,
+    "sha256": "4111e38036e50f960a345b7648b4a0f7d71130956740706ea46b77d3830b43e7",
+    "derived": true
+   },
+   "onix-codelists/subset/list_074.json": {
+    "bytes": 112657,
+    "sha256": "3df7dba5d6197ca73a64acc782a3ee440ee0dfd916a597dcb572ce43223117be",
+    "derived": true
+   },
+   "onix-codelists/subset/list_091.json": {
+    "bytes": 41781,
+    "sha256": "755b08fa822864be7fb4702cc313a155dca5642d1ca143cf2d6e8d5e86ff9c9a",
+    "derived": true
+   },
+   "onix-codelists/subset/list_139.json": {
+    "bytes": 44997,
+    "sha256": "871ed20aa56ebb948b84919c0815c3fc2edf1afd08d3aabd9e9f77b51e986cfb",
+    "derived": true
+   },
+   "onix-codelists/subset/list_150.json": {
+    "bytes": 39749,
+    "sha256": "b55fb7615d97d4bdec825242af14849ff81605b9421a4db6f9728c81986bf2a9",
+    "derived": true
+   },
+   "onix-codelists/subset/list_163.json": {
+    "bytes": 11723,
+    "sha256": "6879930b7d057c798a7b824f33709d534297d9d1461352409a08d2f38690fc31",
+    "derived": true
+   },
+   "onix-codelists/subset/list_175.json": {
+    "bytes": 96938,
+    "sha256": "651ef95541f27f54f9fdbf8873a34e8fdf88afe8966b7d2571230950b46e4ffe",
+    "derived": true
+   },
+   "onix-codelists/subset/onix_codelists_issue_75_subset.json": {
+    "bytes": 575254,
+    "sha256": "aa546f07b1b387695aafca8bb38b7044d50d8ad85922f9db17fc7366789d9721",
+    "derived": true
+   }
+  },
+  "requested_lists": {
+   "wanted": [
+    1,
+    2,
+    5,
+    15,
+    17,
+    21,
+    22,
+    26,
+    27,
+    28,
+    29,
+    30,
+    44,
+    45,
+    48,
+    50,
+    58,
+    64,
+    65,
+    74,
+    91,
+    139,
+    150,
+    163,
+    175
+   ],
+   "missing_from_issue_75": [
+    26
+   ]
+  },
+  "handy_codes_read_from_issue_75": {
+   "note": "Labels copied from the downloaded Issue 75 JSON (onix-codelists/subset/).",
+   "list_5_product_identifier_type": {
+    "03": "GTIN-13",
+    "15": "ISBN-13"
+   },
+   "list_27_subject_scheme_identifier": {
+    "10": "BISAC Subject Heading",
+    "20": "Keywords",
+    "93": "Thema subject category",
+    "94": "Thema place qualifier",
+    "95": "Thema language qualifier",
+    "96": "Thema time period qualifier",
+    "97": "Thema educational purpose qualifier",
+    "98": "Thema interest age / special interest qualifier",
+    "99": "Thema style qualifier"
+   },
+   "list_150_product_form": {
+    "BB": "Hardback",
+    "BC": "Paperback / softback",
+    "ED": "Digital download",
+    "EA": "Digital (delivered electronically)"
+   },
+   "list_175_product_form_detail": {
+    "E101": "EPUB",
+    "E107": "PDF",
+    "E116": "Amazon Kindle"
+   },
+   "list_58_price_type": {
+    "01": "RRP excluding tax",
+    "02": "RRP including tax"
+   },
+   "list_91_country": {
+    "AU": "Australia"
+   },
+   "list_74_language": {
+    "eng": "English"
+   }
+  },
+  "downloaded_files_note": "onix-codelists/subset/ holds one JSON file per requested list plus a combined subset file, cut from the official Issue 75 JSON without changing any code, label or note."
+ },
+ "unreachable_hosts": [
+  {
+   "host": "www.myidentifiers.com.au (Thorpe-Bowker Australia)",
+   "result": "HTTP 403, Cloudflare \"Just a moment...\" challenge (curl); HTTP 403 (WebFetch)"
+  },
+  {
+   "host": "www.myidentifiers.com, www.bowker.com, www.isbn.org; thorpe.com.au redirects to www.bowker.com/thorpe-bowker",
+   "result": "HTTP 403, Cloudflare challenge (curl); www.bowker.com HTTP 403 (WebFetch)"
+  },
+  {
+   "host": "www.ato.gov.au",
+   "result": "HTTP 403 \"Access Denied\" from Akamai (curl); HTTP 403 (WebFetch)"
+  },
+  {
+   "host": "legislation.nsw.gov.au",
+   "result": "HTTP 403, Cloudflare challenge (curl, HTML and PDF endpoints); HTTP 403 (WebFetch)"
+  },
+  {
+   "host": "www.parliament.nsw.gov.au",
+   "result": "HTTP 403, Cloudflare challenge (curl)"
+  },
+  {
+   "host": "www8.austlii.edu.au, classic.austlii.edu.au",
+   "result": "HTTP 403, Cloudflare challenge (curl)"
+  },
+  {
+   "host": "www.gs1.org",
+   "result": "HTTP 403 (curl). Not needed: the GS1 General Specifications PDF is served from ref.gs1.org (HTTP 200)"
+  },
+  {
+   "host": "www.bisg.org",
+   "result": "HTTP 403 from the site's Web Application Firewall for curl; pages were read through WebFetch instead (robots.txt allows it). BISG PDFs on assets-002.noviams.com are served to curl (HTTP 200)"
+  },
+  {
+   "host": "www.booknetcanada.ca",
+   "result": "bot-verification interstitial for curl; one page read through WebFetch"
+  },
+  {
+   "host": "web archives (webarchive.nla.gov.au, web.archive.org)",
+   "result": "An attempt to read the NSW Library Act from a public web archive was refused by the session permission system and was not retried"
+  }
+ ],
+ "index_unverified": [
+  {
+   "id": "ld.nsw.time_limit",
+   "what": "NSW time limit for deposit after publication."
+  },
+  {
+   "id": "ld.nsw.parliamentary_library_details",
+   "what": "NSW Parliamentary Library: number of copies, address and process."
+  },
+  {
+   "id": "isbn.au.bowker_steps",
+   "what": "Thorpe-Bowker's own steps for assigning and registering an ISBN to a title in My Identifiers."
+  },
+  {
+   "id": "isbn.au.bowker_metadata",
+   "what": "The exact list of title fields Thorpe-Bowker asks for (and which are mandatory)."
+  },
+  {
+   "id": "isbn.au.bowker_format_statement",
+   "what": "Thorpe-Bowker's own statement that each format needs its own ISBN."
+  },
+  {
+   "id": "isbn.au.bowker_barcode",
+   "what": "Thorpe-Bowker's barcode product and guidance, including whether its Australian barcode carries a price add-on."
+  },
+  {
+   "id": "bc.nominal.overall_height",
+   "what": "Overall nominal height including human-readable digits (often quoted as 25.93 mm)."
+  },
+  {
+   "id": "bc.currency.aud_digit",
+   "what": "Which single digit means Australian dollars."
+  },
+  {
+   "id": "bc.currency.nzd_digit",
+   "what": "Which single digit means New Zealand dollars."
+  },
+  {
+   "id": "gst.ato_unreachable",
+   "what": "ATO pages on GST for books and e-books."
+  },
+  {
+   "id": "gst.kdp.other_marketplaces",
+   "what": "A single KDP page listing tax rates for every marketplace (US, CA, MX, BR, IN print, AU print, etc.)."
+  }
+ ],
+ "index_verified_via_webfetch_only": {
+  "ids": [
+   "bc.currency.usd_current_page",
+   "bc.currency.cad_digit",
+   "bc.90000.recommended",
+   "bc.bisg.size",
+   "bc.bisg.optional",
+   "bisac.free_lookup",
+   "bisac.paid_licence",
+   "bisac.no_redistribution",
+   "bisac.not_transferable",
+   "bisac.software_vendors",
+   "bisac.fees",
+   "bisac.edition"
+  ],
+  "caveat": "Read on the official page through the WebFetch tool because curl was refused by the site; the quote was relayed by WebFetch's summarising model (consistent across repeated extractions) and is not byte-verified. Re-check wording before printing it."
+ }
+}

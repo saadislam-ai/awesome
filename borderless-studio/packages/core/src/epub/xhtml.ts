@@ -131,7 +131,7 @@ export interface OpeningStyle {
   leadInWords: number;
 }
 
-const OPENING_QUOTES = /^[“‘"'«(\[]+/;
+const OPENING_QUOTES = /^[\u201C\u2018"'\u00AB(\[]+/;
 
 /**
  * First paragraph of a chapter with an optional drop capital and small
@@ -183,7 +183,7 @@ function renderBlock(b: Block, ctx: XhtmlContext, st: BlockState): string {
     }
     case 'scenebreak':
       // An invisible rule for assistive technology plus visible ornament text.
-      return '<hr class="scene"/><p class="scenebreak" aria-hidden="true">* * *</p>';
+      return '<hr class="scene"/><p class="scenebreak" aria-hidden="true">*\u2003*\u2003*</p>';
     case 'quote':
       return `<blockquote>${renderBlocksInner(b.c, ctx, st.depth + 1)}</blockquote>`;
     case 'list': {

@@ -133,7 +133,7 @@ export function copyrightBlocks(book: Book, format: BookFormat, opts: AssembleOp
   out.push(para(`${s.publishedBy} ${book.imprint}${place ? ', ' + place : ''}`));
   if (book.publisherWebsite) out.push(para(book.publisherWebsite));
   const holder = book.copyright.holder || primaryAuthor(book);
-  out.push(para(`${s.copyrightWord} © ${year} ${holder}`));
+  out.push(para(`${s.copyrightWord} \u00A9 ${year} ${holder}`));
   if (s.moralRight) out.push(para(s.moralRight));
   if (book.copyright.rightsStatement) out.push(para(book.copyright.rightsStatement));
   if (opts.notice) out.push(para({ t: 'strong', c: [text(opts.notice)] }));
@@ -160,7 +160,7 @@ function splitEpigraph(blocks: Block[], node: BinderNode): { blocks: Block[]; so
   const last = blocks[blocks.length - 1];
   if (last && last.t === 'p') {
     const t = blocksText([last]).trim();
-    const m = /^(?:-{1,3}|~|—|–)\s*(.+)$/.exec(t);
+    const m = /^(?:-{1,3}|~|\u2014|\u2013)\s*(.+)$/.exec(t);
     if (m && blocks.length > 1) return { blocks: blocks.slice(0, -1), source: m[1] };
   }
   return { blocks, source: '' };
@@ -324,7 +324,7 @@ export function assembleBook(
       }
       case 'index':
         sec.title = smart(node.title || s.index);
-        sec.data = { rangeMark: book.style.dashPolicy.mode === 'allow' ? '–' : '-' };
+        sec.data = { rangeMark: book.style.dashPolicy.mode === 'allow' ? '\u2013' : '-' };
         sec.toc = true;
         sec.recto = design.chapterOpener.startOn === 'recto';
         break;

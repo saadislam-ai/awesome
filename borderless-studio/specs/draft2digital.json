@@ -1,0 +1,724 @@
+{
+  "schemaVersion": 1,
+  "platform": "draft2digital",
+  "displayName": "Draft2Digital",
+  "lastVerified": "2026-11-23",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "draft2digital-com",
+      "title": "https://draft2digital.com/",
+      "url": "https://draft2digital.com/"
+    },
+    {
+      "id": "draft2digital-com-blog-d2d-print-how-to-publish-a-print",
+      "title": "https://draft2digital.com/blog/d2d-print-how-to-publish-a-print-book/",
+      "url": "https://draft2digital.com/blog/d2d-print-how-to-publish-a-print-book/"
+    },
+    {
+      "id": "draft2digital-com-blog-d2d-print-masterclass-1-d2d-print",
+      "title": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/",
+      "url": "https://draft2digital.com/blog/d2d-print-masterclass-1-d2d-print-basics/"
+    },
+    {
+      "id": "draft2digital-com-blog-d2d-print-update-walk-thru-ep197",
+      "title": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/",
+      "url": "https://draft2digital.com/blog/d2d-print-update-walk-thru-ep197/"
+    },
+    {
+      "id": "draft2digital-com-blog-royalty-rates",
+      "title": "https://draft2digital.com/blog/royalty-rates/",
+      "url": "https://draft2digital.com/blog/royalty-rates/"
+    },
+    {
+      "id": "draft2digital-com-blog-starting-your-new-ebook-with-d2d",
+      "title": "https://draft2digital.com/blog/starting-your-new-ebook-with-d2d-step-by-step/",
+      "url": "https://draft2digital.com/blog/starting-your-new-ebook-with-d2d-step-by-step/"
+    },
+    {
+      "id": "draft2digital-com-blog-touching-base-with-d2d-ask-us-any",
+      "title": "https://draft2digital.com/blog/touching-base-with-d2d-ask-us-anything-ep187/",
+      "url": "https://draft2digital.com/blog/touching-base-with-d2d-ask-us-anything-ep187/"
+    },
+    {
+      "id": "draft2digital-com-blog-understanding-d2ds-activation-and",
+      "title": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/",
+      "url": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/"
+    },
+    {
+      "id": "draft2digital-com-blog-your-top-d2d-print-questions-answ",
+      "title": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-1/",
+      "url": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-1/"
+    },
+    {
+      "id": "draft2digital-com-blog-your-top-d2d-print-questions-answ",
+      "title": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-2/",
+      "url": "https://draft2digital.com/blog/your-top-d2d-print-questions-answered-part-2/"
+    },
+    {
+      "id": "draft2digital-com-faq",
+      "title": "https://draft2digital.com/faq/",
+      "url": "https://draft2digital.com/faq/"
+    },
+    {
+      "id": "draft2digital-com-knowledge-base",
+      "title": "https://draft2digital.com/knowledge-base/",
+      "url": "https://draft2digital.com/knowledge-base/"
+    },
+    {
+      "id": "draft2digital-com-library-pricing",
+      "title": "https://draft2digital.com/library-pricing/",
+      "url": "https://draft2digital.com/library-pricing/"
+    },
+    {
+      "id": "draft2digital-com-partners",
+      "title": "https://draft2digital.com/partners/",
+      "url": "https://draft2digital.com/partners/"
+    },
+    {
+      "id": "draft2digital-com-partners-amazon",
+      "title": "https://draft2digital.com/partners/amazon/",
+      "url": "https://draft2digital.com/partners/amazon/"
+    },
+    {
+      "id": "draft2digital-com-podcalc",
+      "title": "https://draft2digital.com/podcalc",
+      "url": "https://draft2digital.com/podcalc"
+    },
+    {
+      "id": "draft2digital-com-steps",
+      "title": "https://draft2digital.com/steps/",
+      "url": "https://draft2digital.com/steps/"
+    },
+    {
+      "id": "draft2digital-com-terms-of-service",
+      "title": "https://draft2digital.com/terms-of-service/",
+      "url": "https://draft2digital.com/terms-of-service/"
+    },
+    {
+      "id": "draft2digital-com-terms-of-service-updates",
+      "title": "https://draft2digital.com/terms-of-service/updates/",
+      "url": "https://draft2digital.com/terms-of-service/updates/"
+    }
+  ],
+  "notes": [
+    "Since April 2026 a new Draft2Digital account pays a one time USD 20 activation fee before it can publish, and USD 12 a year when the account earns under USD 100 in a year. This applies to free books too.",
+    "Ebooks can be priced at 0.00. Stores that refuse free books list them at 0.99; Amazon and libraries are the ones named.",
+    "Amazon distribution through Draft2Digital is by invitation only. A free book is submitted to Amazon at 0.99, and Amazon may price match it to free.",
+    "Draft2Digital publishes no interior margin, font or resolution rules and no spine formula for D2D Print: the spine and cover size come from the template in its own tool.",
+    "help.draft2digital.com could not be reached; all facts come from draft2digital.com.",
+    "D2D Print accepts \"books written in a Latin-based language\" according to a 2022 post, so a Bangla print book is unlikely to be accepted."
+  ],
+  "print": {
+    "inkPaper": [
+      {
+        "id": "bw-white",
+        "ink": "bw",
+        "paper": "white",
+        "label": "Black and white, white paper",
+        "costGroup": "bw",
+        "formats": [
+          "paperback"
+        ]
+      },
+      {
+        "id": "bw-cream",
+        "ink": "bw",
+        "paper": "cream",
+        "label": "Black and white, cream paper",
+        "costGroup": "bw",
+        "formats": [
+          "paperback"
+        ]
+      }
+    ],
+    "bleed": {
+      "amountIn": 0.125,
+      "edges": [
+        "top",
+        "bottom",
+        "outside"
+      ],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com-blog-d2d-print-how-to-publish-a-print",
+          "draft2digital-com-blog-d2d-print-masterclass-1-d2d-print",
+          "draft2digital-com-knowledge-base"
+        ]
+      }
+    },
+    "margins": {
+      "gutter": [
+        {
+          "minPages": 32,
+          "maxPages": 1050,
+          "insideIn": 0.5
+        }
+      ],
+      "outsideMinNoBleedIn": 0.5,
+      "outsideMinWithBleedIn": 0.5,
+      "recommendedIn": null,
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "draft2digital-com-blog-d2d-print-how-to-publish-a-print",
+          "draft2digital-com-blog-d2d-print-masterclass-1-d2d-print",
+          "draft2digital-com-knowledge-base"
+        ],
+        "note": "Draft2Digital publishes no margin rules for an uploaded interior PDF. 0.5 in is a cautious placeholder, not a D2D figure."
+      }
+    },
+    "pageCount": {
+      "multiple": 2,
+      "lastPageBlank": false,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com-blog-d2d-print-masterclass-1-d2d-print",
+          "draft2digital-com-blog-d2d-print-update-walk-thru-ep197",
+          "draft2digital-com-blog-your-top-d2d-print-questions-answ",
+          "draft2digital-com-faq",
+          "draft2digital-com-podcalc"
+        ],
+        "note": "32 to 1,050 pages; an odd page count is raised to the next even number."
+      }
+    },
+    "interiorFile": {
+      "pdfStandards": [],
+      "pdfStandardRequired": false,
+      "minImageDpi": 300,
+      "maxFileMB": null,
+      "fontsMustBeEmbedded": true,
+      "transparencyAllowed": false,
+      "cropMarksAllowed": false,
+      "bookmarksAllowed": false,
+      "spreadsAllowed": false,
+      "iccProfilesAllowed": true,
+      "notes": [
+        "Accepted interior files: DOC, DOCX, ODT, RTF or PDF. Black and white, perfect bound only."
+      ],
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "draft2digital-com-blog-d2d-print-how-to-publish-a-print",
+          "draft2digital-com-blog-d2d-print-masterclass-1-d2d-print",
+          "draft2digital-com-knowledge-base"
+        ],
+        "note": "Font embedding, resolution and PDF standard are not stated by Draft2Digital; these are safe defaults."
+      }
+    },
+    "formats": {
+      "paperback": {
+        "trimSizes": [
+          {
+            "id": "5x8",
+            "widthIn": 5,
+            "heightIn": 8,
+            "label": "5 x 8 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 32,
+                "max": 1050
+              },
+              "bw-cream": {
+                "min": 32,
+                "max": 1050
+              }
+            }
+          },
+          {
+            "id": "5.25x8",
+            "widthIn": 5.25,
+            "heightIn": 8,
+            "label": "5.25 x 8 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 32,
+                "max": 1050
+              },
+              "bw-cream": {
+                "min": 32,
+                "max": 1050
+              }
+            }
+          },
+          {
+            "id": "5.5x8.5",
+            "widthIn": 5.5,
+            "heightIn": 8.5,
+            "label": "5.5 x 8.5 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 32,
+                "max": 1050
+              },
+              "bw-cream": {
+                "min": 32,
+                "max": 1050
+              }
+            }
+          },
+          {
+            "id": "6x9",
+            "widthIn": 6,
+            "heightIn": 9,
+            "label": "6 x 9 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 32,
+                "max": 1050
+              },
+              "bw-cream": {
+                "min": 32,
+                "max": 1050
+              }
+            }
+          },
+          {
+            "id": "7.5x9.25",
+            "widthIn": 7.5,
+            "heightIn": 9.25,
+            "label": "7.5 x 9.25 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 32,
+                "max": 1050
+              },
+              "bw-cream": {
+                "min": 32,
+                "max": 1050
+              }
+            }
+          },
+          {
+            "id": "8.5x11",
+            "widthIn": 8.5,
+            "heightIn": 11,
+            "label": "8.5 x 11 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 32,
+                "max": 1050
+              },
+              "bw-cream": {
+                "min": 32,
+                "max": 1050
+              }
+            }
+          }
+        ],
+        "bindings": [
+          "perfect"
+        ],
+        "spine": {
+          "mode": "template",
+          "perPageIn": {},
+          "baseIn": 0,
+          "minPagesForText": null,
+          "textMarginIn": null,
+          "templateUrl": "https://draft2digital.com/",
+          "_meta": {
+            "verified": false,
+            "sources": [
+              "draft2digital-com-blog-d2d-print-update-walk-thru-ep197",
+              "draft2digital-com-faq",
+              "draft2digital-com-knowledge-base"
+            ],
+            "note": "No spine formula is published. Use the cover template from the D2D Print tool."
+          }
+        },
+        "cover": {
+          "bleedIn": 0.125,
+          "safeMarginIn": 0.25,
+          "wrapIn": 0,
+          "hingeIn": 0,
+          "boardExtraWidthIn": 0,
+          "boardExtraHeightIn": 0,
+          "flapIn": null,
+          "barcode": {
+            "widthIn": 2.0,
+            "heightIn": 1.2,
+            "fromSpineIn": null,
+            "fromBottomIn": null,
+            "platformAdds": true,
+            "required": false,
+            "note": "Barcode size and position come from the D2D template; these numbers are placeholders."
+          },
+          "colorSpace": "rgb-or-cmyk",
+          "maxInkPercent": null,
+          "minImageDpi": 300,
+          "maxFileMB": null,
+          "pdfStandards": [],
+          "notes": [
+            "A wraparound cover can be generated by D2D from the ebook cover, or uploaded as PDF or PNG built on its template. Matte or glossy finish."
+          ],
+          "_meta": {
+            "verified": false,
+            "sources": [
+              "draft2digital-com-blog-d2d-print-how-to-publish-a-print",
+              "draft2digital-com-blog-d2d-print-update-walk-thru-ep197",
+              "draft2digital-com-faq",
+              "draft2digital-com-knowledge-base"
+            ],
+            "note": "Cover bleed, safe zones and dimensions come from the per book template inside the D2D tool and are not published."
+          }
+        },
+        "_meta": {
+          "verified": true,
+          "sources": [
+            "draft2digital-com-blog-d2d-print-masterclass-1-d2d-print",
+            "draft2digital-com-blog-d2d-print-update-walk-thru-ep197",
+            "draft2digital-com-blog-your-top-d2d-print-questions-answ",
+            "draft2digital-com-faq",
+            "draft2digital-com-podcalc"
+          ]
+        }
+      }
+    }
+  },
+  "ebook": {
+    "acceptedFormats": [
+      "doc",
+      "docx",
+      "rtf",
+      "odt",
+      "txt",
+      "epub"
+    ],
+    "maxFileMB": 90,
+    "epubCheckRequired": true,
+    "cover": {
+      "idealWidthPx": 1600,
+      "idealHeightPx": 2400,
+      "minWidthPx": null,
+      "minHeightPx": null,
+      "maxSidePx": null,
+      "maxFileMB": null,
+      "formats": [
+        "jpg"
+      ],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com-faq",
+          "draft2digital-com-steps"
+        ],
+        "note": "1600 x 2400 pixels (ratio 2 to 3), JPEG recommended. Minimum size, maximum file size and colour profile are not published. KDP prefers 1600 x 2560, so the two stores need slightly different crops."
+      }
+    },
+    "notes": [
+      "An uploaded EPUB must pass EPUBCheck. The FAQ says files must be under 100 MB and the Knowledge Base says EPUBs over 90 MB may not be accepted; 90 MB is used.",
+      "The cover must show the title and the author name."
+    ],
+    "_meta": {
+      "verified": true,
+      "sources": [
+        "draft2digital-com-faq",
+        "draft2digital-com-knowledge-base",
+        "draft2digital-com-steps"
+      ]
+    }
+  },
+  "pricing": {
+    "print": {
+      "rateModel": "fixed",
+      "costModel": "bands",
+      "marketplaces": [
+        {
+          "id": "US",
+          "label": "United States",
+          "currency": "USD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "fixedRate": 0.45,
+          "feePercentOfList": 0,
+          "maxListPrice": {},
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.34,
+                    "perPage": 0.0147
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.4,
+                    "perPage": 0.0213
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "AU",
+          "label": "Australia",
+          "currency": "AUD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "fixedRate": 0.45,
+          "feePercentOfList": 0,
+          "maxListPrice": {},
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 2.53,
+                    "perPage": 0.025
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 2.53,
+                    "perPage": 0.0355
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "GB",
+          "label": "United Kingdom",
+          "currency": "GBP",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "fixedRate": 0.45,
+          "feePercentOfList": 0,
+          "maxListPrice": {},
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.36,
+                    "perPage": 0.0115
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.36,
+                    "perPage": 0.0195
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "EU",
+          "label": "Eurozone",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "fixedRate": 0.45,
+          "feePercentOfList": 0,
+          "maxListPrice": {},
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.61,
+                    "perPage": 0.0136
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.61,
+                    "perPage": 0.0231
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": "CA",
+          "label": "Canada",
+          "currency": "CAD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "fixedRate": 0.45,
+          "feePercentOfList": 0,
+          "maxListPrice": {},
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.85,
+                    "perPage": 0.0202
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 32,
+                    "maxPages": 1050,
+                    "fixed": 1.92,
+                    "perPage": 0.0293
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "calculatorUrl": "https://draft2digital.com/podcalc",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com-blog-your-top-d2d-print-questions-answ",
+          "draft2digital-com-faq",
+          "draft2digital-com-knowledge-base",
+          "draft2digital-com-podcalc",
+          "draft2digital-com-terms-of-service"
+        ],
+        "note": "Royalty = 45% of the list price minus the unit cost. Unit cost = base + per page x pages, read from the data inside the official D2D print calculator page. Minimum list price = unit cost / 0.45. Print books cannot be free."
+      }
+    },
+    "ebook": {
+      "model": "retail-share",
+      "marketplaces": [],
+      "authorShare": 0.6,
+      "minPrice": 0.99,
+      "maxPrice": 39.99,
+      "currency": "USD",
+      "freeAllowed": true,
+      "freeNote": "A price of 0.00 is allowed for ebooks. Stores that do not take free books list them at 0.99; Amazon and libraries are named. Prices from 0.01 to 0.98 are not accepted.",
+      "priceMatchNote": "Draft2Digital says a free book is submitted to Amazon at 0.99 and \"Amazon may price-match to free\". Amazon distribution through D2D is by invitation only.",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com-blog-royalty-rates",
+          "draft2digital-com-blog-starting-your-new-ebook-with-d2d",
+          "draft2digital-com-faq",
+          "draft2digital-com-knowledge-base",
+          "draft2digital-com-library-pricing"
+        ],
+        "note": "Draft2Digital keeps 15% of what the store pays, about 10% of the list price. The author receives about 60% of list at Apple, Barnes & Noble, Kobo, Tolino, Gardners and Fable, 55% at Vivlio, 75% or 40% at Smashwords and 60% or 30% at Amazon. The full list of stores that refuse free books is not public."
+      }
+    }
+  },
+  "fees": [
+    {
+      "id": "activation",
+      "label": "Account activation",
+      "amount": 20,
+      "currency": "USD",
+      "when": "One time, before a new account can publish (accounts opened before April 2026 are exempt).",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com",
+          "draft2digital-com-blog-understanding-d2ds-activation-and",
+          "draft2digital-com-faq",
+          "draft2digital-com-terms-of-service",
+          "draft2digital-com-terms-of-service-updates"
+        ]
+      }
+    },
+    {
+      "id": "maintenance",
+      "label": "Annual maintenance",
+      "amount": 12,
+      "currency": "USD",
+      "when": "Each year in which the account earns under USD 100. It applies even when every book is free.",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com",
+          "draft2digital-com-blog-understanding-d2ds-activation-and",
+          "draft2digital-com-faq",
+          "draft2digital-com-terms-of-service",
+          "draft2digital-com-terms-of-service-updates"
+        ]
+      }
+    }
+  ],
+  "languages": {
+    "ebook": {
+      "supported": "any",
+      "note": "Draft2Digital publishes no ebook language list. Bengali is not confirmed."
+    },
+    "paperback": {
+      "supported": [
+        "en",
+        "fr",
+        "de",
+        "es",
+        "it",
+        "pt",
+        "nl",
+        "sv",
+        "da",
+        "no",
+        "fi",
+        "pl",
+        "la"
+      ],
+      "note": "D2D Print said in 2022 that it accepts books written in a Latin-based language. The list here is illustrative; Bangla is not a Latin script language."
+    },
+    "consequence": "",
+    "_meta": {
+      "verified": false,
+      "sources": [
+        "draft2digital-com-blog-d2d-print-masterclass-1-d2d-print",
+        "draft2digital-com-blog-starting-your-new-ebook-with-d2d",
+        "draft2digital-com-blog-touching-base-with-d2d-ask-us-any",
+        "draft2digital-com-terms-of-service"
+      ],
+      "note": "No current page lists supported languages."
+    }
+  },
+  "listing": {
+    "keywordSlots": null,
+    "keywordMaxChars": null,
+    "categoriesMax": null,
+    "descriptionMaxChars": null,
+    "descriptionTags": [],
+    "titleSubtitleMaxChars": null,
+    "notes": [
+      "Draft2Digital asks for a description, BISAC subjects, search terms and series data in its own screens; limits are not published."
+    ],
+    "_meta": {
+      "verified": false,
+      "sources": [
+        "draft2digital-com-knowledge-base"
+      ]
+    }
+  }
+}

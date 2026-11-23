@@ -1,0 +1,3529 @@
+{
+  "meta": {
+    "platform": "Amazon Kindle Direct Publishing (KDP), Kindle eBooks and listing metadata",
+    "researched_on": "2026-11-23",
+    "method": "Pages fetched with curl from official hosts, converted to plain text and saved under pages/. Every 'quote' below was machine-checked to be a substring of the saved page named in 'saved_page' (whitespace collapsed).",
+    "quote_conventions": [
+      "Quotes are verbatim from the saved page text with runs of whitespace collapsed to one space.",
+      "Table rows are quoted in the saved-text form, with cells joined by ' | '.",
+      "Quotes from PDFs come from the PDF text layer, so words broken across lines appear as extracted."
+    ],
+    "verified_false_means": "The item could not be found on an official page. It carries a 'note' and no number was filled in from memory.",
+    "derived_true_means": "A conclusion drawn here from quoted facts, not a statement made by Amazon.",
+    "pages_directory": "/tmp/claude-0/-home-user-awesome/68b6b9bc-7515-538d-95aa-8cfe4ec58034/scratchpad/research/kdp-ebook-d2d/pages",
+    "official_hosts_used": [
+      "kdp.amazon.com",
+      "kdp-eu.amazon.com (redirect target of /terms-and-conditions)",
+      "www.amazon.com (Kindle Previewer product page)",
+      "kindlegen.s3.amazonaws.com (Kindle Publishing Guidelines PDF)",
+      "driz46fl8b4jf.cloudfront.net (Kindle Previewer 4 user guide, linked from the KDP help page)",
+      "s3.amazonaws.com/kindlepreviewer (release notes, linked from the product page)"
+    ],
+    "author_context": "The author is not enrolled in KDP Select.",
+    "terms_last_updated": {
+      "source": "https://kdp.amazon.com/terms-and-conditions",
+      "saved_page": "pages/kdp_terms_and_conditions.txt",
+      "quote": "Last Updated: October 21, 2026",
+      "value": "2026-10-21"
+    }
+  },
+  "1_list_price_requirements": {
+    "summary": "Minimum and maximum eBook list prices per currency, as published on the KDP 'eBook List Price Requirements' page on 2026-11-23. The 35% option still has file-size based minimums; the 70% maximum was raised on 2026-07-07.",
+    "page": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+    "price_band_change_2026": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+      "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+      "quote": "Effective July 7, 2026, the 70% royalty option price band is $2.99-$12.99 on Amazon.com, expanding from the previous range of $2.99-$9.99, with equivalent changes in other KDP marketplaces.",
+      "effective_date": "2026-07-07",
+      "previous_usd_70_max": 9.99,
+      "new_usd_70_max": 12.99
+    },
+    "price_band_change_scope": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+      "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+      "quote": "The maximum list price for the 70% royalty option for eBooks has changed from $9.99 to $12.99 on Amazon.com, with equivalent amounts in other KDP marketplaces. The minimum list price of $2.99 and the 35% royalty option remain unchanged."
+    },
+    "file_size_tiers_for_35_percent_still_current": true,
+    "file_size_tiers_note": "The tiers (under 3 MB, 3 MB to under 10 MB, 10 MB or more) are in every currency table except JPY, which has two tiers with the same minimum. Each table's verbatim text is in its 'quote'.",
+    "currency_tables": [
+      {
+        "table_heading": "USD List Price Requirements for Amazon.com",
+        "currency": "USD",
+        "marketplaces": [
+          "Amazon.com"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 0.99,
+            "max": 200.0
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 1.99,
+            "max": 200.0
+          },
+          "file_10mb_or_more": {
+            "min": 2.99,
+            "max": 200.0
+          }
+        },
+        "royalty_70": {
+          "min": 2.99,
+          "max": 12.99
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "USD List Price Requirements for Amazon.com | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | $ 0.99 | $ 200.00 Greater than or equal to 3 megabytes and less than 10 megabytes | $ 1.99 | $ 200.00 10 megabytes or greater | $ 2.99 | $ 200.00 70% Royalty Option | $ 2.99 | $ 12.99"
+      },
+      {
+        "table_heading": "INR List Price Requirements for India Kindle Store for www.amazon.in",
+        "currency": "INR",
+        "marketplaces": [
+          "Amazon.in"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 49,
+            "max": 10999
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 69,
+            "max": 10999
+          },
+          "file_10mb_or_more": {
+            "min": 99,
+            "max": 10999
+          }
+        },
+        "royalty_70": {
+          "min": 99,
+          "max": 599
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "INR List Price Requirements for India Kindle Store for www.amazon.in | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | ₹ 49 | ₹ 10,999 Greater than or equal to 3 megabytes and less than 10 megabytes | ₹ 69 | ₹ 10,999 10 megabytes or greater | ₹ 99 | ₹ 10,999 70% Royalty Option | ₹ 99 | ₹ 599"
+      },
+      {
+        "table_heading": "CAD List Price Requirements for Amazon.ca",
+        "currency": "CAD",
+        "marketplaces": [
+          "Amazon.ca"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 0.99,
+            "max": 200.0
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 1.99,
+            "max": 200.0
+          },
+          "file_10mb_or_more": {
+            "min": 2.99,
+            "max": 200.0
+          }
+        },
+        "royalty_70": {
+          "min": 2.99,
+          "max": 12.99
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "CAD List Price Requirements for Amazon.ca | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | C$ 0.99 | C$ 200.00 Greater than or equal to 3 megabytes and less than 10 megabytes | C$ 1.99 | C$ 200.00 10 megabytes or greater | C$ 2.99 | C$ 200.00 70% Royalty Option | C$ 2.99 | C$ 12.99"
+      },
+      {
+        "table_heading": "BRL List Price Requirements for Amazon.com.br",
+        "currency": "BRL",
+        "marketplaces": [
+          "Amazon.com.br"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 1.99,
+            "max": 400.0
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 3.99,
+            "max": 400.0
+          },
+          "file_10mb_or_more": {
+            "min": 5.99,
+            "max": 400.0
+          }
+        },
+        "royalty_70": {
+          "min": 5.99,
+          "max": 31.99
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "BRL List Price Requirements for Amazon.com.br | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | R$ 1.99 | R$ 400.00 Greater than or equal to 3 megabytes and less than 10 megabytes | R$ 3.99 | R$ 400.00 10 megabytes or greater | R$ 5.99 | R$ 400.00 70% Royalty Option | R$ 5.99 | R$ 31.99"
+      },
+      {
+        "table_heading": "GBP List Price Requirements for Amazon.co.uk",
+        "currency": "GBP",
+        "marketplaces": [
+          "Amazon.co.uk"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 0.77,
+            "max": 150.0
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 1.25,
+            "max": 150.0
+          },
+          "file_10mb_or_more": {
+            "min": 1.49,
+            "max": 150.0
+          }
+        },
+        "royalty_70": {
+          "min": 1.77,
+          "max": 12.99
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "GBP List Price Requirements for Amazon.co.uk | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | £ 0.77 | £ 150.00 Greater than or equal to 3 megabytes and less than 10 megabytes | £ 1.25 | £ 150.00 10 megabytes or greater | £ 1.49 | £ 150.00 70% Royalty Option | £ 1.77 | £ 12.99"
+      },
+      {
+        "table_heading": "EUR List Price Requirements",
+        "currency": "EUR",
+        "marketplaces": "not named in the table heading (see eur_marketplaces_note)",
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 0.89,
+            "max": 215.0
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 1.79,
+            "max": 215.0
+          },
+          "file_10mb_or_more": {
+            "min": 2.69,
+            "max": 215.0
+          }
+        },
+        "royalty_70": {
+          "min": 2.69,
+          "max": 12.99
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "EUR List Price Requirements | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | € 0.89 | € 215.00 Greater than or equal to 3 megabytes and less than 10 megabytes | € 1.79 | € 215.00 10 megabytes or greater | € 2.69 | € 215.00 70% Royalty Option | € 2.69 | € 12.99"
+      },
+      {
+        "table_heading": "JPY List Price Requirements for Amazon.co.jp",
+        "currency": "JPY",
+        "marketplaces": [
+          "Amazon.co.jp"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 99,
+            "max": 20000
+          },
+          "file_3mb_or_more": {
+            "min": 99,
+            "max": 20000
+          }
+        },
+        "royalty_70": {
+          "min": 250,
+          "max": 1650
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "JPY List Price Requirements for Amazon.co.jp | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | ¥ 99 | ¥ 20000 Greater than or equal to 3 megabytes | ¥ 99 | ¥ 20000 70% Royalty Option | ¥ 250 | ¥ 1650"
+      },
+      {
+        "table_heading": "MXN List Price Requirements for Amazon.com.mx",
+        "currency": "MXN",
+        "marketplaces": [
+          "Amazon.com.mx"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 11.99,
+            "max": 2500.0
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 23.99,
+            "max": 2500.0
+          },
+          "file_10mb_or_more": {
+            "min": 34.99,
+            "max": 2500.0
+          }
+        },
+        "royalty_70": {
+          "min": 34.99,
+          "max": 199.99
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "MXN List Price Requirements for Amazon.com.mx | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | $ 11.99 | $ 2500.00 Greater than or equal to 3 megabytes and less than 10 megabytes | $ 23.99 | $ 2500.00 10 megabytes or greater | $ 34.99 | $ 2500.00 70% Royalty Option | $ 34.99 | $ 199.99"
+      },
+      {
+        "table_heading": "AUD List Price Requirements for Amazon.com.au",
+        "currency": "AUD",
+        "marketplaces": [
+          "Amazon.com.au"
+        ],
+        "royalty_35": {
+          "file_under_3mb": {
+            "min": 0.99,
+            "max": 220.0
+          },
+          "file_3mb_to_under_10mb": {
+            "min": 1.99,
+            "max": 220.0
+          },
+          "file_10mb_or_more": {
+            "min": 3.99,
+            "max": 220.0
+          }
+        },
+        "royalty_70": {
+          "min": 3.99,
+          "max": 15.99
+        },
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "AUD List Price Requirements for Amazon.com.au | Minimum List Price | Maximum List Price 35% Royalty Option | | Less than 3 megabytes | $ 0.99 | $ 220.00 Greater than or equal to 3 megabytes and less than 10 megabytes | $ 1.99 | $ 220.00 10 megabytes or greater | $ 3.99 | $ 220.00 70% Royalty Option | $ 3.99 | $ 15.99"
+      }
+    ],
+    "eur_marketplaces_note": {
+      "text": "The EUR table heading does not name marketplaces. The Digital Book Pricing Page lists delivery costs in euro for Amazon.de, Amazon.fr, Amazon.es, Amazon.it and Amazon.nl, and the EU VAT page shows the same EUR limits (with VAT) for Germany, France, Italy, Spain and the Netherlands.",
+      "evidence": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+          "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+          "quote": "Amazon.de: €0,12/MB Amazon.fr: €0,12/MB Amazon.es: €0,12/MB Amazon.in: INR ₹7/MB Amazon.it: €0,12/MB Amazon.nl: €0,12/MB"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Germany | 7% | €0.83 - €200.93 | €0.89 - €215.00"
+        }
+      ]
+    },
+    "prices_include_tax_where_applicable": "See section 3_vat. The EUR, GBP, AUD, INR and JPY limits are tax-inclusive per the linked tax pages.",
+    "kindle_stores_and_territories": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200652410",
+      "saved_page": "pages/kdp_G200652410_ebook_distribution_rights.txt",
+      "quote": "This will allow customers from around the world to purchase your title on Amazon.com, Amazon.co.uk, Amazon.de, Amazon.fr, Amazon.es, Amazon.it, Amazon.co.jp, Amazon.com.br, Amazon.com.mx, Amazon.com.au, Amazon.ca, Amazon.nl, and Amazon.in.",
+      "kindle_store_count": 13
+    },
+    "must_be_within_range": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200641280",
+      "saved_page": "pages/kdp_G200641280_price_your_book.txt",
+      "quote": "You can choose your list price at your discretion, but it must be within KDP’s range of minimum and maximum list prices."
+    },
+    "price_depends_on": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200641280",
+      "saved_page": "pages/kdp_G200641280_price_your_book.txt",
+      "quote": "The price you enter must meet our requirements, which depend on marketplace, royalty option, and file size."
+    },
+    "converted_price_is_clamped_to_min_max": {
+      "source": "https://kdp.amazon.com/terms-and-conditions",
+      "saved_page": "pages/kdp_terms_and_conditions.txt",
+      "quote": "If the converted List Price would be outside of the minimum or maximum List Price we accept for the Sale Currency, your List Price will be converted so that it is equal to the applicable minimum or maximum List Price for that Sale Currency."
+    },
+    "price_above_max_is_deemed_max_for_royalty": {
+      "source": "https://kdp.amazon.com/terms-and-conditions",
+      "saved_page": "pages/kdp_terms_and_conditions.txt",
+      "quote": "we will be entitled to deem it modified so that it is equal to the maximum List Price permitted when calculating Royalties due to you under this Agreement."
+    },
+    "eu_lowest_list_price_used": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GQ8UH9SN83UFNVKR",
+      "saved_page": "pages/kdp_GQ8UH9SN83UFNVKR_price_troubleshooting.txt",
+      "quote": "If you set multiple list prices for different Amazon marketplaces in the EU, we use the lowest of these list prices."
+    },
+    "list_price_change_timing": [
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GQ8UH9SN83UFNVKR",
+        "saved_page": "pages/kdp_GQ8UH9SN83UFNVKR_price_troubleshooting.txt",
+        "quote": "For eBooks, it can take up to 24 hours."
+      },
+      {
+        "source": "https://kdp.amazon.com/terms-and-conditions",
+        "saved_page": "pages/kdp_terms_and_conditions.txt",
+        "quote": "You may change your List Price through the KDP website, and your change will be effective within 5 business days."
+      }
+    ],
+    "fixed_price_law_countries_ebook": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200641280",
+      "saved_page": "pages/kdp_G200641280_price_your_book.txt",
+      "quote": "eBook | Paperback and Hardcover Austria Belgium France Germany Greece | Austria Belgium France Germany Greece Italy Mexico Netherlands Norway Slovenia Spain",
+      "value": [
+        "Austria",
+        "Belgium",
+        "France",
+        "Germany",
+        "Greece"
+      ]
+    },
+    "by_marketplace": {
+      "derived": true,
+      "text": "Convenience view: the 13 Kindle stores named on the eBook Distribution Rights page, each joined to its currency table above. Numbers are copied from 'currency_tables'. The five euro stores are mapped to the EUR table because the Pricing Page prices their delivery cost in euro; the table heading itself names no store. 'kdp_select_needed_for_70' is decided by the customer's country (Brazil, Japan, Mexico, India), which normally coincides with these stores.",
+      "store_territories": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652410",
+        "saved_page": "pages/kdp_G200652410_ebook_distribution_rights.txt",
+        "quote": "US Kindle Store: United States - UK Kindle Store: United Kingdom (including Guernsey, Isle of Man, Ireland, Gibraltar, and Jersey) - DE Kindle Store: Austria, Germany, Liechtenstein, Luxembourg, and Switzerland - FR Kindle Store: France, Monaco, Belgium, Switzerland, and Luxembourg - ES Kindle Store: Andorra, Spain - IT Kindle Store: Italy, San Marino, Vatican City, and Switzerland - JP Kindle Store: Japan - NL Kindle Store: Netherlands - BR Kindle Store: Brazil - MX Kindle Store: Mexico - CA Kindle Store: Canada - IN Kindle Store: India - AU Kindle Store: Australia, New Zealand"
+      },
+      "other_territories_buy_from_us_store": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652410",
+        "saved_page": "pages/kdp_G200652410_ebook_distribution_rights.txt",
+        "quote": "Customers located in the available territories not listed here can purchase your book from the US Kindle Store, or Amazon.com."
+      },
+      "stores": [
+        {
+          "marketplace": "Amazon.com",
+          "currency": "USD",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.99,
+              "max": 200.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.99,
+              "max": 200.0
+            },
+            "file_10mb_or_more": {
+              "min": 2.99,
+              "max": 200.0
+            }
+          },
+          "royalty_70": {
+            "min": 2.99,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": false,
+          "table_heading": "USD List Price Requirements for Amazon.com"
+        },
+        {
+          "marketplace": "Amazon.co.uk",
+          "currency": "GBP",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.77,
+              "max": 150.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.25,
+              "max": 150.0
+            },
+            "file_10mb_or_more": {
+              "min": 1.49,
+              "max": 150.0
+            }
+          },
+          "royalty_70": {
+            "min": 1.77,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": false,
+          "table_heading": "GBP List Price Requirements for Amazon.co.uk"
+        },
+        {
+          "marketplace": "Amazon.de",
+          "currency": "EUR",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.89,
+              "max": 215.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.79,
+              "max": 215.0
+            },
+            "file_10mb_or_more": {
+              "min": 2.69,
+              "max": 215.0
+            }
+          },
+          "royalty_70": {
+            "min": 2.69,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": true,
+          "table_heading": "EUR List Price Requirements"
+        },
+        {
+          "marketplace": "Amazon.fr",
+          "currency": "EUR",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.89,
+              "max": 215.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.79,
+              "max": 215.0
+            },
+            "file_10mb_or_more": {
+              "min": 2.69,
+              "max": 215.0
+            }
+          },
+          "royalty_70": {
+            "min": 2.69,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": true,
+          "table_heading": "EUR List Price Requirements"
+        },
+        {
+          "marketplace": "Amazon.es",
+          "currency": "EUR",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.89,
+              "max": 215.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.79,
+              "max": 215.0
+            },
+            "file_10mb_or_more": {
+              "min": 2.69,
+              "max": 215.0
+            }
+          },
+          "royalty_70": {
+            "min": 2.69,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": true,
+          "table_heading": "EUR List Price Requirements"
+        },
+        {
+          "marketplace": "Amazon.it",
+          "currency": "EUR",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.89,
+              "max": 215.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.79,
+              "max": 215.0
+            },
+            "file_10mb_or_more": {
+              "min": 2.69,
+              "max": 215.0
+            }
+          },
+          "royalty_70": {
+            "min": 2.69,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": true,
+          "table_heading": "EUR List Price Requirements"
+        },
+        {
+          "marketplace": "Amazon.nl",
+          "currency": "EUR",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.89,
+              "max": 215.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.79,
+              "max": 215.0
+            },
+            "file_10mb_or_more": {
+              "min": 2.69,
+              "max": 215.0
+            }
+          },
+          "royalty_70": {
+            "min": 2.69,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": true,
+          "table_heading": "EUR List Price Requirements"
+        },
+        {
+          "marketplace": "Amazon.co.jp",
+          "currency": "JPY",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 99,
+              "max": 20000
+            },
+            "file_3mb_or_more": {
+              "min": 99,
+              "max": 20000
+            }
+          },
+          "royalty_70": {
+            "min": 250,
+            "max": 1650
+          },
+          "kdp_select_needed_for_70": true,
+          "currency_mapping_is_derived": false,
+          "table_heading": "JPY List Price Requirements for Amazon.co.jp"
+        },
+        {
+          "marketplace": "Amazon.com.br",
+          "currency": "BRL",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 1.99,
+              "max": 400.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 3.99,
+              "max": 400.0
+            },
+            "file_10mb_or_more": {
+              "min": 5.99,
+              "max": 400.0
+            }
+          },
+          "royalty_70": {
+            "min": 5.99,
+            "max": 31.99
+          },
+          "kdp_select_needed_for_70": true,
+          "currency_mapping_is_derived": false,
+          "table_heading": "BRL List Price Requirements for Amazon.com.br"
+        },
+        {
+          "marketplace": "Amazon.com.mx",
+          "currency": "MXN",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 11.99,
+              "max": 2500.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 23.99,
+              "max": 2500.0
+            },
+            "file_10mb_or_more": {
+              "min": 34.99,
+              "max": 2500.0
+            }
+          },
+          "royalty_70": {
+            "min": 34.99,
+            "max": 199.99
+          },
+          "kdp_select_needed_for_70": true,
+          "currency_mapping_is_derived": false,
+          "table_heading": "MXN List Price Requirements for Amazon.com.mx"
+        },
+        {
+          "marketplace": "Amazon.ca",
+          "currency": "CAD",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.99,
+              "max": 200.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.99,
+              "max": 200.0
+            },
+            "file_10mb_or_more": {
+              "min": 2.99,
+              "max": 200.0
+            }
+          },
+          "royalty_70": {
+            "min": 2.99,
+            "max": 12.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": false,
+          "table_heading": "CAD List Price Requirements for Amazon.ca"
+        },
+        {
+          "marketplace": "Amazon.in",
+          "currency": "INR",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 49,
+              "max": 10999
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 69,
+              "max": 10999
+            },
+            "file_10mb_or_more": {
+              "min": 99,
+              "max": 10999
+            }
+          },
+          "royalty_70": {
+            "min": 99,
+            "max": 599
+          },
+          "kdp_select_needed_for_70": true,
+          "currency_mapping_is_derived": false,
+          "table_heading": "INR List Price Requirements for India Kindle Store for www.amazon.in"
+        },
+        {
+          "marketplace": "Amazon.com.au",
+          "currency": "AUD",
+          "royalty_35": {
+            "file_under_3mb": {
+              "min": 0.99,
+              "max": 220.0
+            },
+            "file_3mb_to_under_10mb": {
+              "min": 1.99,
+              "max": 220.0
+            },
+            "file_10mb_or_more": {
+              "min": 3.99,
+              "max": 220.0
+            }
+          },
+          "royalty_70": {
+            "min": 3.99,
+            "max": 15.99
+          },
+          "kdp_select_needed_for_70": false,
+          "currency_mapping_is_derived": false,
+          "table_heading": "AUD List Price Requirements for Amazon.com.au"
+        }
+      ]
+    }
+  },
+  "2_royalty_70_conditions": {
+    "page": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+    "page_last_updated": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "Last Updated: April 21, 2026",
+      "value": "2026-04-21"
+    },
+    "royalty_formula_35": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "35% Royalty Rate x (List Price – applicable VAT) = Royalty"
+    },
+    "royalty_formula_70": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "70% Royalty Rate x (List Price – applicable VAT - Delivery Costs) = Royalty"
+    },
+    "delivery_cost_per_mb": {
+      "applies_to": "70% royalty option only",
+      "not_deducted_for_35": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "Not applicable - we don't deduct Delivery Costs when calculating your Royalties."
+      },
+      "definition": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "Delivery Costs are equal to the number of megabytes we determine your Digital Book file contains, multiplied by the Delivery Cost rate listed below."
+      },
+      "rates": {
+        "Amazon.com": {
+          "currency": "USD",
+          "per_mb": 0.15
+        },
+        "Amazon.ca": {
+          "currency": "CAD",
+          "per_mb": 0.15
+        },
+        "Amazon.com.br": {
+          "currency": "BRL",
+          "per_mb": 0.3
+        },
+        "Amazon.co.uk": {
+          "currency": "GBP",
+          "per_mb": 0.1
+        },
+        "Amazon.de": {
+          "currency": "EUR",
+          "per_mb": 0.12
+        },
+        "Amazon.fr": {
+          "currency": "EUR",
+          "per_mb": 0.12
+        },
+        "Amazon.es": {
+          "currency": "EUR",
+          "per_mb": 0.12
+        },
+        "Amazon.in": {
+          "currency": "INR",
+          "per_mb": 7
+        },
+        "Amazon.it": {
+          "currency": "EUR",
+          "per_mb": 0.12
+        },
+        "Amazon.nl": {
+          "currency": "EUR",
+          "per_mb": 0.12
+        },
+        "Amazon.co.jp": {
+          "currency": "JPY",
+          "per_mb": 1
+        },
+        "Amazon.com.mx": {
+          "currency": "MXN",
+          "per_mb": 1
+        },
+        "Amazon.com.au": {
+          "currency": "AUD",
+          "per_mb": 0.15
+        }
+      },
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "Amazon.com: US $0.15/MB Amazon.ca: CAD $0.15/MB Amazon.com.br: R$0.30/MB Amazon.co.uk: UK £0.10/MB Amazon.de: €0,12/MB Amazon.fr: €0,12/MB Amazon.es: €0,12/MB Amazon.in: INR ₹7/MB Amazon.it: €0,12/MB Amazon.nl: €0,12/MB Amazon.co.jp: ¥1/MB Amazon.com.mx: MXN $1/MB Amazon.com.au: AUD $0.15/MB",
+      "minimum_delivery_cost": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "The minimum Delivery Cost for a Digital Book will be US$0.01 for sales in US Dollars, INR₹1 for sales in Indian Rupees, CAD$0.01 for sales in CAD Dollars, £0.01 for sales in GB Pounds, ¥1 in JPY, R$0.01 for sales in Brazilian Reals, MXN$1 for sales in Mexican Pesos, AUD$0.01 for sales in Australian Dollars, and €0.01 for sales in Euros, regardless of file size.",
+        "value": {
+          "USD": 0.01,
+          "INR": 1,
+          "CAD": 0.01,
+          "GBP": 0.01,
+          "JPY": 1,
+          "BRL": 0.01,
+          "MXN": 1,
+          "AUD": 0.01,
+          "EUR": 0.01
+        }
+      },
+      "file_size_rounding": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "We will round file sizes up to the nearest kilobyte."
+      },
+      "japan_no_delivery_cost_at_10mb_or_more": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "For sales in JPY, we will not deduct any Delivery Cost for books 10 MB or greater."
+      },
+      "cost_rounding": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "When calculating delivery costs, we will round the cost to 2 decimal places for all currencies except JPY, which will be rounded to the whole number."
+      },
+      "average_delivery_cost_claim": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200644210",
+        "saved_page": "pages/kdp_G200644210_ebook_royalties.txt",
+        "quote": "average delivery costs are $0.06 per unit sold, and vary by file size"
+      },
+      "contradiction": {
+        "note": "The eBook Royalties help page uses €0.10/MB for Spain in a worked example, while the Pricing Page (the contractual page, last updated April 21, 2026) lists €0,12/MB for Amazon.es. Treat 0.12 as authoritative.",
+        "evidence": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G200644210",
+            "saved_page": "pages/kdp_G200644210_ebook_royalties.txt",
+            "quote": "Spain Delivery Costs = €0.10/MB"
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+            "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+            "quote": "Amazon.es: €0,12/MB"
+          }
+        ]
+      }
+    },
+    "available_sales_territories_70": {
+      "count": 41,
+      "territories": [
+        "Andorra",
+        "Australia",
+        "Austria",
+        "Bahrain",
+        "Belgium",
+        "Brazil",
+        "Canada",
+        "Egypt",
+        "France",
+        "Germany",
+        "Gibraltar",
+        "Guernsey",
+        "Hong Kong",
+        "India",
+        "Ireland",
+        "Isle of Man",
+        "Italy",
+        "Japan",
+        "Jersey",
+        "Jordan",
+        "Kingdom of Saudi Arabia",
+        "Kuwait",
+        "Lebanon",
+        "Liechtenstein",
+        "Luxembourg",
+        "Macao",
+        "Mexico",
+        "Monaco",
+        "The Netherlands",
+        "New Zealand",
+        "Oman",
+        "Qatar",
+        "San Marino",
+        "Switzerland",
+        "Spain",
+        "Taiwan",
+        "Thailand",
+        "United Arab Emirates",
+        "United Kingdom",
+        "United States",
+        "Vatican City"
+      ],
+      "kdp_select_required_for_70": [
+        "Brazil",
+        "India",
+        "Japan",
+        "Mexico"
+      ],
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "Andorra Australia Austria Bahrain Belgium Brazil* Canada Egypt France Germany Gibraltar Guernsey Hong Kong India* Ireland Isle of Man Italy Japan* Jersey Jordan Kingdom of Saudi Arabia Kuwait Lebanon Liechtenstein Luxembourg Macao Mexico* Monaco The Netherlands New Zealand Oman Qatar San Marino Switzerland Spain Taiwan Thailand United Arab Emirates United Kingdom United States Vatican City",
+      "outside_territories_get_35": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "Your Royalty on sales to customers outside the Available Sales Territories will be as provided under the 35% Royalty Option"
+      },
+      "author_residence_irrelevant": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200644210",
+        "saved_page": "pages/kdp_G200644210_ebook_royalties.txt",
+        "quote": "You do not need to live in one of the 70% territories in order to receive the 70% royalty option."
+      }
+    },
+    "kdp_select_requirement": {
+      "territories": [
+        "Brazil",
+        "Japan",
+        "Mexico",
+        "India"
+      ],
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "*70% Royalty in Brazil, Japan, Mexico, and India. Digital Books enrolled in KDP Select will be eligible to earn 70% royalty for sales to customers in Brazil, Japan, Mexico, and India. The List Price you set for Brazil, Japan, Mexico, and India must also meet the 70% List Price requirements for sales to customers in Brazil, Japan, Mexico, and India. If your Digital Book is not enrolled in KDP Select or you do not meet the 70% List Price requirements, you will earn 35% royalty.",
+      "also_stated_on_list_price_page": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634560",
+        "saved_page": "pages/kdp_G200634560_ebook_list_price_requirements.txt",
+        "quote": "For sales to customers in Brazil, Japan, Mexico, and India, Digital Books must also be enrolled in KDP Select to be eligible for the 70% royalty option."
+      },
+      "also_stated_in_terms": {
+        "source": "https://kdp.amazon.com/terms-and-conditions",
+        "saved_page": "pages/kdp_terms_and_conditions.txt",
+        "quote": "2.4 70% Royalty in Brazil, Japan, Mexico, and India. Digital Books enrolled in KDP Select will be eligible to earn 70% Royalty for sales to customers in Brazil, Japan, Mexico, and India."
+      },
+      "implication_for_author_not_in_kdp_select": {
+        "derived": true,
+        "text": "This author is not in KDP Select, so sales to customers in Brazil, Japan, Mexico and India earn 35% even when the 70% option is selected and the price is inside the 70% band. All other listed territories can earn 70%."
+      }
+    },
+    "list_price_20_percent_below_print": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "If you choose the 70% Royalty Option, you must set and adjust your List Price so that it is at least 20% below the list price on Amazon for any physical edition of the Digital Book.",
+      "value_percent": 20
+    },
+    "public_domain_not_eligible": [
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "Book Eligibility: Books that consist primarily of public domain content are only eligible for the 35% Royalty Option."
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200644210",
+        "saved_page": "pages/kdp_G200644210_ebook_royalties.txt",
+        "quote": "The 70% royalty option is for in-copyright works only."
+      }
+    ],
+    "must_distribute_in_all_territories_with_rights": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "Distribution Territory: If you select the 70% Royalty Option for a Digital Book, you must make it available to us for distribution in each territory for which you have appropriate distribution rights"
+    },
+    "new_features_apply": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "New Features: Any new feature incorporated into the Program will apply to all Digital Books distributed under the 70% Option even if we make the feature optional for other Digital Books."
+    },
+    "non_compliance_falls_back_to_35": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "Non-Compliance: If at any time your Digital Book does not meet the requirements for the 70% Royalty Option, the Royalty for the Digital Book will be as provided in the 35% Royalty Option and we can adjust previously reported or paid Royalties based on the 35% Royalty Option."
+    },
+    "price_match_below_70_minimum_gives_35": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "If price-matching your Digital Book results in the Amazon price falling below the minimum 70% List Price requirement, you will earn 35% royalty."
+    },
+    "royalty_base_when_price_matched_70": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "Royalty Rate x (Amazon price - taxes and Delivery Costs) = Royalty"
+    },
+    "royalty_base_when_price_matched_35": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "(Unlike under the 70% Royalty Option, if we match a price for your Digital Book that is above zero, it won't change the calculation of your Royalties indicated in B above.)"
+    },
+    "kdp_select_exclusivity_reminder": {
+      "source": "https://kdp.amazon.com/terms-and-conditions",
+      "saved_page": "pages/kdp_terms_and_conditions.txt",
+      "quote": "During this period of exclusivity, you cannot sell or distribute, or give anyone else the right to sell or distribute, your Digital Book (or a book that is substantially similar), in digital format in any territory where you have rights."
+    },
+    "both_rates_shown_on_bookshelf": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200644210",
+      "saved_page": "pages/kdp_G200644210_ebook_royalties.txt",
+      "quote": "On your Bookshelf, you may see both 70% and 35% royalty rates displayed for the same book on Amazon.com. This is expected behavior — it is not an error with your pricing."
+    },
+    "royalty_option_can_be_changed_after_publishing": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+      "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+      "quote": "Royalty Rate | ✔ | ✗"
+    }
+  },
+  "3_vat": {
+    "general_rule": [
+      {
+        "source": "https://kdp.amazon.com/terms-and-conditions",
+        "saved_page": "pages/kdp_terms_and_conditions.txt",
+        "quote": "For some marketplaces, you will provide us a List Price inclusive of value added or similar taxes that are included within the customer purchase price of a product (“VAT”). Where your Royalty is calculated based on your List Price, it will be calculated based on your List Price exclusive of the VAT applicable to the customer."
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200641280",
+        "saved_page": "pages/kdp_G200641280_price_your_book.txt",
+        "quote": "In certain marketplaces, the list price displayed to the customer will include local Value Added Tax (VAT)."
+      }
+    ],
+    "vat_calculation_formula": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+      "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+      "quote": "Applicable VAT calculation (VAT rate/(1 + VAT rate) x VAT Inclusive List Price): 20/120 x $0.99 = $0.165"
+    },
+    "list_price_includes_tax": {
+      "EU_marketplaces_and_UK": {
+        "includes_tax": true,
+        "evidence": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+            "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+            "quote": "Minimum and maximum list prices for the 35% and 70% royalty options will now also account for VAT."
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+            "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+            "quote": "Effective January 1, 2015, when we sell a Digital Book to an EU customer, the price includes value-added tax at the rate applicable to that customer based on their country of residence."
+          }
+        ]
+      },
+      "Amazon.com.au": {
+        "includes_tax": true,
+        "tax": "GST",
+        "rate_percent": 10,
+        "evidence": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G202169970",
+            "saved_page": "pages/kdp_G202169970_goods_and_services_tax_gst_for_ebooks_in_australia_and_india.txt",
+            "quote": "List prices you set for Amazon.com.au and Amazon.in include GST."
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G202169970",
+            "saved_page": "pages/kdp_G202169970_goods_and_services_tax_gst_for_ebooks_in_australia_and_india.txt",
+            "quote": "eBooks sold to customers in Australia are subject to a 10% Goods and Services Tax (GST), and eBooks sold to customers in India are subject to an 18% GST."
+          }
+        ]
+      },
+      "Amazon.in": {
+        "includes_tax": true,
+        "tax": "GST",
+        "rate_percent": 18,
+        "evidence": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G202169970",
+            "saved_page": "pages/kdp_G202169970_goods_and_services_tax_gst_for_ebooks_in_australia_and_india.txt",
+            "quote": "List prices you set for Amazon.com.au and Amazon.in include GST."
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G202169970",
+            "saved_page": "pages/kdp_G202169970_goods_and_services_tax_gst_for_ebooks_in_australia_and_india.txt",
+            "quote": "eBooks sold to customers in Australia are subject to a 10% Goods and Services Tax (GST), and eBooks sold to customers in India are subject to an 18% GST."
+          }
+        ]
+      },
+      "Amazon.co.jp": {
+        "includes_tax": true,
+        "tax": "consumption tax",
+        "rate_percent": 10,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201849770",
+        "saved_page": "pages/kdp_G201849770_setting_prices_for_amazon_japan.txt",
+        "quote": "A consumption tax of 10% is applied to all eBooks and print books sold to customers living in Japan. When KDP authors set list prices of eBooks for Amazon.co.jp, or when customers living in Japan purchase an eBook on Amazon.com, those prices include the consumption tax."
+      },
+      "Taiwan_customers_on_Amazon.com": {
+        "includes_tax": false,
+        "tax": "ESS VAT",
+        "rate_percent": 5,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202183400",
+        "saved_page": "pages/kdp_G202183400_taiwan_vat.txt",
+        "quote": "As of September 1, 2017, eBooks sold to customers located in Taiwan are subject to a 5% Electronically Supplied Services Value Added Tax (ESS VAT). The 5% ESS VAT is calculated based on your Amazon.com list price and is added to the list price you set."
+      },
+      "converted_prices_include_gst": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202169970",
+        "saved_page": "pages/kdp_G202169970_goods_and_services_tax_gst_for_ebooks_in_australia_and_india.txt",
+        "quote": "If you set a worldwide list price on Amazon.com and don't set an individual list price for Amazon.com.au or Amazon.in, KDP converts your Amazon.com list price into local currency. That converted list price includes GST."
+      },
+      "Amazon.com_USD": {
+        "note": "The Pricing Page examples call the USD price a 'VAT Inclusive List Price' and deduct VAT according to the customer's own rate (0% or 20% in the examples). No page fetched gives a US sales-tax rule for eBooks.",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "U.S. Dollar VAT Inclusive List Price = $0.99."
+      },
+      "Amazon.ca_Amazon.com.mx_Amazon.com.br": {
+        "verified": false,
+        "note": "None of the fetched KDP pages says whether CAD, MXN or BRL eBook list prices include tax, or gives a rate for Canada, Mexico or Brazil."
+      }
+    },
+    "min_max_limits_include_tax": [
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202169970",
+        "saved_page": "pages/kdp_G202169970_goods_and_services_tax_gst_for_ebooks_in_australia_and_india.txt",
+        "quote": "The minimum and maximum list prices for the 35% and 70% royalty options include GST."
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201849770",
+        "saved_page": "pages/kdp_G201849770_setting_prices_for_amazon_japan.txt",
+        "quote": "Minimum and maximum list prices for the 35% and 70% royalty options include tax."
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202183400",
+        "saved_page": "pages/kdp_G202183400_taiwan_vat.txt",
+        "quote": "The minimum and maximum list prices for the 35% and 70% royalty plans are not impacted."
+      }
+    ],
+    "rates_table_eu_uk": {
+      "as_of": "Page states 'As of 5/1/2020' for the VAT % column",
+      "rates_percent": {
+        "United Kingdom": 0,
+        "Germany": 7,
+        "France": 5.5,
+        "Italy": {
+          "with_isbn": 4,
+          "without_isbn": 22
+        },
+        "Spain": 4,
+        "Netherlands": 9
+      },
+      "rows_35_percent": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "United Kingdom | 0% | £0.77 - £125.00 | £0.77 - £150.00"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Germany | 7% | €0.83 - €200.93 | €0.89 - €215.00"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "France | 5.5% | €0.84 - €203.79 | €0.89 - €215.00"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Italy | 4% or 22%* | €0.73* - €176.23 | €0.89 - €215.00"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Spain | 4% | €0.86 - €206.73 | €0.89 - €215.00"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Netherlands | 9% | €0.82 - €197.25 | €0.89 - €215.00"
+        }
+      ],
+      "rows_70_percent_as_of_2026_07_07": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "United Kingdom | 0% | £1.77 - £9.99 | £1.77 - £12.99"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Germany | 7% | €2.51 - €12.14 | €2.69 - €12.99"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "France | 5.5% | €2.55 - €12.31 | €2.69 - €12.99"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Italy | 4% or 22%* | €2.20 - €12.49 | €2.69 - €12.99"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Spain | 4% | €2.59 - €12.49 | €2.69 - €12.99"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Netherlands | 9% | €2.47 - €11.92 | €2.69 - €12.99"
+        }
+      ],
+      "table_headings": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Minimum and maximum list prices for the 35% royalty option, as of May 1, 2020"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+          "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+          "quote": "Minimum and maximum list prices for the 70% royalty option, as of July 7, 2026"
+        }
+      ],
+      "italy_isbn_rule": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+        "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+        "quote": "Due to legislation specific to Italy, a lower VAT rate of 4% will apply to eBooks with ISBNs purchased on the amazon.it Kindle store by customers in Italy. A higher VAT rate of 22% will apply to eBooks without ISBNs."
+      },
+      "uk_zero_rate_also_on_pricing_page": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "As of May 1, 2020, the UK VAT rate applicable to eBooks is 0%."
+      },
+      "germany_7_percent_also_on_pricing_page": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "Applicable VAT in Germany is 7%"
+      },
+      "inconsistencies_on_the_page": [
+        "UK 70% row: 'without VAT' maximum is still £9.99 while 'with VAT' is £12.99, although the UK rate is 0% (the without-VAT column looks stale).",
+        "UK 35% row: 'without VAT' maximum £125.00 versus 'with VAT' £150.00 at a 0% rate."
+      ]
+    },
+    "other_countries": {
+      "verified": false,
+      "note": "The EU VAT page lists only the United Kingdom, Germany, France, Italy, Spain and the Netherlands. No official page fetched lists eBook VAT rates for other EU countries (for example Ireland, Belgium, Austria) or for Canada, Mexico or Brazil."
+    },
+    "eu_isbn_reminder": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201645450",
+      "saved_page": "pages/kdp_G201645450_how_eu_taxes_affect_ebooks_list_price.txt",
+      "quote": "Do not use an ISBN from a print edition for your digital edition. If you want to include an ISBN for the digital version of your book, it must be a unique ISBN."
+    }
+  },
+  "4_free_pricing_and_price_matching": {
+    "can_set_list_price_to_zero": false,
+    "official_statements": [
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200641280",
+        "saved_page": "pages/kdp_G200641280_price_your_book.txt",
+        "quote": "You can't set your book's list price as free."
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GQ8UH9SN83UFNVKR",
+        "saved_page": "pages/kdp_GQ8UH9SN83UFNVKR_price_troubleshooting.txt",
+        "quote": "No, you can't set your book's list price as free."
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G73MVSZ5P69VVCN6",
+        "saved_page": "pages/kdp_G73MVSZ5P69VVCN6_4_title_setup_book_details_content_pricing.txt",
+        "quote": "Your book's list price can’t be set as free."
+      }
+    ],
+    "official_alternative": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GQ8UH9SN83UFNVKR",
+      "saved_page": "pages/kdp_GQ8UH9SN83UFNVKR_price_troubleshooting.txt",
+      "quote": "and use the Free eBook Promotion. This allows you to give away your eBook for free, up to 5 days (within each 90-day term).",
+      "free_days_per_term": 5,
+      "term_days": 90
+    },
+    "free_promotion_terms": {
+      "source": "https://kdp.amazon.com/terms-and-conditions",
+      "saved_page": "pages/kdp_terms_and_conditions.txt",
+      "quote": "You can schedule one or more free promotions for your Digital Book for up to a total period of 5 days during each 90-day period your Digital Book is in KDP Select."
+    },
+    "kdp_select_requires_exclusivity": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GD9PMU58BV24QFZ7",
+      "saved_page": "pages/kdp_GD9PMU58BV24QFZ7_kdp_select_enrollment.txt",
+      "quote": "During the 90-day enrollment period, the Kindle eBook can only be distributed through KDP and public libraries."
+    },
+    "price_matching": {
+      "lower_price_elsewhere": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "The price at which we sell your Digital Book may not be the same as your List Price. For instance, we might sell your Digital Book at a lower price to match a third party's price for a Digital or Physical edition of the book. Or, we might match Amazon's price for a Physical edition of the book."
+      },
+      "free_elsewhere": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "Additionally, from time to time your book may be made available through other sales channels as part of a free promotion. It is important that Digital Books made available through the Program have promotions that are on par with free promotions of the same book in another sales channel. Therefore, if your Digital Book is available through another sales channel for free, we may also make it available for free. If we match a free promotion of your Digital Book somewhere else, your Royalty during that promotion will be zero."
+      },
+      "royalty_when_matched_to_free": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "• Same as above but we're matching a free promotion on another sales channel. • Your Royalty is zero."
+      },
+      "definition_of_price_match": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "By \"price-match\" we mean where we sell the Digital Book in one or more of the Available Sales Territories at a price (net of taxes) that is below the List Price to match a third party's sales price for any Digital or Physical edition of the Digital Book, or to match our sales price for any Physical edition of the Digital Book, in any one of the Available Sales Territories."
+      },
+      "amazon_sets_customer_price": {
+        "source": "https://kdp.amazon.com/terms-and-conditions",
+        "saved_page": "pages/kdp_terms_and_conditions.txt",
+        "quote": "5.3.4 Customer Prices. To the extent not prohibited by applicable laws, we have sole and complete discretion to set the retail customer price at which your Books are sold through the Program."
+      },
+      "troubleshooting_page": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GQ8UH9SN83UFNVKR",
+        "saved_page": "pages/kdp_GQ8UH9SN83UFNVKR_price_troubleshooting.txt",
+        "quote": "We reserve the right to set the retail customer price for books you publish with us, which may be different than your list price."
+      },
+      "jumpstart_tip": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G73MVSZ5P69VVCN6",
+        "saved_page": "pages/kdp_G73MVSZ5P69VVCN6_4_title_setup_book_details_content_pricing.txt",
+        "quote": "Book prices are subject to price matching. The price at which we sell your Book may not be the same as your list price."
+      },
+      "dispute_route": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634500",
+        "saved_page": "pages/kdp_G200634500_digital_book_pricing_page.txt",
+        "quote": "Price Matching Determinations : If you notify us by contacting KDP Customer Support that you believe we've made an error in price-matching your Digital Book, we will review the issue and make best efforts to correct the error, if any, going forward as soon as practicable."
+      },
+      "is_a_free_match_guaranteed": {
+        "value": false,
+        "note": "The wording is permissive ('we may also make it available for free'). No fetched KDP page describes a way to request a match to free or promises that one will happen."
+      },
+      "how_to_request_a_price_match": {
+        "verified": false,
+        "note": "No fetched official KDP page documents a procedure for asking Amazon to match a lower or free price at another retailer."
+      }
+    }
+  },
+  "5_cover_image": {
+    "summary": "Three official sources disagree on accepted formats, minimum size, maximum file size and CMYK. All three give 2,560 x 1,600 px as the ideal or recommended size and name RGB; two of the three give 10,000 px as the ceiling per side.",
+    "safe_choice": {
+      "derived": true,
+      "text": "A JPEG in RGB at 2560 x 1600 px (height x width, ratio 1.6:1) under 5 MB meets the strictest reading of all three sources."
+    },
+    "kdp_help_page": {
+      "page": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+      "ideal_pixels": {
+        "height": 2560,
+        "width": 1600,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Ideal dimensions for cover files are 2,560 pixels in height x 1,600 pixels in width."
+      },
+      "best_quality_height_px": {
+        "value": 2500,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "For best quality, particularly on high definition devices, your image should be 2500 pixels in height."
+      },
+      "minimum_pixels": {
+        "height": 1000,
+        "width": 625,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Minimum dimensions of 1000 pixels in height and 625 pixels in width."
+      },
+      "maximum_pixels_each_side": {
+        "value": 10000,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Cover image should not exceed 10,000 pixels in height and in width."
+      },
+      "aspect_ratio": {
+        "height_to_width": 1.6,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "An ideal height/width ratio of at least 1.6:1, meaning: For every 1,000 pixels in width, the image should be 1,600 pixels in height."
+      },
+      "formats": {
+        "value": [
+          "TIFF (.tif/.tiff)",
+          "JPEG (.jpeg/.jpg)"
+        ],
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Format | TIFF (.tif/.tiff) or JPEG (.jpeg/.jpg) format"
+      },
+      "max_file_size_mb": {
+        "value": 50,
+        "comparison": "less than",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Your cover image must be less than 50MB."
+      },
+      "dpi_row": {
+        "value": 72,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "DPI (dots per inch) | 72 dpi"
+      },
+      "recommended_ppi": {
+        "value": 300,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "For the best results, images should have a minimum resolution of 300 PPI (pixels per inch)."
+      },
+      "colour_profile": {
+        "value": "RGB",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Color profile | RGB (red, green, blue). Note: Make sure to save your image without color separation."
+      },
+      "light_background_border": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Try adding a narrow (3-4 pixel) border in medium gray to define the boundaries of the cover."
+      },
+      "compression": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200645690",
+        "saved_page": "pages/kdp_G200645690_what_criteria_does_my_ebook_s_cover_image_need_to_meet.txt",
+        "quote": "Note: We apply additional compression to images when displaying them on the website. For the best results, upload your images with minimal compression."
+      }
+    },
+    "kindle_publishing_guidelines_web_page": {
+      "page": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+      "validated_at_upload": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Cover images are validated at upload. Files that do not meet the following requirements are rejected, and the failure reason is shown in your downloadable status report."
+      },
+      "accepted_formats": {
+        "value": [
+          "JPEG",
+          "PNG",
+          "GIF (non-animated)",
+          "TIFF"
+        ],
+        "not_supported": [
+          "SVG"
+        ],
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Accepted formats: JPEG, PNG, GIF (non-animated), TIFF. Note: SVG files are not supported"
+      },
+      "minimum_longest_side_px": {
+        "value": 500,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Minimum dimension: at least 500 pixels on the longest side. Covers below this threshold are not displayed on the website."
+      },
+      "maximum_each_side_px": {
+        "value": 10000,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Maximum dimension: 10,000 pixels or fewer on each side"
+      },
+      "max_file_size_mb": {
+        "value": 50,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Maximum file size: 50 MB"
+      },
+      "max_aspect_ratio": {
+        "value": "500:1",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Maximum aspect ratio: 500:1"
+      },
+      "recommended_pixels": {
+        "height": 2560,
+        "width": 1600,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Dimensions: 2,560 pixels in height x 1,600 pixels in width"
+      },
+      "recommended_dpi": {
+        "value": 300,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "DPI (Dots Per Inch): 300 DPI/PPI resolution minimum"
+      },
+      "preferred_format": {
+        "value": "JPEG",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "File format: JPEG is the preferred format"
+      },
+      "colour_mode": {
+        "value": "RGB recommended; CMYK accepted and converted",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Color mode: RGB is recommended. CMYK files are accepted and converted to RGB automatically"
+      },
+      "warning_below_recommended": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "If the marketing cover image size is smaller than the 2560 x 1600 recommendation, a warning is displayed at time of upload."
+      },
+      "do_not_stretch": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Do not stretch the image to meet the size requirements, because this may lower the image quality."
+      },
+      "content_rules": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+          "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+          "quote": "Mention pricing or other temporary promotional offers."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+          "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+          "quote": "Make sure the cover includes the Title and Author/Contributor information"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+          "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+          "quote": "Make sure the cover doesn’t include the spine, bar code, back cover or (optional) inside flap"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+          "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+          "quote": "Check that the cover language matches the language in the book"
+        }
+      ]
+    },
+    "kindle_publishing_guidelines_pdf_v2026_3": {
+      "page": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+      "version": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "version 2026.3"
+      },
+      "recommended_pixels": {
+        "height": 2560,
+        "width": 1600,
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "Dimensions: 2,560 pixels in height x 1,600 pixels in width"
+      },
+      "recommended_dpi": {
+        "value": 300,
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "DPI (Dots Per Inch): 300 DPI/PPI resolution minimum"
+      },
+      "file_size_mb": {
+        "value": 5,
+        "comparison": "5MB or fewer (listed under 'we recommend the following specifications')",
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "File size: 5MB or fewer"
+      },
+      "preferred_format": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "File format: JPEG is the preferred format."
+      },
+      "colour_profile": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "Important: Use RGB as the color profile when saving your cover image files. Kindle does not support CMYK."
+      },
+      "minimum_shortest_side_px": {
+        "value": 500,
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "Covers with less than 500 pixels on the shortest side are not displayed on the website."
+      },
+      "internal_cover_note": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "Note: This cover image guidance doesn’t apply to KDP eBooks."
+      }
+    },
+    "contradictions": [
+      "Formats: the KDP help page says TIFF or JPEG; the Kindle Publishing Guidelines web page says JPEG, PNG, GIF (non-animated) and TIFF are accepted.",
+      "Minimum size: KDP help page says 1000 x 625 px minimum; the guidelines web page says at least 500 px on the longest side; the guidelines PDF says under 500 px on the shortest side is not displayed.",
+      "Maximum file size: KDP help page 'less than 50MB', guidelines web page '50 MB', guidelines PDF '5MB or fewer'.",
+      "CMYK: guidelines web page says CMYK is accepted and converted; guidelines PDF says 'Kindle does not support CMYK'.",
+      "DPI: KDP help page lists '72 dpi' in the DPI row and separately recommends a minimum of 300 PPI."
+    ],
+    "internal_cover_in_epub": {
+      "do_not_add_html_cover_page": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "Do not add an HTML cover page to the content in addition to the cover image. This may result in the cover appearing twice in the book or cause the book to fail conversion."
+      },
+      "opf_method_1_preferred": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "<manifest> ... <item id=\"cimage\" media-type=\"image/jpeg\" href=\"other_cover.jpg\" properties=\"cover- image\"/> ... </manifest>",
+        "note": "The web page prints the property with a stray space ('cover- image') and the PDF prints 'coverimage'; the EPUB 3 manifest property is 'cover-image'. The typo is in Amazon's pages, not in this file."
+      },
+      "opf_method_2": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX",
+        "saved_page": "pages/kdp_G6GTK3T3NUHKLEFX_cover_image_guidelines_for_kindle_ebooks.txt",
+        "quote": "<metadata>... <meta name=\"cover\" content=\"my-cover-image\" /> ... </metadata> ... <manifest> ... <item href=\"MyCoverImage.jpg\" id=\"my-cover-image\" media-type=\"image/jpeg\" /> ... </manifest>"
+      },
+      "cover_id_must_match": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "validate if the id present in cover image declaration in manifest tag is same as the content attribute value of cover declaraction in OPF file"
+      },
+      "internal_cover_size_web": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV",
+        "saved_page": "pages/kdp_G75V4YX5X8GRGXWV_image_guidelines_reflowable.txt",
+        "quote": "Book cover images: Cover images should always have a full-page layout and be at least 1200 pixels in width or height."
+      },
+      "internal_cover_size_pdf": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "Cover Images: Cover images should always have a full page layout and be at least 1200 pixels in width or 1800 pixels in height."
+      },
+      "pdf_says_internal_cover_guidance_not_for_kdp": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "4.2 Internal Content Cover Image Is Mandatory Note: This cover image guidance doesn’t apply to KDP eBooks."
+      }
+    },
+    "cover_update_delay_hours": {
+      "value": 72,
+      "source": "https://kdp.amazon.com/en_US/help/topic/GNAJS6UTKE9Q3PT9",
+      "saved_page": "pages/kdp_GNAJS6UTKE9Q3PT9_why_is_my_cover_image_not_updating_on_amazon.txt",
+      "quote": "It can take up to 72 hours for your updated image to display on Amazon."
+    }
+  },
+  "6_manuscript_formats_and_epub_rules": {
+    "accepted_upload_formats": {
+      "page": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+      "recommended": [
+        {
+          "format": "Microsoft Word (DOC/DOCX)",
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+          "saved_page": "pages/kdp_G200634390_what_file_formats_are_supported_for_ebook_manuscripts.txt",
+          "quote": "Microsoft Word (DOC/DOCX) | Most DOC/DOCX files convert well to eBooks."
+        },
+        {
+          "format": "Kindle Package Format (KPF)",
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+          "saved_page": "pages/kdp_G200634390_what_file_formats_are_supported_for_ebook_manuscripts.txt",
+          "quote": "Kindle Package Format (KPF) | Using KPF files allows your eBook to easily format and fit all Kindle devices."
+        },
+        {
+          "format": "EPUB",
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+          "saved_page": "pages/kdp_G200634390_what_file_formats_are_supported_for_ebook_manuscripts.txt",
+          "quote": "EPUB | We support books in EPUB format that meet the specifications outlined in the Kindle Publishing Guidelines."
+        }
+      ],
+      "also_accepted": {
+        "value": [
+          "HTML (ZIP, HTM, or HTML)",
+          "Rich Text Format (RTF)",
+          "Plain Text (TXT)",
+          "Adobe PDF (PDF)"
+        ],
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+        "saved_page": "pages/kdp_G200634390_what_file_formats_are_supported_for_ebook_manuscripts.txt",
+        "quote": "HTML (ZIP, HTM, or HTML) - Rich Text Format (RTF) - Plain Text (TXT) - Adobe PDF (PDF)"
+      },
+      "pdf_language_limit": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+        "saved_page": "pages/kdp_G200634390_what_file_formats_are_supported_for_ebook_manuscripts.txt",
+        "quote": "Note: We only support PDF files in the following languages: English, French, German, Italian, Portuguese, Spanish, Catalan, Galician, and Basque."
+      },
+      "list_is_not_exhaustive": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+        "saved_page": "pages/kdp_G200634390_what_file_formats_are_supported_for_ebook_manuscripts.txt",
+        "quote": "Additional accepted formats included but aren't limited to the following:"
+      },
+      "epub_versions": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GULSQMHU5MNH4EZM",
+        "saved_page": "pages/kdp_GULSQMHU5MNH4EZM_mobi_support_faq.txt",
+        "quote": "No, Amazon accepts both EPUB 2.0 and EPUB 3.0 files that meet the specifications outlined in Kindle Publishing Guidelines"
+      },
+      "mobi_no_longer_accepted": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GULSQMHU5MNH4EZM",
+          "saved_page": "pages/kdp_GULSQMHU5MNH4EZM_mobi_support_faq.txt",
+          "quote": "Effective March 18, 2025, we no longer support MOBI files for fixed-layout eBooks. This change completes our transition away from the MOBI format, as we previously ended support for MOBI files for reflowable books on August 1, 2021."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GULSQMHU5MNH4EZM",
+          "saved_page": "pages/kdp_GULSQMHU5MNH4EZM_mobi_support_faq.txt",
+          "quote": "Effective March 18, 2025, we no longer accept MOBI files."
+        }
+      ],
+      "use_instead": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GULSQMHU5MNH4EZM",
+        "saved_page": "pages/kdp_GULSQMHU5MNH4EZM_mobi_support_faq.txt",
+        "quote": "For publishing fixed-layout and reflowable eBooks, please use EPUB, DOCX, or KPF files."
+      },
+      "contradiction": {
+        "note": "The Book Supported Languages page still lists MOBI (.mobi) as an upload format, which conflicts with the MOBI FAQ.",
+        "evidence": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G200673300",
+            "saved_page": "pages/kdp_G200673300_book_supported_languages.txt",
+            "quote": "For other languages, upload your files using formats: HTML (.html), MOBI (.mobi), Microsoft Word (.doc), ePub (.epub), Plain Text (.txt), Rich Text Format (.rtf), or Zipped HTML (.zip)."
+          }
+        ]
+      },
+      "recommend_validating_epub": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200634390",
+        "saved_page": "pages/kdp_G200634390_what_file_formats_are_supported_for_ebook_manuscripts.txt",
+        "quote": "We recommend validating the file with Kindle Previewer before you upload your book."
+      },
+      "conversion_time": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200641240",
+        "saved_page": "pages/kdp_G200641240_upload_and_preview_book_content.txt",
+        "quote": "After we finish converting your file, you'll see a confirmation. This can take from five to seven minutes."
+      },
+      "metadata_must_match_file": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200641240",
+        "saved_page": "pages/kdp_G200641240_upload_and_preview_book_content.txt",
+        "quote": "The title, subtitle, author name, series information, and ISBN in your manuscript file must match the details you entered during title setup."
+      }
+    },
+    "maximum_file_size": {
+      "epub_max_mb": {
+        "value": 650,
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "The maximum file size of an EPUB is 650 MB.",
+        "where": "Kindle Publishing Guidelines PDF v2026.3, section 11.4.2"
+      },
+      "kindle_previewer_conversion_max_mb": {
+        "value": 650,
+        "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+        "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+        "quote": "Kindle Previewer 4 allows the maximum file size for conversion is 650MB. Any manuscript file larger than the 650MB limit will fail to convert when uploaded in Kindle Previewer 4 tool."
+      },
+      "per_html_file_max_mb": {
+        "value": 30,
+        "comparison": "smaller than",
+        "source": "https://kdp.amazon.com/en_US/help/topic/GGRXLC5USU4H67YM",
+        "saved_page": "pages/kdp_GGRXLC5USU4H67YM_qa_standards.txt",
+        "quote": "Individual HTML files within the eBook must be smaller than 30 MB."
+      },
+      "max_html_files": {
+        "value": 300,
+        "comparison": "fewer than",
+        "source": "https://kdp.amazon.com/en_US/help/topic/GGRXLC5USU4H67YM",
+        "saved_page": "pages/kdp_GGRXLC5USU4H67YM_qa_standards.txt",
+        "quote": "The eBook must contain fewer than 300 HTML files."
+      },
+      "kdp_upload_page_limit": {
+        "verified": false,
+        "note": "The eBook upload help pages (G200641240, G200634390) do not state a size limit. The 650 MB figure comes from the Kindle Publishing Guidelines PDF and the Kindle Previewer FAQ. A separate KDP page ('Save Your Manuscript File', G202145060) gives 650MB for conversion but it is a paperback page.",
+        "related": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G202145060",
+            "saved_page": "pages/kdp_G202145060_save_your_manuscript_file.txt",
+            "quote": "The maximum file size for conversion is 650MB. Any manuscript files larger than the 650MB limit will fail to convert when uploaded."
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G200673220",
+            "saved_page": "pages/kdp_G200673220_basic_html_formatting_guidelines.txt",
+            "quote": "The maximum size of a MOBI file is 650 MB."
+          }
+        ]
+      },
+      "delivery_cost_note": "File size also drives the 35% minimum price tier and the 70% delivery cost (sections 1 and 2)."
+    },
+    "epub_rules_for_a_generator": {
+      "source_note": "Kindle Publishing Guidelines, read both as kdp.amazon.com help topics and as the PDF (version 2026.3). Where they differ both are quoted.",
+      "guidelines_pdf": {
+        "url": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "version 2026.3",
+        "pdf_creation_date": "2026-10-07",
+        "pages": 132
+      },
+      "html_css_web_topic_redirects": {
+        "note": "The web topic 'HTML and CSS Guidelines' (GP2Z9DD4F2N4QKCY) answered with HTTP 301 to 'Format Your eBook' (G201723130) on 2026-11-23, so section 6 was read from the PDF only.",
+        "verified_by": "HTTP response headers observed during this research"
+      },
+      "metadata": {
+        "required_dc_elements": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Reflowable eBooks don’t need to specify meta name=\"book-type\" in the OPF file, but <dc:language> and <dc:title> are required."
+        },
+        "language_must_match_kdp_setting": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Verify if the language declared in OPF(dc:language) is matching with language selected under metadata."
+        },
+        "single_main_title": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "E20006: There are more than one title defined in OPF metadata."
+        },
+        "single_opf": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "E21027: Epub file has more than one opf file"
+        },
+        "rtl_direction": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "If the page propagation direction is not left-to-right, page propagation direction should be provided either in the metadata or the spine."
+        },
+        "do_not_declare_fixed_layout_for_reflowable": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G202124410",
+          "saved_page": "pages/kdp_G202124410_indian_language_manuscript_guidelines.txt",
+          "quote": "We do not support the \"Fixed Layout\" tag in Open Packaging Format files (.opf)."
+        }
+      },
+      "navigation": {
+        "logical_toc_required": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Amazon requires that all Kindle books include a logical TOC."
+        },
+        "logical_toc_required_web": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201605710",
+          "saved_page": "pages/kdp_G201605710_toc_navigation_document.txt",
+          "quote": "Logical TOC | Required for all Kindle books by Amazon | Accessible from the Kindle Go To menu"
+        },
+        "html_toc_strongly_recommended": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Amazon strongly recommends the use of an HTML table of contents (TOC) for all books that would benefit from this navigation feature."
+        },
+        "how_logical_toc_is_built": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "Logical ToCs are generated using toc nav elements or a navigational control file for XML application (NCX)."
+        },
+        "ncx_stated_as_required_on_web": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "To make a full use of Kindle apps navigation functionality, it is required to create a complete NCX file in a content file."
+        },
+        "max_nesting_levels": {
+          "value": 2,
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "Important: Kindle devices and applications support two levels of nesting."
+        },
+        "nesting_error": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "E24011: TOC section scope is not included in the parent chapter"
+        },
+        "especially_over_20_pages": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "The inclusion of a logical ToC is especially important for books that are longer than 20 pages."
+        },
+        "toc_nav_in_manifest": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "<manifest> <item id=\"toc\" properties=\"nav\" href=\"xhtml/toc.xhtml\" mediatype=\"application/xhtml+xml\"/>",
+          "note": "Amazon's sample prints the attribute as 'mediatype'; the OPF attribute is 'media-type'."
+        },
+        "toc_nav_separate_document": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "Creating a toc nav element provides both a logical ToC and an HTML ToC. The toc nav element should be a separate HTML document from the HTML ToC."
+        },
+        "ncx_declaration": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "<manifest> <item id=\"toc\" media-type=\"application/x-dtbncx+xml\" href=\"toc.ncx\"/>"
+        },
+        "ncx_spine_reference": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "<spine toc=\"toc\">"
+        },
+        "order_must_follow_book": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "Amazon requires that the NCX elements follow the same order as the book."
+        },
+        "html_toc_placement": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "Place the HTML table of contents (ToC) toward the beginning of the book and not at the end of the book."
+        },
+        "html_toc_rules": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+            "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+            "quote": "The entries in the ToC must be HTML links so that users can click to go to a specific location."
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+            "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+            "quote": "Do not create a ToC using HTML <table> tags."
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+            "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+            "quote": "Do not use page numbers in the ToC."
+          }
+        ],
+        "guide_items_recommended": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "Guide items are an optional feature in the EPUB format but are highly recommended. Kindle provides support for the cover, ToC, and start reading location (\"Go to Beginning\") guide items."
+        },
+        "start_reading_location_set_by_amazon": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "The start reading location is defined by Amazon."
+        },
+        "guide_toc_example": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "<guide> <reference type=\"toc\" title=\"Table of Contents\" href=\"toc.html\"/> </guide>"
+        },
+        "landmarks_example": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N",
+          "saved_page": "pages/kdp_GY3AD8C6C6GAG42N_navigation_guidelines.txt",
+          "quote": "<nav epub:type=\"landmarks\"> <ol><li><a epub:type=\"toc\" href=\"toc.html\">Table of Contents</a></li></ol> </nav>"
+        },
+        "toc_link_targets": [
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "E24010: Hyperlink not resolved in toc (One possible reason can be that the link points to a tag with style display:none )"
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "Move the ids present in the parent body tag to child div tag."
+          }
+        ]
+      },
+      "cover_declaration": "See section 5_cover_image.internal_cover_in_epub.",
+      "html_and_css": {
+        "well_formed": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Kindle supports most HTML 5.0 features, although the following HTML features are not fully supported: forms, frames, and JavaScript."
+        },
+        "no_scripting": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Scripting is not supported. All scripts are stripped from the source during conversion."
+        },
+        "no_nested_p": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "In compliance with W3C standards, avoid nested <p> tags. Files with nested <p> tags do not convert properly."
+        },
+        "file_references_case_sensitive": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "all file references (fonts, images, etc.) must match the case and spelling of the name of the source file exactly."
+        },
+        "paths": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Do not use the backward slash (\\) for specifying file path; always use the forward slash (/) instead. Do not include special characters (such as !, @, #, $) in the file path or file name."
+        },
+        "encoding": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Amazon recommends specifying the encoding of the HTML by using the <meta> tag in the <head> section or an XML declaration."
+        },
+        "characters": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Characters should be represented using plain text UTF-8 characters, except where XML entities are strictly required or are easier for humans to read than their character equivalents."
+        },
+        "supported_spaces": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "The only supported spaces are the normal space, the non-breaking space (&nbsp;), and the zero-width non-joiner (&zwnj;)."
+        },
+        "no_unicode_format_characters": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Do NOT use Unicode format characters, as they may cause problems."
+        },
+        "negative_values": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Avoid using negative values for positioning text and margins."
+        },
+        "no_negative_line_height": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Do not use negative values for the line-height attribute. They aren’t supported."
+        },
+        "single_column_no_position": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Create the content using single column layout. Do not use the CSS position: property for alignments."
+        },
+        "fixed_values": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Avoid using fixed values such as points and pixels for CSS properties such as font-size, width, height, margin, padding, and text-indent. To enable rendering across various screen sizes and resolutions, specify these values in ems or percentages."
+        },
+        "margins": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "When using left or right margin and padding CSS properties, specify the values in percentage (%) instead of em units."
+        },
+        "body_margins_zero": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Always set left and right margins to 0 for normal body text to allow users the full range of margin selection using device defaults."
+        },
+        "height_only_on_images": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "The height property should only ever be applied to images in reflowable books."
+        },
+        "display_none_limit_chars": {
+          "value": 10000,
+          "source": "https://kdp.amazon.com/en_US/help/topic/GR4KL488MXKPZ5BK",
+          "saved_page": "pages/kdp_GR4KL488MXKPZ5BK_media_queries.txt",
+          "quote": "If the display:none property is applied to a content block that is bigger than 10000 characters, Kindle encounters an error that prevents your book from publishing."
+        },
+        "kf8_css_not_supported_examples": {
+          "note": "From the 'CSS Support Table' for KF8 (the format older devices receive). Selected rows only.",
+          "rows": [
+            {
+              "source": "https://kdp.amazon.com/en_US/help/topic/GG5R7N649LECKP7U",
+              "saved_page": "pages/kdp_GG5R7N649LECKP7U_html_and_css_tags_supported_in_kindle_format_8.txt",
+              "quote": "max-width | No"
+            },
+            {
+              "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+              "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+              "quote": "counter-increment No counter-reset No"
+            },
+            {
+              "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+              "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+              "quote": "E::after No E::before No E::first-letter No E::first-line No E:first-child No"
+            },
+            {
+              "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+              "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+              "quote": "E + F (Direct adjacent) No"
+            },
+            {
+              "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+              "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+              "quote": "max-height No max-width No"
+            }
+          ],
+          "font_face_supported": {
+            "source": "https://kdp.amazon.com/en_US/help/topic/GG5R7N649LECKP7U",
+            "saved_page": "pages/kdp_GG5R7N649LECKP7U_html_and_css_tags_supported_in_kindle_format_8.txt",
+            "quote": "@font-face | Yes"
+          }
+        },
+        "enhanced_typesetting_unsupported_values": [
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "background-image linear gradient Use a media query to specify a replacement, such as the background-color property."
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "Base64 encoded images not applicable Use an online tool to decode the Base64 image and provide it as a normal binary image file."
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "text-decoration line-through Remove the text-decoration: line-through styles from your book"
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "height/width inherit Use valid height/width values in px instead of inherit property"
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "Remove display: none or hidden values from ToC HTML file."
+          }
+        ],
+        "page_breaks": {
+          "pdf": {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "Use the CSS page-break-before and page-break-after attributes to separate sections. Alternatively, place each section of content that should appear after a page break in a new HTML document. Do not insert blank lines of text to create page breaks."
+          },
+          "web": {
+            "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+            "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+            "quote": "Kindle now supports CSS attributes for page-break-inside:avoid and break-inside:avoid."
+          },
+          "contradiction": {
+            "note": "The web pages say page-break-inside/break-inside: avoid is supported; the PDF (v2026.3, section 18.3.2) lists page-break-inside among attributes that are ignored.",
+            "evidence": [
+              {
+                "source": "https://kdp.amazon.com/en_US/help/topic/GB5GDY7WAJDN9GFK",
+                "saved_page": "pages/kdp_GB5GDY7WAJDN9GFK_attributes_and_tags_supported_by_enhanced_typesetting.txt",
+                "quote": "page-break-inside | always, auto, avoid"
+              },
+              {
+                "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+                "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+                "quote": "accesskey dropcap page animation dropcap_chars page-break-inside"
+              }
+            ]
+          }
+        },
+        "media_queries": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Media queries are blocks of CSS code that allow content creators to apply different styles to specific Kindle devices (or a group of devices) using only one style sheet."
+        }
+      },
+      "body_text_defaults": {
+        "rule": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "The body text in a reflowable Kindle book (fiction and nonfiction) must be all defaults."
+        },
+        "font_size_line_height": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Body text must use the default font size (1em) and line height. Body text should not use the <font size=\"…\"> tag or the font-size and line-height attributes in CSS."
+        },
+        "no_forced_colour": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Body text should not have an imposed font color throughout the book."
+        },
+        "no_black_or_white_background": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Body text must not have a black or white background color."
+        },
+        "no_forced_font_face": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Body text should not have a forced font face."
+        },
+        "no_nbsp_between_words": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Body text must not use non-breaking spaces in place of normal spaces in between words in paragraphs."
+        },
+        "no_imposed_margins": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Body text must not have an imposed left/right margin or padding throughout the book."
+        },
+        "paragraph_indent_max_em": {
+          "value": 4,
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Amazon recommends using the text-indent attribute in the CSS to set indent values of no more than 4 ems for body paragraphs."
+        },
+        "heading_alignment": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Because text in reflowable eBooks is fully justified by default (i.e., text-align: justify;), Amazon strongly recommends specifying the appropriate CSS alignment for all headings to prevent excessive spaces between words"
+        },
+        "upload_time_normalisation": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "The font size used in the majority of the content will be normalized to 1em."
+        },
+        "grey_range": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "For grays, use colors within the hex value range of #666 to #999."
+        }
+      },
+      "embedded_fonts": {
+        "allowed_formats": {
+          "value": [
+            "OpenType (OTF)",
+            "TrueType (TTF)"
+          ],
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Kindle supports embedded fonts within the eBook. These fonts can be either Open Type (OTF) or True Type (TTF). Kindle does not recommend the use of Type 1 (Postscript) fonts."
+        },
+        "licence": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "It is the responsibility of the publisher to secure the appropriate license rights for fonts."
+        },
+        "prefer_device_fonts": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Unless embedded fonts are necessary to convey intent, Amazon recommends using the default set of fonts installed on Kindle devices and applications because they have been tuned for high quality rendering."
+        },
+        "reader_can_turn_off": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "On KF8-enabled devices and applications, customers have the option to turn publisher-provided fonts on or off."
+        },
+        "set_main_font_on_body": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "The primary or main font in a book should be set at the <body> level."
+        },
+        "override_conflict_removes_fonts": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "When there is an override conflict, the font files within the book will be intentionally removed to provide Kindle customers with the best possible reading experience when they select the font settings."
+        },
+        "zero_byte_font_fails": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Corrupted font file(0kb file size) identified inside font folder of the book"
+        },
+        "monospace_tags": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Content in the following tags will be rendered in monospaced font: <pre>, <code>, <samp>, <kbd>, <tt>, <font face=\"courier\">, <font face=\"monospace\">."
+        },
+        "woff_or_other_formats": {
+          "verified": false,
+          "note": "The guidelines name only OTF and TTF. They do not mention WOFF/WOFF2 either way."
+        }
+      },
+      "drop_caps": {
+        "rule": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Elements such as drop caps should be specified using percentages or relative units (positive or negative) instead of fixed values such as points and pixels. The top of the drop cap should be aligned with the body text."
+        },
+        "sample_css": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "@media amzn-kf8 { span.dropcaps { font-weight:normal; font-size:320%; float:left; margin-top:-0.3225em; margin-bottom:-0.3245em; } } @media amzn-mobi { span.dropcaps { font-size:3em; font-weight: bold; } }"
+        },
+        "sample_html": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "<p class=\"para\"><span class=\"dropcaps\">T</span>his is a sample."
+        },
+        "legibility": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Drop caps should not be illegible or cut off."
+        },
+        "first_letter_selector_not_in_kf8": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "E::first-letter No"
+        },
+        "ignored_attributes": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "accesskey dropcap page animation dropcap_chars page-break-inside animation-delay dropcap_lines pointer-events"
+        }
+      },
+      "images": {
+        "supported_formats": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Kindle supports JPEG and PNG. SVG images aren’t supported, but SVG rasterization is partially supported."
+        },
+        "unsupported": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV",
+          "saved_page": "pages/kdp_G75V4YX5X8GRGXWV_image_guidelines_reflowable.txt",
+          "quote": "Kindle devices and reading applications do not support TIFF, multi-frame GIFs, or images with transparent areas. When images are provided with transparent backgrounds, we convert the transparent background to white."
+        },
+        "photos_jpeg_lineart_png": [
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "Photographs should use the JPEG format and be saved at high quality."
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "Line-art should be in PNG format."
+          }
+        ],
+        "minimum_quality_ppi": {
+          "value": 300,
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Images must meet the minimum quality standard of 300 ppi for the intended display size."
+        },
+        "full_page_minimum_px": {
+          "width": 1200,
+          "height": 1800,
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "At 300 ppi, this image must be a minimum of 1200 x 1800 pixels."
+        },
+        "minimum_pixels_by_layout": {
+          "rows": [
+            {
+              "layout_percent": 100,
+              "min_width_px": 1200,
+              "min_height_px": 1800
+            },
+            {
+              "layout_percent": 80,
+              "min_width_px": 960,
+              "min_height_px": 1440
+            },
+            {
+              "layout_percent": 60,
+              "min_width_px": 720,
+              "min_height_px": 1080
+            },
+            {
+              "layout_percent": 40,
+              "min_width_px": 580,
+              "min_height_px": 720
+            }
+          ],
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "100% 1200 1800 80% 960 1440 60% 720 1080 40% 580 720",
+          "note": "The 40% row is printed as 580 x 720 in the PDF (480 would be proportional); recorded as printed."
+        },
+        "below_72_ppi_fails": {
+          "value": 72,
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Any images below 72 ppi will cause the book to fail conversion."
+        },
+        "small_photos": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Photographs of less than 300 x 400 pixels will be scaled based on the device resolution and may become blurry as a result."
+        },
+        "one_pixel_images_fail": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Images with 1px dimensions are present inside the images folder"
+        },
+        "sizing_css": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Amazon recommends that block and float images be styled using a percentage value for the width style attribute."
+        },
+        "width_or_height_required": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Providing the % width or % height of an image in the image tag is required to calculate how much of the screen"
+        },
+        "aspect_ratio": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "To preserve aspect ratio of images, width and height cannot both be set to a fixed percentage."
+        },
+        "inline_images_in_em": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Inline images should be sized in em units so that they scale in relation to the text around them when users adjust the font size of their reading system."
+        },
+        "alt_text": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV",
+            "saved_page": "pages/kdp_G75V4YX5X8GRGXWV_image_guidelines_reflowable.txt",
+            "quote": "For accessibility, all images must have text in the alt attribute in the HTML tag. For decorative images, set alt = “” or role = “presentation” in the image tag so that it can be ignored by assistive technology."
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "The alt text should be less than 140 characters and should describe the image and its meaning."
+          }
+        ],
+        "no_text_as_image": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV",
+          "saved_page": "pages/kdp_G75V4YX5X8GRGXWV_image_guidelines_reflowable.txt",
+          "quote": "Do not render text as images. If text can be separated from the surrounding art, it shouldn't be an image. Instead, it should be HTML."
+        },
+        "svg": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV",
+            "saved_page": "pages/kdp_G75V4YX5X8GRGXWV_image_guidelines_reflowable.txt",
+            "quote": "We recommend removing SVG tags and using the image tag in HTML for images."
+          },
+          {
+            "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+            "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+            "quote": "eBooks with more than 25 SVG images are not supported in Enhanced Typesetting."
+          }
+        ],
+        "colour_profile_contradiction": {
+          "note": "The web page says to use sRGB; the PDF says Kindle does not support sRGB. Both say CMYK is not supported. Recorded as a contradiction between two official sources.",
+          "evidence": [
+            {
+              "source": "https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV",
+              "saved_page": "pages/kdp_G75V4YX5X8GRGXWV_image_guidelines_reflowable.txt",
+              "quote": "Use sRGB color profile for all your images. Kindle does not support CMYK color space. When images are provided in CMYK color space, Kindle will automatically convert the images to sRGB color space."
+            },
+            {
+              "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+              "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+              "quote": "Important: Use RGB as the color profile when saving your files. Kindle does not support sRGB or CMYK."
+            }
+          ]
+        },
+        "automatic_conversion": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Amazon performs automatic image conversions to optimize the content for Kindle."
+        },
+        "captions": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Amazon recommends placing a caption below the related image, so that the reader views the image before the caption."
+        }
+      },
+      "tables": {
+        "use_html_tables": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GZ8BAXASXKB5JVML",
+          "saved_page": "pages/kdp_GZ8BAXASXKB5JVML_table_guidelines_reflowable.txt",
+          "quote": "Amazon recommends using HTML <table> layouts for tabular content and not rendering tables as images."
+        },
+        "unsupported_size": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GZ8BAXASXKB5JVML",
+          "saved_page": "pages/kdp_GZ8BAXASXKB5JVML_table_guidelines_reflowable.txt",
+          "quote": "Tables containing more than 1,800 cells and 20,000 characters are not supported."
+        },
+        "recommended_max_web": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GZ8BAXASXKB5JVML",
+          "saved_page": "pages/kdp_GZ8BAXASXKB5JVML_table_guidelines_reflowable.txt",
+          "quote": "Amazon recommends creating tables with less than 100 rows and 10 columns."
+        },
+        "recommended_max_pdf": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Amazon recommends keeping tables below 100 rows and 11 columns for devices of all sizes."
+        },
+        "no_nested_tables": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GZ8BAXASXKB5JVML",
+          "saved_page": "pages/kdp_GZ8BAXASXKB5JVML_table_guidelines_reflowable.txt",
+          "quote": "Enhanced Typesetting does not support nested tables."
+        },
+        "caption_placement": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Table caption not supported for rasterization"
+        }
+      },
+      "footnotes": {
+        "bidirectional_links_required": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Regardless of whether the aside element is used, Amazon requires formatting footnotes with bidirectional hyperlinks (the text is linked to the footnote and the footnote is linked back to the text)."
+        },
+        "aside_recommended": {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+          "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+          "quote": "Amazon strongly recommends marking footnotes with the HTML5 aside element, together with the epub:type attribute."
+        }
+      },
+      "links": {
+        "prohibited_examples": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "Links to commercial eBook store sites other than Amazon"
+        },
+        "external_links_rule": {
+          "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+          "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+          "quote": "External links within Kindle books should be present only if they directly enhance the reader experience and the content of the title as determined by Amazon."
+        }
+      },
+      "page_numbers": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU",
+        "saved_page": "pages/kdp_GH4DRT75GWWAGBTU_text_guidelines_reflowable.txt",
+        "quote": "Only use Roman or Arabic numerals for adding page numbers."
+      },
+      "testing": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "Kindle Previewer compiles the EPUB file and runs checks for common errors. Any errors or warnings will prevent titles from becoming available."
+      },
+      "accessibility": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "Insufficient contrast between text and background colors (WCAG standards recommends a minimum contrast ratio of 4.5:1)"
+      }
+    },
+    "drm_note": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GDDXGH9VR22ACM8U",
+      "saved_page": "pages/kdp_GDDXGH9VR22ACM8U_digital_rights_management.txt",
+      "quote": "Effective January 20, 2026, verified purchasers can download the EPUB and PDF files of your confirmed DRM-free books."
+    }
+  },
+  "7_book_description": {
+    "page": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+    "character_limit": {
+      "value": 4000,
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+      "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+      "quote": "Note that we have a limit of 4000 characters for the description."
+    },
+    "html_tags_count_towards_limit": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+      "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+      "quote": "As you write your description, the text editor will count all characters used, including any HTML tags."
+    },
+    "counting_example": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+      "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+      "quote": "For example, the word test will count as 4 characters. If you bold test, it will then count as 11 characters, because we’re counting the <b></b> HTML tags."
+    },
+    "supported_html_tags": {
+      "value": [
+        "br",
+        "p",
+        "b",
+        "em",
+        "i",
+        "u",
+        "h4",
+        "h5",
+        "h6",
+        "ol",
+        "ul",
+        "li"
+      ],
+      "rows": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<br> | Creates a line break."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<p></p> | Defines a paragraph of text."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<b></b> | Formats enclosed text as bold."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<em></em> | Emphasizes a phrase. Generally formatted as italic."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<i></i> | Formats enclosed text as italic."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<u></u> | Formats enclosed text as underlined."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<h4></h4> to <h6></h6> | Formats enclosed text as a section heading: <h4> (largest) through <h6> (smallest). <h1>, <h2>, and <h3> are not supported."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<ol> | Creates a numbered list from enclosed items, each of which is identified by a <li> tag."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "<ul> | Creates a bulleted list from enclosed items, each of which is identified by a <li> tag."
+        }
+      ],
+      "explicitly_not_supported": [
+        "h1",
+        "h2",
+        "h3"
+      ],
+      "not_in_the_table": {
+        "note": "<strong>, <a>, <span>, <div>, <blockquote> and <hr> do not appear in the supported-HTML table. The page does not list them as rejected either; only the tags above are documented as supported.",
+        "verified": false
+      }
+    },
+    "formatting_notes": [
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+        "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+        "quote": "If you use double or multiple spaces between words within the editor, this will not be reflected on your detail page."
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+        "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+        "quote": "Have you included enough line breaks? Remember – to have an empty line, you will need two line breaks : <br><br>"
+      },
+      {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+        "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+        "quote": "Remove empty brackets <> OR <><> to fix invisible character issues."
+      }
+    ],
+    "not_allowed_content": {
+      "value": [
+        "Pornographic, obscene, or offensive content",
+        "Phone numbers, physical mail addresses, email addresses, or website URLs",
+        "Reviews, quotes, or testimonials",
+        "Requests for customer reviews",
+        "Advertisements, watermarks on images or videos, or promotional material",
+        "Time-sensitive information",
+        "Availability, price, alternative ordering information",
+        "Spoiler information",
+        "Unicode emojis",
+        "Any keywords or book tags phrases"
+      ],
+      "evidence": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "Phone numbers, physical mail addresses, email addresses, or website URLs"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "Reviews, quotes, or testimonials"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "Availability, price, alternative ordering information (for example, links to other websites for placing orders)"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "Unicode emojis"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+          "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+          "quote": "Any keywords or book tags phrases"
+        }
+      ]
+    },
+    "error_message_for_bad_characters": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GC4VASCGNQP6LQ7L",
+      "saved_page": "pages/kdp_GC4VASCGNQP6LQ7L_fixing_errors_or_formatting_with_book_descriptions.txt",
+      "quote": "If you get an error, such as \"Description may not contain invisible characters\" or \"Please fix the highlighted issue,\" this means there are hidden or unsupported characters in the HTML source code."
+    },
+    "recommended_length_words": {
+      "value": 150,
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201189630",
+      "saved_page": "pages/kdp_G201189630_write_a_book_description.txt",
+      "quote": "Aim for a 150-word paragraph with sentences that are easy to scan."
+    },
+    "can_be_updated_after_publishing": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+      "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+      "quote": "Description | ✔ | ✔"
+    },
+    "new_edition_disclaimer": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+      "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+      "quote": "\"Previously published as [book title] by [author name].\""
+    }
+  },
+  "8_keywords_categories_title_series_age": {
+    "keywords": {
+      "slots": {
+        "value": 7,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+        "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+        "quote": "Use up to seven keywords or short phrases. Keep an eye on the character limit in the text field"
+      },
+      "slots_second_source": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201743260",
+        "saved_page": "pages/kdp_G201743260_how_do_i_add_change_my_keywords.txt",
+        "quote": "you may choose up to seven keywords that relate to content of your book"
+      },
+      "character_limit_per_keyword": {
+        "verified": false,
+        "note": "The help pages say only 'Keep an eye on the character limit in the text field'. No official help page that was fetched states the number, so none is recorded here."
+      },
+      "optional": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+        "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+        "quote": "Keywords (optional)"
+      },
+      "recommended_phrase_length": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+        "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+        "quote": "For best results, we recommend using phrases that are 2-3 words long."
+      },
+      "no_html": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202172740",
+        "saved_page": "pages/kdp_G202172740_create_a_book.txt",
+        "quote": "When entering your book details, note we cannot accept HTML tags in the title, subtitle, author, contributors, or keywords fields."
+      },
+      "rules_avoid": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Information covered elsewhere in your book's metadata (title, contributors, etc.)"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Words already mentioned in your book categories (e.g. 19th Century History)"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Subjective claims about quality (e.g. \"best novel ever\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Time-sensitive statements (\"new,\" \"on sale,\" \"available now\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Information common to most items in the category (\"book\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Spelling errors"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Variants of spacing, punctuation, capitalization, and pluralization"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Anything misrepresentative like the name of an author not associated with your book."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Brands that you do not own or that you are unauthorized to use"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Quotation marks in search terms."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "Amazon program names like as \"Kindle+\" or \"KDP Select\""
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+          "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+          "quote": "HTML tags"
+        }
+      ],
+      "prohibited_in_metadata_guidelines": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+          "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+          "quote": "Sales rank (e.g., \"bestselling\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+          "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+          "quote": "Advertisements or promotions (e.g., \"free\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+          "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+          "quote": "Anything that is unrelated to your book's content"
+        }
+      ],
+      "can_be_updated_after_publishing": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+        "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+        "quote": "Keywords | ✔ | ✔"
+      }
+    },
+    "categories": {
+      "count": {
+        "value": 3,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652170",
+        "saved_page": "pages/kdp_G200652170_kdp_categories.txt",
+        "quote": "As an author, you can select 3 categories when creating a book in KDP"
+      },
+      "up_to": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+        "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+        "quote": "During title setup, you'll choose up to three categories from a list based on your primary audience and marketplace."
+      },
+      "depends_on": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652170",
+        "saved_page": "pages/kdp_G200652170_kdp_categories.txt",
+        "quote": "On the Details tab, review your selections for Primary Audience and Primary Marketplace before choosing categories."
+      },
+      "update_delay_hours": {
+        "value": 72,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652170",
+        "saved_page": "pages/kdp_G200652170_kdp_categories.txt",
+        "quote": "It can take up to 72 hours for your book to display in your new categories."
+      },
+      "vary_by_format_and_marketplace": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652170",
+        "saved_page": "pages/kdp_G200652170_kdp_categories.txt",
+        "quote": "Some categories are not available for every book format, e.g. eBook vs paperback vs comic. Categories also differ in each marketplace, e.g. Amazon.com vs Amazon.co.jp."
+      }
+    },
+    "title_and_subtitle": {
+      "combined_limit_characters": 200,
+      "wording_a": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+        "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+        "quote": "Together, your title and subtitle must be 200 characters or less."
+      },
+      "wording_b": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+        "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+        "quote": "Your title and subtitle together must be fewer than 200 characters."
+      },
+      "contradiction": "One page says '200 characters or less', the other 'fewer than 200 characters'. Using at most 199 characters satisfies both.",
+      "separate_title_only_limit": {
+        "verified": false,
+        "note": "No separate limit for the title field alone is stated on the fetched pages."
+      },
+      "title_must_match_cover": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+        "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+        "quote": "Enter your title exactly as it reads on the cover of your book."
+      },
+      "colon_added": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+        "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+        "quote": "Note: If using a subtitle, a colon will be automatically added between the title and subtitle on the Amazon detail page."
+      },
+      "long_title_advice": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201298500",
+        "saved_page": "pages/kdp_G201298500_make_your_book_more_discoverable_with_keywords.txt",
+        "quote": "Customers are more likely to skim past long titles (over 60 characters)"
+      },
+      "prohibited_in_title": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "Repeating generic keywords like \"notebook,\" \"journal,\" \"gifts,\" \"books,\" etc."
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "Unauthorized reference to other titles or authors"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "Unauthorized reference to a trademarked term"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "Reference to sales rank (e.g., \"bestselling\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "Reference to advertisements or promotions (e.g., \"free\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "Only Punctuation (e.g. \"!!!!!!!!\")"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "Using only \"unknown\", \"n/a\", \"na\", \"blank\", \"none\", \"null\", \"not applicable\""
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+          "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+          "quote": "HTML tags"
+        }
+      ],
+      "locked_after_publishing": [
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+          "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+          "quote": "Book Title | ✗ | ✗*"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+          "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+          "quote": "Subtitle | ✗ | ✗*"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+          "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+          "quote": "Language | ✗ | ✗"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+          "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+          "quote": "Primary Author | ✗ | ✗*"
+        },
+        {
+          "source": "https://kdp.amazon.com/en_US/help/topic/G200736410",
+          "saved_page": "pages/kdp_G200736410_update_your_book_details.txt",
+          "quote": "Edition Number | ✗ | ✗"
+        }
+      ],
+      "formats_link_only_if_exact_match": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202172740",
+        "saved_page": "pages/kdp_G202172740_create_a_book.txt",
+        "quote": "Kindle eBooks, paperbacks, and hardcover books are linked automatically if the author name and book title of both editions match exactly."
+      }
+    },
+    "edition": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC",
+      "saved_page": "pages/kdp_GW7J4WEKBVU25YEC_books_titles_editions.txt",
+      "quote": "If this is the first time you have published this book and you anticipate future editions, enter the numeral 1."
+    },
+    "series": {
+      "optional": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+        "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+        "quote": "Series (optional)"
+      },
+      "setup_on_kdp_com": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+        "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+        "quote": "For USA, UK, Australia, and Europe (kdp.amazon.com): Select Add series details and confirm if you’re creating a new series or adding the book to an existing series. On the Series Setup page, complete all required fields. Note that the Series title must adhere to the Book title guidelines above."
+      },
+      "setup_on_kdp_jp": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+        "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+        "quote": "You'll enter series numbers in the Series number field as digits only (\"3\" for the third book in a series, not \"Book 3\" or \"Book 3 of 4\")."
+      },
+      "not_eligible": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GMFKBUS43QQ5AJ5A",
+        "saved_page": "pages/kdp_GMFKBUS43QQ5AJ5A_start_a_book_series.txt",
+        "quote": "Public domain and low-content books, such as notebooks and journals, are not eligible for creating a series."
+      },
+      "ordered_or_unordered": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G29L44KLZ6RDYGDP",
+        "saved_page": "pages/kdp_G29L44KLZ6RDYGDP_set_the_reading_order_for_your_series.txt",
+        "quote": "Your series can be ordered or unordered."
+      },
+      "main_and_related_content": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/GJ3E8KQDLQ3NH3T9",
+        "saved_page": "pages/kdp_GJ3E8KQDLQ3NH3T9_edit_your_series.txt",
+        "quote": "Click Main Content and Related Content to check the book's relationship."
+      },
+      "page_appears_within_hours": {
+        "value": 72,
+        "source": "https://kdp.amazon.com/en_US/help/topic/GMFKBUS43QQ5AJ5A",
+        "saved_page": "pages/kdp_GMFKBUS43QQ5AJ5A_start_a_book_series.txt",
+        "quote": "If your series has live titles, the series page will appear within 72 hours."
+      },
+      "series_field_limits": {
+        "verified": false,
+        "note": "No character limits for the series title or series number are stated on the fetched pages."
+      }
+    },
+    "primary_audience_and_reading_age": {
+      "sexually_explicit_question_required": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+        "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+        "quote": "You must select Yes or No to this question in order to proceed with title setup and select categories."
+      },
+      "reading_age_optional": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+        "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+        "quote": "Reading Age (optional)"
+      },
+      "min_and_max": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+        "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+        "quote": "enter a minimum and maximum reading age based on the age bands below."
+      },
+      "age_bands": {
+        "value": [
+          [
+            0,
+            2
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            13,
+            17
+          ]
+        ],
+        "rows": [
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+            "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+            "quote": "Age 0-2 | Simple picture books with few or no words"
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+            "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+            "quote": "Age 3-5 | Picture books"
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+            "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+            "quote": "Age 6-8 | Early-level readers, first chapter books"
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+            "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+            "quote": "Age 9-12 | Middle-grade chapter books"
+          },
+          {
+            "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+            "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+            "quote": "Age 13-17 | Teen and young adult chapter books"
+          }
+        ]
+      },
+      "eighteen_plus_no_longer_available": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652170",
+        "saved_page": "pages/kdp_G200652170_kdp_categories.txt",
+        "quote": "Previously, if you set the maximum reading age as 18+ along with a minimum reading age, Amazon will place it within reading age categories, e.g. 15-18 years old. This option is no longer available."
+      },
+      "explicit_content_blocks_reading_age": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200652170",
+        "saved_page": "pages/kdp_G200652170_kdp_categories.txt",
+        "quote": "If you select Yes, your book will automatically be ineligible for Children's categories. You also cannot set a reading age."
+      },
+      "update_delay_hours": {
+        "value": 48,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G201506310",
+        "saved_page": "pages/kdp_G201506310_primary_audience_and_reading_age.txt",
+        "quote": "Updates may take up to 48 hours to reflect on Amazon."
+      },
+      "grade_range_field": {
+        "verified": false,
+        "note": "The Book Detail Resources hub still has a tile named 'AGE & GRADE RANGES', but it only says 'Select an age range' and the linked page documents reading age only. No US grade range field is described on any fetched page.",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202105800",
+        "saved_page": "pages/kdp_G202105800_book_detail_resources.txt",
+        "quote": "AGE & GRADE RANGES Select an age range"
+      }
+    },
+    "primary_marketplace": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+      "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+      "quote": "You must select a primary marketplace in order to select categories. This field is also used to set your list price."
+    },
+    "publisher_field": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+      "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+      "quote": "Publisher (eBook only. Field is optional.)"
+    },
+    "isbn_for_ebook": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201097560",
+      "saved_page": "pages/kdp_G201097560_metadata_guidelines_for_books.txt",
+      "quote": "On KDP, you do not need an ISBN to publish an eBook"
+    },
+    "new_title_limits": {
+      "note": "Not asked for, but it constrains an automated publishing workflow.",
+      "creation_per_format_per_week": {
+        "value": 2,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202172740",
+        "saved_page": "pages/kdp_G202172740_create_a_book.txt",
+        "quote": "Creation limit: Up to 2 titles per book format each week."
+      },
+      "submission_per_format_per_week": {
+        "value": 2,
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202172740",
+        "saved_page": "pages/kdp_G202172740_create_a_book.txt",
+        "quote": "Submission limit: Up to 2 new titles per book format each week, counted the first time you submit a title for publication."
+      },
+      "reset": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202172740",
+        "saved_page": "pages/kdp_G202172740_create_a_book.txt",
+        "quote": "reset every Sunday at 12:00 AM Coordinated Universal Time (UTC)."
+      }
+    }
+  },
+  "9_supported_languages": {
+    "page": "https://kdp.amazon.com/en_US/help/topic/G200673300",
+    "all_listed_languages_as_printed": [
+      "Afrikaans",
+      "Alsatian",
+      "Arabic (eBook only)",
+      "Basque",
+      "Bokmål Norwegian",
+      "Breton",
+      "Catalan",
+      "Chinese (Traditional) (eBook only)",
+      "Cornish",
+      "Corsican",
+      "Danish",
+      "Dutch/Flemish",
+      "Eastern Frisian",
+      "English",
+      "Finnish",
+      "French",
+      "Frisian",
+      "Galician",
+      "German",
+      "Gujarati (eBook only)",
+      "Hebrew",
+      "Hindi (eBook only)",
+      "Icelandic",
+      "Irish",
+      "Italian",
+      "Japanese (eBook and paperback only)",
+      "Latin",
+      "Luxembourgish",
+      "Malayalam (eBook only)",
+      "Manx",
+      "Marathi (eBook only)",
+      "Northern Frisian",
+      "Norwegian",
+      "Nynorsk Norwegian",
+      "Persian (eBook only)",
+      "Polish (paperback and hardcover only)",
+      "Portuguese",
+      "Provençal",
+      "Romansh",
+      "Scots",
+      "Scottish Gaelic",
+      "Spanish",
+      "Swedish",
+      "Tamil (eBook only)",
+      "Ukrainian (paperback and hardcover only)",
+      "Welsh",
+      "Yiddish (paperback and LTR hardcover only)"
+    ],
+    "ebook_supported_languages": [
+      "Afrikaans",
+      "Alsatian",
+      "Arabic",
+      "Basque",
+      "Bokmål Norwegian",
+      "Breton",
+      "Catalan",
+      "Chinese (Traditional)",
+      "Cornish",
+      "Corsican",
+      "Danish",
+      "Dutch/Flemish",
+      "Eastern Frisian",
+      "English",
+      "Finnish",
+      "French",
+      "Frisian",
+      "Galician",
+      "German",
+      "Gujarati",
+      "Hebrew",
+      "Hindi",
+      "Icelandic",
+      "Irish",
+      "Italian",
+      "Japanese",
+      "Latin",
+      "Luxembourgish",
+      "Malayalam",
+      "Manx",
+      "Marathi",
+      "Northern Frisian",
+      "Norwegian",
+      "Nynorsk Norwegian",
+      "Persian",
+      "Portuguese",
+      "Provençal",
+      "Romansh",
+      "Scots",
+      "Scottish Gaelic",
+      "Spanish",
+      "Swedish",
+      "Tamil",
+      "Welsh"
+    ],
+    "ebook_supported_count": 44,
+    "listed_but_not_for_ebook": [
+      "Polish (paperback and hardcover only)",
+      "Ukrainian (paperback and hardcover only)",
+      "Yiddish (paperback and LTR hardcover only)"
+    ],
+    "table": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G200673300",
+      "saved_page": "pages/kdp_G200673300_book_supported_languages.txt",
+      "quote": "Afrikaans | Alsatian | Arabic (eBook only) Basque | Bokmål Norwegian | Breton Catalan | Chinese (Traditional) (eBook only) | Cornish Corsican | Danish | Dutch/Flemish Eastern Frisian | English | Finnish French | Frisian | Galician German | Gujarati (eBook only) | Hebrew Hindi (eBook only) | Icelandic | Irish Italian | Japanese (eBook and paperback only) | Latin Luxembourgish | Malayalam (eBook only) | Manx Marathi (eBook only) | Northern Frisian | Norwegian Nynorsk Norwegian | Persian (eBook only) | Polish (paperback and hardcover only) Portuguese | Provençal | Romansh Scots | Scottish Gaelic | Spanish Swedish | Tamil (eBook only) | Ukrainian (paperback and hardcover only) Welsh | Yiddish (paperback and LTR hardcover only) |"
+    },
+    "bengali": {
+      "supported_for_kindle_ebooks": false,
+      "basis": "Bengali (Bangla) does not appear anywhere in the official 'Book Supported Languages' table, in the Indian-language page, in the Kindle Publishing Guidelines language list, or in the Kindle Previewer language list. The only Indian languages listed are Gujarati, Hindi, Malayalam, Marathi and Tamil.",
+      "consequence_of_unsupported_language": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200673300",
+        "saved_page": "pages/kdp_G200673300_book_supported_languages.txt",
+        "quote": "eBook content uploaded in an unsupported language won’t display properly on Kindle devices and will be removed from sale."
+      },
+      "indian_languages_supported": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202124400",
+        "saved_page": "pages/kdp_G202124400_indian_language_publishing.txt",
+        "quote": "You can publish eBooks on Kindle devices and apps in Hindi (हिंदी), Tamil(தமிழ்) , Malayalam (മലയാളം), Marathi (मराठी), and Gujarati (ગુજારી)."
+      },
+      "enhanced_typesetting_indic_list": {
+        "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+        "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+        "quote": "and the Indic languages Malayalam, Tamil, Hindi, Gujarati, and Marathi."
+      },
+      "kindle_previewer_language_list": {
+        "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+        "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+        "quote": "Kindle Previewer supports books in Afrikaans, Alsatian, Anglo-Norman, Basque, Bokmål, Breton, Catalan, Chinese (Simplified), Chinese (Traditional), Cornish, Corsican, Danish, Dutch, Eastern Frisian, English, English Middle, Finnish, French, Galician, German (Germanic Languages, Middle High, Old High), Gujarati, Hebrew, Icelandic, Irish, Italian, Irish, Italian, Japanese, Latin, Luxembourgish, Luxembourgish, Malayalam, Manx, Marathi, Nahuatl, Northern Frisian, Norwegian, Nynorsk, Persian, Portuguese, Provençal, Romansh, Russian, Scots, Scottish, Spanish, Swedish, Tamil, Ukrainian, Welsh, Western Frisian."
+      },
+      "language_must_match": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G200673300",
+        "saved_page": "pages/kdp_G200673300_book_supported_languages.txt",
+        "quote": "Select the language in your Bookshelf that matches the language of the written content to prevent file rejection."
+      },
+      "share_of_content_rule": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202124410",
+        "saved_page": "pages/kdp_G202124410_indian_language_manuscript_guidelines.txt",
+        "quote": "The language you select should be at least 45% of your book's content."
+      },
+      "explicit_negative_statement_about_bengali": {
+        "verified": false,
+        "note": "No official page names Bengali at all. The 'not supported' conclusion rests on its absence from every official list plus the stated consequence for unsupported languages."
+      }
+    },
+    "indian_language_rules": {
+      "word_only": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202124400",
+        "saved_page": "pages/kdp_G202124400_indian_language_publishing.txt",
+        "quote": "KDP currently accepts Indian language content only in Microsoft Word (.doc/docx) formats."
+      },
+      "no_paperback": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202124400",
+        "saved_page": "pages/kdp_G202124400_indian_language_publishing.txt",
+        "quote": "Paperback publishing for Indian languages is not available at this time."
+      },
+      "metadata_in_english_recommended": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202124400",
+        "saved_page": "pages/kdp_G202124400_indian_language_publishing.txt",
+        "quote": "We recommend using English for the book details (e.g., title, author name) you enter when setting up your title."
+      },
+      "unicode_required": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202124410",
+        "saved_page": "pages/kdp_G202124410_indian_language_manuscript_guidelines.txt",
+        "quote": "The fonts in your uploaded file are not Unicode compliant."
+      }
+    },
+    "language_count_claim": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GQSHRFWZ5CEY7XAC",
+      "saved_page": "pages/kdp_GQSHRFWZ5CEY7XAC_language_reading_direction.txt",
+      "quote": "KDP currently supports over 45 languages"
+    },
+    "rtl_languages_ebook": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/GML3FXP998V8WS4U",
+      "saved_page": "pages/kdp_GML3FXP998V8WS4U_publishing_in_hebrew_persian_and_yiddish.txt",
+      "quote": "Upload your manuscript in .doc/docx or EPUB format."
+    },
+    "chinese_traditional_word_only": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G27T64E65VM6JWKK",
+      "saved_page": "pages/kdp_G27T64E65VM6JWKK_chinese_traditional_beta.txt",
+      "quote": "Upload your eBook as a Microsoft Word file (DOC or DOCX). We don’t support other file types for Chinese (Traditional)."
+    },
+    "enhanced_typesetting_languages_pdf": {
+      "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+      "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+      "quote": "Enhanced Typesetting currently supports the following languages: Afrikaans, Alsatian, Arabic, Basque, Bokmal Norwegian, Breton, Catalan, Chinese (Simplified), Cornish, Corsican, Danish, Dutch, Eastern Frisian, English, Finnish, French, Frisian, Galician, German, Hebrew, Icelandic, Irish, Italian, Japanese, Latin, Luxembourgish, Manx, Northern Frisian, Norwegian, Nynorsk Norwegian, Persian, Portuguese,"
+    },
+    "not_supported_by_kdp_despite_et": {
+      "source": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+      "saved_page": "pages/kindle_publishing_guidelines_pdf.txt",
+      "quote": "Important: Kindle Enterprise Publishing and Kindle Direct Publishing do not support Russian or Swahili."
+    }
+  },
+  "10_kindle_previewer": {
+    "current_version": {
+      "value": "4.0.4",
+      "evidence": [
+        {
+          "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+          "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+          "quote": "Kindle Previewer 4.0.4 for Windows 10"
+        },
+        {
+          "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+          "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+          "quote": "Kindle Previewer 4.0.4 (64-bit) for Intel or Apple Silicon macOS 12 and above"
+        },
+        {
+          "source": "https://s3.amazonaws.com/kindlepreviewer/UG_ReleaseNotes_EN.txt",
+          "saved_page": "pages/kindle_previewer_release_notes.txt",
+          "quote": "New in Kindle Previewer 4.0.4:"
+        },
+        {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Kindle Previewer User Guide V4.0.4 English November 5, 2026"
+        }
+      ],
+      "major_version_change": {
+        "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+        "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+        "quote": "Amazon no longer supports these versions of Kindle Previewer, and does not provide software or security updates.",
+        "note": "Answer to 'Can I continue using Kindle Previewer 2.94 or Kindle Previewer 3?'"
+      },
+      "what_changed_in_4_0_0": {
+        "source": "https://s3.amazonaws.com/kindlepreviewer/UG_ReleaseNotes_EN.txt",
+        "saved_page": "pages/kindle_previewer_release_notes.txt",
+        "quote": "New in Kindle Previewer 4.0.0: 1) Modernized interface with light and dark modes 2) Support for Mac computers with Apple silicon 3) Enhanced Typesetting updates that keep your previews in sync with how readers experience your books on Kindle devices"
+      }
+    },
+    "official_download_pages": {
+      "kdp_help_page": "https://kdp.amazon.com/en_US/help/topic/G202131170",
+      "amazon_product_page": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+      "windows_installer": {
+        "value": "https://d3mb67z9ki82yk.cloudfront.net/KindlePreviewerSetup.exe",
+        "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+        "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+        "quote": "Download Now <https://d3mb67z9ki82yk.cloudfront.net/KindlePreviewerSetup.exe>"
+      },
+      "macos_installer": {
+        "value": "https://d3mb67z9ki82yk.cloudfront.net/KindlePreviewer4.pkg",
+        "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+        "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+        "quote": "Download Now <https://d3mb67z9ki82yk.cloudfront.net/KindlePreviewer4.pkg>"
+      },
+      "same_links_on_kdp_help_page": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202131170",
+        "saved_page": "pages/kdp_G202131170_kindle_previewer.txt",
+        "quote": "[image link] <https://d3mb67z9ki82yk.cloudfront.net/KindlePreviewer4.pkg>"
+      },
+      "user_guide_pdf": {
+        "value": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202131170",
+        "saved_page": "pages/kdp_G202131170_kindle_previewer.txt",
+        "quote": "For detailed instructions, see our User Guide <https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf>."
+      },
+      "release_notes": {
+        "value": "https://s3.amazonaws.com/kindlepreviewer/UG_ReleaseNotes_EN.txt",
+        "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+        "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+        "quote": "Kindle Previewer Release Notes <https://s3.amazonaws.com/kindlepreviewer/UG_ReleaseNotes_EN.txt>"
+      }
+    },
+    "default_install_paths": {
+      "windows": {
+        "value": "c:\\Users\\[user]\\AppData\\Local\\Amazon\\Kindle Previewer 4\\",
+        "evidence": [
+          {
+            "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+            "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+            "quote": "The default path for installing Kindle Previewer on a PC is:"
+          },
+          {
+            "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+            "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+            "quote": "c:\\Users\\[user]\\AppData\\Local\\Amazon\\Kindle Previewer 4\\"
+          }
+        ],
+        "note": "In the PDF text layer the path line is printed a few lines after the sentence that introduces it (it sits in a separate text box). It is the only path in the guide.",
+        "installer_file_name_in_guide": {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Double-click the KindlePreviewerInstaller.exe file to launch the installer."
+        },
+        "executable_file_name": {
+          "verified": false,
+          "note": "The user guide gives the install folder and the command name 'kindlepreviewer4' but not the executable file name inside the folder."
+        }
+      },
+      "macos": {
+        "verified": false,
+        "note": "The user guide (v4.0.4) does not document a macOS install path; it only says to pick the disk in the .pkg installer. No official page fetched states /Applications or an app bundle name.",
+        "related": [
+          {
+            "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+            "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+            "quote": "Select the disk where you want to install Kindle Previewer and then click Continue."
+          },
+          {
+            "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+            "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+            "quote": "Double-click the KindlePreviewerInstaller.pkg file to launch the installer."
+          }
+        ]
+      }
+    },
+    "system_requirements": {
+      "kdp_help_page": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202131170",
+        "saved_page": "pages/kdp_G202131170_kindle_previewer.txt",
+        "quote": "You can download Kindle Previewer for Microsoft Windows 10 (64-bit) and above, Intel Mac and Apple Silicon M1 Mac (macOS 12 and above)."
+      },
+      "product_page": {
+        "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+        "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+        "quote": "Windows 10 May 2019 Update - version 1903, build 10.0.18362.0 or later - Intel or Apple Silicon macOS 12 or later"
+      },
+      "user_guide": {
+        "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+        "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+        "quote": "Intel Mac (OSX 10.15 and above), or Apple Silicon M1 Mac (macOS 11 and above)"
+      },
+      "contradiction": "The user guide and product-page FAQ say macOS 10.15 (Intel) / macOS 11 (Apple silicon); the KDP help page and the product-page download box say macOS 12 and above.",
+      "rosetta": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202131170",
+        "saved_page": "pages/kdp_G202131170_kindle_previewer.txt",
+        "quote": "Note: You may be prompted to install Apple’s Rosetta 2 on Apple Silicon Macs to support some conversion features."
+      },
+      "hardware": {
+        "source": "https://kdp.amazon.com/en_US/help/topic/G202131170",
+        "saved_page": "pages/kdp_G202131170_kindle_previewer.txt",
+        "quote": "processor 1.2 GHz or faster, minimum 4 GB RAM (8GB is recommended), minimum 1.5 GB hard disk drive space, and display resolution of 1024 X 768"
+      }
+    },
+    "supported_input_formats": {
+      "value": [
+        ".epub",
+        ".htm",
+        ".html",
+        ".xhtml",
+        ".opf",
+        ".kpf",
+        ".doc",
+        ".docx"
+      ],
+      "source": "https://kdp.amazon.com/en_US/help/topic/G202131170",
+      "saved_page": "pages/kdp_G202131170_kindle_previewer.txt",
+      "quote": "Kindle Previewer opens eBooks in .epub, .htm, .html, .xhtml, .opf, .kpf, .doc, and .docx formats. Support for .doc and .docx is limited to English language content."
+    },
+    "export_formats": {
+      "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+      "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+      "quote": "Kindle Previewer can export eBooks to the following file formats:"
+    },
+    "command_line": {
+      "command_name_in_user_guide": {
+        "value": "kindlepreviewer4",
+        "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+        "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+        "quote": "Usage instructions: kindlepreviewer4 <input> < --command(s)> [--option(s)]"
+      },
+      "commands": {
+        "--convert": {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Create a KPF file in the specified output path or a Mobi file if the book doesn’t support Enhanced Typesetting."
+        },
+        "--qualitychecks": {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Use this option to validate external links, internal links (excluding table of contents), and footnotes in your books. This feature is currently in beta."
+        },
+        "--showpreview": {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Open the converted book in Kindle Previewer's graphical user interface."
+        },
+        "--log": {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Use this option to generate only the log files for validation without generating a KPF or a Mobi file."
+        }
+      },
+      "options": {
+        "--output": {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Path to the output folder. Use this option to specify a preferred path to store output file(s) instead of the default path (input folder)."
+        },
+        "--locale": {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "Specify your preferred locale."
+        }
+      },
+      "examples": [
+        {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "“kindlepreviewer4 inputfolder/ --convert --output outputfolder”"
+        },
+        {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "“kindlepreviewer4 inputfile.epub --convert”"
+        },
+        {
+          "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+          "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+          "quote": "“kindlepreviewer4 inputfolder/ --log”"
+        }
+      ],
+      "two_dash_format_is_new": {
+        "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+        "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+        "quote": "Updated section 3, Using Kindle Previewer from a Command-Line Interface, with two dash command format"
+      },
+      "log_location": {
+        "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+        "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+        "quote": "To review errors or warnings, use the individual log file inside the “output/Logs/” folder."
+      },
+      "self_update": {
+        "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+        "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+        "quote": "You can also run “kindlepreviewer4 --update” from a command-line interface to download and install the latest update."
+      },
+      "contradiction": {
+        "note": "The product-page FAQ still tells users to run 'kindlepreviewer --help' and links the old Previewer 3 user guide; the Previewer 4 user guide uses 'kindlepreviewer4'.",
+        "evidence": [
+          {
+            "source": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+            "saved_page": "pages/amazon_kindle_previewer_product_page.txt",
+            "quote": "If you have Kindle Previewer installed, run 'kindlepreviewer --help' in a command-line interface to see instructions."
+          },
+          {
+            "source": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+            "saved_page": "pages/kindle_previewer4_user_guide_pdf.txt",
+            "quote": "Run “kindlepreviewer4 -- help” from your command line interface to get started.",
+            "note": "The PDF wraps the line after the two dashes, which is why the extracted text shows a space; the flag is --help."
+          }
+        ]
+      }
+    },
+    "errors_block_publishing": {
+      "source": "https://kdp.amazon.com/en_US/help/topic/G79CTKR8BX79E96L",
+      "saved_page": "pages/kdp_G79CTKR8BX79E96L_paths_to_getting_your_content_on_kindle.txt",
+      "quote": "Any errors or warnings will prevent the titles from becoming available."
+    }
+  },
+  "other_findings": {
+    "subscription_programme_name": {
+      "note": "KDP help pages and the Terms now call the reading subscription 'Kindle+'. Links on the page still point to /kindleunlimited paths. No fetched page states a rename in so many words.",
+      "source": "https://kdp.amazon.com/en_US/help/topic/G201537300",
+      "saved_page": "pages/kdp_G201537300_kindle.txt",
+      "quote": "They can also visit Amazon's Kindle+ page <https://www.amazon.com/kindleunlimited> to see available books in the catalog."
+    }
+  }
+}

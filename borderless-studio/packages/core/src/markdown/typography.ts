@@ -15,18 +15,18 @@ import type { DashPolicy, TextStyle } from '../model/book';
 import type { Block, Inline } from './ir';
 
 export const CH = {
-  ldquo: '“',
-  rdquo: '”',
-  lsquo: '‘',
-  rsquo: '’',
-  ellipsis: '…',
-  emDash: '—',
-  enDash: '–',
-  nbsp: ' ',
-  thinNbsp: ' ',
+  ldquo: '\u201C',
+  rdquo: '\u201D',
+  lsquo: '\u2018',
+  rsquo: '\u2019',
+  ellipsis: '\u2026',
+  emDash: '\u2014',
+  enDash: '\u2013',
+  nbsp: '\u00A0',
+  thinNbsp: '\u202F',
   hyphen: '-',
-  prime: '′',
-  doublePrime: '″',
+  prime: '\u2032',
+  doublePrime: '\u2033',
 } as const;
 
 /**
@@ -42,7 +42,7 @@ const ELISION_SAFE_RE = elisionRe(ELISIONS_SAFE);
 const ELISION_ALL_RE = elisionRe([...ELISIONS_SAFE, ...ELISIONS_MORE]);
 
 const isSpace = (c: string) => c === '' || /\s/.test(c) || c === CH.nbsp;
-const isOpenPunct = (c: string) => c !== '' && '([{—–-/“‘'.includes(c);
+const isOpenPunct = (c: string) => c !== '' && '([{\u2014\u2013-/\u201C\u2018'.includes(c);
 const isWordChar = (c: string) => c !== '' && /[\p{L}\p{N}\p{M}]/u.test(c);
 
 /**
@@ -105,10 +105,10 @@ export function nonBreakingSpaces(text: string): string {
 export function fixEllipses(text: string, mode: TextStyle['ellipsis']): string {
   if (mode === 'leave') return text;
   if (mode === 'character') {
-    return text.replace(/\.[  ]?\.[  ]?\.(?!\.)/g, CH.ellipsis);
+    return text.replace(/\.[ \u00A0]?\.[ \u00A0]?\.(?!\.)/g, CH.ellipsis);
   }
   // spaced-dots: three dots held together by non breaking spaces
-  return text.replace(/…|\.[  ]?\.[  ]?\.(?!\.)/g, `.${CH.nbsp}.${CH.nbsp}.`);
+  return text.replace(/\u2026|\.[ \u00A0]?\.[ \u00A0]?\.(?!\.)/g, `.${CH.nbsp}.${CH.nbsp}.`);
 }
 
 /**
@@ -216,8 +216,8 @@ export function smartenBlocks(blocks: Block[], style: TextStyle): Block[] {
 
 /** Count em and en dashes (and typed double hyphens) in plain text. */
 export function countDashes(text: string, includeTyped = true): { em: number; en: number; typed: number } {
-  const em = (text.match(/—/g) ?? []).length;
-  const en = (text.match(/–/g) ?? []).length;
+  const em = (text.match(/\u2014/g) ?? []).length;
+  const en = (text.match(/\u2013/g) ?? []).length;
   const typed = includeTyped ? (text.match(/(?<!-)-{2,3}(?!-)/g) ?? []).length : 0;
   return { em, en, typed };
 }

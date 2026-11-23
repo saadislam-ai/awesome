@@ -407,7 +407,7 @@ export function buildEpub(assembled: AssembledBook, opts: EpubOptions = {}): Epu
   meta.push(`<dc:publisher>${escapeXmlText(book.imprint)}</dc:publisher>`);
   if (/^\d{4}(-\d{2}(-\d{2})?)?$/.test(book.publicationDate)) meta.push(`<dc:date>${book.publicationDate}</dc:date>`);
   const holder = book.copyright.holder || primaryAuthor(book);
-  meta.push(`<dc:rights>${escapeXmlText(`Copyright © ${book.copyright.year} ${holder}. All rights reserved.`)}</dc:rights>`);
+  meta.push(`<dc:rights>${escapeXmlText(`Copyright \u00A9 ${book.copyright.year} ${holder}. All rights reserved.`)}</dc:rights>`);
   if (opts.description) meta.push(`<dc:description>${escapeXmlText(opts.description.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())}</dc:description>`);
   for (const s of opts.subjects ?? []) meta.push(`<dc:subject>${escapeXmlText(s)}</dc:subject>`);
   if (book.series) {

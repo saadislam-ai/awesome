@@ -1,0 +1,61 @@
+Thema subject categories, version 1.7 (English)
+Official file: https://www.editeur.org/files/Thema/1.7/en/20261020_Thema_v1.7_en.json
+Retrieved: 2026-11-23
+Copyright © EDItEUR 2013-26 / https://www.editeur.org/
+Licence: https://doi.org/10.4400/nwgj
+Licence to use EDItEUR Standards, revised 25 February 2026 (https://www.editeur.org/files/about/EDItEUR%20IPR%20licence%2020260225.pdf)
+
+The file thema-v1.7-en.json in this folder is the official EDItEUR download, unchanged.
+Licence and terms header of the official file, verbatim:
+
+	*****************************
+	THEMA 1.7 (released October 2026)
+	*****************************
+	
+	The Thema Subject Classification Scheme is intended as a subject scheme for
+	classifying book content, for use with digital and physical products, for all
+	sectors of the global book and e-book trade, and for both online and physical
+	retail sectors.
+	
+	EDItEUR (https://www.editeur.org) is the international group which coordinates
+	the development and promotion of standards for electronic commerce in the book
+	and serials sectors. EDItEUR manages the development of Thema through an
+	International Steering Committee representing Thema stakeholders from many
+	countries.
+	
+	The first full release of the scheme, Thema version 1.0, was launched in October
+	2013, after the Frankfurt Book Fair. An updated version 1.1 was released
+	November 2014. Version 1.2 was released at the end of May 2016 and updated November 2017. 
+	Version 1.3 was released in April 2018.Version 1.4 was released in April 2020 with minor updates in October 2020.
+	Version 1.5 was released in April 2022. Version 1.6 in October 2026. 
+	This update (version 1.7) was released in October 2026 and is available on the EDItEUR website. 
+	All versions are fully backward compatable.
+
+	Basic guidelines for the application of the scheme are also available.
+	
+	All EDItEUR standards and documentation - including this document - are
+	copyright materials, made available free of charge for general use. A full
+	license agreement that governs their use is available on the EDItEUR website
+	(at https://doi.org/10.4400/nwgj). In particular, if you use the Thema Subject
+	Classification Scheme, you will be deemed to have accepted these terms and
+	conditions:
+	
+	1. You agree that you will not add to, delete from, amend, or copy for use
+	outside of the scheme, any part thereof except for strictly internal use in
+	your own organization;
+	2. You agree that if your business would benefit from future additions or
+	amendments to or extracts of the scheme for any purpose that is not strictly
+	internal to your own organization, you will in the first instance notify EDItEUR
+	and allow EDItEUR to review and comment on your proposed use, in the interest
+	of securing an orderly development of the Scheme for the benefit of other users.
+	
+	If you do not accept these terms, you must not use the scheme.
+	
+	Copyright © EDItEUR 2013-26 / https://www.editeur.org/
+	
+	If you find any errors or discrepancies, or you have a question about this
+	document, please contact EDItEUR by email to info@editeur.org. If you wish to
+	translate Thema into another language, or otherwise modify it in any way,
+	please note that it is copyright material and - while EDItEUR wishes it to be
+	as widely available as possible - it should not be translated or modified
+	without permission. Please contact EDItEUR before embarking on a translation.

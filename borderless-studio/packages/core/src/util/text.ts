@@ -28,7 +28,7 @@ export function fromUtf8(b: Uint8Array): string {
  * apostrophes and hyphens kept inside one word. Works for Latin and Bengali
  * text because it relies on Unicode letter and mark classes.
  */
-const WORD_RE = /[\p{L}\p{N}\p{M}]+(?:['’\-][\p{L}\p{N}\p{M}]+)*/gu;
+const WORD_RE = /[\p{L}\p{N}\p{M}]+(?:['\u2019\-][\p{L}\p{N}\p{M}]+)*/gu;
 
 export function countWords(text: string): number {
   const m = text.match(WORD_RE);

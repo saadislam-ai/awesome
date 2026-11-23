@@ -79,7 +79,7 @@ export function slugify(input: string, maxLen = 48): string {
   let s = input
     .normalize('NFKC')
     .toLowerCase()
-    .replace(/['‘’“”"]/g, '')
+    .replace(/['\u2018\u2019\u201C\u201D"]/g, '')
     .replace(/[<>:"/\\|?*\u0000-\u001F]/g, ' ')
     .replace(/[\s._,;!()[\]{}+=&%$#@^~`]+/g, '-')
     .replace(/-{2,}/g, '-')

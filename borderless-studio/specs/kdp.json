@@ -1,0 +1,4733 @@
+{
+  "schemaVersion": 1,
+  "platform": "kdp",
+  "displayName": "Amazon KDP",
+  "lastVerified": "2026-11-23",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "kdp-G200634390",
+      "title": "KDP help topic G200634390",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200634390"
+    },
+    {
+      "id": "kdp-G200634500",
+      "title": "KDP help topic G200634500",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200634500"
+    },
+    {
+      "id": "kdp-G200634560",
+      "title": "KDP help topic G200634560",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200634560"
+    },
+    {
+      "id": "kdp-G200641240",
+      "title": "Upload and Preview Book Content",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200641240"
+    },
+    {
+      "id": "kdp-G200641280",
+      "title": "Price Your Book",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200641280"
+    },
+    {
+      "id": "kdp-G200644210",
+      "title": "KDP help topic G200644210",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200644210"
+    },
+    {
+      "id": "kdp-G200645690",
+      "title": "KDP help topic G200645690",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200645690"
+    },
+    {
+      "id": "kdp-G200652170",
+      "title": "KDP help topic G200652170",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200652170"
+    },
+    {
+      "id": "kdp-G200652410",
+      "title": "KDP help topic G200652410",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200652410"
+    },
+    {
+      "id": "kdp-G200673220",
+      "title": "KDP help topic G200673220",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200673220"
+    },
+    {
+      "id": "kdp-G200673300",
+      "title": "Book Supported Languages",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200673300"
+    },
+    {
+      "id": "kdp-G200736410",
+      "title": "Update your book details",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200736410"
+    },
+    {
+      "id": "kdp-G201097560",
+      "title": "Metadata Guidelines for Books",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201097560"
+    },
+    {
+      "id": "kdp-G201113520",
+      "title": "Cover Creator",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201113520"
+    },
+    {
+      "id": "kdp-G201189630",
+      "title": "KDP help topic G201189630",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201189630"
+    },
+    {
+      "id": "kdp-G201298500",
+      "title": "KDP help topic G201298500",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201298500"
+    },
+    {
+      "id": "kdp-G201506310",
+      "title": "KDP help topic G201506310",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201506310"
+    },
+    {
+      "id": "kdp-G201605710",
+      "title": "KDP help topic G201605710",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201605710"
+    },
+    {
+      "id": "kdp-G201645450",
+      "title": "How EU Taxes Affect eBooks List Price",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201645450"
+    },
+    {
+      "id": "kdp-G201743260",
+      "title": "KDP help topic G201743260",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201743260"
+    },
+    {
+      "id": "kdp-G201834260",
+      "title": "Fix Paperback and Hardcover Formatting Issues",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201834260"
+    },
+    {
+      "id": "kdp-G201834330",
+      "title": "Paperback Royalty",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201834330"
+    },
+    {
+      "id": "kdp-G201834340",
+      "title": "Paperback Printing Cost",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201834340"
+    },
+    {
+      "id": "kdp-G201849770",
+      "title": "Setting Prices for Amazon Japan",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201849770"
+    },
+    {
+      "id": "kdp-G201857950",
+      "title": "Paperback Submission Guidelines",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201857950"
+    },
+    {
+      "id": "kdp-G201953020",
+      "title": "Create a Paperback Cover",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201953020"
+    },
+    {
+      "id": "kdp-G202105800",
+      "title": "KDP help topic G202105800",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202105800"
+    },
+    {
+      "id": "kdp-G202124400",
+      "title": "Indian-Language Publishing",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202124400"
+    },
+    {
+      "id": "kdp-G202124410",
+      "title": "KDP help topic G202124410",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202124410"
+    },
+    {
+      "id": "kdp-G202145060",
+      "title": "Save Your Manuscript File",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202145060"
+    },
+    {
+      "id": "kdp-G202145450",
+      "title": "Paperback Fonts",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202145450"
+    },
+    {
+      "id": "kdp-G202169030",
+      "title": "Format Images in Your Book",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202169030"
+    },
+    {
+      "id": "kdp-G202172740",
+      "title": "Create a Book",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202172740"
+    },
+    {
+      "id": "kdp-G202176900",
+      "title": "Update Your Manuscript",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202176900"
+    },
+    {
+      "id": "kdp-G202188020",
+      "title": "Convert a Paperback Word File to PDF",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202188020"
+    },
+    {
+      "id": "kdp-G27T64E65VM6JWKK",
+      "title": "Chinese (Traditional) (Beta)",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G27T64E65VM6JWKK"
+    },
+    {
+      "id": "kdp-G29L44KLZ6RDYGDP",
+      "title": "KDP help topic G29L44KLZ6RDYGDP",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G29L44KLZ6RDYGDP"
+    },
+    {
+      "id": "kdp-G5HDYGP4BXLX4RUW",
+      "title": "Barcodes",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G5HDYGP4BXLX4RUW"
+    },
+    {
+      "id": "kdp-G6GTK3T3NUHKLEFX",
+      "title": "KDP help topic G6GTK3T3NUHKLEFX",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G6GTK3T3NUHKLEFX"
+    },
+    {
+      "id": "kdp-G73MVSZ5P69VVCN6",
+      "title": "4 - Title Setup: Book Details, Content, & Pricing",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G73MVSZ5P69VVCN6"
+    },
+    {
+      "id": "kdp-G75V4YX5X8GRGXWV",
+      "title": "KDP help topic G75V4YX5X8GRGXWV",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G75V4YX5X8GRGXWV"
+    },
+    {
+      "id": "kdp-G8BKPU9AGVZSF9QF",
+      "title": "Print Book Pricing Page",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G8BKPU9AGVZSF9QF"
+    },
+    {
+      "id": "kdp-GAVW3FZZAKA2KY3B",
+      "title": "Hardcover",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GAVW3FZZAKA2KY3B"
+    },
+    {
+      "id": "kdp-GB5GDY7WAJDN9GFK",
+      "title": "KDP help topic GB5GDY7WAJDN9GFK",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GB5GDY7WAJDN9GFK"
+    },
+    {
+      "id": "kdp-GC4VASCGNQP6LQ7L",
+      "title": "KDP help topic GC4VASCGNQP6LQ7L",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GC4VASCGNQP6LQ7L"
+    },
+    {
+      "id": "kdp-GD9PMU58BV24QFZ7",
+      "title": "KDP help topic GD9PMU58BV24QFZ7",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GD9PMU58BV24QFZ7"
+    },
+    {
+      "id": "kdp-GDDXGH9VR22ACM8U",
+      "title": "KDP help topic GDDXGH9VR22ACM8U",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GDDXGH9VR22ACM8U"
+    },
+    {
+      "id": "kdp-GDTKFJPNQCBTMRV6",
+      "title": "Create a Hardcover Cover",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GDTKFJPNQCBTMRV6"
+    },
+    {
+      "id": "kdp-GG5R7N649LECKP7U",
+      "title": "KDP help topic GG5R7N649LECKP7U",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GG5R7N649LECKP7U"
+    },
+    {
+      "id": "kdp-GGE5T76TWKA85DJM",
+      "title": "Low-Content Books",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GGE5T76TWKA85DJM"
+    },
+    {
+      "id": "kdp-GGRXLC5USU4H67YM",
+      "title": "KDP help topic GGRXLC5USU4H67YM",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GGRXLC5USU4H67YM"
+    },
+    {
+      "id": "kdp-GH4DRT75GWWAGBTU",
+      "title": "KDP help topic GH4DRT75GWWAGBTU",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GH4DRT75GWWAGBTU"
+    },
+    {
+      "id": "kdp-GHT976ZKSKUXBB6H",
+      "title": "Hardcover Printing Cost",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GHT976ZKSKUXBB6H"
+    },
+    {
+      "id": "kdp-GJ3E8KQDLQ3NH3T9",
+      "title": "KDP help topic GJ3E8KQDLQ3NH3T9",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GJ3E8KQDLQ3NH3T9"
+    },
+    {
+      "id": "kdp-GKZVNAAFYWVKZWL8",
+      "title": "Hardcover Print Elements",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GKZVNAAFYWVKZWL8"
+    },
+    {
+      "id": "kdp-GMFKBUS43QQ5AJ5A",
+      "title": "KDP help topic GMFKBUS43QQ5AJ5A",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GMFKBUS43QQ5AJ5A"
+    },
+    {
+      "id": "kdp-GML3FXP998V8WS4U",
+      "title": "Publishing in Hebrew, Persian, and Yiddish",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GML3FXP998V8WS4U"
+    },
+    {
+      "id": "kdp-GNAJS6UTKE9Q3PT9",
+      "title": "KDP help topic GNAJS6UTKE9Q3PT9",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GNAJS6UTKE9Q3PT9"
+    },
+    {
+      "id": "kdp-GQ8UH9SN83UFNVKR",
+      "title": "Price Troubleshooting",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GQ8UH9SN83UFNVKR"
+    },
+    {
+      "id": "kdp-GQSHRFWZ5CEY7XAC",
+      "title": "Language & Reading direction",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GQSHRFWZ5CEY7XAC"
+    },
+    {
+      "id": "kdp-GQTT4W3T5AYK7L45",
+      "title": "Expanded Distribution",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GQTT4W3T5AYK7L45"
+    },
+    {
+      "id": "kdp-GR4KL488MXKPZ5BK",
+      "title": "KDP help topic GR4KL488MXKPZ5BK",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GR4KL488MXKPZ5BK"
+    },
+    {
+      "id": "kdp-GSQF43YAMUPFTMSP",
+      "title": "Printing Cost & Royalty Calculator",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GSQF43YAMUPFTMSP"
+    },
+    {
+      "id": "kdp-GULSQMHU5MNH4EZM",
+      "title": "KDP help topic GULSQMHU5MNH4EZM",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GULSQMHU5MNH4EZM"
+    },
+    {
+      "id": "kdp-GVBQ3CMEQW3W2VL6",
+      "title": "Set Trim Size, Bleed, and Margins",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6"
+    },
+    {
+      "id": "kdp-GW7J4WEKBVU25YEC",
+      "title": "Books Titles & Editions",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GW7J4WEKBVU25YEC"
+    },
+    {
+      "id": "kdp-GX56BFPW4BKNPGFW",
+      "title": "Color Ink Options",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GX56BFPW4BKNPGFW"
+    },
+    {
+      "id": "kdp-GY3AD8C6C6GAG42N",
+      "title": "KDP help topic GY3AD8C6C6GAG42N",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GY3AD8C6C6GAG42N"
+    },
+    {
+      "id": "kdp-GZ8BAXASXKB5JVML",
+      "title": "KDP help topic GZ8BAXASXKB5JVML",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GZ8BAXASXKB5JVML"
+    },
+    {
+      "id": "kdp-GZCSY2RL5G699Y4D",
+      "title": "Cover Studio",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GZCSY2RL5G699Y4D"
+    },
+    {
+      "id": "kdp-driz46fl8b4jf-cloudfront-net-userguidekpr4-en-pd",
+      "title": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf",
+      "url": "https://driz46fl8b4jf.cloudfront.net/UserGuideKPR4_EN.pdf"
+    },
+    {
+      "id": "kdp-kdp-amazon-com-en-us-cover-calculator",
+      "title": "Official KDP cover template generated by the cover calculator (\"Download template\") - paperback-6x9-100-white-rtl",
+      "url": "https://kdp.amazon.com/en_US/cover-calculator"
+    },
+    {
+      "id": "kdp-kdp-amazon-com-en-us-royalty-calculator",
+      "title": "KDP Printing Cost & Royalty Calculator (official tool) - responses of POST https://kdp.amazon.com/royalty-calculator/action/calculate-monetization-spec",
+      "url": "https://kdp.amazon.com/en_US/royalty-calculator"
+    },
+    {
+      "id": "kdp-kdp-amazon-com-terms-and-conditions",
+      "title": "https://kdp.amazon.com/terms-and-conditions",
+      "url": "https://kdp.amazon.com/terms-and-conditions"
+    },
+    {
+      "id": "kdp-kindlegen-s3-amazonaws-com-amazonkindlepublishin",
+      "title": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf",
+      "url": "https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    },
+    {
+      "id": "kdp-www-amazon-com-kindle-previewer-b-ie-utf8-node-2",
+      "title": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011",
+      "url": "https://www.amazon.com/Kindle-Previewer/b?ie=UTF8&node=21381691011"
+    }
+  ],
+  "notes": [
+    "All values were read from Amazon KDP help pages and from the public KDP cover calculator, template generator and royalty calculator on 2026-11-23.",
+    "Hardcover cover geometry and the hardcover spine formula come from the official calculator and template, because the help page figures contradict each other. Check the official calculator before ordering a hardcover proof.",
+    "Printing cost page bands follow the official royalty calculator, which differs slightly from the overlapping bands printed on the help page (at most a few cents at 110 pages).",
+    "Bengali (Bangla) is not supported by KDP for ebooks, paperbacks or hardcovers.",
+    "The Japan only trim sizes of kdp.amazon.co.jp are not listed here.",
+    "Premium colour at 8.27 x 11.69 in: the help table allows 590 pages and the calculator 780; 590 is used.",
+    "Kindle ebooks cannot be priced at 0.00. Amazon may price match a free listing elsewhere, at its discretion."
+  ],
+  "print": {
+    "inkPaper": [
+      {
+        "id": "bw-white",
+        "ink": "bw",
+        "paper": "white",
+        "label": "Black ink and 50-61 pound (74-90 GSM) white paper",
+        "costGroup": "bw",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "bw-cream",
+        "ink": "bw",
+        "paper": "cream",
+        "label": "Black ink and 50-61 pound (74-90 GSM) cream paper",
+        "costGroup": "bw",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "bw-groundwood",
+        "ink": "bw",
+        "paper": "groundwood",
+        "label": "Black ink and 45 pound (60 GSM) groundwood paper",
+        "costGroup": "bw-groundwood",
+        "formats": [
+          "paperback"
+        ]
+      },
+      {
+        "id": "standard-color-white",
+        "ink": "standard-color",
+        "paper": "white",
+        "label": "Standard color interior with 50-61 pound (74-90 GSM) white paper",
+        "costGroup": "standard-color",
+        "formats": [
+          "paperback"
+        ]
+      },
+      {
+        "id": "premium-color-white",
+        "ink": "premium-color",
+        "paper": "white",
+        "label": "Premium color ink and 60-71 pound (88-105 GSM) white paper",
+        "costGroup": "premium-color",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      }
+    ],
+    "bleed": {
+      "amountIn": 0.125,
+      "edges": [
+        "top",
+        "bottom",
+        "outside"
+      ],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-G201857950",
+          "kdp-GVBQ3CMEQW3W2VL6"
+        ],
+        "note": "With bleed the PDF page is the trim width plus 0.125 in and the trim height plus 0.25 in. Bleed applies to the whole file."
+      }
+    },
+    "margins": {
+      "gutter": [
+        {
+          "minPages": 24,
+          "maxPages": 150,
+          "insideIn": 0.375
+        },
+        {
+          "minPages": 151,
+          "maxPages": 300,
+          "insideIn": 0.5
+        },
+        {
+          "minPages": 301,
+          "maxPages": 500,
+          "insideIn": 0.625
+        },
+        {
+          "minPages": 501,
+          "maxPages": 700,
+          "insideIn": 0.75
+        },
+        {
+          "minPages": 701,
+          "maxPages": 828,
+          "insideIn": 0.875
+        }
+      ],
+      "outsideMinNoBleedIn": 0.25,
+      "outsideMinWithBleedIn": 0.375,
+      "recommendedIn": null,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-G201834260",
+          "kdp-G201857950",
+          "kdp-GVBQ3CMEQW3W2VL6"
+        ],
+        "note": "\"Outside\" means the top, bottom and outer side margins. The table runs to 828 pages; hardcover stops at 550 pages."
+      }
+    },
+    "pageCount": {
+      "multiple": 2,
+      "lastPageBlank": false,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-G201857950",
+          "kdp-G202176900",
+          "kdp-GX56BFPW4BKNPGFW"
+        ],
+        "note": "KDP rounds the page count up to an even number. An update that changes the page count by more than 10% needs a new edition."
+      }
+    },
+    "interiorFile": {
+      "pdfStandards": [
+        "PDF/X-1a"
+      ],
+      "pdfStandardRequired": false,
+      "minImageDpi": 300,
+      "maxFileMB": 650,
+      "fontsMustBeEmbedded": true,
+      "transparencyAllowed": false,
+      "cropMarksAllowed": false,
+      "bookmarksAllowed": false,
+      "spreadsAllowed": false,
+      "iccProfilesAllowed": true,
+      "notes": [
+        "Upload single pages, not spreads. Flatten transparency and remove crop marks, bookmarks, comments and document metadata.",
+        "KDP prefers PDF/X-1a but accepts an ordinary PDF with embedded fonts.",
+        "Minimum font size 7 pt. Images at 300 DPI or more.",
+        "KDP rounds the page count up to an even number."
+      ],
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "kdp-G201834260",
+          "kdp-G201857950",
+          "kdp-G202145060",
+          "kdp-G202145450",
+          "kdp-G202169030",
+          "kdp-G202188020"
+        ]
+      }
+    },
+    "formats": {
+      "paperback": {
+        "trimSizes": [
+          {
+            "id": "5x8",
+            "widthIn": 5,
+            "heightIn": 8,
+            "label": "5 x 8 in (12.7 x 20.32 cm)",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": true,
+              "bw-groundwood": true,
+              "premium-color-white": false,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "5.06x7.81",
+            "widthIn": 5.06,
+            "heightIn": 7.81,
+            "label": "5.06 x 7.81 in (12.85 x 19.84 cm)",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": false,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "5.25x8",
+            "widthIn": 5.25,
+            "heightIn": 8,
+            "label": "5.25 x 8 in (13.34 x 20.32 cm)",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": true,
+              "bw-groundwood": true,
+              "premium-color-white": false,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "5.5x8.5",
+            "widthIn": 5.5,
+            "heightIn": 8.5,
+            "label": "5.5 x 8.5 in (13.97 x 21.59 cm)",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": true,
+              "bw-groundwood": true,
+              "premium-color-white": true,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "6x9",
+            "widthIn": 6,
+            "heightIn": 9,
+            "label": "6 x 9 in (15.24 x 22.86 cm)",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": true,
+              "bw-groundwood": true,
+              "premium-color-white": true,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "6.14x9.21",
+            "widthIn": 6.14,
+            "heightIn": 9.21,
+            "label": "6.14 x 9.21 in (15.6 x 23.39 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": true,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "6.69x9.61",
+            "widthIn": 6.69,
+            "heightIn": 9.61,
+            "label": "6.69 x 9.61 in (16.99 x 24.41 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": false,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "7x10",
+            "widthIn": 7,
+            "heightIn": 10,
+            "label": "7 x 10 in (17.78 x 25.4 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": true,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "7.44x9.69",
+            "widthIn": 7.44,
+            "heightIn": 9.69,
+            "label": "7.44 x 9.69 in (18.9 x 24.61 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": false,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "7.5x9.25",
+            "widthIn": 7.5,
+            "heightIn": 9.25,
+            "label": "7.5 x 9.25 in (19.05 x 23.5 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": false,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "8x10",
+            "widthIn": 8,
+            "heightIn": 10,
+            "label": "8 x 10 in (20.32 x 25.4 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 812
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": true,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "8.25x6",
+            "widthIn": 8.25,
+            "heightIn": 6,
+            "label": "8.25 x 6 in (20.96 x 15.24 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 800
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 750
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 784
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 800
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": false,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": false,
+              "standard-color-white": false
+            }
+          },
+          {
+            "id": "8.25x8.25",
+            "widthIn": 8.25,
+            "heightIn": 8.25,
+            "label": "8.25 x 8.25 in (20.96 x 20.96 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 800
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 750
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 784
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 800
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": false,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": false,
+              "standard-color-white": false
+            }
+          },
+          {
+            "id": "8.5x8.5",
+            "widthIn": 8.5,
+            "heightIn": 8.5,
+            "label": "8.5 x 8.5 in (21.59 x 21.59 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 590
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 550
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 578
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 590
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": false,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": true,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "8.5x11",
+            "widthIn": 8.5,
+            "heightIn": 11,
+            "label": "8.5 x 11 in (21.59 x 27.94 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 590
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 550
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 578
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 590
+              }
+            },
+            "expandedDistribution": {
+              "bw-white": true,
+              "bw-cream": false,
+              "bw-groundwood": false,
+              "premium-color-white": true,
+              "standard-color-white": true
+            }
+          },
+          {
+            "id": "8.27x11.69",
+            "widthIn": 8.27,
+            "heightIn": 11.69,
+            "label": "8.27 x 11.69 in (21 x 29.7 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 780
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 730
+              },
+              "bw-groundwood": {
+                "min": 24,
+                "max": 764
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 590
+              }
+            }
+          }
+        ],
+        "bindings": [
+          "perfect"
+        ],
+        "spine": {
+          "mode": "formula",
+          "perPageIn": {
+            "bw-white": 0.002252,
+            "bw-cream": 0.0025,
+            "bw-groundwood": 0.00235,
+            "premium-color-white": 0.002347,
+            "standard-color-white": 0.002252
+          },
+          "baseIn": 0,
+          "minPagesForText": 80,
+          "textMarginIn": 0.0625,
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "kdp-G201834260",
+              "kdp-G201857950",
+              "kdp-G201953020",
+              "kdp-G202145060",
+              "kdp-GZCSY2RL5G699Y4D",
+              "kdp-kdp-amazon-com-en-us-cover-calculator"
+            ],
+            "note": "KDP pages say \"at least 79\" and \"more than 79\" pages for spine text and its own cover tools use 80. Page counts are always even, so 80 is used."
+          }
+        },
+        "cover": {
+          "bleedIn": 0.125,
+          "safeMarginIn": 0.125,
+          "wrapIn": 0,
+          "hingeIn": 0,
+          "boardExtraWidthIn": 0,
+          "boardExtraHeightIn": 0,
+          "flapIn": null,
+          "barcode": {
+            "widthIn": 2.0,
+            "heightIn": 1.2,
+            "fromSpineIn": 0.25,
+            "fromBottomIn": 0.25,
+            "platformAdds": true,
+            "required": false,
+            "note": "KDP prints its own barcode in a 2 x 1.2 in box at the lower right of the back cover when the file has none. Position taken from the official KDP cover template: 0.25 in from the spine fold and 0.25 in above the bottom trim line. Your own barcode must be at least 1.4 x 0.8 in and 0.25 in from the spine and trim."
+          },
+          "colorSpace": "rgb-or-cmyk",
+          "maxInkPercent": null,
+          "minImageDpi": 300,
+          "maxFileMB": 650,
+          "pdfStandards": [],
+          "notes": [
+            "Cover width = 2 x trim width + spine width + 0.25 in. Cover height = trim height + 0.25 in.",
+            "Keep text at least 0.125 in inside the trim lines (0.25 in from the edge of the cover file) and out of the 0.0625 in zone at each side of the spine.",
+            "KDP recommends keeping cover files under 40 MB. Minimum font size 7 pt."
+          ],
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "kdp-G201857950",
+              "kdp-G201953020",
+              "kdp-G5HDYGP4BXLX4RUW",
+              "kdp-GGE5T76TWKA85DJM",
+              "kdp-kdp-amazon-com-en-us-cover-calculator"
+            ],
+            "note": "The exact barcode position comes from the official cover template generator, not from a help page."
+          }
+        },
+        "_meta": {
+          "verified": true,
+          "sources": [
+            "kdp-GVBQ3CMEQW3W2VL6"
+          ],
+          "note": "A trim counts as \"large\" for printing cost when it is wider than 6.12 in or taller than 9 in. The Print Options help page currently shows only one row of its table; the full table is on the cover and submission pages."
+        }
+      },
+      "hardcover": {
+        "trimSizes": [
+          {
+            "id": "5.5x8.5",
+            "widthIn": 5.5,
+            "heightIn": 8.5,
+            "label": "5.5 x 8.5 in (13.97 x 21.59 cm)",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 75,
+                "max": 550
+              },
+              "bw-cream": {
+                "min": 75,
+                "max": 550
+              },
+              "premium-color-white": {
+                "min": 75,
+                "max": 550
+              }
+            }
+          },
+          {
+            "id": "6x9",
+            "widthIn": 6,
+            "heightIn": 9,
+            "label": "6 x 9 in (15.24 x 22.86 cm)",
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 75,
+                "max": 550
+              },
+              "bw-cream": {
+                "min": 75,
+                "max": 550
+              },
+              "premium-color-white": {
+                "min": 75,
+                "max": 550
+              }
+            }
+          },
+          {
+            "id": "6.14x9.21",
+            "widthIn": 6.14,
+            "heightIn": 9.21,
+            "label": "6.14 x 9.21 in (15.6 x 23.39 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 75,
+                "max": 550
+              },
+              "bw-cream": {
+                "min": 75,
+                "max": 550
+              },
+              "premium-color-white": {
+                "min": 75,
+                "max": 550
+              }
+            }
+          },
+          {
+            "id": "7x10",
+            "widthIn": 7,
+            "heightIn": 10,
+            "label": "7 x 10 in (17.78 x 25.4 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 75,
+                "max": 550
+              },
+              "bw-cream": {
+                "min": 75,
+                "max": 550
+              },
+              "premium-color-white": {
+                "min": 75,
+                "max": 550
+              }
+            }
+          },
+          {
+            "id": "8.25x11",
+            "widthIn": 8.25,
+            "heightIn": 11,
+            "label": "8.25 x 11 in (20.96 x 27.94 cm)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 75,
+                "max": 550
+              },
+              "bw-cream": {
+                "min": 75,
+                "max": 550
+              },
+              "premium-color-white": {
+                "min": 75,
+                "max": 550
+              }
+            }
+          }
+        ],
+        "bindings": [
+          "case-laminate"
+        ],
+        "spine": {
+          "mode": "formula",
+          "perPageIn": {
+            "bw-white": 0.002252,
+            "bw-cream": 0.0025,
+            "premium-color-white": 0.002347
+          },
+          "baseIn": 0.189,
+          "minPagesForText": null,
+          "textMarginIn": 0.0625,
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "kdp-GAVW3FZZAKA2KY3B",
+              "kdp-GDTKFJPNQCBTMRV6",
+              "kdp-GKZVNAAFYWVKZWL8",
+              "kdp-kdp-amazon-com-en-us-cover-calculator"
+            ],
+            "note": "No help page prints the hardcover spine formula. These values reproduce every run of the official KDP cover calculator that was checked: spine = pages x paper thickness + 4.8 mm (0.189 in). KDP gives no minimum page count for hardcover spine text. Always confirm against the official calculator before ordering."
+          }
+        },
+        "cover": {
+          "bleedIn": 0,
+          "safeMarginIn": 0.125,
+          "wrapIn": 0.5906,
+          "hingeIn": 0.3937,
+          "boardExtraWidthIn": 0.1969,
+          "boardExtraHeightIn": 0.2362,
+          "flapIn": null,
+          "barcode": {
+            "widthIn": 2.0,
+            "heightIn": 1.2,
+            "fromSpineIn": 0.25,
+            "fromBottomIn": 0.375,
+            "platformAdds": true,
+            "required": false,
+            "note": "From the official hardcover template: the box sits 0.25 in from the hinge edge and 0.375 in above the bottom edge of the cover. The help page prints different figures (0.76 in from the bottom)."
+          },
+          "colorSpace": "rgb-or-cmyk",
+          "maxInkPercent": null,
+          "minImageDpi": 300,
+          "maxFileMB": 650,
+          "pdfStandards": [],
+          "notes": [
+            "Case laminate only (no dust jacket). Source values are in millimetres: 15 mm wrap, 10 mm hinge, board 5 mm wider and 6 mm taller than the trimmed pages.",
+            "Cover width = 2 x 15 mm wrap + 2 x (trim width + 5 mm) + spine. Cover height = trim height + 6 mm + 2 x 15 mm wrap. The hinges lie inside the front and back cover widths.",
+            "Keep text 0.125 in inside the board edges; nothing important in the wrap or the hinges."
+          ],
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "kdp-GAVW3FZZAKA2KY3B",
+              "kdp-GDTKFJPNQCBTMRV6",
+              "kdp-GKZVNAAFYWVKZWL8",
+              "kdp-kdp-amazon-com-en-us-cover-calculator"
+            ],
+            "note": "The Create a Hardcover Cover help page prints a 0.51 in wrap and a 0.635 in text safe distance, which disagree with its own millimetre figures. These values follow the official cover calculator and template (15 mm wrap, 10 mm hinge)."
+          }
+        },
+        "_meta": {
+          "verified": true,
+          "sources": [
+            "kdp-GAVW3FZZAKA2KY3B",
+            "kdp-GVBQ3CMEQW3W2VL6",
+            "kdp-kdp-amazon-com-en-us-royalty-calculator"
+          ],
+          "note": "75 to 550 pages (76 after rounding up to even). Case laminate only. Not sold on Amazon.com.au, Amazon.ca or Amazon.co.jp."
+        }
+      }
+    }
+  },
+  "ebook": {
+    "acceptedFormats": [
+      "epub",
+      "docx",
+      "kpf"
+    ],
+    "maxFileMB": 650,
+    "epubCheckRequired": false,
+    "cover": {
+      "idealWidthPx": 1600,
+      "idealHeightPx": 2560,
+      "minWidthPx": 625,
+      "minHeightPx": 1000,
+      "maxSidePx": 10000,
+      "maxFileMB": 50,
+      "formats": [
+        "jpg",
+        "tiff"
+      ],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-G200645690",
+          "kdp-G6GTK3T3NUHKLEFX",
+          "kdp-G75V4YX5X8GRGXWV",
+          "kdp-GNAJS6UTKE9Q3PT9",
+          "kdp-kindlegen-s3-amazonaws-com-amazonkindlepublishin"
+        ],
+        "note": "Ideal size 2,560 pixels high by 1,600 wide (ratio 1.6 to 1), RGB. Three official sources disagree on accepted formats, minimum size and file size; these are the values of the KDP help page."
+      }
+    },
+    "notes": [
+      "KDP recommends EPUB, DOCX or KPF. MOBI is no longer accepted.",
+      "An EPUB needs a logical table of contents with at most two levels of nesting, each HTML file under 30 MB, and fewer than 300 HTML files.",
+      "Embedded fonts must be OTF or TTF.",
+      "Declare the cover image in the package file but do not add a cover page inside the book: Kindle adds the cover itself.",
+      "Kindle Previewer 4 is the current version; Kindle Previewer 3 is no longer supported."
+    ],
+    "_meta": {
+      "verified": true,
+      "sources": [
+        "kdp-G200634390",
+        "kdp-G200641240",
+        "kdp-G200673220",
+        "kdp-G200673300",
+        "kdp-G201605710",
+        "kdp-G202124410"
+      ],
+      "note": "The 650 MB limit comes from the Kindle Publishing Guidelines and the Previewer FAQ, not from the upload page itself."
+    }
+  },
+  "pricing": {
+    "print": {
+      "rateModel": "tiered",
+      "costModel": "bands",
+      "marketplaces": [
+        {
+          "id": "US",
+          "label": "Amazon.com",
+          "currency": "USD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.3,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.84,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1,
+                    "perPage": 0.017
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.23,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.75,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1,
+                    "perPage": 0.0162
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.6,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 1,
+                    "perPage": 0.065
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 4.2,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 1,
+                    "perPage": 0.08
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 1,
+                    "perPage": 0.0255
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 1,
+                    "perPage": 0.0402
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.8,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 5.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 7.49,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 5.65,
+                    "perPage": 0.017
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 5.65,
+                    "perPage": 0.065
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 5.65,
+                    "perPage": 0.08
+                  }
+                ]
+              }
+            }
+          },
+          "note": "No KDP print page states a sales tax rule for Amazon.com; list prices are entered without tax."
+        },
+        {
+          "id": "CA",
+          "label": "Amazon.ca",
+          "currency": "CAD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 13.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 350
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.99,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1.26,
+                    "perPage": 0.016
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 3.53,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1.26,
+                    "perPage": 0.021
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.9,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1.26,
+                    "perPage": 0.0152
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 3.42,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 1.26,
+                    "perPage": 0.02
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 4.66,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 1.26,
+                    "perPage": 0.085
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 5.26,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 1.26,
+                    "perPage": 0.1
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 1.26,
+                    "perPage": 0.037
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 1.26,
+                    "perPage": 0.052
+                  }
+                ]
+              }
+            }
+          },
+          "note": "No KDP print page states a tax rule for Amazon.ca; list prices are entered without tax."
+        },
+        {
+          "id": "GB",
+          "label": "Amazon.co.uk",
+          "currency": "GBP",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 0,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 7.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 7.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.93,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.85,
+                    "perPage": 0.01
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.15,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.85,
+                    "perPage": 0.012
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.88,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.85,
+                    "perPage": 0.0095
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.08,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.85,
+                    "perPage": 0.0114
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.59,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.85,
+                    "perPage": 0.0435
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.24,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.85,
+                    "perPage": 0.0598
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.85,
+                    "perPage": 0.02
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.85,
+                    "perPage": 0.027
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.23,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.15,
+                    "perPage": 0.01
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.45,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.15,
+                    "perPage": 0.012
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.15,
+                    "perPage": 0.045
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.15,
+                    "perPage": 0.06
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 20%."
+        },
+        {
+          "id": "DE",
+          "label": "Amazon.de",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 7,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.05,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.48,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.98,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.39,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0152
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0525
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0715
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.024
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.035
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.95,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.35,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.057
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.072
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 19%."
+        },
+        {
+          "id": "FR",
+          "label": "Amazon.fr",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 5.5,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.05,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.48,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.98,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.39,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0152
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0525
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0715
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.024
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.035
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.95,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.35,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.057
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.072
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 20%."
+        },
+        {
+          "id": "IT",
+          "label": "Amazon.it",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 4,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.05,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.48,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.98,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.39,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0152
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0525
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0715
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.024
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.035
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.95,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.35,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.057
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.072
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 22%."
+        },
+        {
+          "id": "ES",
+          "label": "Amazon.es",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 4,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.05,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.48,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.98,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.39,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0152
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0525
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0715
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.024
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.035
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.95,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.35,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.057
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.072
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 21%."
+        },
+        {
+          "id": "NL",
+          "label": "Amazon.nl",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 9,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.05,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.48,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.98,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.39,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0152
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0525
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0715
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.024
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.035
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.95,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.35,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.057
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.072
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 21%."
+        },
+        {
+          "id": "IE",
+          "label": "Amazon.ie",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 0,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.05,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.48,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.98,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.39,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0152
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0525
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0715
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.024
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.035
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.95,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.35,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.057
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.072
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 23%."
+        },
+        {
+          "id": "BE",
+          "label": "Amazon.com.be",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 6,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 9.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 250,
+            "hardcover": 250
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.05,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.48,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 1.98,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0114
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 2.39,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0152
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 2.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0525
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 3.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 0.75,
+                    "perPage": 0.0715
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.024
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 0.75,
+                    "perPage": 0.035
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 5.95,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.012
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 6.35,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.016
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.057
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 4.65,
+                    "perPage": 0.072
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 21%."
+        },
+        {
+          "id": "PL",
+          "label": "Amazon.pl",
+          "currency": "PLN",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 5,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 40,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 40,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 1200,
+            "hardcover": 1200
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 9.58,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 3.51,
+                    "perPage": 0.056
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 11.61,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 3.51,
+                    "perPage": 0.075
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 9.26,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 3.51,
+                    "perPage": 0.0532
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 11.21,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 3.51,
+                    "perPage": 0.0713
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 12.86,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 3.51,
+                    "perPage": 0.267
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 15.32,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 3.51,
+                    "perPage": 0.337
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 3.51,
+                    "perPage": 0.112
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 3.51,
+                    "perPage": 0.164
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 27.85,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 20.34,
+                    "perPage": 0.056
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 29.87,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 20.34,
+                    "perPage": 0.075
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 21.78,
+                    "perPage": 0.267
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 21.78,
+                    "perPage": 0.337
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 23%."
+        },
+        {
+          "id": "SE",
+          "label": "Amazon.se",
+          "currency": "SEK",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 6,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 110,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ],
+            "hardcover": [
+              {
+                "below": 110,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 2500,
+            "hardcover": 2500
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 22.84,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 8.37,
+                    "perPage": 0.134
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 27.67,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 8.37,
+                    "perPage": 0.179
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 22.12,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 8.37,
+                    "perPage": 0.1273
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 26.74,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 8.37,
+                    "perPage": 0.1701
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 30.65,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 8.37,
+                    "perPage": 0.636
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 36.51,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 8.37,
+                    "perPage": 0.804
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 8.37,
+                    "perPage": 0.268
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 8.37,
+                    "perPage": 0.3691
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 66.38,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 48.49,
+                    "perPage": 0.134
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 108,
+                    "fixed": 71.21,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 550,
+                    "fixed": 48.49,
+                    "perPage": 0.179
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 51.91,
+                    "perPage": 0.636
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 75,
+                    "maxPages": 550,
+                    "fixed": 51.91,
+                    "perPage": 0.804
+                  }
+                ]
+              }
+            }
+          },
+          "note": "Books normally carry the reduced VAT rate shown. Some book types (for example activity books) can be charged the standard rate of 25%. The hardcover 60% threshold is 99 SEK on the hardcover help page and 110 SEK in the official calculator; 110 is used here."
+        },
+        {
+          "id": "AU",
+          "label": "Amazon.com.au",
+          "currency": "AUD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 10,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 13.99,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 350
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 106,
+                    "fixed": 4.74,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 108,
+                    "maxPages": 828,
+                    "fixed": 2.42,
+                    "perPage": 0.022
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 106,
+                    "fixed": 5.28,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 108,
+                    "maxPages": 828,
+                    "fixed": 2.42,
+                    "perPage": 0.027
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 106,
+                    "fixed": 4.62,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 108,
+                    "maxPages": 828,
+                    "fixed": 2.42,
+                    "perPage": 0.0209
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 106,
+                    "fixed": 5.14,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 108,
+                    "maxPages": 828,
+                    "fixed": 2.42,
+                    "perPage": 0.0257
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 5.82,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 2.42,
+                    "perPage": 0.085
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 6.42,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 2.42,
+                    "perPage": 0.1
+                  }
+                ]
+              }
+            }
+          },
+          "note": "KDP print pages say only \"the applicable GST\". 10% is the rate in Australian GST law; the list price you enter excludes it. Standard colour ink and hardcover are not offered on Amazon.com.au."
+        },
+        {
+          "id": "JP",
+          "label": "Amazon.co.jp",
+          "currency": "JPY",
+          "decimals": 0,
+          "listPriceIncludesTax": false,
+          "taxPercent": 10,
+          "royaltyTiers": {
+            "paperback": [
+              {
+                "below": 1000,
+                "rate": 0.5
+              },
+              {
+                "rate": 0.6
+              }
+            ]
+          },
+          "maxListPrice": {
+            "paperback": 30000
+          },
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 422,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 206,
+                    "perPage": 2
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 530,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 206,
+                    "perPage": 3
+                  }
+                ]
+              },
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 411.2,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 206,
+                    "perPage": 1.9
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 108,
+                    "fixed": 513.8,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 110,
+                    "maxPages": 828,
+                    "fixed": 206,
+                    "perPage": 2.85
+                  }
+                ]
+              },
+              "premium-color": {
+                "regular": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 475,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 206,
+                    "perPage": 4
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 24,
+                    "maxPages": 40,
+                    "fixed": 475,
+                    "perPage": 0
+                  },
+                  {
+                    "minPages": 42,
+                    "maxPages": 828,
+                    "fixed": 206,
+                    "perPage": 5
+                  }
+                ]
+              },
+              "standard-color": {
+                "regular": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 206,
+                    "perPage": 3.5
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 72,
+                    "maxPages": 600,
+                    "fixed": 206,
+                    "perPage": 4.5
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "expandedDistribution": {
+        "rate": 0.4,
+        "formats": [
+          "paperback"
+        ],
+        "note": "Paperback only, and only for the trim, ink and paper combinations marked in the trim size list. KDP does not publish the minimum list price formula for Expanded Distribution. Turn it off when the same ISBN is distributed through IngramSpark.",
+        "_meta": {
+          "verified": true,
+          "sources": [
+            "kdp-G201834330",
+            "kdp-G8BKPU9AGVZSF9QF",
+            "kdp-GGE5T76TWKA85DJM",
+            "kdp-GQTT4W3T5AYK7L45",
+            "kdp-kdp-amazon-com-en-us-royalty-calculator"
+          ]
+        }
+      },
+      "calculatorUrl": "https://kdp.amazon.com/en_US/royalty-calculator",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-G201834330",
+          "kdp-G201834340",
+          "kdp-G201849770",
+          "kdp-G8BKPU9AGVZSF9QF",
+          "kdp-GHT976ZKSKUXBB6H",
+          "kdp-GSQF43YAMUPFTMSP"
+        ],
+        "note": "Royalty = rate x list price (without tax) minus printing cost. Minimum list price = printing cost divided by the rate that applies at that price. The help page prints overlapping page bands (24 to 110 and 110 to 828); the bands here switch where the official royalty calculator switches: fixed cost through 108 pages (106 on Amazon.com.au), fixed plus per page from 110 pages (108 on Amazon.com.au). For groundwood paper the help page says the flat cost runs to 112 pages; the calculator switches at 110, which gives the slightly higher figure used here. No page states the date the current costs apply from."
+      }
+    },
+    "ebook": {
+      "model": "kdp",
+      "marketplaces": [
+        {
+          "id": "US",
+          "label": "Amazon.com",
+          "currency": "USD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.99
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.99
+                },
+                {
+                  "price": 2.99
+                }
+              ],
+              "max": 200,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 2.99
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.15,
+              "requiresExclusive": false
+            }
+          }
+        },
+        {
+          "id": "CA",
+          "label": "Amazon.ca",
+          "currency": "CAD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.99
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.99
+                },
+                {
+                  "price": 2.99
+                }
+              ],
+              "max": 200,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 2.99
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.15,
+              "requiresExclusive": false
+            }
+          },
+          "note": "No official page says whether list prices here include tax."
+        },
+        {
+          "id": "GB",
+          "label": "Amazon.co.uk",
+          "currency": "GBP",
+          "decimals": 2,
+          "listPriceIncludesTax": true,
+          "taxPercent": 0,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.77
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.25
+                },
+                {
+                  "price": 1.49
+                }
+              ],
+              "max": 150,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 1.77
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.1,
+              "requiresExclusive": false
+            }
+          }
+        },
+        {
+          "id": "DE",
+          "label": "Amazon.de",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": true,
+          "taxPercent": 7,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.89
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.79
+                },
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 215,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.12,
+              "requiresExclusive": false
+            }
+          }
+        },
+        {
+          "id": "FR",
+          "label": "Amazon.fr",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": true,
+          "taxPercent": 5.5,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.89
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.79
+                },
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 215,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.12,
+              "requiresExclusive": false
+            }
+          }
+        },
+        {
+          "id": "IT",
+          "label": "Amazon.it",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": true,
+          "taxPercent": 4,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.89
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.79
+                },
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 215,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.12,
+              "requiresExclusive": false
+            }
+          },
+          "note": "Italian VAT on ebooks is 4% with an ISBN and 22% without one."
+        },
+        {
+          "id": "ES",
+          "label": "Amazon.es",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": true,
+          "taxPercent": 4,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.89
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.79
+                },
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 215,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.12,
+              "requiresExclusive": false
+            }
+          }
+        },
+        {
+          "id": "NL",
+          "label": "Amazon.nl",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": true,
+          "taxPercent": 9,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.89
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.79
+                },
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 215,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 2.69
+                }
+              ],
+              "max": 12.99,
+              "deliveryPerMB": 0.12,
+              "requiresExclusive": false
+            }
+          }
+        },
+        {
+          "id": "AU",
+          "label": "Amazon.com.au",
+          "currency": "AUD",
+          "decimals": 2,
+          "listPriceIncludesTax": true,
+          "taxPercent": 10,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 0.99
+                },
+                {
+                  "maxMB": 10,
+                  "price": 1.99
+                },
+                {
+                  "price": 3.99
+                }
+              ],
+              "max": 220,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 3.99
+                }
+              ],
+              "max": 15.99,
+              "deliveryPerMB": 0.15,
+              "requiresExclusive": false
+            }
+          }
+        },
+        {
+          "id": "IN",
+          "label": "Amazon.in",
+          "currency": "INR",
+          "decimals": 0,
+          "listPriceIncludesTax": true,
+          "taxPercent": 18,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 49
+                },
+                {
+                  "maxMB": 10,
+                  "price": 69
+                },
+                {
+                  "price": 99
+                }
+              ],
+              "max": 10999,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 99
+                }
+              ],
+              "max": 599,
+              "deliveryPerMB": 7,
+              "requiresExclusive": true
+            }
+          },
+          "note": "The 70% option is only paid here for books enrolled in KDP Select. Books that are not enrolled earn 35%."
+        },
+        {
+          "id": "JP",
+          "label": "Amazon.co.jp",
+          "currency": "JPY",
+          "decimals": 0,
+          "listPriceIncludesTax": true,
+          "taxPercent": 10,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 99
+                },
+                {
+                  "price": 99
+                }
+              ],
+              "max": 20000,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 250
+                }
+              ],
+              "max": 1650,
+              "deliveryPerMB": 1,
+              "requiresExclusive": true
+            }
+          },
+          "note": "The 70% option is only paid here for books enrolled in KDP Select. Books that are not enrolled earn 35%."
+        },
+        {
+          "id": "MX",
+          "label": "Amazon.com.mx",
+          "currency": "MXN",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 11.99
+                },
+                {
+                  "maxMB": 10,
+                  "price": 23.99
+                },
+                {
+                  "price": 34.99
+                }
+              ],
+              "max": 2500,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 34.99
+                }
+              ],
+              "max": 199.99,
+              "deliveryPerMB": 1,
+              "requiresExclusive": true
+            }
+          },
+          "note": "The 70% option is only paid here for books enrolled in KDP Select. Books that are not enrolled earn 35%. No official page says whether list prices here include tax."
+        },
+        {
+          "id": "BR",
+          "label": "Amazon.com.br",
+          "currency": "BRL",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "plans": {
+            "35": {
+              "rate": 0.35,
+              "min": [
+                {
+                  "maxMB": 3,
+                  "price": 1.99
+                },
+                {
+                  "maxMB": 10,
+                  "price": 3.99
+                },
+                {
+                  "price": 5.99
+                }
+              ],
+              "max": 400,
+              "deliveryPerMB": 0,
+              "requiresExclusive": false
+            },
+            "70": {
+              "rate": 0.7,
+              "min": [
+                {
+                  "price": 5.99
+                }
+              ],
+              "max": 31.99,
+              "deliveryPerMB": 0.3,
+              "requiresExclusive": true
+            }
+          },
+          "note": "The 70% option is only paid here for books enrolled in KDP Select. Books that are not enrolled earn 35%. No official page says whether list prices here include tax."
+        }
+      ],
+      "freeAllowed": false,
+      "freeNote": "KDP says: \"You can't set your book's list price as free.\" The only official way to offer a Kindle ebook free is five free days per 90 day KDP Select term, and KDP Select requires exclusivity.",
+      "priceMatchNote": "KDP terms say that if your ebook is available through another sales channel for free, Amazon may also make it available for free, with no royalty. It is at Amazon's discretion and no request process is documented.",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-G200634500",
+          "kdp-G200634560",
+          "kdp-G200641280",
+          "kdp-G200644210",
+          "kdp-G200652410",
+          "kdp-G200736410"
+        ],
+        "note": "The 70% price band was raised on 7 July 2026 (US maximum 12.99). The 70% option also requires a list price at least 20% below the print list price and deducts a delivery cost per megabyte. EU VAT rates are stated by KDP \"as of 5/1/2020\". Tax treatment for CAD, MXN and BRL prices is not stated on any official page."
+      }
+    }
+  },
+  "fees": [],
+  "languages": {
+    "ebook": {
+      "supported": [
+        "af",
+        "ar",
+        "br",
+        "ca",
+        "co",
+        "cy",
+        "da",
+        "de",
+        "en",
+        "es",
+        "eu",
+        "fa",
+        "fi",
+        "fr",
+        "frr",
+        "frs",
+        "fy",
+        "ga",
+        "gd",
+        "gl",
+        "gsw",
+        "gu",
+        "gv",
+        "he",
+        "hi",
+        "is",
+        "it",
+        "ja",
+        "kw",
+        "la",
+        "lb",
+        "ml",
+        "mr",
+        "nb",
+        "nl",
+        "nn",
+        "no",
+        "oc",
+        "pt",
+        "rm",
+        "sco",
+        "sv",
+        "ta",
+        "zh"
+      ],
+      "note": "Bengali (Bangla) is not on any official KDP ebook language list. The only Indian languages listed are Gujarati, Hindi, Malayalam, Marathi and Tamil."
+    },
+    "paperback": {
+      "supported": [
+        "af",
+        "br",
+        "ca",
+        "co",
+        "cy",
+        "da",
+        "de",
+        "en",
+        "es",
+        "eu",
+        "fi",
+        "fr",
+        "frr",
+        "frs",
+        "fy",
+        "ga",
+        "gd",
+        "gl",
+        "gsw",
+        "gv",
+        "he",
+        "is",
+        "it",
+        "ja",
+        "kw",
+        "la",
+        "lb",
+        "nb",
+        "nl",
+        "nn",
+        "no",
+        "oc",
+        "pl",
+        "pt",
+        "rm",
+        "sco",
+        "sv",
+        "uk",
+        "yi"
+      ],
+      "note": "Bengali (Bangla) is not supported for print. KDP states that paperback publishing for Indian languages is not available. Japanese paperbacks are only printed for Amazon.co.jp."
+    },
+    "hardcover": {
+      "supported": [
+        "af",
+        "br",
+        "ca",
+        "co",
+        "cy",
+        "da",
+        "de",
+        "en",
+        "es",
+        "eu",
+        "fi",
+        "fr",
+        "frr",
+        "frs",
+        "fy",
+        "ga",
+        "gd",
+        "gl",
+        "gsw",
+        "gv",
+        "he",
+        "is",
+        "it",
+        "kw",
+        "la",
+        "lb",
+        "nb",
+        "nl",
+        "nn",
+        "no",
+        "oc",
+        "pl",
+        "pt",
+        "rm",
+        "sco",
+        "sv",
+        "uk",
+        "yi"
+      ]
+    },
+    "consequence": "KDP says ebook content uploaded in an unsupported language will not display properly and will be removed from sale.",
+    "_meta": {
+      "verified": true,
+      "sources": [
+        "kdp-G200673300",
+        "kdp-G201113520",
+        "kdp-G201857950",
+        "kdp-G202124400",
+        "kdp-G202124410",
+        "kdp-G202145060"
+      ],
+      "note": "That Bengali is unsupported rests on its absence from every official list; no page names Bengali explicitly. Codes are ISO 639 language codes; Provencal is listed under \"oc\" (Occitan)."
+    }
+  },
+  "listing": {
+    "keywordSlots": 7,
+    "keywordMaxChars": null,
+    "categoriesMax": 3,
+    "descriptionMaxChars": 4000,
+    "descriptionTags": [
+      "br",
+      "p",
+      "b",
+      "em",
+      "i",
+      "u",
+      "h4",
+      "h5",
+      "h6",
+      "ol",
+      "ul",
+      "li"
+    ],
+    "titleSubtitleMaxChars": 200,
+    "notes": [
+      "The description limit of 4,000 characters includes the HTML tags. Headings h1 to h3 are not supported.",
+      "KDP does not publish a character limit for each keyword field.",
+      "Reading age bands: 0 to 2, 3 to 5, 6 to 8, 9 to 12, 13 to 17.",
+      "KDP limits new titles to 2 created and 2 submitted per format per week."
+    ],
+    "_meta": {
+      "verified": true,
+      "sources": [
+        "kdp-G200652170",
+        "kdp-G200736410",
+        "kdp-G201097560",
+        "kdp-G201189630",
+        "kdp-G201298500",
+        "kdp-G201506310"
+      ],
+      "note": "The per keyword character limit is not published, so it is left empty."
+    }
+  }
+}

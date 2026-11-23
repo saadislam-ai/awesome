@@ -234,7 +234,7 @@ export function countCritic(src: string): CriticCounts {
 
 /** Characters that would break a CriticMarkup token if they appeared inside one. */
 function safeInner(text: string, close: string): string {
-  return text.split(close).join(close.slice(0, 1) + '​' + close.slice(1));
+  return text.split(close).join(close.slice(0, 1) + '\u200B' + close.slice(1));
 }
 
 /** Build tokens. Used by the editor's suggesting mode and by the AI assistant. */
@@ -246,8 +246,8 @@ export const critic = {
     return `{--${safeInner(text, '--}')}--}` + critic.meta(author, note);
   },
   substitute(oldText: string, newText: string, author?: string, note?: string): string {
-    const o = safeInner(oldText, '~~}').split('~>').join('~​>');
-    const n = safeInner(newText, '~~}').split('~>').join('~​>');
+    const o = safeInner(oldText, '~~}').split('~>').join('~\u200B>');
+    const n = safeInner(newText, '~~}').split('~>').join('~\u200B>');
     return `{~~${o}~>${n}~~}` + critic.meta(author, note);
   },
   comment(text: string, author?: string): string {

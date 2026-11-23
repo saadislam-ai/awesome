@@ -1,0 +1,4 @@
+ONIX for Books code lists, Issue 75 (selected lists, deprecated codes left out).
+Source: https://www.editeur.org/14/Code-Lists/
+Copyright EDItEUR. Use is governed by the EDItEUR licence to use its standards: https://doi.org/10.4400/nwgj
+The terms must be read at that address before redistributing these lists.

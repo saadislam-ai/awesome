@@ -1,0 +1,3729 @@
+{
+  "schemaVersion": 1,
+  "platform": "ingramspark",
+  "displayName": "IngramSpark",
+  "lastVerified": "2026-11-23",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "ingramspark-com-blog-a-letter-from-the-director-1",
+      "title": "Blog: A Letter from the Director",
+      "url": "https://www.ingramspark.com/blog/a-letter-from-the-director-1"
+    },
+    {
+      "id": "ingramspark-com-blog-a-note-from-the-director-of-ingrams",
+      "title": "Blog: A Note from the Director of IngramSpark: No More Book Setup Fees",
+      "url": "https://www.ingramspark.com/blog/a-note-from-the-director-of-ingramspark-no-more-book-setup-fees"
+    },
+    {
+      "id": "ingramspark-com-blog-a-quick-guide-to-979-isbns",
+      "title": "Blog: A Quick Guide to 979-ISBNs",
+      "url": "https://www.ingramspark.com/blog/a-quick-guide-to-979-isbns"
+    },
+    {
+      "id": "ingramspark-com-blog-book-distribution-with-ingramspark",
+      "title": "Blog: Book Distribution with IngramSpark",
+      "url": "https://www.ingramspark.com/blog/book-distribution-with-ingramspark"
+    },
+    {
+      "id": "ingramspark-com-blog-expand-your-audience-key-benefits-o",
+      "title": "Blog: Expand Your Audience: Key Benefits of Translating Your Book into Other Languages",
+      "url": "https://www.ingramspark.com/blog/expand-your-audience-key-benefits-of-translating-your-book"
+    },
+    {
+      "id": "ingramspark-com-blog-file-requirements-for-ebooks",
+      "title": "Blog: File Requirements for Ebooks",
+      "url": "https://www.ingramspark.com/blog/file-requirements-for-ebooks"
+    },
+    {
+      "id": "ingramspark-com-blog-file-requirements-for-print-books",
+      "title": "Blog: File Requirements for Print Books",
+      "url": "https://www.ingramspark.com/blog/file-requirements-for-print-books"
+    },
+    {
+      "id": "ingramspark-com-blog-global-discoverability-guidance",
+      "title": "Blog: Global Discoverability Guidance",
+      "url": "https://www.ingramspark.com/blog/global-discoverability-guidance"
+    },
+    {
+      "id": "ingramspark-com-blog-how-to-set-up-a-title-with-ingramsp",
+      "title": "Blog: How to Set Up a Book with IngramSpark",
+      "url": "https://www.ingramspark.com/blog/how-to-set-up-a-title-with-ingramspark-part-1"
+    },
+    {
+      "id": "ingramspark-com-blog-ingramspark-title-availability",
+      "title": "Blog: IngramSpark Title Availability: What You Need to Know",
+      "url": "https://www.ingramspark.com/blog/ingramspark-title-availability"
+    },
+    {
+      "id": "ingramspark-com-blog-ingramspark-vs-createspace",
+      "title": "Blog: IngramSpark and Amazon KDP",
+      "url": "https://www.ingramspark.com/blog/ingramspark-vs-createspace"
+    },
+    {
+      "id": "ingramspark-com-blog-ingramsparks-catalog-integrity-anno",
+      "title": "Blog: IngramSpark's Catalog Integrity Guidelines",
+      "url": "https://www.ingramspark.com/blog/ingramsparks-catalog-integrity-announcement"
+    },
+    {
+      "id": "ingramspark-com-blog-isbn-facts-for-self-publishers",
+      "title": "Blog: ISBNs: International Standard Book Number Facts for Self-Publishers",
+      "url": "https://www.ingramspark.com/blog/isbn-facts-for-self-publishers"
+    },
+    {
+      "id": "ingramspark-com-blog-making-your-book-returnable",
+      "title": "Blog: Understanding Book Returns with IngramSpark",
+      "url": "https://www.ingramspark.com/blog/making-your-book-returnable"
+    },
+    {
+      "id": "ingramspark-com-blog-pricing-your-book",
+      "title": "Blog: How Much Should My Book Cost? Tips for Pricing Your Book",
+      "url": "https://www.ingramspark.com/blog/pricing-your-book"
+    },
+    {
+      "id": "ingramspark-com-blog-reach-the-world-with-global-connect",
+      "title": "Blog: Reach the World with Global Connect",
+      "url": "https://www.ingramspark.com/blog/reach-the-world-with-global-connect"
+    },
+    {
+      "id": "ingramspark-com-blog-spark-and-kdp-for-ebooks",
+      "title": "Blog: Spark and KDP for Ebooks",
+      "url": "https://www.ingramspark.com/blog/spark-and-kdp-for-ebooks"
+    },
+    {
+      "id": "ingramspark-com-blog-understanding-ingramspark-title-pro",
+      "title": "Blog: Understanding IngramSpark Title Processing",
+      "url": "https://www.ingramspark.com/blog/understanding-ingramspark-title-processing"
+    },
+    {
+      "id": "ingramspark-com-blog-updating-pricing-returns-and-discou",
+      "title": "Blog: Updating Pricing, Returns, and Discounts Weekly in IngramSpark",
+      "url": "https://www.ingramspark.com/blog/updating-pricing-returns-and-discounts-weekly-in-ingramspark"
+    },
+    {
+      "id": "ingramspark-com-blog-what-is-an-imprint",
+      "title": "Blog: What is an Imprint?",
+      "url": "https://www.ingramspark.com/blog/what-is-an-imprint"
+    },
+    {
+      "id": "ingramspark-com-blog-why-is-your-upload-failing",
+      "title": "Blog: Why Is Your Upload Failing? (and What to Do About It)",
+      "url": "https://www.ingramspark.com/blog/why-is-your-upload-failing"
+    },
+    {
+      "id": "ingramspark-com-blog-why-should-i-discount-my-book",
+      "title": "Blog: Why Should I Discount My Book?",
+      "url": "https://www.ingramspark.com/blog/why-should-i-discount-my-book"
+    },
+    {
+      "id": "ingramspark-com-blog-why-should-i-use-groundwood-paper-f",
+      "title": "Blog: Why Should I Use Groundwood Paper for My Book?",
+      "url": "https://www.ingramspark.com/blog/why-should-i-use-groundwood-paper-for-my-book"
+    },
+    {
+      "id": "ingramspark-com-book-printing",
+      "title": "Book Printing",
+      "url": "https://www.ingramspark.com/book-printing"
+    },
+    {
+      "id": "ingramspark-com-faqs",
+      "title": "FAQs",
+      "url": "https://www.ingramspark.com/faqs"
+    },
+    {
+      "id": "ingramspark-com-how-it-works-distribute",
+      "title": "Global Book Distribution",
+      "url": "https://www.ingramspark.com/how-it-works/distribute"
+    },
+    {
+      "id": "ingramspark-com-hubfs-2025-20rate-20card-spark-pdf",
+      "title": "IngramSpark rate card 2025 (\"2025 Rate Card_Spark.pdf\") - SUPERSEDED, still linked as \"full rate card\" from /print-discounts",
+      "url": "https://www.ingramspark.com/hubfs/2025%20Rate%20Card_Spark.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-downloads-book-discount-worksheet",
+      "title": "How Much Should I Discount My Book? (book-discount-worksheet.pdf)",
+      "url": "https://www.ingramspark.com/hubfs/downloads/book-discount-worksheet.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+      "title": "IngramSpark File Creation Guide (42 pages)",
+      "url": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-downloads-paper-specs-spark-pdf",
+      "title": "Lightning Source Paper Specifications (Paper_Specs_Spark.pdf)",
+      "url": "https://www.ingramspark.com/hubfs/downloads/Paper_Specs_Spark.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-downloads-pdf-checklist-pdf",
+      "title": "Print Book File Guidelines (pdf-checklist.pdf)",
+      "url": "https://www.ingramspark.com/hubfs/downloads/pdf-checklist.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-downloads-title-metadata-guide-pdf",
+      "title": "Title Metadata Best Practices (title-metadata-guide.pdf)",
+      "url": "https://www.ingramspark.com/hubfs/downloads/title-metadata-guide.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-downloads-trim-sizes-pdf",
+      "title": "Trim Size Matrix extract (trim-sizes.pdf) - older copy of File Creation Guide pages 40-42",
+      "url": "https://www.ingramspark.com/hubfs/downloads/trim-sizes.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-downloads-user-guide-pdf",
+      "title": "IngramSpark User Guide",
+      "url": "https://www.ingramspark.com/hubfs/downloads/user-guide.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-ingramspark-pricing-and-services-g",
+      "title": "IngramSpark Pricing and Services Guide, October 2022 - SUPERSEDED (history only)",
+      "url": "https://www.ingramspark.com/hubfs/IngramSpark_Pricing_and_Services_Guide_October_2022-1.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-print-20book-20setup-20guide-pdf",
+      "title": "Print Book Setup Guide",
+      "url": "https://www.ingramspark.com/hubfs/Print%20Book%20Setup%20Guide.pdf"
+    },
+    {
+      "id": "ingramspark-com-hubfs-rate-20card-ingramspark-2026-pdf",
+      "title": "IngramSpark rate card (\"Rate Card_IngramSpark_2026.pdf\"; identical bytes served at /hubfs/downloads/pricing.pdf, the \"latest pricing schedule\" link in the User Guide)",
+      "url": "https://www.ingramspark.com/hubfs/Rate%20Card_IngramSpark_2026.pdf"
+    },
+    {
+      "id": "ingramspark-com-learnmore",
+      "title": "Publish Like a Pro (learn more)",
+      "url": "https://www.ingramspark.com/learnmore"
+    },
+    {
+      "id": "ingramspark-com-plan-your-book-ebooks",
+      "title": "Self-Publish an Ebook",
+      "url": "https://www.ingramspark.com/plan-your-book/ebooks"
+    },
+    {
+      "id": "ingramspark-com-plan-your-book-print-trim-sizes",
+      "title": "Print Book Options: Trim Sizes | IngramSpark",
+      "url": "https://www.ingramspark.com/plan-your-book/print/trim-sizes"
+    },
+    {
+      "id": "ingramspark-com-pricing",
+      "title": "IngramSpark Pricing | What Does It Cost to Self-Publish a Book?",
+      "url": "https://www.ingramspark.com/pricing"
+    },
+    {
+      "id": "ingramspark-com-print-discounts",
+      "title": "Print More. Save More. (print discounts)",
+      "url": "https://www.ingramspark.com/print-discounts"
+    },
+    {
+      "id": "myaccount-ingramspark-com-bundles-catcherror-cpruhbeg-mj",
+      "title": "JavaScript URL constants of the account web app",
+      "url": "https://myaccount.ingramspark.com/bundles/catchError-CpRuhBeG.mjs"
+    },
+    {
+      "id": "myaccount-ingramspark-com-bundles-externalresources-dms7",
+      "title": "JavaScript list of official document links",
+      "url": "https://myaccount.ingramspark.com/bundles/ExternalResources-DMS7yUMM.mjs"
+    },
+    {
+      "id": "myaccount-ingramspark-com-bundles-models-c3frbudm-mjs",
+      "title": "JavaScript models chunk, verbatim excerpt",
+      "url": "https://myaccount.ingramspark.com/bundles/Models-c3FRbuDm.mjs"
+    },
+    {
+      "id": "myaccount-ingramspark-com-bundles-pubcomptool-bl2xo2pc-m",
+      "title": "JavaScript of the pub comp tool (PubCompTool-Bl2xO2PC.mjs), verbatim excerpts",
+      "url": "https://myaccount.ingramspark.com/bundles/PubCompTool-Bl2xO2PC.mjs"
+    },
+    {
+      "id": "myaccount-ingramspark-com-bundles-streams-bykwofhk-mjs",
+      "title": "JavaScript of the public tools (Streams-BYkWoFHK.mjs), verbatim excerpts",
+      "url": "https://myaccount.ingramspark.com/bundles/Streams-BYkWoFHK.mjs"
+    },
+    {
+      "id": "myaccount-ingramspark-com-bundles-streams-cvgewn1b-mjs",
+      "title": "JavaScript of the Print and Ship calculator data requests",
+      "url": "https://myaccount.ingramspark.com/bundles/Streams-CVGEWN1B.mjs"
+    },
+    {
+      "id": "myaccount-ingramspark-com-portal-tools-covertemplategene",
+      "title": "Cover Template Generator page (app shell)",
+      "url": "https://myaccount.ingramspark.com/Portal/Tools/CoverTemplateGenerator"
+    },
+    {
+      "id": "myaccount-ingramspark-com-titles-booktypemodel-data-book",
+      "title": "Public tools data: all 984 book types with page-count limits",
+      "url": "https://myaccount.ingramspark.com/Titles/BookTypeModel/data/BookTypeExtraInfo/{bookTypeId}"
+    },
+    {
+      "id": "myaccount-ingramspark-com-titles-booktypeselector-data-m",
+      "title": "Public tools data: trim size list",
+      "url": "https://myaccount.ingramspark.com/Titles/BookTypeSelector/data/Model"
+    },
+    {
+      "id": "myaccount-ingramspark-com-titles-booktypeselector-data-t",
+      "title": "Public tools data: paper/binding/laminate option labels (6 x 9)",
+      "url": "https://myaccount.ingramspark.com/Titles/BookTypeSelector/data/TrimSizeSelectionModel?trimSize=6.000%22+x+9.000%22+%28229mm+x+152mm%29"
+    },
+    {
+      "id": "myaccount-ingramspark-com-titles-pubcomp-podpubcomp",
+      "title": "Publisher Compensation Calculator: sampled outputs",
+      "url": "https://myaccount.ingramspark.com/Titles/PubComp/PODPubComp"
+    },
+    {
+      "id": "myaccount-ingramspark-com-titles-pubcomp-pubcompmarkets",
+      "title": "Public tools data: Publisher Compensation Calculator markets",
+      "url": "https://myaccount.ingramspark.com/Titles/PubComp/PubCompMarkets"
+    },
+    {
+      "id": "myaccount-ingramspark-com-tools-covertemplategenerator-d",
+      "title": "Public tools data: Cover Template Generator file types",
+      "url": "https://myaccount.ingramspark.com/Tools/CoverTemplateGenerator/Data/FileTypes"
+    },
+    {
+      "id": "myaccount-ingramspark-com-tools-shippingcalculator-calcu",
+      "title": "Print and Ship Calculator: sampled outputs (Australia)",
+      "url": "https://myaccount.ingramspark.com/Tools/ShippingCalculator/Calculate"
+    },
+    {
+      "id": "myaccount-ingramspark-com-tools-shippingcalculator-data",
+      "title": "Public tools data: Print and Ship Calculator lookup (print locations)",
+      "url": "https://myaccount.ingramspark.com/Tools/ShippingCalculator/Data/LookupData"
+    },
+    {
+      "id": "myaccount-ingramspark-com-tools-spinecalculator-calculat",
+      "title": "Weight and Spine Width Calculator: 148 sampled outputs",
+      "url": "https://myaccount.ingramspark.com/Tools/SpineCalculator/Calculate"
+    }
+  ],
+  "notes": [
+    "Values come from the IngramSpark File Creation Guide dated 8.24.26, User Guide v3.3 (24 August 2026), the rate card effective 1 February 2026, and public pages and tools on ingramspark.com. The help centre could not be read.",
+    "A 30% wholesale discount is below every published minimum (40% US and Canada, 35% UK, EU and Australia). Confirm the minimum your account allows on the title setup page.",
+    "IngramSpark publishes no spine formula. Enter the spine width from its cover template generator for the exact page count and paper before exporting a cover.",
+    "The last page of the interior is used by the printer and must be blank.",
+    "Using KDP and IngramSpark for the same book is allowed only with KDP Expanded Distribution switched off.",
+    "Nothing official mentions Bengali. Print accepts any language whose fonts are embedded, but retailer metadata and ebook retailers are not confirmed.",
+    "Title setup is free and the 2026 rate card lists no revision fee."
+  ],
+  "print": {
+    "inkPaper": [
+      {
+        "id": "bw-white",
+        "ink": "bw",
+        "paper": "white",
+        "label": "Black & White, 50lb white paper",
+        "costGroup": "bw-white-50",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "bw-cream",
+        "ink": "bw",
+        "paper": "cream",
+        "label": "Black & White, 50lb creme paper",
+        "costGroup": "bw-creme-50",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "bw-groundwood",
+        "ink": "bw",
+        "paper": "groundwood",
+        "label": "Black & White, 38lb groundwood paper",
+        "costGroup": "bw-groundwood",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "bw-white-70",
+        "ink": "bw",
+        "paper": "white",
+        "label": "Black & White, 70lb white paper",
+        "costGroup": "bw-white-70",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "standard-color-white",
+        "ink": "standard-color",
+        "paper": "white",
+        "label": "Standard Color, 50lb white paper",
+        "costGroup": "standard-color-50",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "standard-color-white-70",
+        "ink": "standard-color",
+        "paper": "white",
+        "label": "Standard Color, 70lb white paper",
+        "costGroup": "standard-color-70",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "premium-color-white",
+        "ink": "premium-color",
+        "paper": "white",
+        "label": "Premium Color, 70lb white paper",
+        "costGroup": "premium-color-70",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      }
+    ],
+    "bleed": {
+      "amountIn": 0.125,
+      "edges": [
+        "top",
+        "bottom",
+        "outside"
+      ],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+          "ingramspark-com-hubfs-downloads-pdf-checklist-pdf",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf"
+        ],
+        "note": "Source value 0.125 in (3 mm). No bleed on the bind edge. Without bleed the PDF page is exactly the trim size. Trim tolerance is 1/16 in."
+      }
+    },
+    "margins": {
+      "gutter": [
+        {
+          "minPages": 18,
+          "maxPages": 1200,
+          "insideIn": 0.5
+        }
+      ],
+      "outsideMinNoBleedIn": 0.5,
+      "outsideMinWithBleedIn": 0.5,
+      "recommendedIn": 0.5,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-blog-understanding-ingramspark-title-pro",
+          "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+          "ingramspark-com-hubfs-downloads-pdf-checklist-pdf",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf"
+        ],
+        "note": "IngramSpark words the 0.5 in (13 mm) margin as a recommendation for all sides and publishes no gutter table by page count. It is applied here as the minimum so that files are always inside it. For thick books a larger gutter reads better; the KDP gutter table is a sensible guide."
+      }
+    },
+    "pageCount": {
+      "multiple": 2,
+      "lastPageBlank": true,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-blog-file-requirements-for-print-books",
+          "ingramspark-com-blog-how-to-set-up-a-title-with-ingramsp",
+          "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+          "ingramspark-com-hubfs-downloads-pdf-checklist-pdf",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf"
+        ],
+        "note": "Minimum 18 pages. The stored page count is always even and the last page is used by the printer for its barcode and production data, so it cannot carry content. The app ends the file with a blank page on an even count. Ingram documents describe this in two slightly different ways; this is the safe reading of both."
+      }
+    },
+    "interiorFile": {
+      "pdfStandards": [
+        "PDF/X-1a:2001",
+        "PDF/X-3:2002"
+      ],
+      "pdfStandardRequired": false,
+      "minImageDpi": 300,
+      "maxFileMB": 1500,
+      "fontsMustBeEmbedded": true,
+      "transparencyAllowed": false,
+      "cropMarksAllowed": false,
+      "bookmarksAllowed": false,
+      "spreadsAllowed": false,
+      "iccProfilesAllowed": false,
+      "notes": [
+        "Preferred standards are PDF/X-1a:2001 and PDF/X-3:2002. All fonts embedded. Single pages, no crop or registration marks, no spot colours, no ICC profiles.",
+        "Black and white interiors: greyscale images at 300 ppi, 1 bit line art at 600 ppi, text in 100% black.",
+        "Colour interiors and covers: CMYK, total ink coverage at most 240%.",
+        "Maximum file size 1.5 GB (the User Guide says 1.6 GB; the lower figure is used)."
+      ],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-blog-understanding-ingramspark-title-pro",
+          "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+          "ingramspark-com-hubfs-downloads-pdf-checklist-pdf",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf"
+        ],
+        "note": "No official document states a PDF version number or an explicit rule to flatten transparency; PDF/X-1a forbids transparency in any case."
+      }
+    },
+    "formats": {
+      "paperback": {
+        "trimSizes": [
+          {
+            "id": "4x6",
+            "widthIn": 4,
+            "heightIn": 6,
+            "label": "4 x 6 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "4x7",
+            "widthIn": 4,
+            "heightIn": 7,
+            "label": "4 x 7 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "4.25x7",
+            "widthIn": 4.25,
+            "heightIn": 7,
+            "label": "4.25 x 7 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "4.37x7",
+            "widthIn": 4.37,
+            "heightIn": 7,
+            "label": "4.37 x 7 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "4.72x7.48",
+            "widthIn": 4.72,
+            "heightIn": 7.48,
+            "label": "4.72 x 7.48 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5x7",
+            "widthIn": 5,
+            "heightIn": 7,
+            "label": "5 x 7 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5x8",
+            "widthIn": 5,
+            "heightIn": 8,
+            "label": "5 x 8 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5.06x7.81",
+            "widthIn": 5.06,
+            "heightIn": 7.81,
+            "label": "5.06 x 7.81 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5.25x8",
+            "widthIn": 5.25,
+            "heightIn": 8,
+            "label": "5.25 x 8 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5.5x7.5",
+            "widthIn": 5.5,
+            "heightIn": 7.5,
+            "label": "5.5 x 7.5 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5.5x8.25",
+            "widthIn": 5.5,
+            "heightIn": 8.25,
+            "label": "5.5 x 8.25 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5.5x8.38",
+            "widthIn": 5.5,
+            "heightIn": 8.38,
+            "label": "5.5 x 8.38 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              }
+            }
+          },
+          {
+            "id": "5.5x8.5",
+            "widthIn": 5.5,
+            "heightIn": 8.5,
+            "label": "5.5 x 8.5 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "5.83x8.27",
+            "widthIn": 5.83,
+            "heightIn": 8.27,
+            "label": "5.83 x 8.27 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "6x9",
+            "widthIn": 6,
+            "heightIn": 9,
+            "label": "6 x 9 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "6.14x9.21",
+            "widthIn": 6.14,
+            "heightIn": 9.21,
+            "label": "6.14 x 9.21 in",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 900
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "6.5x6.5",
+            "widthIn": 6.5,
+            "heightIn": 6.5,
+            "label": "6.5 x 6.5 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "6.625x10.25",
+            "widthIn": 6.625,
+            "heightIn": 10.25,
+            "label": "6.625 x 10.25 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "6.69x9.61",
+            "widthIn": 6.69,
+            "heightIn": 9.61,
+            "label": "6.69 x 9.61 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "7x10",
+            "widthIn": 7,
+            "heightIn": 10,
+            "label": "7 x 10 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "7.44x9.69",
+            "widthIn": 7.44,
+            "heightIn": 9.69,
+            "label": "7.44 x 9.69 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "7.5x9.25",
+            "widthIn": 7.5,
+            "heightIn": 9.25,
+            "label": "7.5 x 9.25 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8x8",
+            "widthIn": 8,
+            "heightIn": 8,
+            "label": "8 x 8 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8x10",
+            "widthIn": 8,
+            "heightIn": 10,
+            "label": "8 x 10 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8x10.88",
+            "widthIn": 8,
+            "heightIn": 10.88,
+            "label": "8 x 10.88 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8.25x10.75",
+            "widthIn": 8.25,
+            "heightIn": 10.75,
+            "label": "8.25 x 10.75 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8.25x11",
+            "widthIn": 8.25,
+            "heightIn": 11,
+            "label": "8.25 x 11 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8.268x11.693",
+            "widthIn": 8.268,
+            "heightIn": 11.693,
+            "label": "8.268 x 11.693 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8.5x8.5",
+            "widthIn": 8.5,
+            "heightIn": 8.5,
+            "label": "8.5 x 8.5 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8.5x9",
+            "widthIn": 8.5,
+            "heightIn": 9,
+            "label": "8.5 x 9 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "8.5x11",
+            "widthIn": 8.5,
+            "heightIn": 11,
+            "label": "8.5 x 11 in",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 900
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 900
+              }
+            }
+          },
+          {
+            "id": "11x8.5",
+            "widthIn": 11,
+            "heightIn": 8.5,
+            "label": "11 x 8.5 in",
+            "costClass": "large",
+            "pages": {
+              "premium-color-white": {
+                "min": 18,
+                "max": 400
+              }
+            }
+          }
+        ],
+        "bindings": [
+          "perfect"
+        ],
+        "spine": {
+          "mode": "template",
+          "perPageIn": {},
+          "baseIn": 0,
+          "minPagesForText": 48,
+          "textMarginIn": 0.0625,
+          "templateUrl": "https://myaccount.ingramspark.com/Portal/Tools/CoverTemplateGenerator",
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "ingramspark-com-blog-understanding-ingramspark-title-pro",
+              "ingramspark-com-blog-why-should-i-use-groundwood-paper-f",
+              "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+              "ingramspark-com-hubfs-downloads-paper-specs-spark-pdf",
+              "ingramspark-com-hubfs-downloads-pdf-checklist-pdf"
+            ],
+            "note": "IngramSpark publishes no spine formula. The width must come from its cover template generator or spine calculator for the exact page count and paper. The published pages per inch figures are only minimums and the official calculator is not linear for 50lb papers. Spine safety margin is 0.0625 in for spines of 0.35 in or more and 0.03125 in for narrower spines."
+          }
+        },
+        "cover": {
+          "bleedIn": 0.125,
+          "safeMarginIn": 0.25,
+          "wrapIn": 0,
+          "hingeIn": 0,
+          "boardExtraWidthIn": 0,
+          "boardExtraHeightIn": 0,
+          "flapIn": null,
+          "barcode": {
+            "widthIn": 1.75,
+            "heightIn": 1.0,
+            "fromSpineIn": null,
+            "fromBottomIn": null,
+            "platformAdds": true,
+            "required": true,
+            "note": "A barcode is mandatory, in 100% black on a white box. Ingram's cover template carries one that may be moved inside the safe area of the back cover but not resized; leave a 1.75 x 1.0 in area if you supply none. Without a price the add-on is 90000. The template generator only offers USD, UK pound and CAD prices in the barcode, so an AUD book gets 90000."
+          },
+          "colorSpace": "cmyk",
+          "maxInkPercent": 240,
+          "minImageDpi": 300,
+          "maxFileMB": 1500,
+          "pdfStandards": [
+            "PDF/X-1a:2001",
+            "PDF/X-3:2002"
+          ],
+          "notes": [
+            "Bleed 0.125 in on all four sides. Keep type 0.25 in inside the trim (the template allows 0.125 in).",
+            "Rich black for large solid areas is C60 M40 Y40 K100. Text of 24 pt or smaller should be 100% black only.",
+            "No spine text on paperbacks under 48 pages."
+          ],
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "ingramspark-com-blog-isbn-facts-for-self-publishers",
+              "ingramspark-com-blog-understanding-ingramspark-title-pro",
+              "ingramspark-com-blog-updating-pricing-returns-and-discou",
+              "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+              "ingramspark-com-hubfs-downloads-paper-specs-spark-pdf"
+            ]
+          }
+        },
+        "_meta": {
+          "verified": true,
+          "sources": [
+            "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+            "ingramspark-com-hubfs-rate-20card-ingramspark-2026-pdf",
+            "myaccount-ingramspark-com-titles-booktypemodel-data-book"
+          ],
+          "note": "Trim sizes and paper availability were decoded from the availability matrix of the File Creation Guide (dated 8.24.26), where cells are shaded rather than labelled. Custom trim sizes also exist. Lightning Source Australia cannot print every option (no large format groundwood paperback, no textured cloth)."
+        }
+      },
+      "hardcover": {
+        "trimSizes": [
+          {
+            "id": "5x8",
+            "widthIn": 5,
+            "heightIn": 8,
+            "label": "5 x 8 in (case laminate, cloth, dust jacket)",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 840
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "5.5x8.5",
+            "widthIn": 5.5,
+            "heightIn": 8.5,
+            "label": "5.5 x 8.5 in (case laminate, cloth, dust jacket)",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 840
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "5.83x8.27",
+            "widthIn": 5.83,
+            "heightIn": 8.27,
+            "label": "5.83 x 8.27 in (case laminate)",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 840
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "6x9",
+            "widthIn": 6,
+            "heightIn": 9,
+            "label": "6 x 9 in (case laminate, cloth, dust jacket)",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 840
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "6.14x9.21",
+            "widthIn": 6.14,
+            "heightIn": 9.21,
+            "label": "6.14 x 9.21 in (case laminate, cloth, dust jacket)",
+            "costClass": "regular",
+            "pages": {
+              "bw-groundwood": {
+                "min": 18,
+                "max": 840
+              },
+              "bw-cream": {
+                "min": 18,
+                "max": 1050
+              },
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "6.69x9.61",
+            "widthIn": 6.69,
+            "heightIn": 9.61,
+            "label": "6.69 x 9.61 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "7x10",
+            "widthIn": 7,
+            "heightIn": 10,
+            "label": "7 x 10 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "7.5x9.25",
+            "widthIn": 7.5,
+            "heightIn": 9.25,
+            "label": "7.5 x 9.25 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "8x8",
+            "widthIn": 8,
+            "heightIn": 8,
+            "label": "8 x 8 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "8x10",
+            "widthIn": 8,
+            "heightIn": 10,
+            "label": "8 x 10 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "8x10.88",
+            "widthIn": 8,
+            "heightIn": 10.88,
+            "label": "8 x 10.88 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "8.25x10.75",
+            "widthIn": 8.25,
+            "heightIn": 10.75,
+            "label": "8.25 x 10.75 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "8.5x8.5",
+            "widthIn": 8.5,
+            "heightIn": 8.5,
+            "label": "8.5 x 8.5 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "8.5x11",
+            "widthIn": 8.5,
+            "heightIn": 11,
+            "label": "8.5 x 11 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "bw-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "standard-color-white": {
+                "min": 18,
+                "max": 1200
+              },
+              "standard-color-white-70": {
+                "min": 18,
+                "max": 840
+              },
+              "premium-color-white": {
+                "min": 18,
+                "max": 840
+              }
+            }
+          },
+          {
+            "id": "11x8.5",
+            "widthIn": 11,
+            "heightIn": 8.5,
+            "label": "11 x 8.5 in (case laminate)",
+            "costClass": "large",
+            "pages": {
+              "premium-color-white": {
+                "min": 18,
+                "max": 400
+              }
+            }
+          }
+        ],
+        "bindings": [
+          "case-laminate",
+          "dust-jacket",
+          "cloth"
+        ],
+        "spine": {
+          "mode": "template",
+          "perPageIn": {},
+          "baseIn": 0,
+          "minPagesForText": null,
+          "textMarginIn": 0.0625,
+          "templateUrl": "https://myaccount.ingramspark.com/Portal/Tools/CoverTemplateGenerator",
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "ingramspark-com-blog-understanding-ingramspark-title-pro",
+              "ingramspark-com-blog-why-should-i-use-groundwood-paper-f",
+              "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+              "ingramspark-com-hubfs-downloads-paper-specs-spark-pdf",
+              "myaccount-ingramspark-com-bundles-catcherror-cpruhbeg-mj"
+            ],
+            "note": "IngramSpark publishes no spine formula. The width must come from its cover template generator or spine calculator for the exact page count and paper. The published pages per inch figures are only minimums and the official calculator is not linear for 50lb papers. Hardcover spines come in steps of 1/16 in starting at 0.25 in."
+          }
+        },
+        "cover": {
+          "bleedIn": 0,
+          "safeMarginIn": 0.125,
+          "wrapIn": 0.625,
+          "hingeIn": 0.5,
+          "boardExtraWidthIn": 0,
+          "boardExtraHeightIn": 0.25,
+          "flapIn": 3.25,
+          "barcode": {
+            "widthIn": 1.75,
+            "heightIn": 1.0,
+            "fromSpineIn": null,
+            "fromBottomIn": null,
+            "platformAdds": true,
+            "required": true,
+            "note": "A barcode is mandatory, in 100% black on a white box. Ingram's cover template carries one that may be moved inside the safe area of the back cover but not resized; leave a 1.75 x 1.0 in area if you supply none. Without a price the add-on is 90000. The template generator only offers USD, UK pound and CAD prices in the barcode, so an AUD book gets 90000."
+          },
+          "colorSpace": "cmyk",
+          "maxInkPercent": 240,
+          "minImageDpi": 300,
+          "maxFileMB": 1500,
+          "pdfStandards": [
+            "PDF/X-1a:2001",
+            "PDF/X-3:2002"
+          ],
+          "notes": [
+            "Case laminate: 0.625 in (16 mm) wrap on every side and a 0.5 in (13 mm) hinge each side of the spine. The board is the trim width minus 0.185 in and the trim height plus 0.25 in.",
+            "Case laminate cover width = 0.625 + board width + 0.5 + spine + 0.5 + board width + 0.625 in. Height = 0.625 + board height + 0.625 in.",
+            "Dust jacket: 3.25 in flaps, a 0.25 in wrap strip between cover and flap, 0.125 in bleed. Each cover panel is the trim width plus 0.4375 in. Largest jacketed trim is 6.14 x 9.252 in.",
+            "Always build hardcover covers on the template Ingram generates for the exact page count."
+          ],
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "ingramspark-com-blog-how-to-set-up-a-title-with-ingramsp",
+              "ingramspark-com-blog-understanding-ingramspark-title-pro",
+              "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+              "ingramspark-com-hubfs-downloads-paper-specs-spark-pdf",
+              "ingramspark-com-hubfs-downloads-pdf-checklist-pdf"
+            ],
+            "note": "The board size formula is printed in the File Creation Guide under custom trim sizes; the generated template is authoritative. The board is NARROWER than the trim width by 0.185 in, so boardExtraWidthIn cannot express it and is left at 0: use the template."
+          }
+        },
+        "_meta": {
+          "verified": true,
+          "sources": [
+            "ingramspark-com-hubfs-downloads-file-creation-guide-pdf"
+          ],
+          "note": "Hardcover page limits follow the rate card. For 70lb white paper the live tool allows 900 pages but the documents say 840; 840 is used."
+        }
+      }
+    }
+  },
+  "ebook": {
+    "acceptedFormats": [
+      "epub"
+    ],
+    "maxFileMB": 100,
+    "epubCheckRequired": true,
+    "cover": {
+      "idealWidthPx": 1600,
+      "idealHeightPx": 2560,
+      "minWidthPx": null,
+      "minHeightPx": null,
+      "maxSidePx": null,
+      "maxFileMB": null,
+      "formats": [
+        "jpg"
+      ],
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "ingramspark-com-blog-file-requirements-for-ebooks",
+          "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf"
+        ],
+        "note": "Ingram asks for a JPG cover in RGB. Its documents give conflicting pixel limits; check the current figure on the upload screen. 1600 x 2560 is used as a safe working size."
+      }
+    },
+    "notes": [
+      "EPUB 3 per the August 2026 documents (the web page still says EPUB 2 or 3). The cover is uploaded as a separate JPG.",
+      "Ebook compensation is 85% of the net revenue Ingram receives.",
+      "The ebook needs its own ISBN."
+    ],
+    "_meta": {
+      "verified": false,
+      "sources": [
+        "ingramspark-com-blog-file-requirements-for-ebooks",
+        "ingramspark-com-blog-how-to-set-up-a-title-with-ingramsp",
+        "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+        "ingramspark-com-hubfs-downloads-user-guide-pdf",
+        "ingramspark-com-plan-your-book-ebooks"
+      ],
+      "note": "The help centre (help.ingramspark.com) could not be read, so detailed EPUB guidelines are not confirmed. Validation is treated as required because retailers reject invalid files."
+    }
+  },
+  "pricing": {
+    "print": {
+      "rateModel": "wholesale-discount",
+      "costModel": "bands",
+      "marketplaces": [
+        {
+          "id": "AU",
+          "label": "Australia",
+          "currency": "AUD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 10,
+          "discount": {
+            "min": 35,
+            "max": 55,
+            "default": 35
+          },
+          "feePercentOfList": 1.875,
+          "maxListPrice": {
+            "paperback": 124.99,
+            "hardcover": 124.99
+          },
+          "costs": {
+            "paperback": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.5,
+                    "perPage": 0.0245
+                  }
+                ],
+                "large": []
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 2.5,
+                    "perPage": 0.0248
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 2.5,
+                    "perPage": 0.0248
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 2.5,
+                    "perPage": 0.0351
+                  }
+                ]
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.0286
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.0414
+                  }
+                ]
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 2.57,
+                    "perPage": 0.0401
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 2.57,
+                    "perPage": 0.0586
+                  }
+                ]
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.0434
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.0638
+                  }
+                ]
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.0598
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.1127
+                  }
+                ]
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.0797
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.57,
+                    "perPage": 0.1502
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.36,
+                    "perPage": 0.0231
+                  }
+                ],
+                "large": []
+              },
+              "bw-groundwood@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 11.68,
+                    "perPage": 0.0231
+                  }
+                ],
+                "large": []
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 9.36,
+                    "perPage": 0.0233
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 9.36,
+                    "perPage": 0.0233
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 9.36,
+                    "perPage": 0.0331
+                  }
+                ]
+              },
+              "bw-creme-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 11.68,
+                    "perPage": 0.0233
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 11.68,
+                    "perPage": 0.0233
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.36,
+                    "perPage": 0.0263
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.63,
+                    "perPage": 0.0391
+                  }
+                ]
+              },
+              "bw-white-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 11.68,
+                    "perPage": 0.0263
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 9.63,
+                    "perPage": 0.0378
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 9.63,
+                    "perPage": 0.0553
+                  }
+                ]
+              },
+              "standard-color-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 12.03,
+                    "perPage": 0.0378
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.63,
+                    "perPage": 0.0409
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.63,
+                    "perPage": 0.0602
+                  }
+                ]
+              },
+              "standard-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 12.03,
+                    "perPage": 0.0409
+                  }
+                ],
+                "large": []
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.63,
+                    "perPage": 0.0604
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.63,
+                    "perPage": 0.117
+                  }
+                ]
+              },
+              "premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 12.03,
+                    "perPage": 0.0604
+                  }
+                ],
+                "large": []
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.63,
+                    "perPage": 0.0804
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.63,
+                    "perPage": 0.1559
+                  }
+                ]
+              },
+              "ultra-premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 12.03,
+                    "perPage": 0.0804
+                  }
+                ],
+                "large": []
+              }
+            }
+          },
+          "note": "Published minimum wholesale discount is 35% (30% is below every published minimum; confirm the real minimum on your title setup page). AUD list prices are entered without GST according to a 2022 Ingram blog post and the calculator arithmetic; no current document restates it."
+        },
+        {
+          "id": "US",
+          "label": "United States",
+          "currency": "USD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "discount": {
+            "min": 40,
+            "max": 55,
+            "default": 40
+          },
+          "feePercentOfList": 1.875,
+          "maxListPrice": {
+            "paperback": 124.99,
+            "hardcover": 124.99
+          },
+          "costs": {
+            "paperback": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.33,
+                    "perPage": 0.0144
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.39,
+                    "perPage": 0.0211
+                  }
+                ]
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 1.33,
+                    "perPage": 0.0146
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.33,
+                    "perPage": 0.0146
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.39,
+                    "perPage": 0.0212
+                  }
+                ]
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.35,
+                    "perPage": 0.0232
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0361
+                  }
+                ]
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.16,
+                    "perPage": 0.0249
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.23,
+                    "perPage": 0.0392
+                  }
+                ]
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.35,
+                    "perPage": 0.0374
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0593
+                  }
+                ]
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.35,
+                    "perPage": 0.0721
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0946
+                  }
+                ]
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.66,
+                    "perPage": 0.0849
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 2.66,
+                    "perPage": 0.1061
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.71,
+                    "perPage": 0.0141
+                  }
+                ],
+                "large": []
+              },
+              "bw-groundwood@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.76,
+                    "perPage": 0.0145
+                  }
+                ],
+                "large": []
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 5.31,
+                    "perPage": 0.0132
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 5.31,
+                    "perPage": 0.0132
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 5.26,
+                    "perPage": 0.0185
+                  }
+                ]
+              },
+              "bw-creme-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 7.76,
+                    "perPage": 0.0147
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 7.76,
+                    "perPage": 0.0147
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.88,
+                    "perPage": 0.0229
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.01,
+                    "perPage": 0.0357
+                  }
+                ]
+              },
+              "bw-white-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.76,
+                    "perPage": 0.0229
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 6.38,
+                    "perPage": 0.0276
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 6.55,
+                    "perPage": 0.0427
+                  }
+                ]
+              },
+              "standard-color-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 8.43,
+                    "perPage": 0.0276
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.38,
+                    "perPage": 0.0359
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.55,
+                    "perPage": 0.0572
+                  }
+                ]
+              },
+              "standard-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 8.43,
+                    "perPage": 0.0359
+                  }
+                ],
+                "large": []
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.51,
+                    "perPage": 0.0752
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.69,
+                    "perPage": 0.1003
+                  }
+                ]
+              },
+              "premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 8.43,
+                    "perPage": 0.0752
+                  }
+                ],
+                "large": []
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.7,
+                    "perPage": 0.0849
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.7,
+                    "perPage": 0.1061
+                  }
+                ]
+              },
+              "ultra-premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 9.55,
+                    "perPage": 0.0849
+                  }
+                ],
+                "large": []
+              }
+            }
+          },
+          "note": "Published minimum wholesale discount is 40% for the United States and Canada. Canada is mentioned in blog posts but is not a market in the public calculator or on the rate card."
+        },
+        {
+          "id": "GB",
+          "label": "United Kingdom",
+          "currency": "GBP",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 0,
+          "discount": {
+            "min": 35,
+            "max": 55,
+            "default": 35
+          },
+          "feePercentOfList": 1.875,
+          "maxListPrice": {
+            "paperback": 124.99,
+            "hardcover": 124.99
+          },
+          "costs": {
+            "paperback": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.37,
+                    "perPage": 0.0115
+                  }
+                ],
+                "large": []
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 1.37,
+                    "perPage": 0.0116
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.37,
+                    "perPage": 0.0116
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.37,
+                    "perPage": 0.0196
+                  }
+                ]
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0137
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0231
+                  }
+                ]
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.41,
+                    "perPage": 0.0222
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.41,
+                    "perPage": 0.0325
+                  }
+                ]
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0239
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0353
+                  }
+                ]
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0457
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0637
+                  }
+                ]
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0608
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.41,
+                    "perPage": 0.0847
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.06,
+                    "perPage": 0.0115
+                  }
+                ],
+                "large": []
+              },
+              "bw-groundwood@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.33,
+                    "perPage": 0.0115
+                  }
+                ],
+                "large": []
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 5.06,
+                    "perPage": 0.0116
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 5.06,
+                    "perPage": 0.0116
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 5.21,
+                    "perPage": 0.0202
+                  }
+                ]
+              },
+              "bw-creme-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 6.33,
+                    "perPage": 0.0116
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 6.33,
+                    "perPage": 0.0116
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0137
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0231
+                  }
+                ]
+              },
+              "bw-white-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.52,
+                    "perPage": 0.0137
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 5.21,
+                    "perPage": 0.0222
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 5.21,
+                    "perPage": 0.0325
+                  }
+                ]
+              },
+              "standard-color-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 6.52,
+                    "perPage": 0.0222
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0239
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0353
+                  }
+                ]
+              },
+              "standard-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.52,
+                    "perPage": 0.0239
+                  }
+                ],
+                "large": []
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0443
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0618
+                  }
+                ]
+              },
+              "premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.52,
+                    "perPage": 0.0443
+                  }
+                ],
+                "large": []
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0591
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.21,
+                    "perPage": 0.0823
+                  }
+                ]
+              },
+              "ultra-premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.52,
+                    "perPage": 0.0591
+                  }
+                ],
+                "large": []
+              }
+            }
+          }
+        },
+        {
+          "id": "EU",
+          "label": "European Union",
+          "currency": "EUR",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "discount": {
+            "min": 35,
+            "max": 55,
+            "default": 35
+          },
+          "feePercentOfList": 1.875,
+          "maxListPrice": {
+            "paperback": 124.99,
+            "hardcover": 124.99
+          },
+          "costs": {
+            "paperback": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.61,
+                    "perPage": 0.0135
+                  }
+                ],
+                "large": []
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 1.61,
+                    "perPage": 0.0136
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.61,
+                    "perPage": 0.0136
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.61,
+                    "perPage": 0.0231
+                  }
+                ]
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.016
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.0273
+                  }
+                ]
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.66,
+                    "perPage": 0.0261
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 1.66,
+                    "perPage": 0.0381
+                  }
+                ]
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.0281
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.0416
+                  }
+                ]
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.0537
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.0748
+                  }
+                ]
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.0716
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 900,
+                    "fixed": 1.66,
+                    "perPage": 0.0998
+                  }
+                ]
+              }
+            },
+            "hardcover": {
+              "bw-groundwood": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 5.97,
+                    "perPage": 0.0135
+                  }
+                ],
+                "large": []
+              },
+              "bw-groundwood@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.45,
+                    "perPage": 0.0135
+                  }
+                ],
+                "large": []
+              },
+              "bw-creme-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 5.97,
+                    "perPage": 0.0136
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 5.97,
+                    "perPage": 0.0136
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 6.14,
+                    "perPage": 0.0238
+                  }
+                ]
+              },
+              "bw-creme-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1050,
+                    "fixed": 7.45,
+                    "perPage": 0.0136
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 7.45,
+                    "perPage": 0.0136
+                  }
+                ],
+                "large": []
+              },
+              "bw-white-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.016
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.0272
+                  }
+                ]
+              },
+              "bw-white-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.67,
+                    "perPage": 0.016
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-50": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 6.14,
+                    "perPage": 0.0261
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 6.14,
+                    "perPage": 0.0381
+                  }
+                ]
+              },
+              "standard-color-50@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 7.67,
+                    "perPage": 0.0261
+                  }
+                ],
+                "large": []
+              },
+              "standard-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.0281
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.0415
+                  }
+                ]
+              },
+              "standard-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.67,
+                    "perPage": 0.0281
+                  }
+                ],
+                "large": []
+              },
+              "premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.0523
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.076
+                  }
+                ]
+              },
+              "premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.67,
+                    "perPage": 0.0543
+                  }
+                ],
+                "large": []
+              },
+              "ultra-premium-color-70": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.0696
+                  }
+                ],
+                "large": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 6.14,
+                    "perPage": 0.1012
+                  }
+                ]
+              },
+              "ultra-premium-color-70@dust-jacket": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 840,
+                    "fixed": 7.67,
+                    "perPage": 0.0724
+                  }
+                ],
+                "large": []
+              }
+            }
+          },
+          "note": "One euro price covers the European Union market. VAT varies by country."
+        }
+      ],
+      "calculatorUrl": "https://myaccount.ingramspark.com/Portal/Tools/PubCompCalculator",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-blog-a-note-from-the-director-of-ingrams",
+          "ingramspark-com-blog-how-to-set-up-a-title-with-ingramsp",
+          "ingramspark-com-blog-updating-pricing-returns-and-discou",
+          "ingramspark-com-blog-why-should-i-discount-my-book",
+          "ingramspark-com-hubfs-2025-20rate-20card-spark-pdf"
+        ],
+        "note": "Compensation per wholesale sale = list price x (1 - wholesale discount) - print cost - global distribution fee (1.875% of the list price, since 1 February 2026). Print cost = per page cost x pages + per cover cost, from the rate card effective 1 February 2026. \"Small\" (regular) means a trim width under 6.15 in. Cost keys ending in \"@dust-jacket\" are for jacketed hardcovers. The real minimum discount is whatever the title setup page shows."
+      }
+    },
+    "ebook": {
+      "model": "retail-share",
+      "marketplaces": [],
+      "authorShare": 0.85,
+      "freeAllowed": false,
+      "freeNote": "No official statement on free ebooks was found. Compensation is 85% of the net revenue Ingram receives from the retailer, which is much less than 85% of the list price.",
+      "priceMatchNote": "",
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "ingramspark-com-blog-how-to-set-up-a-title-with-ingramsp",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf",
+          "ingramspark-com-pricing",
+          "myaccount-ingramspark-com-bundles-pubcomptool-bl2xo2pc-m"
+        ],
+        "note": "The share is of net revenue, not of list price."
+      }
+    }
+  },
+  "fees": [
+    {
+      "id": "title-setup",
+      "label": "Title setup",
+      "amount": 0,
+      "currency": "USD",
+      "when": "Free for print and ebook.",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-blog-a-letter-from-the-director-1",
+          "ingramspark-com-blog-a-note-from-the-director-of-ingrams",
+          "ingramspark-com-faqs",
+          "ingramspark-com-hubfs-2025-20rate-20card-spark-pdf",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf"
+        ]
+      }
+    },
+    {
+      "id": "revision",
+      "label": "File revision",
+      "amount": 0,
+      "currency": "USD",
+      "when": "Announced as free from 1 January 2026; the User Guide still mentions revision charges.",
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "ingramspark-com-blog-a-letter-from-the-director-1",
+          "ingramspark-com-blog-a-note-from-the-director-of-ingrams",
+          "ingramspark-com-faqs",
+          "ingramspark-com-hubfs-2025-20rate-20card-spark-pdf",
+          "ingramspark-com-hubfs-downloads-user-guide-pdf"
+        ],
+        "note": "Inferred from the December 2025 announcement and the 2026 rate card."
+      }
+    },
+    {
+      "id": "global-distribution",
+      "label": "Global distribution fee",
+      "amount": 1.875,
+      "currency": "%",
+      "when": "Percentage of the local list price, deducted from compensation on every wholesale sale.",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-blog-a-note-from-the-director-of-ingrams",
+          "ingramspark-com-blog-why-should-i-discount-my-book",
+          "ingramspark-com-hubfs-2025-20rate-20card-spark-pdf",
+          "ingramspark-com-hubfs-ingramspark-pricing-and-services-g",
+          "ingramspark-com-hubfs-rate-20card-ingramspark-2026-pdf"
+        ]
+      }
+    }
+  ],
+  "languages": {
+    "paperback": {
+      "supported": "any",
+      "note": "No official language restriction for print was found. All fonts must be embedded. Digital cloth spine stamping is Latin characters only."
+    },
+    "hardcover": {
+      "supported": "any"
+    },
+    "ebook": {
+      "supported": "any",
+      "note": "Not confirmed. Ebook retailers reached through Ingram may not support Bengali."
+    },
+    "consequence": "",
+    "_meta": {
+      "verified": false,
+      "sources": [
+        "ingramspark-com-blog-expand-your-audience-key-benefits-o",
+        "ingramspark-com-blog-global-discoverability-guidance",
+        "ingramspark-com-blog-reach-the-world-with-global-connect",
+        "ingramspark-com-hubfs-downloads-file-creation-guide-pdf",
+        "ingramspark-com-hubfs-downloads-title-metadata-guide-pdf"
+      ],
+      "note": "No official IngramSpark page mentions Bengali for metadata, print or ebook retailers."
+    }
+  },
+  "listing": {
+    "keywordSlots": null,
+    "keywordMaxChars": null,
+    "categoriesMax": null,
+    "descriptionMaxChars": null,
+    "descriptionTags": [],
+    "titleSubtitleMaxChars": null,
+    "notes": [
+      "IngramSpark takes BISAC subject codes (up to three), a short and a long description, contributor biographies and keywords. Field limits are shown in the title setup screens."
+    ],
+    "_meta": {
+      "verified": false,
+      "sources": [
+        "ingramspark-com-blog-a-quick-guide-to-979-isbns",
+        "ingramspark-com-blog-file-requirements-for-print-books",
+        "ingramspark-com-blog-global-discoverability-guidance",
+        "ingramspark-com-blog-how-to-set-up-a-title-with-ingramsp",
+        "ingramspark-com-blog-ingramsparks-catalog-integrity-anno"
+      ],
+      "note": "Field limits were not confirmed from a public page."
+    }
+  }
+}

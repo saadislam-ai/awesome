@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "lastVerified": "2026-11-23",
+  "sources": [
+    {
+      "id": "business-gov-au-finance-tax-international-tax",
+      "title": "Australian Government: GST",
+      "url": "https://business.gov.au/finance/tax/international-tax"
+    },
+    {
+      "id": "business-gov-au-registrations-register-for-taxes-registe",
+      "title": "Australian Government: GST",
+      "url": "https://business.gov.au/registrations/register-for-taxes/register-for-goods-and-services-tax-gst"
+    },
+    {
+      "id": "kdp-amazon-com-en-us-help-topic-g200634500",
+      "title": "KDP: tax on ebook list prices",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200634500"
+    },
+    {
+      "id": "kdp-amazon-com-en-us-help-topic-g200641280",
+      "title": "KDP: how taxes affect print list prices",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200641280"
+    },
+    {
+      "id": "kdp-amazon-com-en-us-help-topic-g201645450",
+      "title": "KDP: tax on ebook list prices",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201645450"
+    },
+    {
+      "id": "kdp-amazon-com-en-us-help-topic-g201849770",
+      "title": "KDP: how taxes affect print list prices",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201849770"
+    }
+  ],
+  "countries": {
+    "AU": {
+      "name": "Australia",
+      "taxName": "GST",
+      "printPercent": 10,
+      "ebookPercent": 10,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "business-gov-au-finance-tax-international-tax",
+          "business-gov-au-registrations-register-for-taxes-registe",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ],
+        "note": "GST is 10% under Australian law and books have no GST free category. KDP states the 10% rate for ebooks only; the Tax Office wording itself could not be retrieved."
+      }
+    },
+    "GB": {
+      "name": "United Kingdom",
+      "taxName": "VAT",
+      "printPercent": 0,
+      "ebookPercent": 0,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ]
+      }
+    },
+    "DE": {
+      "name": "Germany",
+      "taxName": "VAT",
+      "printPercent": 7,
+      "ebookPercent": 7,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ]
+      }
+    },
+    "FR": {
+      "name": "France",
+      "taxName": "VAT",
+      "printPercent": 5.5,
+      "ebookPercent": 5.5,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ]
+      }
+    },
+    "IT": {
+      "name": "Italy",
+      "taxName": "VAT",
+      "printPercent": 4,
+      "ebookPercent": 4,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ],
+        "note": "Ebooks without an ISBN are taxed at 22% in Italy."
+      }
+    },
+    "ES": {
+      "name": "Spain",
+      "taxName": "VAT",
+      "printPercent": 4,
+      "ebookPercent": 4,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ]
+      }
+    },
+    "NL": {
+      "name": "Netherlands",
+      "taxName": "VAT",
+      "printPercent": 9,
+      "ebookPercent": 9,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ]
+      }
+    },
+    "IE": {
+      "name": "Ireland",
+      "taxName": "VAT",
+      "printPercent": 0,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770"
+        ],
+        "note": "Ebook rate not listed by KDP."
+      }
+    },
+    "BE": {
+      "name": "Belgium",
+      "taxName": "VAT",
+      "printPercent": 6,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770"
+        ],
+        "note": "Ebook rate not listed by KDP."
+      }
+    },
+    "PL": {
+      "name": "Poland",
+      "taxName": "VAT",
+      "printPercent": 5,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770"
+        ],
+        "note": "Ebook rate not listed by KDP."
+      }
+    },
+    "SE": {
+      "name": "Sweden",
+      "taxName": "VAT",
+      "printPercent": 6,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770"
+        ],
+        "note": "Ebook rate not listed by KDP."
+      }
+    },
+    "JP": {
+      "name": "Japan",
+      "taxName": "Consumption tax",
+      "printPercent": 10,
+      "ebookPercent": 10,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200641280",
+          "kdp-amazon-com-en-us-help-topic-g201849770",
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ]
+      }
+    },
+    "IN": {
+      "name": "India",
+      "taxName": "GST",
+      "printPercent": null,
+      "ebookPercent": 18,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g200634500"
+        ],
+        "note": "Print rate not researched (KDP does not print in India)."
+      }
+    },
+    "US": {
+      "name": "United States",
+      "taxName": "Sales tax",
+      "printPercent": null,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": false,
+        "sources": [],
+        "note": "Sales tax varies by state and is added at checkout; no KDP page gives a rule."
+      }
+    },
+    "CA": {
+      "name": "Canada",
+      "taxName": "GST/HST",
+      "printPercent": null,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": false,
+        "sources": [],
+        "note": "No official platform page states the rate applied."
+      }
+    },
+    "MX": {
+      "name": "Mexico",
+      "taxName": "IVA",
+      "printPercent": null,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": false,
+        "sources": [],
+        "note": "Not stated on any official platform page."
+      }
+    },
+    "BR": {
+      "name": "Brazil",
+      "taxName": "Tax",
+      "printPercent": null,
+      "ebookPercent": null,
+      "_meta": {
+        "verified": false,
+        "sources": [],
+        "note": "Not stated on any official platform page."
+      }
+    }
+  },
+  "notes": [
+    "Rates are the ones the platforms say they apply to books. EU ebook rates are stated by KDP \"as of 5/1/2020\"; re-check them before relying on a figure.",
+    "KDP print list prices are entered without tax in every marketplace. KDP ebook list prices include tax in the UK, the EU stores, Australia, India and Japan.",
+    "Some book types (for example activity books and notebooks) can be charged the standard VAT rate instead of the reduced book rate."
+  ]
+}

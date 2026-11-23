@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 1,
+  "lastVerified": "2026-11-23",
+  "sources": [
+    {
+      "id": "ablis-business-gov-au-service-nsw-legal-deposit-45672",
+      "title": "https://ablis.business.gov.au/service/nsw/legal-deposit/45672",
+      "url": "https://ablis.business.gov.au/service/nsw/legal-deposit/45672"
+    },
+    {
+      "id": "assets-002-noviams-com-novi-file-uploads-bisg-barcoding",
+      "title": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf",
+      "url": "https://assets-002.noviams.com/novi-file-uploads/bisg/Barcoding_Guidelines/Price_Increase_in_Add-on-18cc22ae.pdf"
+    },
+    {
+      "id": "assets-002-noviams-com-novi-file-uploads-bisg-policy-sta",
+      "title": "https://assets-002.noviams.com/novi-file-uploads/bisg/Policy_Statements/BISG_Policy_0701-79e55656.pdf",
+      "url": "https://assets-002.noviams.com/novi-file-uploads/bisg/Policy_Statements/BISG_Policy_0701-79e55656.pdf"
+    },
+    {
+      "id": "assets-ctfassets-net-9uypwcnuzbqi-5it2th65cxxq7qywp8febk",
+      "title": "https://assets.ctfassets.net/9uypwcnuzbqi/5IT2th65cxXq7qywp8feBK/41190020a596307942fab78e38857e9c/GS1au-fact-sheet-EAN-13-barcode.pdf",
+      "url": "https://assets.ctfassets.net/9uypwcnuzbqi/5IT2th65cxXq7qywp8feBK/41190020a596307942fab78e38857e9c/GS1au-fact-sheet-EAN-13-barcode.pdf"
+    },
+    {
+      "id": "draft2digital-com",
+      "title": "https://draft2digital.com/",
+      "url": "https://draft2digital.com/"
+    },
+    {
+      "id": "draft2digital-com-blog-understanding-d2ds-activation-and",
+      "title": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/",
+      "url": "https://draft2digital.com/blog/understanding-d2ds-activation-and-maintenance-fees/"
+    },
+    {
+      "id": "draft2digital-com-faq",
+      "title": "https://draft2digital.com/faq/",
+      "url": "https://draft2digital.com/faq/"
+    },
+    {
+      "id": "gs1au-org-resources-frequently-asked-questions-selling-o",
+      "title": "https://www.gs1au.org/resources/frequently-asked-questions/selling-on-amazon-faqs",
+      "url": "https://www.gs1au.org/resources/frequently-asked-questions/selling-on-amazon-faqs"
+    },
+    {
+      "id": "ingramspark-com-blog-ingramspark-title-availability",
+      "title": "https://www.ingramspark.com/blog/ingramspark-title-availability",
+      "url": "https://www.ingramspark.com/blog/ingramspark-title-availability"
+    },
+    {
+      "id": "isbn-international-org-content-guidelines-assignment-e-b",
+      "title": "https://www.isbn-international.org/content/guidelines-assignment-e-books/26",
+      "url": "https://www.isbn-international.org/content/guidelines-assignment-e-books/26"
+    },
+    {
+      "id": "isbn-international-org-content-how-get-isbn-24",
+      "title": "https://www.isbn-international.org/content/how-get-isbn/24",
+      "url": "https://www.isbn-international.org/content/how-get-isbn/24"
+    },
+    {
+      "id": "kdp-amazon-com-en-us-help-topic-g201834330",
+      "title": "https://kdp.amazon.com/en_US/help/topic/G201834330",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201834330"
+    },
+    {
+      "id": "kdp-amazon-com-en-us-help-topic-g8bkpu9agvzsf9qf",
+      "title": "https://kdp.amazon.com/en_US/help/topic/G8BKPU9AGVZSF9QF",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G8BKPU9AGVZSF9QF"
+    },
+    {
+      "id": "kdp-amazon-com-en-us-help-topic-gge5t76twka85djm",
+      "title": "https://kdp.amazon.com/en_US/help/topic/GGE5T76TWKA85DJM",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GGE5T76TWKA85DJM"
+    },
+    {
+      "id": "legislation-nsw-gov-au-view-html-inforce-current-act-193",
+      "title": "https://legislation.nsw.gov.au/view/html/inforce/current/act-1939-040",
+      "url": "https://legislation.nsw.gov.au/view/html/inforce/current/act-1939-040"
+    },
+    {
+      "id": "library-gov-au-services-publishers-and-self-publishers-l",
+      "title": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers",
+      "url": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit/legal-deposit-questions-and-answers"
+    },
+    {
+      "id": "library-gov-au-services-publishers-and-self-publishers-p",
+      "title": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+      "url": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service"
+    },
+    {
+      "id": "library-gov-au-services-publishers-and-self-publishers-p",
+      "title": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data",
+      "url": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service/general-prepublication-data"
+    },
+    {
+      "id": "ned-gov-au-resources-about-html",
+      "title": "https://ned.gov.au/resources/about.html",
+      "url": "https://ned.gov.au/resources/about.html"
+    },
+    {
+      "id": "ned-gov-au-resources-deposit-step-1-html",
+      "title": "https://ned.gov.au/resources/deposit-step-1.html",
+      "url": "https://ned.gov.au/resources/deposit-step-1.html"
+    },
+    {
+      "id": "ned-gov-au-resources-deposit-step-2-html",
+      "title": "https://ned.gov.au/resources/deposit-step-2.html",
+      "url": "https://ned.gov.au/resources/deposit-step-2.html"
+    },
+    {
+      "id": "ned-gov-au-resources-getting-started-html",
+      "title": "https://ned.gov.au/resources/getting-started.html",
+      "url": "https://ned.gov.au/resources/getting-started.html"
+    }
+  ],
+  "items": [
+    {
+      "id": "isbn-assign",
+      "group": "isbn",
+      "formats": [
+        "paperback",
+        "hardcover",
+        "ebook"
+      ],
+      "title": "Assign a separate ISBN to this format",
+      "detail": "Every format (paperback, hardcover, EPUB) needs its own ISBN. A new price, a new cover or an unchanged reprint does not need a new one.",
+      "url": "https://www.myidentifiers.com.au/",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "gs1au-org-resources-frequently-asked-questions-selling-o",
+          "isbn-international-org-content-guidelines-assignment-e-b",
+          "isbn-international-org-content-how-get-isbn-24"
+        ],
+        "note": "Rule from the International ISBN Agency manual. The Thorpe-Bowker site itself could not be read."
+      }
+    },
+    {
+      "id": "isbn-register",
+      "group": "isbn",
+      "formats": [
+        "paperback",
+        "hardcover",
+        "ebook"
+      ],
+      "title": "Register the title details against the ISBN at Thorpe-Bowker",
+      "detail": "Log in to MyIdentifiers and enter the title, format, publication date, price and contributor details for this ISBN so that it appears in Books in Print.",
+      "url": "https://www.myidentifiers.com.au/",
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "gs1au-org-resources-frequently-asked-questions-selling-o",
+          "isbn-international-org-content-guidelines-assignment-e-b",
+          "isbn-international-org-content-how-get-isbn-24"
+        ],
+        "note": "Thorpe-Bowker pages were blocked during research, so the exact steps and form fields are not confirmed."
+      }
+    },
+    {
+      "id": "prepublication-data",
+      "group": "legal-deposit",
+      "formats": [
+        "paperback",
+        "hardcover",
+        "ebook"
+      ],
+      "title": "Apply to the NLA Prepublication Data Service before publication",
+      "detail": "Free. The National Library of Australia creates a catalogue record (normally within 48 hours) and gives you a cataloguing statement for the copyright page. Apply before the book is published.",
+      "url": "https://www.library.gov.au/services/publishers-and-self-publishers/prepublication-data-service",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "library-gov-au-services-publishers-and-self-publishers-l",
+          "library-gov-au-services-publishers-and-self-publishers-p",
+          "library-gov-au-services-publishers-and-self-publishers-p"
+        ]
+      }
+    },
+    {
+      "id": "nla-deposit-ebook",
+      "group": "legal-deposit",
+      "formats": [
+        "ebook"
+      ],
+      "title": "Deposit the ebook with the National Library of Australia through NED",
+      "detail": "Within one month of publication, upload one DRM free copy (EPUB preferred, under 1 GB) at National edeposit using the ebook ISBN. This also meets the digital deposit for the State Library of NSW, and the NLA then does not need the print edition.",
+      "url": "https://ned.gov.au/ned/",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ned-gov-au-resources-about-html",
+          "ned-gov-au-resources-deposit-step-1-html",
+          "ned-gov-au-resources-deposit-step-2-html"
+        ]
+      }
+    },
+    {
+      "id": "nla-deposit-print",
+      "group": "legal-deposit",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Send one printed copy to the National Library of Australia if there is no ebook",
+      "detail": "Within one month of publication (Copyright Act 1968). Address: Legal Deposit, National Library of Australia, Parkes Place, Canberra ACT 2600. Not needed when the ebook edition was deposited through NED.",
+      "url": "https://www.library.gov.au/services/publishers-and-self-publishers/legal-deposit",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ned-gov-au-resources-about-html",
+          "ned-gov-au-resources-deposit-step-1-html",
+          "ned-gov-au-resources-deposit-step-2-html"
+        ]
+      }
+    },
+    {
+      "id": "slnsw-deposit-print",
+      "group": "legal-deposit",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Send one printed copy to the State Library of New South Wales",
+      "detail": "The State Library of NSW collects one copy of every format published in New South Wales. Address: Legal Deposit, Level 2, State Library of New South Wales, 1 Shakespeare Place, Sydney NSW 2000.",
+      "url": "https://www.sl.nsw.gov.au/",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ablis-business-gov-au-service-nsw-legal-deposit-45672",
+          "legislation-nsw-gov-au-view-html-inforce-current-act-193",
+          "ned-gov-au-resources-getting-started-html"
+        ],
+        "note": "No time limit for NSW deposit could be confirmed because the NSW legislation site was not readable."
+      }
+    },
+    {
+      "id": "usyd-deposit",
+      "group": "legal-deposit",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Offer the print edition to the University of Sydney Library",
+      "detail": "NSW legal deposit also names the University of Sydney Library. Offer the title through its legal deposit form; the library replies with what to send.",
+      "url": "https://www.library.sydney.edu.au/",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ablis-business-gov-au-service-nsw-legal-deposit-45672",
+          "legislation-nsw-gov-au-view-html-inforce-current-act-193",
+          "ned-gov-au-resources-getting-started-html"
+        ]
+      }
+    },
+    {
+      "id": "nsw-parliament-deposit",
+      "group": "legal-deposit",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Contact the NSW Parliamentary Library about legal deposit",
+      "detail": "NSW legal deposit also names the NSW Parliamentary Library. Its requirements are not published; write to collections@parliament.nsw.gov.au.",
+      "url": "",
+      "_meta": {
+        "verified": false,
+        "sources": [
+          "ablis-business-gov-au-service-nsw-legal-deposit-45672",
+          "legislation-nsw-gov-au-view-html-inforce-current-act-193",
+          "ned-gov-au-resources-getting-started-html"
+        ],
+        "note": "Copies, address and process are not confirmed on an official page."
+      }
+    },
+    {
+      "id": "barcode",
+      "group": "general",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Check the barcode on the back cover",
+      "detail": "Use a plain EAN-13 of the ISBN at 80% to 200% of nominal size. The five digit price add-on is used for prices in the United States and Canada only; outside those, use no add-on or 90000 (no price). Never encode an Australian dollar price.",
+      "url": "",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "assets-002-noviams-com-novi-file-uploads-bisg-barcoding",
+          "assets-002-noviams-com-novi-file-uploads-bisg-policy-sta",
+          "assets-ctfassets-net-9uypwcnuzbqi-5it2th65cxxq7qywp8febk"
+        ]
+      }
+    },
+    {
+      "id": "proof",
+      "group": "general",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Order a printed proof and read it on paper",
+      "detail": "Check margins and gutter, running heads, page numbers, images, the spine alignment and the cover colour before approving the book for sale.",
+      "url": "",
+      "_meta": {
+        "verified": true,
+        "sources": []
+      }
+    },
+    {
+      "id": "kdp-upload",
+      "group": "kdp",
+      "formats": [
+        "paperback",
+        "hardcover",
+        "ebook"
+      ],
+      "title": "Upload to Amazon KDP",
+      "detail": "Enter the metadata exactly as on the cover and title page, upload the interior and cover files, check every page in the KDP previewer, then set prices for each marketplace.",
+      "url": "https://kdp.amazon.com/",
+      "_meta": {
+        "verified": true,
+        "sources": []
+      }
+    },
+    {
+      "id": "kdp-expanded-off",
+      "group": "kdp",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Leave KDP Expanded Distribution switched off",
+      "detail": "Using KDP and IngramSpark for the same book with the same ISBN is only possible when KDP Expanded Distribution is off, because IngramSpark supplies the other retailers.",
+      "url": "https://kdp.amazon.com/",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "kdp-amazon-com-en-us-help-topic-g201834330",
+          "kdp-amazon-com-en-us-help-topic-g8bkpu9agvzsf9qf",
+          "kdp-amazon-com-en-us-help-topic-gge5t76twka85djm"
+        ]
+      }
+    },
+    {
+      "id": "ingram-template",
+      "group": "ingramspark",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Generate the IngramSpark cover template for the final page count",
+      "detail": "IngramSpark publishes no spine formula. Create the template for the exact page count, trim and paper, type the spine width into the Cover builder, and build the cover on that template.",
+      "url": "https://myaccount.ingramspark.com/Portal/Tools/CoverTemplateGenerator",
+      "_meta": {
+        "verified": true,
+        "sources": []
+      }
+    },
+    {
+      "id": "ingram-upload",
+      "group": "ingramspark",
+      "formats": [
+        "paperback",
+        "hardcover",
+        "ebook"
+      ],
+      "title": "Upload to IngramSpark",
+      "detail": "Upload the PDF/X interior and cover, set the wholesale discount and returns option for each market, and approve the electronic proof. The last interior page must be blank.",
+      "url": "https://myaccount.ingramspark.com/",
+      "_meta": {
+        "verified": true,
+        "sources": []
+      }
+    },
+    {
+      "id": "ingram-discount",
+      "group": "ingramspark",
+      "formats": [
+        "paperback",
+        "hardcover"
+      ],
+      "title": "Confirm the lowest wholesale discount your account allows",
+      "detail": "Published minimums are 40% for the United States and Canada and 35% for the United Kingdom, the European Union and Australia. The binding minimum is whatever the title setup page shows.",
+      "url": "https://myaccount.ingramspark.com/",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "ingramspark-com-blog-ingramspark-title-availability"
+        ]
+      }
+    },
+    {
+      "id": "d2d-fees",
+      "group": "draft2digital",
+      "formats": [
+        "ebook"
+      ],
+      "title": "Allow for the Draft2Digital account fees",
+      "detail": "Since April 2026: USD 20 one time activation for new accounts, and USD 12 a year when the account earns under USD 100 in a year. The fees apply even when the book is free.",
+      "url": "https://draft2digital.com/",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "draft2digital-com",
+          "draft2digital-com-blog-understanding-d2ds-activation-and",
+          "draft2digital-com-faq"
+        ]
+      }
+    },
+    {
+      "id": "d2d-upload",
+      "group": "draft2digital",
+      "formats": [
+        "ebook"
+      ],
+      "title": "Upload the EPUB to Draft2Digital and choose the stores",
+      "detail": "Upload the validated EPUB and a 1600 x 2400 cover, set the price (0.00 is allowed), and select the stores. Stores that refuse free books list them at 0.99.",
+      "url": "https://draft2digital.com/",
+      "_meta": {
+        "verified": true,
+        "sources": []
+      }
+    },
+    {
+      "id": "price-match",
+      "group": "kdp",
+      "formats": [
+        "ebook"
+      ],
+      "title": "Ask Amazon to match the free price (optional)",
+      "detail": "Kindle ebooks cannot be set to 0.00. Once the ebook is free at another retailer, Amazon may match the price at its own discretion. There is no documented request form; the usual route is the \"tell us about a lower price\" link on the product page or a message to KDP support.",
+      "url": "https://kdp.amazon.com/",
+      "_meta": {
+        "verified": false,
+        "sources": [],
+        "note": "KDP documents that it may match a free price but documents no request process."
+      }
+    }
+  ]
+}
