@@ -375,6 +375,17 @@ export function findParent(binder: Binder, id: string): BinderNode | null {
   return found;
 }
 
+/**
+ * A name for a document that also says where it is: "The River: Scene 2".
+ * Scenes are often all called "Scene 1", "Scene 2", so lists of documents
+ * need the chapter as well.
+ */
+export function docLabel(binder: Binder, node: BinderNode): string {
+  const own = node.title || node.kind;
+  const parent = findParent(binder, node.id);
+  return parent && parent.type === 'chapter' && parent.title ? `${parent.title}: ${own}` : own;
+}
+
 /** Every node that owns a Markdown file, in reading order. */
 export function textNodes(binder: Binder): BinderNode[] {
   const out: BinderNode[] = [];

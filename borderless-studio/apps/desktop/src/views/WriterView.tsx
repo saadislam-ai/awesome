@@ -4,20 +4,25 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Bold, Focus, Highlighter, Italic, Maximize2, MessageSquarePlus, Minimize2, Minus, Moon, PanelRight, Pilcrow, SquarePen, Sun, Superscript, Coffee, Flame,
+  Bold, Columns2, Focus, Highlighter, Italic, Maximize2, MessageSquarePlus, Minimize2, Minus, Moon, PanelRight, Pilcrow, SquarePen, Sun, Superscript, Coffee, Flame,
 } from 'lucide-react';
-import { KIND_TITLES, findNode, joinPath, walkBinder, writingStreak, isoDate, type BinderNode, type WritingLog } from '@borderless/core';
+import { KIND_TITLES, bibleWords, findNode, joinPath, textNodes, walkBinder, writingStreak, isoDate, type BinderNode, type WritingLog } from '@borderless/core';
 import { useStore } from '../state/store';
 import { BookTitle } from '../App';
 import { Binder } from './Binder';
 import { Inspector, type InspectorTab } from './Inspector';
+import { CorkboardView, OutlineView } from './plan/PlanViews';
+import { BibleView } from './plan/BibleView';
+import { ReferencePane } from './ReferencePane';
 import { MarkdownEditor, type EditorHandle, type EditorStats } from '../editor/MarkdownEditor';
 import { editorFontStack } from '../editor/fonts';
 import type { ProseOptions } from '../editor/extensions';
-import { Menu, fmtNumber, type MenuItem } from '../ui/kit';
+import { Menu, Seg, fmtNumber, type MenuItem } from '../ui/kit';
 import { addPersonalWord, readPersonalWords, spellService, wordsOf, type SpellStatus } from '../editor/spell';
 
 type SaveState = 'saved' | 'saving' | 'unsaved' | 'error';
+/** What the middle of the Write screen shows: the text, or one of the planning views. */
+type WriterMode = 'text' | 'outline' | 'cards' | 'bible';
 
 export function WriterView() {
   const project = useStore((s) => s.project)!;
@@ -49,6 +54,13 @@ export function WriterView() {
   const [ready, setReady] = useState(false);
   const [log, setLog] = useState<WritingLog | null>(null);
   const textTimer = useRef<number | null>(null);
+  const [mode, setModeState] = useState<WriterMode>('text');
+  // Split screen: undefined means closed, null means open with no document chosen yet.
+  const [splitId, setSplitId] = useState<string | null | undefined>(undefined);
+  const [splitRefresh, setSplitRefresh] = useState(0);
+  // Bumped when the story bible changes, so the spellchecker learns new names.
+  const [bibleRev, setBibleRev] = useState(0);
+  const selectDocInStore = useStore((s) => s.selectDoc);
   const session = useRef({ startTotal: -1, lastLogged: -1, lastTick: Date.now(), activeMs: 0, lastTyped: 0, started: false });
 
   const node: BinderNode | null = useMemo(() => (activeId ? findNode(project.binder, activeId) : null), [project, activeId, rev]);
@@ -170,13 +182,15 @@ export function WriterView() {
       const personal = await readPersonalWords(host, [...(library ? [joinPath(library.dir, 'dictionary.txt')] : []), project.path('metadata/dictionary.txt')]);
       // Names on the title page are never spelling mistakes.
       for (const c of project.book.contributors) personal.push(...c.name.split(/\s+/).filter((w) => w.length > 1));
+      // Nor are the names in the story bible.
+      personal.push(...bibleWords(project.bible));
       const status = await spellService.load(host, resources, library?.dir ?? null, spelling, personal);
       if (alive) setSpellStatus({ ...status });
     })();
     return () => {
       alive = false;
     };
-  }, [host, library, project, spelling, settings.spellcheck]);
+  }, [host, library, project, spelling, settings.spellcheck, bibleRev]);
   useEffect(() => {
     if (!settings.spellcheck || !spellStatus.ready) return;
     let alive = true;
@@ -247,6 +261,41 @@ export function WriterView() {
   const streak = log ? writingStreak(log, goal, today) : 0;
   const themeNext = settings.theme === 'light' ? 'sepia' : settings.theme === 'sepia' ? 'dark' : 'light';
   const ThemeIcon = settings.theme === 'light' ? Sun : settings.theme === 'sepia' ? Coffee : Moon;
+  // Choosing a document anywhere (the binder, a search result, a check) brings the text back.
+  const lastActive = useRef(activeId);
+  useEffect(() => {
+    if (lastActive.current !== activeId || jump) setModeState('text');
+    lastActive.current = activeId;
+  }, [activeId, jump]);
+
+  /** Leave the text only after it is safely saved. */
+  const setMode = async (next: WriterMode) => {
+    if (next === mode) return;
+    if (mode === 'text') await editor.current?.flush();
+    if (next !== 'text') void project.wordCounts().then(setCounts);
+    setModeState(next);
+  };
+  /** Open a document from a planning view: a chapter opens at its first document. */
+  const openFromPlan = (id: string, at?: number) => {
+    const target = findNode(project.binder, id);
+    if (!target) return;
+    const doc = target.file ? target : textNodes({ ...project.binder, roots: [target] })[0];
+    if (!doc) {
+      toast('info', 'There is no text in this part of the book yet. Add a document in the binder.');
+      return;
+    }
+    selectDocInStore(doc.id, at !== undefined ? { nodeId: doc.id, from: at, to: at } : undefined);
+    setModeState('text');
+  };
+  const swapSplit = async () => {
+    if (!splitId || !node) return;
+    await editor.current?.flush();
+    const previous = node.id;
+    selectDocInStore(splitId);
+    setSplitId(previous);
+    setSplitRefresh((n) => n + 1);
+  };
+
   const editorStyle = {
     '--editor-font': editorFontStack(settings.editorFont),
     '--editor-size': `${settings.editorFontSizePx}px`,
@@ -258,13 +307,22 @@ export function WriterView() {
       <div className="topbar">
         <BookTitle />
         <div className="grow" />
+        <Seg<WriterMode> value={mode} onChange={(m) => void setMode(m)} options={[
+          { value: 'text', label: 'Text', title: 'Write and edit' },
+          { value: 'outline', label: 'Outline', title: 'Every chapter and scene in a table, with synopsis, status and targets' },
+          { value: 'cards', label: 'Cards', title: 'Index cards you can drag into a new order' },
+          { value: 'bible', label: 'Story bible', title: 'Characters, places, things and events' },
+        ]} />
         <span className="sub">{fmtNumber(manuscriptTotal)} words in the manuscript</span>
         <button className="btn ghost small" onClick={async () => { await editor.current?.flush(); await closeBook(); }}>Close book</button>
       </div>
       <div className="content">
         <div className="writer">
           <Binder counts={counts} />
-          <div className="pane editor-pane" style={editorStyle}>
+          {mode === 'outline' && <OutlineView counts={counts} onOpen={openFromPlan} />}
+          {mode === 'cards' && <CorkboardView counts={counts} onOpen={openFromPlan} />}
+          {mode === 'bible' && <BibleView onOpen={openFromPlan} onChanged={() => setBibleRev((n) => n + 1)} />}
+          {mode === 'text' && <div className="pane editor-pane" style={editorStyle}>
             <div className="editor-toolbar">
               <span className="doc-title">{node ? node.title || KIND_TITLES[node.kind] : 'No document selected'}</span>
               <div className="grow" />
@@ -286,6 +344,7 @@ export function WriterView() {
               <button className={`btn ghost icon${settings.typewriterScrolling ? ' on' : ''}`} title="Typewriter scrolling: keep the line you are typing in the middle" onClick={() => void updateSettings({ typewriterScrolling: !settings.typewriterScrolling })}><Pilcrow size={15} /></button>
               <button className="btn ghost icon" title={`Theme: ${settings.theme}. Click for ${themeNext}.`} onClick={() => void updateSettings({ theme: themeNext })}><ThemeIcon size={15} /></button>
               <button className="btn ghost icon" title="Distraction free writing (F11, Escape to leave)" onClick={() => setZen(!zen)}>{zen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}</button>
+              <button className={`btn ghost icon${splitId !== undefined ? ' on' : ''}`} title="Split screen: keep a second document in view while you write" onClick={() => setSplitId(splitId === undefined ? null : undefined)}><Columns2 size={15} /></button>
               <button className={`btn ghost icon${showInspector ? ' on' : ''}`} title="Show or hide the inspector" onClick={() => setShowInspector(!showInspector)}><PanelRight size={15} /></button>
             </div>
             {node?.file ? (
@@ -335,8 +394,12 @@ export function WriterView() {
                 </span>
               )}
             </div>
-          </div>
-          {showInspector && (
+          </div>}
+          {mode === 'text' && splitId !== undefined && !zen && (
+            <ReferencePane docId={splitId} activeId={node?.id ?? null} fontFamily={editorFontStack(settings.editorFont)} fontSizePx={settings.editorFontSizePx}
+              onPick={(id) => setSplitId(id || null)} onSwap={() => void swapSplit()} onClose={() => setSplitId(undefined)} refreshKey={splitRefresh} />
+          )}
+          {mode === 'text' && showInspector && (
             <Inspector node={node} tab={tab} onTab={setTab} editor={editor} text={text} words={stats.words} onReload={() => setReloadKey((k) => k + 1)} misspelled={misspelled} spellStatus={spellStatus} />
           )}
           {spellMenu && <Menu x={spellMenu.x} y={spellMenu.y} items={spellItems()} onClose={() => setSpellMenu(null)} />}

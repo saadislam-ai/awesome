@@ -200,8 +200,12 @@ const UK_EXCEPTIONS = new Set(['wise', 'rise', 'arise', 'raise', 'praise', 'nois
 
 const occ = (doc: ConsistencyDoc, from: number, to: number): Occurrence => ({ nodeId: doc.nodeId, title: doc.title, from, to, text: doc.text.slice(from, to) });
 
-export function checkConsistency(docs: ConsistencyDoc[], style: TextStyle): ConsistencyIssue[] {
-  const issues: ConsistencyIssue[] = [];
+/**
+ * extra: issues found elsewhere that belong in the same list (the story
+ * bible's wrong spellings). They are shown first.
+ */
+export function checkConsistency(docs: ConsistencyDoc[], style: TextStyle, extra: ConsistencyIssue[] = []): ConsistencyIssue[] {
+  const issues: ConsistencyIssue[] = [...extra];
   const masked = docs.map((d) => ({ doc: d, text: maskMarkdown(d.text, { hideDeletions: true }) }));
   const american = style.spelling === 'en-US';
   const english = /^en/i.test(style.spelling);

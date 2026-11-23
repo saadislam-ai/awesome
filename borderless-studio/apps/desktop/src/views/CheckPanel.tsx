@@ -5,7 +5,7 @@
  */
 import { useMemo, useState } from 'react';
 import { Loader2, Play } from 'lucide-react';
-import { analyseStyle, checkConsistency, maskMarkdown, textNodes, type ConsistencyIssue, type Finding } from '@borderless/core';
+import { analyseStyle, bibleSpellingIssues, checkConsistency, docLabel, maskMarkdown, textNodes, type ConsistencyIssue, type Finding } from '@borderless/core';
 import { useStore } from '../state/store';
 import type { EditorHandle } from '../editor/MarkdownEditor';
 import type { SpellStatus } from '../editor/spell';
@@ -56,8 +56,8 @@ export function CheckPanel(props: { text: string; editor: React.RefObject<Editor
     try {
       await props.editor.current?.flush();
       const docs = await project.readAllDocs();
-      const list = textNodes(project.binder).filter((n) => n.include !== false).map((n) => ({ nodeId: n.id, title: n.title, text: docs.get(n.id) ?? '' }));
-      setIssues(checkConsistency(list, project.book.style));
+      const list = textNodes(project.binder).filter((n) => n.include !== false).map((n) => ({ nodeId: n.id, title: docLabel(project.binder, n), text: docs.get(n.id) ?? '' }));
+      setIssues(checkConsistency(list, project.book.style, bibleSpellingIssues(project.bible, list)));
     } catch (e) {
       toast('fail', e instanceof Error ? e.message : String(e));
     } finally {
