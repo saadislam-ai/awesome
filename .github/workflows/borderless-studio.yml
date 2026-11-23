@@ -1,0 +1,244 @@
+# Borderless Studio: tests, sample book and installers.
+#
+# What this does on every push that touches borderless-studio/:
+#   1. runs the type checks and the automated tests on Linux,
+#   2. builds every edition of the sample book and keeps the files,
+#   3. builds the installers:
+#        macOS (Apple Silicon)   .dmg
+#        Windows (64 bit)        .msi and .exe
+#
+# Where to find the results: the Actions tab of the repository, pick a run,
+# scroll down to "Artifacts". Pushing a tag such as borderless-studio-v0.1.0
+# also attaches the installers to a draft release.
+#
+# Signing is optional. Without any secrets the macOS app gets an ad-hoc
+# signature and the Windows installers are unsigned; both still install (see
+# "Signing the installers" in borderless-studio/README.md for the one extra
+# click this needs, and for the secrets that switch real signing on).
+name: Borderless Studio
+
+on:
+  push:
+    branches:
+      - main
+      - 'claude/borderless-studio-app-u9youi'
+    tags:
+      - 'borderless-studio-v*'
+    paths:
+      - 'borderless-studio/**'
+      - '.github/workflows/borderless-studio.yml'
+  pull_request:
+    paths:
+      - 'borderless-studio/**'
+      - '.github/workflows/borderless-studio.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: borderless-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+    working-directory: borderless-studio
+
+jobs:
+  test:
+    name: Tests and sample book
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: borderless-studio/package-lock.json
+
+      # EPUBCheck is a Java program.
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download Typst and EPUBCheck (pinned versions, checksums verified)
+        run: npm run fetch-tools
+
+      - name: Type checks
+        run: npm run typecheck
+
+      - name: Check the platform spec files
+        run: npx tsx scripts/validate-specs.ts
+
+      - name: Automated tests (margins, spine, ISBN, EPUBCheck, PDF measurements)
+        run: npm test
+
+      - name: Build every edition of the sample book
+        run: npm run sample
+
+      - name: Keep the sample book files
+        uses: actions/upload-artifact@v6
+        with:
+          name: sample-book-exports
+          path: borderless-studio/sample-book/exports/
+          if-no-files-found: error
+
+  installers:
+    name: Installer for ${{ matrix.name }}
+    needs: test
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS (Apple Silicon)
+            os: macos-14
+            bundles: dmg
+            artifact: borderless-studio-macos-apple-silicon
+            files: |
+              borderless-studio/apps/desktop/src-tauri/target/release/bundle/dmg/*.dmg
+          - name: Windows
+            os: windows-latest
+            bundles: msi,nsis
+            artifact: borderless-studio-windows
+            files: |
+              borderless-studio/apps/desktop/src-tauri/target/release/bundle/msi/*.msi
+              borderless-studio/apps/desktop/src-tauri/target/release/bundle/nsis/*.exe
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: borderless-studio/package-lock.json
+
+      # Provides jlink, used to build the small Java runtime that is packed
+      # into the installer so that EPUBCheck works without installing Java.
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: borderless-studio/apps/desktop/src-tauri -> target
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download Typst and EPUBCheck (pinned versions, checksums verified)
+        run: npm run fetch-tools
+
+      - name: Build the small Java runtime
+        run: node scripts/build-jre.mjs
+
+      - name: Collect the tools that go into the installer
+        run: node scripts/prepare-bundle.mjs
+
+      # macOS signing and notarisation: only switched on when the secrets
+      # exist. An empty variable would override the ad-hoc identity in
+      # tauri.conf.json, so nothing is exported unless it has a value.
+      - name: Signing setup (macOS, optional)
+        if: runner.os == 'macOS'
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          if [ -n "$APPLE_CERTIFICATE" ] && [ -n "$APPLE_SIGNING_IDENTITY" ]; then
+            {
+              echo "APPLE_CERTIFICATE=$APPLE_CERTIFICATE"
+              echo "APPLE_CERTIFICATE_PASSWORD=$APPLE_CERTIFICATE_PASSWORD"
+              echo "APPLE_SIGNING_IDENTITY=$APPLE_SIGNING_IDENTITY"
+            } >> "$GITHUB_ENV"
+            if [ -n "$APPLE_ID" ] && [ -n "$APPLE_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
+              {
+                echo "APPLE_ID=$APPLE_ID"
+                echo "APPLE_PASSWORD=$APPLE_PASSWORD"
+                echo "APPLE_TEAM_ID=$APPLE_TEAM_ID"
+              } >> "$GITHUB_ENV"
+              echo "Signing with the Developer ID certificate and notarising."
+            else
+              echo "Signing with the Developer ID certificate (no notarisation: Apple ID secrets are missing)."
+            fi
+          else
+            echo "No signing secrets: the app gets an ad-hoc signature."
+          fi
+
+      # Windows signing: only when a certificate is supplied as a secret.
+      # The certificate is imported for this run only and its thumbprint is
+      # handed to Tauri through a small extra configuration file.
+      - name: Signing setup (Windows, optional)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+        run: |
+          if ($env:WINDOWS_CERTIFICATE) {
+            $pfx = Join-Path $env:RUNNER_TEMP 'signing.pfx'
+            [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($env:WINDOWS_CERTIFICATE))
+            $password = ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -AsPlainText -Force
+            $cert = Import-PfxCertificate -FilePath $pfx -CertStoreLocation Cert:\CurrentUser\My -Password $password
+            Remove-Item $pfx
+            $config = @{ bundle = @{ windows = @{ certificateThumbprint = $cert.Thumbprint; digestAlgorithm = 'sha256'; timestampUrl = 'http://timestamp.digicert.com' } } }
+            $config | ConvertTo-Json -Depth 5 | Set-Content -Encoding utf8 (Join-Path $env:RUNNER_TEMP 'signing.json')
+            "TAURI_EXTRA_CONFIG=$(Join-Path $env:RUNNER_TEMP 'signing.json')" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+            Write-Host 'Signing the installers with the supplied certificate.'
+          } else {
+            Write-Host 'No signing secrets: the installers are unsigned.'
+          }
+
+      - name: Build the installer
+        working-directory: borderless-studio/apps/desktop
+        run: |
+          if [ -n "${TAURI_EXTRA_CONFIG:-}" ]; then
+            npx tauri build --bundles "${{ matrix.bundles }}" --config "$TAURI_EXTRA_CONFIG"
+          else
+            npx tauri build --bundles "${{ matrix.bundles }}"
+          fi
+
+      - name: Keep the installer
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.files }}
+          if-no-files-found: error
+
+  release:
+    name: Draft release
+    if: startsWith(github.ref, 'refs/tags/borderless-studio-v')
+    needs: installers
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          path: artifacts
+
+      - name: Attach the installers to a draft release
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files=$(find artifacts -type f \( -name '*.dmg' -o -name '*.msi' -o -name '*.exe' \))
+          gh release create "$GITHUB_REF_NAME" $files \
+            --repo "$GITHUB_REPOSITORY" \
+            --draft \
+            --title "Borderless Studio ${GITHUB_REF_NAME#borderless-studio-v}" \
+            --notes "Installers built from tag $GITHUB_REF_NAME. macOS: open the .dmg and drag the app to Applications. Windows: run the .msi or the .exe."

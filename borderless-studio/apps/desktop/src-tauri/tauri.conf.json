@@ -45,7 +45,8 @@
       "bundled-tools/": "tools/"
     },
     "macOS": {
-      "minimumSystemVersion": "13.3"
+      "minimumSystemVersion": "13.3",
+      "signingIdentity": "-"
     },
     "windows": {
       "wix": { "language": "en-US" },
