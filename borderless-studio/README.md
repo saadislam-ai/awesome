@@ -40,7 +40,7 @@ The app is built in phases. After each phase it builds, runs and is usable.
 | --- | --- | --- |
 | 1 | Library and new book wizard, writer, binder, tracked changes and comments, snapshots, search and replace, typography cleaner with dash policy, EPUB 3 export with EPUBCheck, print interior PDF for KDP and IngramSpark trim sizes | Done |
 | 2 | Book screen (details, editions, interior design with the six templates and a live preview of real pages, front and back matter), cover builder (paperback, hardcover case, dust jacket, barcode, ebook covers, 3D picture), PDF/X-1a for print files, preflight for interiors, covers and ebooks | Done |
-| 3 | Metadata and listing manager, Reach First pricing calculator, ISBN manager, Bangla checks | Planned |
+| 3 | Publish screen: Reach First prices for every marketplace, listing editor with KDP preview and copy and paste sheets, Thema lookup, ONIX 3.0 export, ISBN register, publishing checklist with Australian legal deposit; Bangla books from typing to print | Done |
 | 4 | Extras: AI assistant (off by default), large print, sample and ARC builder, marketing kit, audiobook prep, series manager, backup, imports, publishing checklist, spec updater | Planned |
 
 The engine also runs without the interface, from a terminal:
@@ -299,7 +299,9 @@ differ from what you told me. They are marked in the spec files too.
 4. **Bangla.** KDP does not support Bengali for ebooks, paperbacks or
    hardcovers. IngramSpark print accepts any language whose fonts are
    embedded, but nothing official confirms Bengali metadata or ebook
-   retailers. D2D Print states Latin based languages only.
+   retailers. D2D Print states Latin based languages only. The app typesets
+   Bangla correctly (conjuncts, Bengali numerals, Noto Serif Bengali) and
+   preflight tells you which platforms will refuse the edition.
 5. **Price barcodes.** The five digit price add-on exists for US and Canadian
    dollars only. There is no Australian dollar code, so Australian editions
    use `90000` (no price) or no add-on. The barcodes the app draws are read
@@ -338,6 +340,16 @@ differ from what you told me. They are marked in the spec files too.
   installed the barcode on the finished cover is read back by it
 * preflight: deliberately broken files (wrong page size, text in the gutter,
   a font that is not embedded, a coarse RGB picture) must each be reported
+* pricing: printing cost, royalty and minimum list price for KDP (including
+  the 50 and 60 percent price thresholds), IngramSpark and Draft2Digital,
+  ebook plans, tax, price endings and currency conversion, all against
+  figures worked out by hand
+* listing tools: KDP description limits, keyword checks, listing sheets, and
+  the ONIX 3.0 export. Set the environment variable `ONIX_XSD` to the
+  official reference schema file from EDItEUR and the test also validates
+  the ONIX file against it (it validates; the schema is not bundled)
+* a Bangla book built from start to finish, with Bangla letters in its file
+  names
 * crash safe saving, snapshots and the trash folder
 * end to end exports of the sample book with the real tools. The produced
   PDFs are opened again and measured: page size, the real margins on every

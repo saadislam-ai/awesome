@@ -3,7 +3,8 @@
  * its report into plain English messages that point back into the manuscript.
  */
 import type { Host } from '../host';
-import { dirname, joinPath } from '../util/paths';
+import { joinPath } from '../util/paths';
+import { hashString } from '../util/text';
 import type { EpubFileMapEntry } from './build';
 
 export interface EpubIssue {
@@ -163,20 +164,27 @@ export async function runEpubCheck(host: Host, epubPath: string, map: EpubFileMa
       problem: info.hint ?? 'EPUBCheck needs Java, which was not found on this computer. Install a Java runtime (for example Eclipse Temurin) or set its location in Settings, Tools.',
     };
   }
-  const report = joinPath(dirname(epubPath), '.epubcheck-report.json');
-  if (await host.exists(report)) await host.remove(report);
-  const res = await host.runTool('epubcheck', [epubPath, '--json', report], { timeoutMs: 180_000 });
-  if (!(await host.exists(report))) {
-    return {
-      ran: false, passed: false, errors: 0, warnings: 0, issues: [], checker: '',
-      problem: `EPUBCheck did not produce a report. ${res.stderr.split('\n').filter((l) => l.trim() && !/^Picked up/.test(l)).slice(0, 3).join(' ')}`.trim(),
-    };
-  }
+  // EPUBCheck is a Java program, and Java cannot always open files whose path
+  // contains letters outside the system's character set (a Bangla title in
+  // the file name, for example). So it is given a copy with a plain name in
+  // the temporary folder, and the report is written there too.
+  const { temp } = await host.paths();
+  const work = joinPath(temp, `borderless-epubcheck-${hashString(epubPath)}-${Date.now().toString(36)}`);
+  const copy = joinPath(work, 'book.epub');
+  const report = joinPath(work, 'report.json');
   try {
-    const result = parseEpubCheckJson(await host.readText(report), map);
-    await host.remove(report);
-    return result;
+    await host.mkdirp(work);
+    await host.copy(epubPath, copy);
+    const res = await host.runTool('epubcheck', [copy, '--json', report], { timeoutMs: 180_000 });
+    if (!(await host.exists(report))) {
+      const said = res.stderr.split('\n').filter((l) => l.trim() && !/^Picked up/.test(l)).slice(0, 3).join(' ');
+      const odd = /[^\x20-\x7e]/.test(work) ? ' The temporary folder of this computer has letters in its path that Java may not be able to read.' : '';
+      return { ran: false, passed: false, errors: 0, warnings: 0, issues: [], checker: '', problem: `EPUBCheck did not produce a report. ${said}${odd}`.trim() };
+    }
+    return parseEpubCheckJson(await host.readText(report), map);
   } catch (e) {
-    return { ran: false, passed: false, errors: 0, warnings: 0, issues: [], checker: '', problem: `The EPUBCheck report could not be read: ${(e as Error).message}` };
+    return { ran: false, passed: false, errors: 0, warnings: 0, issues: [], checker: '', problem: `EPUBCheck could not be run: ${(e as Error).message}` };
+  } finally {
+    await host.remove(work).catch(() => undefined);
   }
 }

@@ -36,7 +36,7 @@ borderless-studio/
   apps/desktop/
     src/                    React interface
       editor/               the Markdown editor (CodeMirror 6) and its decorations
-      views/                Library, Writer, Binder, Inspector, Book, Cover, Export, Settings
+      views/                Library, Writer, Binder, Inspector, Book, Cover, Export, Publish, Settings
       state/store.ts        one small state store (zustand)
       host/                 Tauri host and browser bridge host
     src-tauri/              Rust host, window settings, icons, installer settings
@@ -50,6 +50,8 @@ borderless-studio/
     cover/                  cover geometry, barcode, cover design, cover files, 3D picture
     color/                  screen colour to press ink (CMYK) conversion
     preflight/              checks on finished files against the platform rules
+    pricing/                printing cost, royalties, minimum prices, the Reach First plan
+    metadata/               retail listing, listing sheets, Thema lookup, ONIX 3.0
     epub/                   EPUB 3 writer and the EPUBCheck runner
     pdf/                    PDF reader for measurements, print finishing step, PDF/X-1a
     specs/                  loading and checking the platform spec files
@@ -185,6 +187,26 @@ measured from the ink actually drawn on each page; fonts, picture resolution,
 colour format, transparency, page count and file size are read from the PDF.
 Each check returns a status and a sentence saying what to do. The tests feed
 it deliberately broken files to prove that every fault is reported.
+
+## Prices and listings
+
+`pricing/` holds the arithmetic and nothing else: printing cost from cost
+bands, the publisher's share at a list price, the lowest list price a
+platform accepts, ebook plans, tax and currency conversion. Every rate,
+threshold, cost band and limit is a parameter that comes from the spec file
+of the platform. `pricing/reach.ts` puts these together into the Reach First
+plan: one row for each edition, platform and marketplace.
+
+One detail worth knowing: KDP pays 50 percent below a price threshold and 60
+percent at or above it, so a price just under the threshold can earn less
+than one just over it. The minimum price search tries each rate band from
+the cheapest up and takes the first answer that lies inside its own band.
+
+`metadata/` holds the retail listing: the description is written once and
+turned into what each store accepts (HTML limited to KDP's tags, or plain
+text), checked against the limits in the spec files, and laid out as a sheet
+of form fields to copy. `metadata/onix.ts` writes ONIX 3.0; the output was
+validated against the official EDItEUR schema.
 
 ## From manuscript to EPUB
 
