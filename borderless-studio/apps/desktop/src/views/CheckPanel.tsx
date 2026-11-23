@@ -21,6 +21,14 @@ const KINDS: { id: string; label: string; hint: string }[] = [
   { id: 'cliche', label: 'Worn phrases', hint: 'Phrases readers have met too often.' },
 ];
 
+/** A few words before (direction -1) or after (direction 1) a place in the text, cut at a word boundary, to show where a remark belongs. */
+function around(text: string, at: number, direction: -1 | 1): string {
+  const reach = 22;
+  const piece = (direction < 0 ? text.slice(Math.max(0, at - reach), at) : text.slice(at, at + reach)).replace(/\s+/g, ' ');
+  if (direction < 0) return piece.length < reach ? piece : piece.replace(/^\S*\s/, '');
+  return piece.length < reach ? piece : piece.replace(/\s\S*$/, '');
+}
+
 function ease(score: number): string {
   if (score >= 80) return 'very easy to read';
   if (score >= 65) return 'plain English';
@@ -129,7 +137,8 @@ export function CheckPanel(props: { text: string; editor: React.RefObject<Editor
           {grammar.findings.slice(0, 120).map((f, i) => (
             <div key={`${f.from}:${i}`} className="grammar-item">
               <button className="grammar-where" title="Show in the text" onClick={() => props.editor.current?.reveal(f.from, f.to)}>
-                <span className="badge">{f.kindLabel}</span> <b>{f.problem.length > 40 ? f.problem.slice(0, 40) + '...' : f.problem}</b>
+                <span className="badge">{f.kindLabel}</span>{' '}
+                <span className="dim">{around(grammar.text, f.from, -1)}</span><b>{f.problem.length > 40 ? f.problem.slice(0, 40) + '...' : f.problem}</b><span className="dim">{around(grammar.text, f.to, 1)}</span>
               </button>
               <div className="small dim">{f.message}</div>
               {f.suggestions.length > 0 && (

@@ -14,6 +14,14 @@ const LANGUAGES = [
   { id: 'bn', label: 'Bangla (Bengali)' },
 ];
 
+/** The name of an edition with its page size, unless the name already says the size ("Paperback 6 x 9"). */
+function editionChip(label: string, type: string, trim: string): string {
+  if (type === 'ebook') return label;
+  const size = trim.replace('x', ' x ');
+  const plain = (t: string) => t.toLowerCase().replace(/[\s\u00D7x]/g, '');
+  return plain(label).includes(plain(trim)) ? label : `${label} ${size}`;
+}
+
 export function LibraryView() {
   const books = useStore((s) => s.books);
   const specs = useStore((s) => s.specs);
@@ -113,7 +121,7 @@ export function LibraryView() {
                       <div className="formats">
                         {b.formats.filter((f) => f.enabled).map((f) => (
                           <span key={f.id} className={`badge ${f.isbn ? 'accent' : ''}`} title={f.isbn ? `ISBN ${f.isbn}` : 'No ISBN assigned yet'}>
-                            {f.label || FORMAT_SHORT[f.type]}{f.type !== 'ebook' ? ` ${f.trim.replace('x', ' x ')}` : ''}
+                            {editionChip(f.label || FORMAT_SHORT[f.type], f.type, f.trim)}
                           </span>
                         ))}
                       </div>

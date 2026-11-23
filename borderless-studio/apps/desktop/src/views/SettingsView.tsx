@@ -16,7 +16,6 @@ const TOOLS: { id: ToolId; name: string; purpose: string; needed: boolean }[] = 
   { id: 'java', name: 'Java', purpose: 'Runs EPUBCheck', needed: true },
   { id: 'kindle-previewer', name: 'Kindle Previewer', purpose: 'Optional: preview exactly as Kindle shows the book', needed: false },
   { id: 'git', name: 'Git', purpose: 'Optional: version history of a book folder', needed: false },
-  { id: 'pandoc', name: 'Pandoc', purpose: 'Optional: import of other document formats', needed: false },
 ];
 
 export function SettingsView() {

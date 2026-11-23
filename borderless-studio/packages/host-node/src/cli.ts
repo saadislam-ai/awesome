@@ -66,7 +66,7 @@ async function context(host: NodeHost, dir: string): Promise<BuildContext> {
 }
 
 async function cmdTools(host: NodeHost): Promise<number> {
-  const tools: ToolId[] = ['typst', 'epubcheck', 'java', 'pandoc', 'git', 'kindle-previewer'];
+  const tools: ToolId[] = ['typst', 'epubcheck', 'java', 'git', 'kindle-previewer'];
   for (const t of tools) {
     const info = await host.toolInfo(t);
     console.log(`${t.padEnd(18)} ${info.found ? 'found  ' : 'missing'} ${info.version ?? ''} ${info.path ? `(${info.source}: ${info.path})` : (info.hint ?? '')}`);
