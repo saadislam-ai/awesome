@@ -4,9 +4,22 @@
  */
 const ALPHABET = 'abcdefghjkmnpqrstuvwxyz23456789'; // no easily confused characters
 
+let source: (() => number) | null = null;
+
+/**
+ * Replace the random source by a repeatable one (a function returning
+ * numbers from 0 up to, but not including, 1), or pass null to go back to
+ * real randomness. Only the sample book generator and tests use this, so
+ * that generating the same book twice gives the same file names.
+ */
+export function setIdSource(fn: (() => number) | null): void {
+  source = fn;
+}
+
 export function shortId(len = 6): string {
   const bytes = new Uint8Array(len);
-  globalThis.crypto.getRandomValues(bytes);
+  if (source) for (let i = 0; i < len; i++) bytes[i] = Math.floor(source() * 256);
+  else globalThis.crypto.getRandomValues(bytes);
   let out = '';
   for (let i = 0; i < len; i++) out += ALPHABET[bytes[i] % ALPHABET.length];
   return out;

@@ -1449,6 +1449,8 @@
           "baseIn": 0,
           "minPagesForText": 48,
           "textMarginIn": 0.0625,
+          "narrowBelowIn": 0.35,
+          "narrowTextMarginIn": 0.03125,
           "templateUrl": "https://myaccount.ingramspark.com/Portal/Tools/CoverTemplateGenerator",
           "_meta": {
             "verified": true,
@@ -1982,6 +1984,8 @@
           "baseIn": 0,
           "minPagesForText": null,
           "textMarginIn": 0.0625,
+          "narrowBelowIn": 0.35,
+          "narrowTextMarginIn": 0.03125,
           "templateUrl": "https://myaccount.ingramspark.com/Portal/Tools/CoverTemplateGenerator",
           "_meta": {
             "verified": true,
@@ -2000,9 +2004,20 @@
           "safeMarginIn": 0.125,
           "wrapIn": 0.625,
           "hingeIn": 0.5,
-          "boardExtraWidthIn": 0,
+          "boardExtraWidthIn": -0.185,
           "boardExtraHeightIn": 0.25,
+          "hingeInsidePanel": false,
           "flapIn": 3.25,
+          "dustJacket": {
+            "flapIn": 3.25,
+            "flapWrapIn": 0.25,
+            "bleedIn": 0.125,
+            "panelExtraWidthIn": 0.4375,
+            "panelExtraHeightIn": 0.25,
+            "safeMarginIn": 0.125,
+            "maxTrimWidthIn": 6.14,
+            "maxTrimHeightIn": 9.252
+          },
           "barcode": {
             "widthIn": 1.75,
             "heightIn": 1.0,
@@ -2035,7 +2050,7 @@
               "ingramspark-com-hubfs-downloads-paper-specs-spark-pdf",
               "ingramspark-com-hubfs-downloads-pdf-checklist-pdf"
             ],
-            "note": "The board size formula is printed in the File Creation Guide under custom trim sizes; the generated template is authoritative. The board is NARROWER than the trim width by 0.185 in, so boardExtraWidthIn cannot express it and is left at 0: use the template."
+            "note": "The board size formula is printed in the File Creation Guide under custom trim sizes; the generated template is authoritative. The board is narrower than the trim width by 0.185 in (boardExtraWidthIn is negative) and the hinge is extra width between board and spine. Sizes worked out here are for layout; check them against the template before export."
           }
         },
         "_meta": {

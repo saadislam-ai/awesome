@@ -16,3 +16,4 @@ apps/desktop/src-tauri/gen/
 apps/desktop/src-tauri/bundled-tools/
 coverage/
 .scratch/
+sample-book/cover/ebook-cover.jpg

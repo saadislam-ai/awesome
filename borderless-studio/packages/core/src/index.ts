@@ -41,3 +41,7 @@ export * from './project/search';
 export * from './library/library';
 export * from './editor/cleaner';
 export * from './preflight/index';
+export * from './cover/geometry';
+export * from './cover/barcode';
+export * from './cover/model';
+export * from './cover/build';

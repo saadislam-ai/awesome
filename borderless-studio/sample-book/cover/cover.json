@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "layout": "band",
+  "colors": {
+    "background": "#14213d",
+    "text": "#ffffff",
+    "accent": "#e0b062",
+    "backBackground": null,
+    "backText": null,
+    "band": "#14213d"
+  },
+  "fonts": {
+    "title": "EB Garamond",
+    "body": "EB Garamond",
+    "titleCase": "as-typed",
+    "titleWeight": "regular"
+  },
+  "art": {
+    "front": "cover/art/dusk.png",
+    "frontMode": "full",
+    "wrap": null,
+    "wrapHasText": true,
+    "authorPhoto": null,
+    "logo": null
+  },
+  "front": {
+    "title": "",
+    "subtitle": "",
+    "author": "",
+    "tagline": "A novel of rivers, ledgers and waiting",
+    "showSubtitle": true
+  },
+  "spine": {
+    "showTitle": true,
+    "showAuthor": true,
+    "showImprint": true
+  },
+  "back": {
+    "headline": "Every crossing has a price.",
+    "blurb": "When the last ferry of the season fails to arrive, a customs clerk, a schoolteacher and a ferryman's daughter are left on the wrong bank of the river with a ledger that does not add up.\n\nOver one long dry season they learn what the delta keeps and what it gives back. *The Salt Road* is placeholder text, written by a machine from lists of words, and set here to show what a finished book looks like.\n\nIt has nineteen chapters, forty footnotes, three pictures and an index, which is exactly what a typesetting test needs.",
+    "bio": "**Dr Saad Islam** writes in Sydney. Any profit from Borderless Publishing books is donated to Blessings Foundation Bangladesh.",
+    "showImprint": true,
+    "showWebsite": true,
+    "align": "left"
+  },
+  "flaps": {
+    "front": "When the last ferry of the season fails to arrive, three people are left on the wrong bank of the river.\n\nA sample book of placeholder text.",
+    "back": "**Dr Saad Islam** writes in Sydney."
+  },
+  "barcode": {
+    "mode": "own",
+    "addon": "no-price",
+    "currency": "USD",
+    "price": null
+  }
+}

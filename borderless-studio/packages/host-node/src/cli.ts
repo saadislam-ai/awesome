@@ -12,10 +12,12 @@
  *       --platform <id>        one platform (default: every platform of the format)
  *       --accept-changes       apply pending tracked changes instead of ignoring them
  *       --all                  every enabled format and platform (default)
+ *       --no-cover             interiors and ebooks only
+ *       --preview              also write a cover preview picture with guides
  *   bstudio new <parent folder> --title "..." --author "..." [--genre novel]
  */
 import {
-  assembleProject, bundledSpecsDir, createBook, exportEpub, exportInterior, isStale, loadSpecs, openBook, preflightEpubFile, preflightInteriorFile, unverifiedSections,
+  assembleProject, bundledSpecsDir, coverKindsFor, createBook, exportCover, exportEbookCover, exportEpub, exportInterior, previewCover, isStale, loadSpecs, openBook, preflightCoverFile, preflightEpubFile, preflightInteriorFile, unverifiedSections,
   GENRES, type BuildContext, type BuildWarning, type Genre, type PlatformId, type PreflightReport, type ToolId,
 } from '@borderless/core';
 import * as nodePath from 'node:path';
@@ -109,6 +111,13 @@ async function cmdBuild(host: NodeHost, dir: string): Promise<number> {
   }
   for (const f of formats) {
     if (f.type === 'ebook') {
+      // The cover first, so the EPUB embeds the current one.
+      for (const platform of f.platforms.filter((p) => ctx.specs.platforms[p]?.ebook)) {
+        const cover = await exportEbookCover(ctx, { formatId: f.id, platform });
+        console.log(`\n${f.id} for ${platform}: ebook cover ${cover.ok ? 'OK' : 'FAILED'}${cover.ok ? ` (${cover.widthPx} x ${cover.heightPx} pixels, ${(cover.sizeBytes / 1024).toFixed(0)} KB)` : ''}`);
+        if (cover.jpgPath) console.log(`    ${cover.jpgPath}`);
+        printWarnings(cover.warnings);
+      }
       const t0 = Date.now();
       const res = await exportEpub(ctx, { formatId: f.id, criticView });
       console.log(`\n${f.id}: EPUB ${res.ok ? 'OK' : 'FAILED'} (${(res.sizeBytes / 1024).toFixed(0)} KB, ${((Date.now() - t0) / 1000).toFixed(1)} s)`);
@@ -144,6 +153,21 @@ async function cmdBuild(host: NodeHost, dir: string): Promise<number> {
       const pre = await preflightInteriorFile(ctx, res, platform);
       printPreflight(pre);
       if (!res.ok || !pre.ready) failures++;
+      if (has('no-cover') || !res.ok) continue;
+      for (const kind of coverKindsFor(ctx.specs.platforms[platform]!, f)) {
+        const cover = await exportCover(ctx, { formatId: f.id, platform, kind, pages: res.pageCount });
+        const g = cover.plan.geometry;
+        console.log(`  ${kind} cover: ${cover.ok ? 'OK' : 'FAILED'}${g && cover.pdfPath ? ` (${g.widthIn} x ${g.heightIn} in, spine ${g.spineWidthIn} in: ${g.spineBasis}${cover.pdfStandard ? ', ' + cover.pdfStandard : ''})` : ''}`);
+        if (cover.pdfPath) console.log(`    ${cover.pdfPath}`);
+        printWarnings(cover.warnings.filter((w) => w.severity === 'info'));
+        const coverPre = await preflightCoverFile(ctx, cover, { formatId: f.id, platform, kind });
+        printPreflight(coverPre);
+        if (!cover.ok || !coverPre.ready) failures++;
+        if (cover.ok && has('preview')) {
+          const prev = await previewCover(ctx, { formatId: f.id, platform, kind, pages: res.pageCount });
+          if (prev.ok) console.log(`    preview with guides: ${prev.pngPath}`);
+        }
+      }
     }
   }
   return failures ? 1 : 0;

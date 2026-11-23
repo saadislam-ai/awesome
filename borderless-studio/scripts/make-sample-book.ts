@@ -12,7 +12,7 @@
  */
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createBook, encodePng, joinPath, isbn13CheckDigit, type RasterImage } from '../packages/core/src/index';
+import { CoverDesignSchema, createBook, encodePng, joinPath, isbn13CheckDigit, saveCoverDesign, setIdSource, type RasterImage } from '../packages/core/src/index';
 import { NodeHost } from '../packages/host-node/src/index';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..').replace(/\\/g, '/');
@@ -192,13 +192,60 @@ function horizonImage(): RasterImage {
   return { width: w, height: h, channels: 1, data };
 }
 
+function coverArt(): RasterImage {
+  // Dusk over water in colour: large enough for a 6 x 9 in cover with bleed at 300 dpi.
+  const w = 1890;
+  const h = 2850;
+  const data = new Uint8Array(w * h * 3);
+  const mix = (a: number[], b: number[], t: number) => a.map((v, i) => v + (b[i] - v) * Math.max(0, Math.min(1, t)));
+  const night = [18, 30, 62];
+  const dusk = [196, 96, 58];
+  const glow = [244, 190, 120];
+  const water = [22, 44, 78];
+  const horizon = 0.47;
+  for (let y = 0; y < h; y++) {
+    const v = y / h;
+    for (let x = 0; x < w; x++) {
+      let c: number[];
+      if (v < horizon) {
+        const t = Math.pow(v / horizon, 2.2);
+        c = mix(night, dusk, t);
+        const dx = (x - w * 0.5) / w;
+        const dy = (v - horizon) * 1.3;
+        c = mix(c, glow, Math.exp(-(dx * dx + dy * dy) * 26) * 0.95);
+      } else {
+        const depth = (v - horizon) / (1 - horizon);
+        c = mix(dusk, water, Math.pow(depth, 0.45));
+        // A broken path of light on the water under the sun.
+        const dx = Math.abs(x - w * 0.5) / w;
+        const ripple = Math.sin(y * 0.09 + Math.sin(x * 0.01) * 2.5) * 0.5 + 0.5;
+        c = mix(c, glow, Math.max(0, 1 - dx * (5 + depth * 9)) * ripple * (1 - depth) * 0.8);
+      }
+      const i = (y * w + x) * 3;
+      data[i] = Math.round(c[0]);
+      data[i + 1] = Math.round(c[1]);
+      data[i + 2] = Math.round(c[2]);
+    }
+  }
+  return { width: w, height: h, channels: 3, data };
+}
+
 /* ------------------------------------------------------------------ */
 /* Build the project                                                   */
 /* ------------------------------------------------------------------ */
 
 const isbn = (first12: string) => first12 + isbn13CheckDigit(first12);
 
+/** A second repeatable sequence, for file and node ids, so the same book always gets the same file names. */
+let idSeed = 7654321;
+function idRand(): number {
+  idSeed = (Math.imul(idSeed, 1664525) + 1013904223) | 0;
+  return (idSeed >>> 0) / 4294967296;
+}
+const FIXED_TIME = '2026-11-23T00:00:00.000Z';
+
 async function main() {
+  setIdSource(idRand);
   const dir = joinPath(root, 'sample-book');
   if (await host.exists(dir)) await host.remove(dir);
   const project = await createBook(host, {
@@ -250,9 +297,35 @@ async function main() {
     designOverride: { fontSizePt: 16, lineHeight: 1.4, hyphenate: false, justify: false },
     platformOptions: {},
   });
+  // IngramSpark publishes no spine formula. A real book takes these from Ingram's cover template
+  // generator; the values here are stand-ins so that the sample builds every file.
+  paperback.platformOptions = { ingramspark: { spineWidthIn: 0.47 } };
+  hardcover.platformOptions = { ingramspark: { spineWidthIn: 0.5625 } };
+  book.formats.find((f) => f.id === 'paperback-6x9')!.platformOptions = { ingramspark: { spineWidthIn: 0.39 } };
+  book.publisherWebsite = 'borderlesspublishing.example';
   book.design.chapterOpener.dropCap = { enabled: true, lines: 3 };
   book.design.toc = { depth: 1, leaders: false, includeFrontMatter: false };
   await project.saveBook();
+
+  // Cover: a generated picture and a design with back cover text.
+  await host.mkdirp(project.path('cover/art'));
+  await host.writeBinary(project.path('cover/art/dusk.png'), encodePng(coverArt(), 300));
+  await saveCoverDesign(project, CoverDesignSchema.parse({
+    layout: 'band',
+    colors: { background: '#14213d', text: '#ffffff', accent: '#e0b062', band: '#14213d' },
+    art: { front: 'cover/art/dusk.png', frontMode: 'full' },
+    front: { tagline: 'A novel of rivers, ledgers and waiting' },
+    back: {
+      headline: 'Every crossing has a price.',
+      blurb: 'When the last ferry of the season fails to arrive, a customs clerk, a schoolteacher and a ferryman\'s daughter are left on the wrong bank of the river with a ledger that does not add up.\n\nOver one long dry season they learn what the delta keeps and what it gives back. *The Salt Road* is placeholder text, written by a machine from lists of words, and set here to show what a finished book looks like.\n\nIt has nineteen chapters, forty footnotes, three pictures and an index, which is exactly what a typesetting test needs.',
+      bio: '**Dr Saad Islam** writes in Sydney. Any profit from Borderless Publishing books is donated to Blessings Foundation Bangladesh.',
+    },
+    flaps: {
+      front: 'When the last ferry of the season fails to arrive, three people are left on the wrong bank of the river.\n\nA sample book of placeholder text.',
+      back: '**Dr Saad Islam** writes in Sydney.',
+    },
+    barcode: { mode: 'own', addon: 'no-price' },
+  }));
 
   const front = project.binder.roots[0];
   const body = project.binder.roots[1];
@@ -333,6 +406,17 @@ async function main() {
   await project.saveBinder();
   const words = await project.manuscriptWords();
   await project.addHistory(`Sample book generated: ${words} words, ${chapterIndex} chapters, ${noteNo} notes, ${indexNo} index markers.`);
+  // Fixed dates and no leftovers, so generating the book again changes nothing in git.
+  const bookPath = project.path('book.json');
+  const saved = JSON.parse(await host.readText(bookPath));
+  saved.createdAt = FIXED_TIME;
+  saved.updatedAt = FIXED_TIME;
+  saved.copyright.year = 2026;
+  for (const h of saved.history ?? []) h.date = FIXED_TIME.slice(0, 10);
+  await host.writeText(bookPath, JSON.stringify(saved, null, 2) + '\n');
+  for (const leftover of ['snapshots', 'stats', 'manuscript/.trash']) {
+    if (await host.exists(project.path(leftover))) await host.remove(project.path(leftover));
+  }
   console.log(`Sample book written to ${dir}`);
   console.log(`  ${words} words, ${chapterIndex} chapters in ${PARTS.length} parts, ${noteNo} footnotes, ${indexNo} index markers, 3 pictures`);
 }

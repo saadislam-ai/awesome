@@ -18,6 +18,7 @@ import type { PdfReport } from '../pdf/inspect';
 import type { PlatformSpec } from '../specs/schema';
 import type { BuildWarning } from '../build/assemble';
 import type { StagedImage } from '../typeset/interior';
+import { rectInside, type CoverGeometry, type Rect } from '../cover/geometry';
 
 export type CheckStatus = 'pass' | 'info' | 'warn' | 'fail';
 export type CheckGroup = 'file' | 'pages' | 'margins' | 'fonts' | 'pictures' | 'colour' | 'book' | 'text' | 'cover' | 'ebook';
@@ -456,6 +457,122 @@ export function preflightEpub(input: EpubPreflightInput): PreflightReport {
     add({ id: `build-${w.code}`, group: 'book', title: 'Reported while building', status: w.severity === 'fail' ? 'fail' : 'warn', detail: w.message, nodeId: w.nodeId });
   }
   return summarise(`Ebook for ${name}`, 'ebook', spec.platform, format.id, checks, input.now);
+}
+
+/* ------------------------------------------------------------------ */
+/* Print cover                                                         */
+/* ------------------------------------------------------------------ */
+
+export interface CoverPreflightInput {
+  report: PdfReport;
+  spec: PlatformSpec;
+  book: Book;
+  format: BookFormat;
+  geometry: CoverGeometry;
+  fileSizeBytes: number;
+  /** Page count of the newest interior built for this edition and platform, when known. */
+  interiorPages?: number | null;
+  /** Where the barcode was drawn (inches from the top left of the file), or null when the file has none. */
+  barcodeBox?: Rect | null;
+  barcodeMagnification?: number | null;
+  /** Highest total ink in converted pictures (2.4 = 240 %). */
+  maxInkConverted?: number | null;
+  buildWarnings?: BuildWarning[];
+  isbnRegister?: IsbnRegister | null;
+  now?: Date;
+}
+
+export function preflightCover(input: CoverPreflightInput): PreflightReport {
+  const { report, spec, book, format, geometry: g } = input;
+  const rules = spec.print!.formats[format.type as 'paperback' | 'hardcover']!.cover;
+  const name = spec.displayName;
+  const checks: Check[] = [];
+  const add = (c: Check) => checks.push(c);
+  const page = report.pages[0];
+
+  // --- Size and spine ----------------------------------------------------
+  if (report.pageCount !== 1 || !page) {
+    add({ id: 'cover-pages', group: 'cover', title: 'One page', status: 'fail', detail: `A cover file must have exactly one page; this one has ${report.pageCount}.` });
+  } else {
+    const okW = Math.abs(page.width / 72 - g.widthIn) < 0.011;
+    const okH = Math.abs(page.height / 72 - g.heightIn) < 0.011;
+    add(okW && okH
+      ? { id: 'cover-size', group: 'cover', title: 'Cover size', status: 'pass', detail: `${g.widthIn} x ${g.heightIn} in: two covers of ${g.trimWidthIn} x ${g.trimHeightIn} in, a spine of ${g.spineWidthIn} in${g.kind === 'paperback' ? ` and ${g.bleedIn} in bleed on every side` : g.kind === 'case-laminate' ? ` and ${g.bleedIn} in wrap on every side` : ', flaps and bleed'}.` }
+      : { id: 'cover-size', group: 'cover', title: 'Cover size', status: 'fail', detail: `The file is ${fmtIn(page.width / 72)} x ${fmtIn(page.height / 72)}, but ${g.pages} pages need ${g.widthIn} x ${g.heightIn} in.`, fix: 'Build the cover again.' });
+  }
+  if (input.interiorPages && input.interiorPages !== g.pages) {
+    add({ id: 'cover-spine', group: 'cover', title: 'Spine and page count', status: 'fail', detail: `The cover was built for ${g.pages} pages, but the newest interior has ${input.interiorPages}. The spine width no longer matches.`, fix: spec.print!.formats[format.type as 'paperback' | 'hardcover']!.spine.mode === 'template' ? `Generate a new ${name} cover template for ${input.interiorPages} pages, enter its spine width, and build the cover again.` : 'Build the cover again.' });
+  } else {
+    add({ id: 'cover-spine', group: 'cover', title: 'Spine width', status: 'pass', detail: `${g.spineWidthIn} in for ${g.pages} pages (${g.spineBasis}).` });
+  }
+  if (!g.spineTextAllowed && g.spineTextReason) add({ id: 'spine-text', group: 'cover', title: 'Spine text', status: 'info', detail: `No text on the spine. ${g.spineTextReason}` });
+
+  // --- Barcode -------------------------------------------------------------
+  if (input.barcodeBox) {
+    const inside = rectInside(input.barcodeBox, g.safe.back, 0.002);
+    const mag = input.barcodeMagnification ?? 1;
+    if (!inside) add({ id: 'barcode', group: 'cover', title: 'Barcode', status: 'fail', detail: 'The barcode reaches outside the safe area of the back cover.', fix: 'Build the cover again; if it persists the back cover is too small for a barcode.' });
+    else if (mag < 0.8 - 1e-6) add({ id: 'barcode', group: 'cover', title: 'Barcode', status: 'fail', detail: `The barcode is printed at ${Math.round(mag * 100)} %, below the 80 % that scanners need.` });
+    else add({ id: 'barcode', group: 'cover', title: 'Barcode', status: 'pass', detail: `ISBN barcode at ${Math.round(mag * 100)} % size in pure black on white, inside the safe area of the back cover.` });
+  } else if (rules.barcode.required) {
+    add({ id: 'barcode', group: 'cover', title: 'Barcode', status: 'fail', detail: `${name} needs a barcode on the back cover and this file has none.`, fix: 'Give the edition an ISBN and set the barcode to "draw the barcode" in the cover builder.' });
+  } else {
+    add({ id: 'barcode', group: 'cover', title: 'Barcode', status: 'info', detail: rules.barcode.platformAdds ? `The file has no barcode; ${name} prints its own in the reserved area (${rules.barcode.widthIn} x ${rules.barcode.heightIn} in). Leave the "cover has a barcode" box unticked when uploading.` : 'The file has no barcode.' });
+  }
+
+  // --- Fonts, pictures, colour -----------------------------------------------
+  const notEmbedded = report.fonts.filter((f) => !f.embedded);
+  add(notEmbedded.length === 0
+    ? { id: 'fonts-embedded', group: 'fonts', title: 'Fonts embedded', status: 'pass', detail: `All ${report.fonts.length} fonts are embedded in the file.` }
+    : { id: 'fonts-embedded', group: 'fonts', title: 'Fonts embedded', status: 'fail', detail: `Not embedded: ${notEmbedded.map((f) => f.name).join(', ')}.` });
+  const low = report.images.filter((i) => i.dpi + 1 < rules.minImageDpi);
+  if (report.images.length) {
+    add(low.length === 0
+      ? { id: 'picture-dpi', group: 'pictures', title: 'Picture resolution', status: 'pass', detail: `Cover pictures print at ${Math.min(...report.images.map((i) => Math.round(i.dpi)))} dpi or more (${name} asks for ${rules.minImageDpi}).` }
+      : { id: 'picture-dpi', group: 'pictures', title: 'Picture resolution', status: low.some((i) => i.dpi < rules.minImageDpi * 0.67) ? 'fail' : 'warn', detail: low.map((i) => `A picture of ${i.widthPx} x ${i.heightPx} pixels prints at ${Math.round(i.dpi)} dpi`).join('; ') + `. ${name} asks for ${rules.minImageDpi} dpi.`, fix: 'Use a larger original picture.' });
+  }
+  const cmykOnly = rules.colorSpace === 'cmyk' || Boolean(report.pdfx);
+  const badImages = report.images.filter((i) => !['gray', 'cmyk'].includes(i.color));
+  const families: string[] = [...new Set(report.pages.flatMap((p) => p.colors))].filter((f) => f !== 'cmyk' && f !== 'gray' && f !== 'pattern' && f !== 'unknown');
+  if (cmykOnly) {
+    add(badImages.length === 0 && families.length === 0
+      ? { id: 'cover-colour', group: 'colour', title: 'Colour format', status: 'pass', detail: 'Everything on the cover is CMYK or black, with no colour profiles attached.' }
+      : { id: 'cover-colour', group: 'colour', title: 'Colour format', status: 'fail', detail: `${name} needs CMYK. Found: ${[...new Set([...badImages.map((i) => `${i.color} picture`), ...families.map((f) => `${f} text or line work`)])].join(', ')}.`, fix: 'Build the cover again; pictures are converted automatically.' });
+  } else {
+    add({ id: 'cover-colour', group: 'colour', title: 'Colour format', status: 'pass', detail: `${name} accepts RGB and CMYK covers. Pictures are left in their original colours; type and flat colours are CMYK.` });
+  }
+  if (rules.maxInkPercent && input.maxInkConverted) {
+    const pct = Math.round(input.maxInkConverted * 100);
+    add(pct <= rules.maxInkPercent + 1
+      ? { id: 'ink-limit', group: 'colour', title: 'Ink coverage', status: 'pass', detail: `The heaviest area of the pictures uses ${pct} % total ink (limit ${rules.maxInkPercent} %).` }
+      : { id: 'ink-limit', group: 'colour', title: 'Ink coverage', status: 'fail', detail: `A picture reaches ${pct} % total ink; ${name} allows ${rules.maxInkPercent} %.` });
+  }
+  const transparent = report.pages.some((p) => p.usesTransparency) || report.images.some((i) => i.hasSoftMask);
+  add(transparent
+    ? { id: 'transparency', group: 'colour', title: 'Transparency', status: 'fail', detail: 'The cover contains transparency, which printers ask to be flattened.', fix: 'Save the picture without a transparent background.' }
+    : { id: 'transparency', group: 'colour', title: 'Transparency', status: 'pass', detail: 'The file contains no transparency.' });
+
+  // --- File ---------------------------------------------------------------------
+  if (rules.pdfStandards.length) {
+    add(report.pdfx
+      ? { id: 'pdf-standard', group: 'file', title: 'PDF standard', status: 'pass', detail: `The file is ${report.pdfx}. ${name} lists: ${rules.pdfStandards.join(', ')}.` }
+      : { id: 'pdf-standard', group: 'file', title: 'PDF standard', status: 'warn', detail: `The file is an ordinary PDF; ${name} prefers ${rules.pdfStandards.join(' or ')}.` });
+  }
+  const mb = input.fileSizeBytes / (1024 * 1024);
+  if (rules.maxFileMB) {
+    add(mb <= rules.maxFileMB
+      ? { id: 'file-size', group: 'file', title: 'File size', status: 'pass', detail: `${mb < 10 ? mb.toFixed(1) : Math.round(mb)} MB (limit ${rules.maxFileMB} MB).` }
+      : { id: 'file-size', group: 'file', title: 'File size', status: 'fail', detail: `The cover is ${Math.round(mb)} MB; ${name} accepts up to ${rules.maxFileMB} MB.` });
+  }
+  if (page && !page.hasTrimBox) add({ id: 'trim-box', group: 'file', title: 'Trim marks in the file', status: 'warn', detail: 'The cover does not state where it is trimmed.' });
+  checks.push(...bookChecks(spec, book, format, input.isbnRegister ?? null).filter((c) => c.id !== 'language' || c.status !== 'pass'));
+  for (const w of input.buildWarnings ?? []) {
+    if (w.severity === 'info') continue;
+    add({ id: `build-${w.code}`, group: 'cover', title: 'Reported while building', status: w.severity === 'fail' ? 'fail' : 'warn', detail: w.message });
+  }
+  const kindName = g.kind === 'paperback' ? 'cover' : g.kind === 'case-laminate' ? 'hardcover case' : 'dust jacket';
+  const label = `${format.label || format.type} ${kindName} for ${name}`;
+  return summarise(label.charAt(0).toUpperCase() + label.slice(1), 'cover', spec.platform, format.id, checks, input.now);
 }
 
 /* ------------------------------------------------------------------ */

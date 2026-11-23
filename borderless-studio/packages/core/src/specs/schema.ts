@@ -87,6 +87,9 @@ export const SpineSchema = z.object({
   minPagesForText: z.number().int().nullable().default(null),
   /** Clear space kept between spine text and each spine edge. */
   textMarginIn: z.number().nullable().default(null),
+  /** Spines narrower than this get the smaller margin below (IngramSpark: 0.35 in and 0.03125 in). */
+  narrowBelowIn: z.number().nullable().default(null),
+  narrowTextMarginIn: z.number().nullable().default(null),
   /** Where the user gets the value in "template" mode. */
   templateUrl: z.string().optional(),
   ...meta,
@@ -113,11 +116,33 @@ export const CoverSpecSchema = z.object({
   wrapIn: z.number().nonnegative().default(0),
   /** Hardcover case: hinge between spine and board. */
   hingeIn: z.number().nonnegative().default(0),
-  /** Hardcover case: how much larger the board is than the trimmed pages. */
-  boardExtraWidthIn: z.number().nonnegative().default(0),
-  boardExtraHeightIn: z.number().nonnegative().default(0),
+  /** Hardcover case: how much larger (or, when negative, smaller) the board is than the trimmed pages. */
+  boardExtraWidthIn: z.number().default(0),
+  boardExtraHeightIn: z.number().default(0),
+  /**
+   * Hardcover case: true when the hinge lies inside the width of the front
+   * and back panels (KDP), false when it is extra width between each board
+   * and the spine (IngramSpark).
+   */
+  hingeInsidePanel: z.boolean().default(true),
   /** Dust jacket flap width, when the platform makes jackets. */
   flapIn: z.number().nonnegative().nullable().default(null),
+  /** Dust jacket geometry, when the platform makes jackets. */
+  dustJacket: z
+    .object({
+      flapIn: z.number().positive(),
+      /** Strip between each cover panel and its flap that wraps around the board edge. */
+      flapWrapIn: z.number().nonnegative(),
+      bleedIn: z.number().nonnegative(),
+      /** How much wider and taller a jacket panel is than the trimmed pages. */
+      panelExtraWidthIn: z.number(),
+      panelExtraHeightIn: z.number(),
+      safeMarginIn: z.number().nonnegative(),
+      maxTrimWidthIn: z.number().nullable().default(null),
+      maxTrimHeightIn: z.number().nullable().default(null),
+    })
+    .nullable()
+    .default(null),
   barcode: BarcodeBoxSchema,
   colorSpace: z.enum(['cmyk', 'rgb-or-cmyk']).default('rgb-or-cmyk'),
   /** Maximum total ink (C+M+Y+K) in percent, when the platform sets one. */

@@ -7,9 +7,11 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { unzipSync, strFromU8 } from 'fflate';
+import { execFileSync } from 'node:child_process';
 import {
-  bundledSpecsDir, exportEpub, exportInterior, inspectPdf, interiorRules, loadSpecs, measureMargins, minInsideMargin, openBook,
-  type BuildContext, type EpubExport, type InteriorExport, type PdfReport,
+  bundledSpecsDir, exportCover, exportEbookCover, exportEpub, exportInterior, imageInfo, inspectPdf, interiorRules, loadSpecs, measureMargins,
+  minInsideMargin, openBook, preflightCoverFile, preflightInteriorFile, previewCover,
+  type BuildContext, type CoverExport, type EpubExport, type InteriorExport, type PdfReport,
 } from '@borderless/core';
 import { NodeHost, REPO_ROOT } from '../src/nodeHost';
 
@@ -196,7 +198,8 @@ describe('EPUB of the sample book', () => {
     expect(nav).toContain('epub:type="landmarks"');
     expect(nav).toContain('epub:type="bodymatter"');
     expect((nav.match(/<li>/g) ?? []).length).toBeGreaterThan(20);
-    expect(names.filter((n) => n.startsWith('OEBPS/images/'))).toHaveLength(3);
+    // Three pictures in the text; the cover picture is there too once the cover builder has made one.
+    expect(names.filter((n) => n.startsWith('OEBPS/images/') && !/cover\./.test(n))).toHaveLength(3);
   });
 
   it('uses the ebook ISBN on the copyright page, not a print ISBN', () => {
@@ -210,5 +213,111 @@ describe('EPUB of the sample book', () => {
     const chapter = res.result.map.find((m) => m.title.startsWith('Chapter One'))!;
     expect(chapter.lines.length).toBeGreaterThan(10);
     expect(chapter.lines.every((l) => l.nodeId && l.srcLine && l.srcLine > 0)).toBe(true);
+  });
+});
+
+describe('covers of the sample book', () => {
+  let kdp: CoverExport;
+  let ingram: CoverExport;
+  let kdpReport: PdfReport;
+  let ingramReport: PdfReport;
+
+  beforeAll(async () => {
+    if (!haveTypst) return;
+    const interior = await exportInterior(ctx, { formatId: 'paperback', platform: 'kdp' });
+    kdp = await exportCover(ctx, { formatId: 'paperback', platform: 'kdp', pages: interior.pageCount });
+    kdpReport = await inspectPdf(new Uint8Array(fs.readFileSync(kdp.pdfPath)));
+    const interiorIngram = await exportInterior(ctx, { formatId: 'paperback', platform: 'ingramspark' });
+    ingram = await exportCover(ctx, { formatId: 'paperback', platform: 'ingramspark', pages: interiorIngram.pageCount });
+    ingramReport = await inspectPdf(new Uint8Array(fs.readFileSync(ingram.pdfPath)));
+  });
+
+  it('the KDP cover has the size the spine formula gives for the real page count', () => {
+    if (!haveTypst) return;
+    expect(kdp.ok).toBe(true);
+    const g = kdp.plan.geometry!;
+    // cream paper: pages x 0.0025 in
+    expect(g.spineWidthIn).toBeCloseTo(kdp.plan.pages * 0.0025, 4);
+    expect(kdpReport.pageCount).toBe(1);
+    expect(kdpReport.pages[0].width / 72).toBeCloseTo(2 * 5.5 + g.spineWidthIn + 0.25, 2);
+    expect(kdpReport.pages[0].height / 72).toBeCloseTo(8.75, 2);
+    // The trim box is the cover without its bleed.
+    const t = kdpReport.pages[0].trim;
+    expect((t.x1 - t.x0) / 72).toBeCloseTo(2 * 5.5 + g.spineWidthIn, 2);
+    expect((t.y1 - t.y0) / 72).toBeCloseTo(8.5, 2);
+    for (const f of kdpReport.fonts) expect(f.embedded).toBe(true);
+    expect(kdpReport.pages[0].usesTransparency).toBe(false);
+  });
+
+  it('the IngramSpark cover is PDF/X-1a with a CMYK picture inside the ink limit', () => {
+    if (!haveTypst) return;
+    expect(ingram.ok).toBe(true);
+    expect(ingram.pdfStandard).toBe('PDF/X-1a:2001');
+    expect(ingramReport.pdfx).toBe('PDF/X-1a:2001');
+    expect(ingramReport.version).toBe('1.3');
+    expect(ingramReport.images).toHaveLength(1);
+    expect(ingramReport.images[0].color).toBe('cmyk');
+    expect(ingramReport.images[0].dpi).toBeGreaterThanOrEqual(300);
+    expect(new Set(ingramReport.pages[0].colors)).toEqual(new Set(['cmyk']));
+    expect(ingram.pdfx!.convertedToCmyk).toBe(1);
+    expect(ingram.pdfx!.maxInkConverted).toBeLessThanOrEqual(2.41);
+    expect(ingram.plan.geometry!.spineWidthIn).toBe(0.47);
+    expect(ingram.barcodeBox).not.toBeNull();
+    expect(ingram.barcodeMagnification!).toBeGreaterThanOrEqual(0.8);
+  });
+
+  it('both covers pass preflight, and a stale cover is caught when the page count changes', async () => {
+    if (!haveTypst) return;
+    const ok = await preflightCoverFile(ctx, ingram, { formatId: 'paperback', platform: 'ingramspark' });
+    expect(ok.checks.filter((c) => c.status === 'fail')).toEqual([]);
+    expect(ok.ready).toBe(true);
+    expect((await preflightCoverFile(ctx, kdp, { formatId: 'paperback', platform: 'kdp' })).ready).toBe(true);
+    // Pretend the interior grew after the cover was made.
+    const stale = { ...kdp, plan: { ...kdp.plan, geometry: { ...kdp.plan.geometry!, pages: kdp.plan.pages - 20 } } };
+    const report = await preflightCoverFile(ctx, stale, { formatId: 'paperback', platform: 'kdp' });
+    expect(report.ready).toBe(false);
+    expect(report.checks.find((c) => c.id === 'cover-spine')!.detail).toMatch(/no longer matches/);
+  });
+
+  it('the barcode on the cover can be read by a scanner library (when zbar is installed)', async () => {
+    if (!haveTypst) return;
+    let zbar = true;
+    try {
+      execFileSync('zbarimg', ['--version'], { stdio: 'ignore' });
+    } catch {
+      zbar = false;
+    }
+    if (!zbar) return;
+    const preview = await previewCover(ctx, { formatId: 'paperback', platform: 'ingramspark', guides: false, ppi: 600, pages: ingram.plan.pages });
+    expect(preview.ok).toBe(true);
+    let out = '';
+    try {
+      out = execFileSync('zbarimg', ['-q', '-Sean5.enable', '-Sisbn13.enable', preview.pngPath], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    } catch (e) {
+      out = String((e as { stdout?: string }).stdout ?? '');
+    }
+    expect(out).toContain('9781234567897');
+    expect(out).toContain('EAN-5:90000');
+  });
+
+  it('the ebook cover is an RGB JPEG of the size each store asks for', async () => {
+    if (!haveTypst) return;
+    const kdpCover = await exportEbookCover(ctx, { platform: 'kdp' });
+    expect(kdpCover.ok).toBe(true);
+    const info = imageInfo(new Uint8Array(fs.readFileSync(kdpCover.jpgPath)));
+    expect([info.format, info.width, info.height, info.color]).toEqual(['jpeg', 1600, 2560, 'rgb']);
+    const d2d = await exportEbookCover(ctx, { platform: 'draft2digital' });
+    const d2dInfo = imageInfo(new Uint8Array(fs.readFileSync(d2d.jpgPath)));
+    expect([d2dInfo.width, d2dInfo.height]).toEqual([1600, 2400]);
+    expect(fs.existsSync(path.join(sampleDir, 'cover', 'ebook-cover.jpg'))).toBe(true);
+  });
+
+  it('the interior preflight of the sample book has no failures and no warnings', async () => {
+    if (!haveTypst) return;
+    const res = await exportInterior(ctx, { formatId: 'paperback', platform: 'ingramspark' });
+    const report = await preflightInteriorFile(ctx, res, 'ingramspark');
+    expect(report.checks.filter((c) => c.status === 'fail' || c.status === 'warn')).toEqual([]);
+    expect(report.ready).toBe(true);
+    expect(report.counts.pass).toBeGreaterThanOrEqual(15);
   });
 });

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "id": "bk_eygx79zz",
+  "id": "bk_xdazrchc",
   "title": "The Salt Road",
   "subtitle": "A Sample Book of Placeholder Text",
   "series": null,
@@ -18,7 +18,7 @@
   "imprint": "Borderless Publishing",
   "publisherCity": "Sydney",
   "publisherCountry": "Australia",
-  "publisherWebsite": "",
+  "publisherWebsite": "borderlesspublishing.example",
   "copyright": {
     "year": 2026,
     "holder": "Saad Islam",
@@ -131,7 +131,11 @@
       "coverFinish": "matte",
       "binding": "case-laminate",
       "largePrint": false,
-      "platformOptions": {},
+      "platformOptions": {
+        "ingramspark": {
+          "spineWidthIn": 0.47
+        }
+      },
       "ebook": {
         "embedFonts": false,
         "dropCaps": true,
@@ -156,7 +160,11 @@
       "coverFinish": "matte",
       "binding": "case-laminate",
       "largePrint": false,
-      "platformOptions": {},
+      "platformOptions": {
+        "ingramspark": {
+          "spineWidthIn": 0.5625
+        }
+      },
       "ebook": {
         "embedFonts": false,
         "dropCaps": true,
@@ -207,7 +215,11 @@
       "coverFinish": "matte",
       "binding": "case-laminate",
       "largePrint": false,
-      "platformOptions": {},
+      "platformOptions": {
+        "ingramspark": {
+          "spineWidthIn": 0.39
+        }
+      },
       "ebook": {
         "embedFonts": false,
         "dropCaps": true,
@@ -266,6 +278,6 @@
       "change": "Sample book generated: 62498 words, 19 chapters, 40 notes, 74 index markers."
     }
   ],
-  "createdAt": "2026-11-23T03:31:30.869Z",
-  "updatedAt": "2026-11-23T03:31:31.371Z"
+  "createdAt": "2026-11-23T00:00:00.000Z",
+  "updatedAt": "2026-11-23T00:00:00.000Z"
 }

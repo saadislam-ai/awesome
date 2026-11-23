@@ -20,7 +20,10 @@ import type { PdfxOptions } from '../pdf/pdfx';
 import { inspectPdf } from '../pdf/inspect';
 import { imageInfo } from '../image/info';
 import { textNodes } from '../model/book';
-import { formatPreflight, manuscriptChecks, preflightEpub, preflightInterior, summarise, type ManuscriptDoc, type PreflightReport } from '../preflight/index';
+import { buildCoverPdf, buildEbookCover, renderCoverPreview, type CoverBuildInput, type CoverEnv, type CoverPdfResult, type EbookCoverResult } from '../cover/build';
+import { coverGeometry, coverKindsFor, type CoverGeometryResult, type CoverKind } from '../cover/geometry';
+import { CoverDesignSchema, type CoverDesign } from '../cover/model';
+import { formatPreflight, manuscriptChecks, preflightCover, preflightEpub, preflightInterior, summarise, type ManuscriptDoc, type PreflightReport } from '../preflight/index';
 import { assembleBook, type AlsoByGroup, type AssembledBook, type BuildWarning } from './assemble';
 
 export interface BuildContext {
@@ -158,6 +161,10 @@ export async function exportInterior(ctx: BuildContext, opts: InteriorExportOpti
   });
   result.warnings.unshift(...pre);
   if (pre.some((w) => w.severity === 'fail')) result.ok = false;
+  // Remember the page count: the cover's spine width depends on it. Samples and review copies do not count.
+  if (result.pageCount > 0 && !opts.variant && !opts.sampleChapters) {
+    await project.writeData(`${LAYOUT.buildDir}/${opts.formatId}-${opts.platform}/last.json`, { pageCount: result.pageCount, builtAt: new Date().toISOString() });
+  }
   return { ...result, platforms: [opts.platform], rules, assembled };
 }
 
@@ -331,7 +338,9 @@ export async function preflightInteriorFile(ctx: BuildContext, res: InteriorExpo
 export async function preflightEpubFile(ctx: BuildContext, res: EpubExport, platform: PlatformId): Promise<PreflightReport> {
   const spec = ctx.specs.platforms[platform];
   if (!spec) throw new Error(`There is no spec file for ${platform}.`);
-  const cover = await findEbookCover(ctx);
+  // The cover made for this store, when there is one; otherwise the one inside the EPUB.
+  const own = ctx.project.path(LAYOUT.exportsDir, `${slugify(ctx.project.book.title, 40)}_ebook-cover_${platform}.jpg`);
+  const cover = (await ctx.host.exists(own)) ? { data: await ctx.host.readBinary(own), mediaType: 'image/jpeg' } : await findEbookCover(ctx);
   const report = preflightEpub({
     spec, book: ctx.project.book, format: res.assembled.format, check: res.check, fileSizeBytes: res.sizeBytes,
     cover: cover ? { info: imageInfo(cover.data), sizeBytes: cover.data.length } : null,
@@ -341,4 +350,192 @@ export async function preflightEpubFile(ctx: BuildContext, res: EpubExport, plat
   const full = summarise(report.target, report.kind, platform, res.assembled.format.id, [...report.checks, ...extra]);
   if (res.epubPath) await ctx.host.writeText(res.epubPath.replace(/\.epub$/, `_${platform}_preflight.txt`), formatPreflight(full));
   return full;
+}
+
+/* ------------------------------------------------------------------ */
+/* Covers                                                              */
+/* ------------------------------------------------------------------ */
+
+/** The cover design of the book (cover/cover.json), or the default design when none was saved yet. */
+export async function loadCoverDesign(project: Project): Promise<CoverDesign> {
+  return CoverDesignSchema.parse(await project.readData<unknown>(LAYOUT.cover, {}));
+}
+
+export async function saveCoverDesign(project: Project, design: CoverDesign): Promise<void> {
+  await project.writeData(LAYOUT.cover, CoverDesignSchema.parse(design));
+}
+
+/** Page count of the last interior built for an edition and platform, or null when none was built yet. */
+export async function lastPageCount(ctx: BuildContext, formatId: string, platform: PlatformId): Promise<number | null> {
+  const last = await ctx.project.readData<{ pageCount?: number } | null>(`${LAYOUT.buildDir}/${formatId}-${platform}/last.json`, null);
+  return last?.pageCount && last.pageCount > 0 ? last.pageCount : null;
+}
+
+export interface CoverTarget {
+  formatId: string;
+  platform: PlatformId;
+  kind?: CoverKind;
+  /** Page count to use for the spine. Defaults to the last interior build, building the interior first when there is none. */
+  pages?: number;
+}
+
+export interface CoverPlan extends CoverGeometryResult {
+  pages: number;
+  kind: CoverKind;
+  design: CoverDesign;
+}
+
+/** Work out the cover layout for an edition on a platform. */
+export async function planCover(ctx: BuildContext, target: CoverTarget): Promise<CoverPlan> {
+  const format = getFormat(ctx.project.book, target.formatId);
+  const spec = ctx.specs.platforms[target.platform];
+  if (!spec?.print) throw new Error(`There is no print spec file for ${target.platform}.`);
+  if (format.type === 'ebook') throw new Error('Choose a paperback or hardcover edition for a print cover.');
+  let pages = target.pages ?? (await lastPageCount(ctx, target.formatId, target.platform));
+  if (!pages) {
+    const interior = await exportInterior(ctx, { formatId: target.formatId, platform: target.platform });
+    pages = interior.pageCount;
+  }
+  const kind = target.kind ?? coverKindsFor(spec, format)[0];
+  const po = format.platformOptions[target.platform] ?? {};
+  const design = await loadCoverDesign(ctx.project);
+  const res = coverGeometry(spec, format, pages, {
+    kind, templateSpineIn: po.spineWidthIn ?? null, templateWidthIn: po.templateWidthIn ?? null, templateHeightIn: po.templateHeightIn ?? null,
+  });
+  if (pages <= 0) res.problems.unshift('The interior could not be built, so the page count for the spine is unknown.');
+  return { ...res, pages, kind, design };
+}
+
+function coverEnv(ctx: BuildContext, target: CoverTarget, kind: CoverKind): CoverEnv {
+  return {
+    host: ctx.host, projectDir: ctx.project.dir,
+    buildDir: ctx.project.path(LAYOUT.buildDir, `cover-${target.formatId}-${target.platform}-${kind}`),
+    typstLibDir: joinPath(ctx.resourcesDir, 'typst', 'lib'), fontDirs: fontDirs(ctx),
+  };
+}
+
+function coverInput(ctx: BuildContext, plan: CoverPlan, format: ReturnType<typeof getFormat>): CoverBuildInput {
+  const book = ctx.project.book;
+  return {
+    book, format, design: plan.design, geometry: plan.geometry!,
+    isbnDisplay: format.isbn ? displayIsbn(ctx.isbnRegister ?? null, format.isbn) : undefined,
+    imprint: book.imprint, website: book.publisherWebsite,
+    // IngramSpark names its rich black; other platforms get the converter's own dark mix.
+    richBlack: plan.geometry!.platform === 'ingramspark' ? [60, 40, 40, 100] : null,
+  };
+}
+
+export interface CoverExport extends CoverPdfResult {
+  plan: CoverPlan;
+  kind: CoverKind;
+}
+
+/** Build the print cover PDF for an edition and platform and write it to exports/. */
+export async function exportCover(ctx: BuildContext, target: CoverTarget & { outFile?: string }): Promise<CoverExport> {
+  const plan = await planCover(ctx, target);
+  const format = getFormat(ctx.project.book, target.formatId);
+  const failed = (problems: string[]): CoverExport => ({
+    ok: false, pdfPath: '', widthIn: 0, heightIn: 0, pdfStandard: null, barcodeBox: null, barcodeMagnification: null, log: '', plan, kind: plan.kind,
+    warnings: problems.map((message) => ({ severity: 'fail' as const, code: 'cover-layout', message })),
+  });
+  if (!plan.geometry || plan.problems.length) return failed(plan.problems.length ? plan.problems : ['The cover could not be laid out.']);
+  const g = plan.geometry;
+  const spec = ctx.specs.platforms[target.platform]!;
+  const coverRules = spec.print!.formats[format.type as 'paperback' | 'hardcover']!.cover;
+  // PDF/X and CMYK conversion where the platform's cover rules ask for them.
+  const wantsX = coverRules.pdfStandards.some((s) => /^PDF\/X-1a/i.test(s));
+  let toCmyk: ((r: number, gg: number, b: number) => [number, number, number, number]) | undefined;
+  let pdfx: PdfxOptions | null = null;
+  const profilePath = joinPath(ctx.resourcesDir, PRINT_PROFILE);
+  if ((wantsX || coverRules.colorSpace === 'cmyk') && (await ctx.host.exists(profilePath))) {
+    const conv = rgbToCmykConverter(await ctx.host.readBinary(profilePath), { inkLimit: (coverRules.maxInkPercent ?? 240) / 100 });
+    toCmyk = (r, gg, b) => conv.color(r, gg, b);
+    if (wantsX) pdfx = { rgbToCmyk: (rgb) => conv.pixels(rgb, 3) };
+  } else if (await ctx.host.exists(profilePath)) {
+    // Platforms that take RGB or CMYK still get CMYK text and flat colours, for predictable print.
+    const conv = rgbToCmykConverter(await ctx.host.readBinary(profilePath), { inkLimit: 2.4 });
+    toCmyk = (r, gg, b) => conv.color(r, gg, b);
+  }
+  const suffix = plan.kind === 'paperback' ? 'cover' : plan.kind === 'case-laminate' ? 'case-cover' : 'dust-jacket';
+  const outFile = target.outFile ?? ctx.project.path(LAYOUT.exportsDir, `${exportBaseName(ctx, { formatId: target.formatId }, target.platform)}_${suffix}.pdf`);
+  const res = await buildCoverPdf(coverEnv(ctx, target, plan.kind), coverInput(ctx, plan, format), outFile, { toCmyk, pdfx });
+  for (const c of plan.cautions) res.warnings.push({ severity: 'info', code: 'cover-note', message: c });
+  if (res.ok) {
+    await ctx.project.writeData(`${LAYOUT.buildDir}/cover-${target.formatId}-${target.platform}-${plan.kind}/last.json`, {
+      pages: plan.pages, spineWidthIn: g.spineWidthIn, widthIn: g.widthIn, heightIn: g.heightIn, builtAt: new Date().toISOString(),
+    });
+  }
+  return { ...res, plan, kind: plan.kind };
+}
+
+/** Render the cover as a picture with trim, fold and safe zone guides, for the cover builder screen. */
+export async function previewCover(ctx: BuildContext, target: CoverTarget & { guides?: boolean; ppi?: number; design?: CoverDesign }): Promise<{ ok: boolean; pngPath: string; plan: CoverPlan; warnings: BuildWarning[] }> {
+  const plan = await planCover(ctx, target);
+  if (target.design) plan.design = target.design;
+  if (!plan.geometry) {
+    return { ok: false, pngPath: '', plan, warnings: plan.problems.map((message) => ({ severity: 'fail' as const, code: 'cover-layout', message })) };
+  }
+  const format = getFormat(ctx.project.book, target.formatId);
+  const env = coverEnv(ctx, target, plan.kind);
+  const out = joinPath(env.buildDir, `preview${target.guides === false ? '-clean' : ''}.png`);
+  const res = await renderCoverPreview(env, coverInput(ctx, plan, format), out, { guides: target.guides, ppi: target.ppi });
+  return { ...res, plan };
+}
+
+/**
+ * Build the ebook cover in the pixel size a store asks for. The file for the
+ * first platform is also saved as cover/ebook-cover.jpg, which is the picture
+ * the EPUB export embeds.
+ */
+export async function exportEbookCover(ctx: BuildContext, opts: { formatId?: string; platform?: PlatformId; design?: CoverDesign } = {}): Promise<EbookCoverResult & { platform: PlatformId }> {
+  const book = ctx.project.book;
+  const format = opts.formatId ? getFormat(book, opts.formatId) : book.formats.find((f) => f.type === 'ebook' && f.enabled) ?? book.formats.find((f) => f.type === 'ebook');
+  if (!format) throw new Error('This book has no ebook edition.');
+  const platform = opts.platform ?? format.platforms.find((p) => ctx.specs.platforms[p]?.ebook) ?? 'kdp';
+  const rules = ctx.specs.platforms[platform]?.ebook;
+  if (!rules) throw new Error(`The ${platform} spec file has no ebook section.`);
+  const design = opts.design ?? (await loadCoverDesign(ctx.project));
+  const env: CoverEnv = {
+    host: ctx.host, projectDir: ctx.project.dir, buildDir: ctx.project.path(LAYOUT.buildDir, `cover-ebook-${platform}`),
+    typstLibDir: joinPath(ctx.resourcesDir, 'typst', 'lib'), fontDirs: fontDirs(ctx),
+  };
+  // The front layout needs no print geometry; a neutral one keeps the types simple.
+  const blank = { x: 0, y: 0, w: 0, h: 0 };
+  const input: CoverBuildInput = {
+    book, format, design, imprint: book.imprint, website: book.publisherWebsite,
+    geometry: {
+      platform, platformName: ctx.specs.platforms[platform]!.displayName, kind: 'paperback', pages: 0, trimWidthIn: 5, trimHeightIn: 8,
+      widthIn: 5, heightIn: 8, bleedIn: 0, trim: blank, back: blank, spine: blank, front: blank, backFlap: null, frontFlap: null, hinges: [],
+      safe: { back: blank, front: blank, spine: null, backFlap: null, frontFlap: null }, barcode: blank, barcodeRequired: false, platformAddsBarcode: false,
+      spineWidthIn: 0, spineBasis: '', spineTextAllowed: false, maxInkPercent: null, colorSpace: 'rgb-or-cmyk', minImageDpi: 300, notes: [],
+    },
+  };
+  const out = ctx.project.path(LAYOUT.exportsDir, `${slugify(book.title, 40)}_ebook-cover_${platform}.jpg`);
+  const res = await buildEbookCover(env, input, out, { widthPx: rules.cover.idealWidthPx, heightPx: rules.cover.idealHeightPx });
+  // The EPUB embeds cover/ebook-cover.jpg; keep it in step with the first store of the edition.
+  if (res.ok && platform === (format.platforms.find((p) => ctx.specs.platforms[p]?.ebook) ?? platform)) {
+    await ctx.host.copy(out, ctx.project.path(LAYOUT.coverDir, 'ebook-cover.jpg'));
+  }
+  return { ...res, platform };
+}
+
+/** Open a finished cover PDF and check it against the platform's cover rules. */
+export async function preflightCoverFile(ctx: BuildContext, res: CoverExport, target: CoverTarget): Promise<PreflightReport> {
+  const spec = ctx.specs.platforms[target.platform];
+  if (!spec?.print) throw new Error(`There is no print spec file for ${target.platform}.`);
+  const format = getFormat(ctx.project.book, target.formatId);
+  const g = res.plan.geometry;
+  if (!res.pdfPath || !g) {
+    return summarise(`${format.label || format.type} cover for ${spec.displayName}`, 'cover', target.platform, format.id,
+      res.warnings.filter((w) => w.severity !== 'info').map((w) => ({ id: `build-${w.code}`, group: 'cover' as const, title: 'Reported while building', status: w.severity === 'fail' ? 'fail' as const : 'warn' as const, detail: w.message })));
+  }
+  const bytes = await ctx.host.readBinary(res.pdfPath);
+  const report = preflightCover({
+    report: await inspectPdf(bytes), spec, book: ctx.project.book, format, geometry: g, fileSizeBytes: bytes.length,
+    interiorPages: await lastPageCount(ctx, target.formatId, target.platform),
+    barcodeBox: res.barcodeBox, barcodeMagnification: res.barcodeMagnification, maxInkConverted: res.pdfx?.maxInkConverted ?? null,
+    buildWarnings: res.warnings, isbnRegister: ctx.isbnRegister,
+  });
+  await ctx.host.writeText(res.pdfPath.replace(/\.pdf$/, '_preflight.txt'), formatPreflight(report));
+  return report;
 }
