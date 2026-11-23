@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "base": "AUD",
+  "date": "2026-11-20",
+  "source": "fixture",
+  "sourceUrl": "",
+  "rates": {
+    "AUD": 1,
+    "USD": 0.65,
+    "GBP": 0.5,
+    "EUR": 0.6,
+    "JPY": 100
+  },
+  "note": "fixture"
+}

@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 1,
+  "platform": "ingramspark",
+  "displayName": "IngramSpark (test fixture)",
+  "lastVerified": "2026-11-23",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "fixture",
+      "title": "Test fixture, not for production use",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201834180"
+    }
+  ],
+  "notes": [
+    "Fixture with fixed numbers so that calculation tests never change when the real spec files are updated."
+  ],
+  "print": {
+    "inkPaper": [
+      {
+        "id": "bw-white",
+        "ink": "bw",
+        "paper": "white",
+        "label": "Black & white interior with white paper",
+        "costGroup": "bw",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "bw-cream",
+        "ink": "bw",
+        "paper": "cream",
+        "label": "Black & white interior with cream paper",
+        "costGroup": "bw",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      },
+      {
+        "id": "standard-color-white",
+        "ink": "standard-color",
+        "paper": "white",
+        "label": "Standard color interior with white paper",
+        "costGroup": "standard-color",
+        "formats": [
+          "paperback"
+        ]
+      },
+      {
+        "id": "premium-color-white",
+        "ink": "premium-color",
+        "paper": "white",
+        "label": "Premium color interior with white paper",
+        "costGroup": "premium-color",
+        "formats": [
+          "paperback",
+          "hardcover"
+        ]
+      }
+    ],
+    "bleed": {
+      "amountIn": 0.125,
+      "edges": [
+        "top",
+        "bottom",
+        "outside"
+      ],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "fixture"
+        ]
+      }
+    },
+    "margins": {
+      "gutter": [
+        {
+          "minPages": 18,
+          "maxPages": 1200,
+          "insideIn": 0.5
+        }
+      ],
+      "outsideMinNoBleedIn": 0.5,
+      "outsideMinWithBleedIn": 0.5,
+      "recommendedIn": 0.5,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "fixture"
+        ]
+      }
+    },
+    "pageCount": {
+      "multiple": 2,
+      "lastPageBlank": true,
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "fixture"
+        ]
+      }
+    },
+    "interiorFile": {
+      "pdfStandards": [
+        "PDF/X-1a:2001",
+        "PDF/X-3:2002"
+      ],
+      "pdfStandardRequired": false,
+      "minImageDpi": 300,
+      "maxFileMB": 650,
+      "fontsMustBeEmbedded": true,
+      "transparencyAllowed": false,
+      "cropMarksAllowed": false,
+      "bookmarksAllowed": false,
+      "spreadsAllowed": false,
+      "iccProfilesAllowed": false,
+      "notes": [],
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "fixture"
+        ]
+      }
+    },
+    "formats": {
+      "paperback": {
+        "trimSizes": [
+          {
+            "id": "5x8",
+            "widthIn": 5,
+            "heightIn": 8,
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            }
+          },
+          {
+            "id": "5.5x8.5",
+            "widthIn": 5.5,
+            "heightIn": 8.5,
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            }
+          },
+          {
+            "id": "6x9",
+            "widthIn": 6,
+            "heightIn": 9,
+            "costClass": "regular",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 828
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 776
+              },
+              "standard-color-white": {
+                "min": 72,
+                "max": 600
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 828
+              }
+            }
+          },
+          {
+            "id": "8.5x11",
+            "widthIn": 8.5,
+            "heightIn": 11,
+            "costClass": "large",
+            "pages": {
+              "bw-white": {
+                "min": 24,
+                "max": 590
+              },
+              "bw-cream": {
+                "min": 24,
+                "max": 550
+              },
+              "premium-color-white": {
+                "min": 24,
+                "max": 590
+              }
+            }
+          }
+        ],
+        "bindings": [
+          "perfect"
+        ],
+        "spine": {
+          "mode": "template",
+          "perPageIn": {},
+          "baseIn": 0,
+          "minPagesForText": 48,
+          "textMarginIn": 0.0625,
+          "templateUrl": "https://myaccount.ingramspark.com/Portal/Tools/CoverTemplateGenerator",
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "fixture"
+            ]
+          }
+        },
+        "cover": {
+          "bleedIn": 0.125,
+          "safeMarginIn": 0.125,
+          "barcode": {
+            "widthIn": 1.75,
+            "heightIn": 1.0,
+            "fromSpineIn": null,
+            "fromBottomIn": null,
+            "platformAdds": false,
+            "required": true
+          },
+          "colorSpace": "cmyk",
+          "maxInkPercent": 240,
+          "minImageDpi": 300,
+          "maxFileMB": 650,
+          "pdfStandards": [
+            "PDF/X-1a:2001"
+          ],
+          "notes": [],
+          "_meta": {
+            "verified": true,
+            "sources": [
+              "fixture"
+            ]
+          }
+        },
+        "_meta": {
+          "verified": true,
+          "sources": [
+            "fixture"
+          ]
+        }
+      }
+    }
+  },
+  "pricing": {
+    "print": {
+      "rateModel": "wholesale-discount",
+      "costModel": "bands",
+      "_meta": {
+        "verified": true,
+        "sources": [
+          "fixture"
+        ]
+      },
+      "marketplaces": [
+        {
+          "id": "AU",
+          "label": "Australia",
+          "currency": "AUD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": 10,
+          "discount": {
+            "min": 35,
+            "max": 55,
+            "default": 35
+          },
+          "feePercentOfList": 1.875,
+          "costs": {
+            "paperback": {
+              "bw": {
+                "regular": [
+                  {
+                    "minPages": 18,
+                    "maxPages": 1200,
+                    "fixed": 2.5,
+                    "perPage": 0.0248
+                  }
+                ],
+                "large": []
+              }
+            }
+          }
+        },
+        {
+          "id": "US",
+          "label": "United States",
+          "currency": "USD",
+          "decimals": 2,
+          "listPriceIncludesTax": false,
+          "taxPercent": null,
+          "discount": {
+            "min": 40,
+            "max": 55,
+            "default": 40
+          },
+          "feePercentOfList": 1.875,
+          "costs": {}
+        }
+      ]
+    }
+  },
+  "languages": {
+    "paperback": {
+      "supported": "any"
+    },
+    "_meta": {
+      "verified": true,
+      "sources": [
+        "fixture"
+      ]
+    }
+  }
+}

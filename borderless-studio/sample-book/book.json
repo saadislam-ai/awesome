@@ -1,0 +1,271 @@
+{
+  "schema": 1,
+  "id": "bk_eygx79zz",
+  "title": "The Salt Road",
+  "subtitle": "A Sample Book of Placeholder Text",
+  "series": null,
+  "contributors": [
+    {
+      "role": "author",
+      "name": "Dr Saad Islam",
+      "sortName": "Islam, Saad",
+      "bio": "",
+      "website": ""
+    }
+  ],
+  "language": "en-AU",
+  "genre": "novel",
+  "imprint": "Borderless Publishing",
+  "publisherCity": "Sydney",
+  "publisherCountry": "Australia",
+  "publisherWebsite": "",
+  "copyright": {
+    "year": 2026,
+    "holder": "Saad Islam",
+    "rightsStatement": "All rights reserved. No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without the prior written permission of the publisher, except for brief quotations in reviews.",
+    "extraLines": [
+      "This is a sample produced by Borderless Studio. The text is placeholder prose generated from word lists; any resemblance to real people or events is accidental.",
+      "Any profit from Borderless Publishing books is donated to Blessings Foundation Bangladesh."
+    ],
+    "nlaCatalogueLine": true
+  },
+  "editionNumber": 1,
+  "editionStatement": "First edition",
+  "publicationDate": "2026-11-23",
+  "style": {
+    "spelling": "en-AU",
+    "smartQuotes": true,
+    "quoteStyle": "double",
+    "dashPolicy": {
+      "mode": "flag",
+      "emDashReplacement": "comma",
+      "enDashRangeReplacement": "hyphen",
+      "includeTypedHyphens": true
+    },
+    "ellipsis": "character",
+    "spellOutNumbersBelow": 10
+  },
+  "design": {
+    "template": "literary",
+    "bodyFont": "EB Garamond",
+    "headingFont": "EB Garamond",
+    "sansFont": "Source Sans 3",
+    "fontSizePt": 11,
+    "lineHeight": 1.32,
+    "paragraphStyle": "indent",
+    "paragraphIndentEm": 1.4,
+    "justify": true,
+    "hyphenate": true,
+    "hyphenAvoidance": "normal",
+    "widowOrphanControl": true,
+    "baselineGrid": true,
+    "oldstyleFigures": true,
+    "marginPreset": "comfortable",
+    "runningHeads": {
+      "enabled": true,
+      "verso": "author",
+      "recto": "title",
+      "style": "smallcaps",
+      "align": "center",
+      "rule": false,
+      "sizePt": 9,
+      "trackingMilliEm": 60
+    },
+    "folio": {
+      "position": "bottom-center",
+      "sizePt": 9.5,
+      "showOnOpeners": true
+    },
+    "chapterOpener": {
+      "startOn": "any",
+      "sink": 0.2,
+      "numberStyle": "chapter-words",
+      "numberCase": "smallcaps",
+      "numberSizePt": 11,
+      "titleSizePt": 20,
+      "titleStyle": "italic",
+      "align": "center",
+      "ornament": "none",
+      "spaceAfterLines": 3,
+      "dropCap": {
+        "enabled": true,
+        "lines": 3
+      },
+      "leadIn": "words",
+      "leadInWords": 4
+    },
+    "sceneBreak": {
+      "style": "asterisks",
+      "lines": 2
+    },
+    "notes": "footnotes",
+    "headingSizesPt": [
+      14,
+      12,
+      11
+    ],
+    "headingStyle": "serif-italic",
+    "partNumberStyle": "words",
+    "toc": {
+      "depth": 1,
+      "leaders": false,
+      "includeFrontMatter": false
+    },
+    "greyscaleImages": true
+  },
+  "formats": [
+    {
+      "id": "paperback",
+      "type": "paperback",
+      "label": "Paperback",
+      "enabled": true,
+      "isbn": "9781234567897",
+      "platforms": [
+        "kdp",
+        "ingramspark"
+      ],
+      "trim": "5.5x8.5",
+      "paper": "cream",
+      "ink": "bw",
+      "bleed": false,
+      "coverFinish": "matte",
+      "binding": "case-laminate",
+      "largePrint": false,
+      "platformOptions": {},
+      "ebook": {
+        "embedFonts": false,
+        "dropCaps": true,
+        "sceneBreakImage": false,
+        "inlineToc": true
+      }
+    },
+    {
+      "id": "hardcover",
+      "type": "hardcover",
+      "label": "Hardcover",
+      "enabled": true,
+      "isbn": "9781234567903",
+      "platforms": [
+        "kdp",
+        "ingramspark"
+      ],
+      "trim": "6x9",
+      "paper": "cream",
+      "ink": "bw",
+      "bleed": false,
+      "coverFinish": "matte",
+      "binding": "case-laminate",
+      "largePrint": false,
+      "platformOptions": {},
+      "ebook": {
+        "embedFonts": false,
+        "dropCaps": true,
+        "sceneBreakImage": false,
+        "inlineToc": true
+      }
+    },
+    {
+      "id": "ebook",
+      "type": "ebook",
+      "label": "Ebook",
+      "enabled": true,
+      "isbn": "9781234567910",
+      "platforms": [
+        "kdp",
+        "draft2digital",
+        "ingramspark"
+      ],
+      "trim": "5.5x8.5",
+      "paper": "cream",
+      "ink": "bw",
+      "bleed": false,
+      "coverFinish": "matte",
+      "binding": "case-laminate",
+      "largePrint": false,
+      "platformOptions": {},
+      "ebook": {
+        "embedFonts": false,
+        "dropCaps": true,
+        "sceneBreakImage": false,
+        "inlineToc": true
+      }
+    },
+    {
+      "id": "paperback-6x9",
+      "type": "paperback",
+      "label": "Paperback 6 x 9",
+      "enabled": true,
+      "isbn": "9781234567927",
+      "platforms": [
+        "kdp",
+        "ingramspark"
+      ],
+      "trim": "6x9",
+      "paper": "white",
+      "ink": "bw",
+      "bleed": false,
+      "coverFinish": "matte",
+      "binding": "case-laminate",
+      "largePrint": false,
+      "platformOptions": {},
+      "ebook": {
+        "embedFonts": false,
+        "dropCaps": true,
+        "sceneBreakImage": false,
+        "inlineToc": true
+      }
+    },
+    {
+      "id": "large-print",
+      "type": "paperback",
+      "label": "Large print",
+      "enabled": false,
+      "isbn": "9781234567934",
+      "platforms": [
+        "kdp",
+        "ingramspark"
+      ],
+      "trim": "6x9",
+      "paper": "white",
+      "ink": "bw",
+      "bleed": false,
+      "coverFinish": "matte",
+      "binding": "case-laminate",
+      "largePrint": true,
+      "platformOptions": {},
+      "ebook": {
+        "embedFonts": false,
+        "dropCaps": true,
+        "sceneBreakImage": false,
+        "inlineToc": true
+      },
+      "designOverride": {
+        "fontSizePt": 16,
+        "lineHeight": 1.4,
+        "hyphenate": false,
+        "justify": false
+      }
+    }
+  ],
+  "targets": {
+    "dailyWords": 1000,
+    "manuscriptWords": 80000,
+    "deadline": ""
+  },
+  "history": [
+    {
+      "date": "2026-11-23",
+      "edition": 1,
+      "formatId": "",
+      "change": "Book created."
+    },
+    {
+      "date": "2026-11-23",
+      "edition": 1,
+      "formatId": "",
+      "change": "Sample book generated: 62498 words, 19 chapters, 40 notes, 74 index markers."
+    }
+  ],
+  "createdAt": "2026-11-23T03:31:30.869Z",
+  "updatedAt": "2026-11-23T03:31:31.371Z"
+}

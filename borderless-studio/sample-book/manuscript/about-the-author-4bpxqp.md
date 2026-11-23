@@ -1,0 +1,1 @@
+Dr Saad Islam writes fiction and nonfiction and publishes under his imprint, Borderless Publishing, in Sydney, Australia. His books are priced as close to cost as the printers allow, because the goal is readers, not profit.

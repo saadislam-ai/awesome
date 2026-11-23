@@ -1,0 +1,791 @@
+{
+  "schema": 1,
+  "roots": [
+    {
+      "id": "root_front",
+      "type": "group",
+      "role": "front",
+      "kind": "generic",
+      "title": "Front matter",
+      "include": true,
+      "children": [
+        {
+          "id": "d_b8zdkc",
+          "type": "doc",
+          "kind": "half-title",
+          "title": "Half title",
+          "generated": true,
+          "include": true,
+          "status": "draft"
+        },
+        {
+          "id": "d_2yvd7w",
+          "type": "doc",
+          "kind": "title-page",
+          "title": "Title page",
+          "generated": true,
+          "include": true,
+          "status": "draft"
+        },
+        {
+          "id": "d_dyhwk2",
+          "type": "doc",
+          "kind": "copyright",
+          "title": "Copyright",
+          "generated": true,
+          "include": true,
+          "status": "draft"
+        },
+        {
+          "id": "d_txdkf2",
+          "type": "doc",
+          "kind": "dedication",
+          "title": "Dedication",
+          "file": "dedication-txdkf2.md",
+          "include": true,
+          "status": "draft"
+        },
+        {
+          "id": "d_hbps6u",
+          "type": "doc",
+          "kind": "epigraph",
+          "title": "Epigraph",
+          "include": true,
+          "file": "epigraph-hbps6u.md",
+          "status": "draft"
+        },
+        {
+          "id": "d_yh36y7",
+          "type": "doc",
+          "kind": "toc",
+          "title": "Contents",
+          "include": true,
+          "generated": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": "root_body",
+      "type": "group",
+      "role": "body",
+      "kind": "generic",
+      "title": "Manuscript",
+      "include": true,
+      "children": [
+        {
+          "id": "pt_mac42f",
+          "type": "part",
+          "kind": "part",
+          "title": "The Crossing",
+          "include": true,
+          "children": [
+            {
+              "id": "ch_zauty8",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "The River",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_32de6s",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-32de6s.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_dwarck",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-dwarck.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_m68sya",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-m68sya.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_7qz4kd",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "A House of Paper",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_mugzxe",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-mugzxe.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_xyj78g",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-xyj78g.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_85avnz",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Salt",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_hrkr8k",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-hrkr8k.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_rz9kus",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-rz9kus.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_d2qxt9",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-d2qxt9.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_khyse5",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "The Customs House",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_hzxhcf",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-hzxhcf.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_rd62f8",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-rd62f8.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_3nep7s",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-3nep7s.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_zez8ux",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Low Tide",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_h6pvrd",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-h6pvrd.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_azesdn",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-azesdn.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_au33dq",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-au33dq.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_98hrxu",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "What the Ferryman Knew",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_2z9yey",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-2z9yey.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_qfq67m",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-qfq67m.md",
+                  "status": "draft"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pt_8hnjz6",
+          "type": "part",
+          "kind": "part",
+          "title": "The Long Dry Season",
+          "include": true,
+          "children": [
+            {
+              "id": "ch_5jcava",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Borders",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_6d3hrp",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-6d3hrp.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_7wdmae",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-7wdmae.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_yrqzer",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "The Blue Ledger",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_vqgk98",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-vqgk98.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_3d3my8",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-3d3my8.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_9ga59s",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-9ga59s.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_65amqv",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Letters Home",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_ghbeht",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-ghbeht.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_zcw2jx",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-zcw2jx.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_cr47z4",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "The Night Market",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_egbfay",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-egbfay.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_cjkuve",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-cjkuve.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_kamnxh",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-kamnxh.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_5bhdw9",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "A Borrowed Radio",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_rw93ty",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-rw93ty.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_2vyw92",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-2vyw92.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_ypcvbt",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-ypcvbt.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_mtf6wf",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Herons",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_jrc6dy",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-jrc6dy.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_3c95dc",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-3c95dc.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_nz234b",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "The Lighthouse Road",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_jc3gm2",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-jc3gm2.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_amgneb",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-amgneb.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_tcyczm",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-tcyczm.md",
+                  "status": "draft"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pt_fknufm",
+          "type": "part",
+          "kind": "part",
+          "title": "Harbour Lights",
+          "include": true,
+          "children": [
+            {
+              "id": "ch_3y897w",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "The Long Winter",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_n8tjx3",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-n8tjx3.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_g66nxj",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-g66nxj.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_3j2m4k",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Tamarind",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_thajzy",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-thajzy.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_zdhekd",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-zdhekd.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_44v2yf",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "The Map of the Delta",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_e58fr4",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-e58fr4.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_hync7q",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-hync7q.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_zq6bht",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Tide Tables",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_9mat75",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-9mat75.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_mrty5g",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-mrty5g.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_7jexcd",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "An Ordinary Morning",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_g3ym88",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-g3ym88.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_y974fc",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-y974fc.md",
+                  "status": "draft"
+                }
+              ]
+            },
+            {
+              "id": "ch_9ecx62",
+              "type": "chapter",
+              "kind": "chapter",
+              "title": "Harbour Lights",
+              "include": true,
+              "numbered": true,
+              "children": [
+                {
+                  "id": "d_hpn2c6",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 1",
+                  "include": true,
+                  "file": "scene-1-hpn2c6.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_htjdft",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 2",
+                  "include": true,
+                  "file": "scene-2-htjdft.md",
+                  "status": "draft"
+                },
+                {
+                  "id": "d_3m7rs4",
+                  "type": "doc",
+                  "kind": "scene",
+                  "title": "Scene 3",
+                  "include": true,
+                  "file": "scene-3-3m7rs4.md",
+                  "status": "draft"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "root_back",
+      "type": "group",
+      "role": "back",
+      "kind": "generic",
+      "title": "Back matter",
+      "include": true,
+      "children": [
+        {
+          "id": "d_fjvj2s",
+          "type": "doc",
+          "kind": "acknowledgements",
+          "title": "Acknowledgements",
+          "file": "acknowledgements-fjvj2s.md",
+          "include": true,
+          "status": "draft"
+        },
+        {
+          "id": "d_yqfeay",
+          "type": "doc",
+          "kind": "reading-group",
+          "title": "Reading Group Questions",
+          "include": true,
+          "file": "reading-group-questions-yqfeay.md",
+          "status": "draft"
+        },
+        {
+          "id": "d_4bpxqp",
+          "type": "doc",
+          "kind": "about-author",
+          "title": "About the Author",
+          "file": "about-the-author-4bpxqp.md",
+          "include": true,
+          "status": "draft"
+        },
+        {
+          "id": "d_pgv3n7",
+          "type": "doc",
+          "kind": "also-by",
+          "title": "Also by the Author",
+          "generated": true,
+          "include": true,
+          "status": "draft",
+          "data": {
+            "groups": [
+              {
+                "label": "Fiction",
+                "titles": [
+                  "A Sample Novel",
+                  "Another Placeholder"
+                ]
+              },
+              {
+                "label": "Nonfiction",
+                "titles": [
+                  "The Example Handbook"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "d_k428be",
+          "type": "doc",
+          "kind": "index",
+          "title": "Index",
+          "include": true,
+          "generated": true,
+          "status": "draft"
+        }
+      ]
+    }
+  ]
+}
