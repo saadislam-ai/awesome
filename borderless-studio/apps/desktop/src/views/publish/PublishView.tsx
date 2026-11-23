@@ -1,16 +1,18 @@
-/** The Publish screen: prices, the retail listing, ISBNs and the publishing checklist. */
+/** The Publish screen: prices, the retail listing, ISBNs, the publishing checklist, and audiobook preparation. */
 import { useState } from 'react';
 import { BookTitle } from '../../App';
 import { PricingTab } from './PricingTab';
 import { ListingTab } from './ListingTab';
 import { IsbnTab } from './IsbnTab';
 import { ChecklistTab } from './ChecklistTab';
+import { AudiobookTab } from './AudiobookTab';
 
 const TABS = [
   { id: 'prices', label: 'Prices' },
   { id: 'listing', label: 'Listing' },
   { id: 'isbn', label: 'ISBNs' },
   { id: 'checklist', label: 'Checklist' },
+  { id: 'audiobook', label: 'Audiobook' },
 ] as const;
 type TabId = (typeof TABS)[number]['id'];
 let lastTab: TabId = 'prices';
@@ -35,6 +37,7 @@ export function PublishView() {
         {tab === 'listing' && <ListingTab />}
         {tab === 'isbn' && <IsbnTab />}
         {tab === 'checklist' && <ChecklistTab />}
+        {tab === 'audiobook' && <AudiobookTab />}
       </div>
     </>
   );

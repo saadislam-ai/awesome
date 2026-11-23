@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "lastVerified": "2026-11-23",
+  "verified": false,
+  "verifyNote": "Written from the long standing published ACX requirements. The official page needs a web browser and could not be read while this file was made, so compare every number with the source before you record or hire a narrator.",
+  "sources": [
+    {
+      "id": "acx-audio-requirements",
+      "title": "ACX: Audio Submission Requirements",
+      "url": "https://www.acx.com/help/article/acx-audio-submission-requirements"
+    }
+  ],
+  "narration": {
+    "wordsPerFinishedHour": 9300,
+    "retailSampleMaxMinutes": 5
+  },
+  "credits": {
+    "opening": "{title}.{subtitle} Written by {author}. Narrated by {narrator}.",
+    "closing": "This has been {title}. Written by {author}. Narrated by {narrator}. Copyright {year} by {holder}. Production copyright {productionYear} by {publisher}."
+  },
+  "requirements": [
+    { "id": "one-section-per-file", "title": "One chapter or section in each file", "text": "Each file holds one chapter or section and starts with its heading read aloud (for example \"Chapter One\")." },
+    { "id": "credits", "title": "Opening and closing credits", "text": "The audiobook has opening credits and closing credits, each as a file of its own." },
+    { "id": "retail-sample", "title": "Retail sample", "text": "A sample of one to five minutes, without credits or music at its start, as a file of its own." },
+    { "id": "room-tone", "title": "Room tone at both ends", "text": "Each file has 0.5 to 1 second of room tone at the beginning and 1 to 5 seconds at the end." },
+    { "id": "rms", "title": "Loudness", "text": "Each file measures between -23 dB and -18 dB RMS." },
+    { "id": "peak", "title": "Peaks", "text": "Peak values are no higher than -3 dB." },
+    { "id": "noise-floor", "title": "Noise floor", "text": "The noise floor is no higher than -60 dB RMS." },
+    { "id": "format", "title": "File format", "text": "MP3, 192 kbps or higher, constant bit rate (CBR), at 44.1 kHz." },
+    { "id": "channels", "title": "Mono or stereo", "text": "All files are in the same channel format: all mono or all stereo." },
+    { "id": "length", "title": "Length of a file", "text": "No file is longer than 120 minutes. A longer chapter is split into parts." },
+    { "id": "consistency", "title": "Consistent sound", "text": "Sound, spacing and pronunciation are consistent across all files, and the narration matches the text of the book." },
+    { "id": "human-narration", "title": "Narration", "text": "Check the platform's current rule on narration by a person or by a synthetic voice before you choose." }
+  ],
+  "notes": [
+    "The app prepares the script, the list of files and the pronunciation guide. It does not measure sound: loudness, peaks and noise floor are checked in your recording program or with the platform's own checker.",
+    "wordsPerFinishedHour is the figure commonly used to estimate finished audio length from a word count. Narrators differ; ask yours.",
+    "Other audiobook distributors publish their own requirements. If you use one, replace the list above with theirs and name the source."
+  ]
+}

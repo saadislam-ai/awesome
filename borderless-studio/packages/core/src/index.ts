@@ -61,6 +61,8 @@ export * from './editor/analysis';
 export * from './docx/write';
 export * from './import/index';
 export * from './backup/index';
+export * from './audio/prep';
+export * from './build/extras';
 export * from './preflight/largeprint';
 export * from './specs/edit';
 export * from './library/series';

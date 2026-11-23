@@ -7,6 +7,7 @@
  * before it is saved, so a typing slip cannot leave the app without rules.
  */
 import { ChecklistFileSchema } from '../build/publish';
+import { AudiobookSpecSchema } from '../audio/prep';
 import type { Host } from '../host';
 import { LargePrintSpecSchema } from '../preflight/largeprint';
 import { joinPath } from '../util/paths';
@@ -20,6 +21,7 @@ export const SPEC_FILES = [
   { file: 'tax.json', label: 'Sales tax on ebooks', about: 'Tax included in ebook list prices, by country' },
   { file: 'publishing-checklist.json', label: 'Publishing checklist', about: 'The steps shown under Publish, Checklist' },
   { file: 'large-print.json', label: 'Large print guidance', about: 'Type size, line spacing and alignment that a large print edition is checked against' },
+  { file: 'audiobook.json', label: 'Audiobook requirements', about: 'Audio file requirements, credits wording and the reading speed used for estimates' },
 ] as const;
 export type SpecFileName = (typeof SPEC_FILES)[number]['file'];
 
@@ -46,6 +48,7 @@ function validate(file: string, text: string): { errors: string[]; platform?: Re
   if (file === 'tax.json') return { errors: parseTaxTable(text).errors };
   if (file === 'publishing-checklist.json') return { errors: parseSpecText(text, ChecklistFileSchema as never).errors };
   if (file === 'large-print.json') return { errors: parseSpecText(text, LargePrintSpecSchema as never).errors };
+  if (file === 'audiobook.json') return { errors: parseSpecText(text, AudiobookSpecSchema as never).errors };
   const parsed = parsePlatformSpec(text);
   const expected = file.replace(/\.json$/, '');
   const errors = [...parsed.errors];
@@ -78,7 +81,8 @@ export function inspectSpecFile(file: string, text: string, today: Date = new Da
     monthsOld: verifiedOn ? monthsSince(verifiedOn, today) : null,
     stale: verifiedOn ? isStale({ lastVerified: verifiedOn }, today) : false,
     sources,
-    unverified: platform ? unverifiedSections(platform) : [],
+    // A whole file can also say of itself that it has not been compared with its source yet.
+    unverified: [...(platform ? unverifiedSections(platform) : []), ...(raw.verified === false ? [{ path: 'the whole file', note: typeof raw.verifyNote === 'string' ? raw.verifyNote : undefined }] : [])],
   };
 }
 

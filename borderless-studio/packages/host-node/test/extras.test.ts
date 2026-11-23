@@ -7,7 +7,8 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { strFromU8, unzipSync } from 'fflate';
 import {
-  PREVIEW_THEME_MARKER, assembleProject, bundledSpecsDir, epubPreview, exportEpub, exportInterior, inspectPdf, loadSpecs, openBook, preflightInteriorFile, type BuildContext,
+  PREVIEW_THEME_MARKER, assembleProject, bundledSpecsDir, defaultAudioOptions, durationText, epubPreview, exportAudiobookKit, exportEpub, exportInterior, inspectPdf, loadSpecs, newBibleEntry,
+  openBook, planAudiobook, preflightInteriorFile, type BuildContext,
 } from '@borderless/core';
 import { NodeHost, REPO_ROOT } from '../src/nodeHost';
 
@@ -81,6 +82,60 @@ describe('large print edition', () => {
     expect(failed.status).toBe('fail');
     expect(failed.fix).toMatch(/at least 16 pt/);
   }, 180_000);
+});
+
+describe('audiobook kit', () => {
+  it('plans one file for each chapter, with credits, a sample, and an estimate of the length', async () => {
+    const { plan, spec } = await planAudiobook(ctx, { ...defaultAudioOptions(), narrator: 'Nadia Karim', productionYear: 2027 });
+    expect(spec.verified).toBe(false);
+    expect(plan.files[0]).toMatchObject({ kind: 'opening-credits', name: '01_Opening_Credits', script: 'The Salt Road. A Sample Book of Placeholder Text. Written by Dr Saad Islam. Narrated by Nadia Karim.' });
+    const last = plan.files[plan.files.length - 1];
+    expect(last.kind).toBe('closing-credits');
+    expect(last.script).toMatch(/^This has been The Salt Road\. Written by Dr Saad Islam\. Narrated by Nadia Karim\. Copyright \d{4} by .+\. Production copyright 2027 by Borderless Publishing\.$/);
+    const chapters = plan.files.filter((f) => /_Chapter_\d\d$/.test(f.name));
+    expect(chapters).toHaveLength(19);
+    // The first chapter's file opens with the part title and the chapter heading, then the text.
+    expect(chapters[0].script).toMatch(/^Part One: The Crossing\.\n\nChapter One: The River\.\n\n/);
+    expect(chapters[0].script).toContain('[pause]');
+    // Notes are kept apart for the narrator and do not count as spoken words.
+    expect(chapters[0].script).toContain('[Notes of this section, for the narrator. Not read unless agreed.]');
+    expect(chapters[0].decisions.join(' ')).toMatch(/note/);
+    expect(plan.files.some((f) => /Copyright|Contents|Index/.test(f.title))).toBe(false);
+    expect(plan.leftOut.join(' ')).toMatch(/copyright page is not read/);
+    // About 62,000 words at 9,300 words an hour is between six and seven hours.
+    expect(plan.totalWords).toBeGreaterThan(60000);
+    expect(plan.totalMinutes).toBeGreaterThan(380);
+    expect(plan.totalMinutes).toBeLessThan(440);
+    expect(durationText(plan.totalMinutes)).toMatch(/^[67] h \d\d min$/);
+    expect(plan.sample!.minutes).toBeLessThanOrEqual(spec.narration.retailSampleMaxMinutes);
+    expect(plan.sample!.script.startsWith('Part One: The Crossing.')).toBe(true);
+    expect(plan.warnings.join(' ')).toMatch(/how to say it/);
+    // Without a narrator the credits say so instead of leaving a gap.
+    const unnamed = await planAudiobook(ctx, defaultAudioOptions());
+    expect(unnamed.plan.files[0].script).toContain('[name of the narrator]');
+    expect(unnamed.plan.warnings.join(' ')).toMatch(/No narrator is named/);
+  });
+
+  it('writes the scripts, the plan, the pronunciation guide and the requirements', async () => {
+    const dir = `${tmp}/audio-book`;
+    fs.cpSync(path.join(REPO_ROOT, 'sample-book'), dir, { recursive: true });
+    const project = await openBook(host, dir);
+    project.bible.entries.push({ ...newBibleEntry('place', 'Khulna'), pronunciation: 'KOOL-nah', summary: 'City on the delta' });
+    const kit = await exportAudiobookKit({ ...ctx, project }, { ...defaultAudioOptions(), narrator: 'Nadia Karim' });
+    expect(kit.dir).toBe(`${dir}/exports/audiobook`);
+    const scripts = fs.readdirSync(`${kit.dir}/script`).sort();
+    expect(scripts[0]).toBe('01_Opening_Credits.txt');
+    expect(scripts).toContain('Retail_Sample.txt');
+    expect(scripts.length).toBe(kit.plan.files.length + 1);
+    expect(fs.readFileSync(`${kit.dir}/pronunciation-guide.txt`, 'utf8')).toContain('Khulna: KOOL-nah  (City on the delta)');
+    const csv = fs.readFileSync(`${kit.dir}/recording-plan.csv`, 'utf8').split('\n');
+    expect(csv[0]).toBe('File,Section,Words,Estimated minutes,To decide');
+    expect(csv.length).toBe(kit.plan.files.length + 3);
+    const req = fs.readFileSync(`${kit.dir}/requirements.txt`, 'utf8');
+    expect(req).toMatch(/not yet confirmed against the official page/);
+    expect(req).toMatch(/\[ \] Loudness: Each file measures between -23 dB and -18 dB RMS\./);
+    expect(req).toContain('https://www.acx.com/');
+  });
 });
 
 describe('ebook preview', () => {
