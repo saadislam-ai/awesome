@@ -10,7 +10,9 @@ import { getFormat, type PlatformId } from '../model/book';
 import { displayIsbn, type IsbnRegister } from '../isbn';
 import { LAYOUT } from '../project/layout';
 import type { Project } from '../project/store';
-import { interiorRules, trimAvailability, type SpecSet } from '../specs';
+import { bundledSpecsDir, interiorRules, trimAvailability, type SpecSet } from '../specs';
+import { largePrintChecks, loadLargePrintSpec } from '../preflight/largeprint';
+import { walkInlines } from '../markdown/ir';
 import { buildInterior, renderInteriorPreview, type InteriorPreview, type InteriorResult } from '../typeset/interior';
 import { buildEpub, mediaTypeForImage, type EpubFont, type EpubImage, type EpubResult } from '../epub/build';
 import { runEpubCheck, type EpubCheckResult } from '../epub/epubcheck';
@@ -38,6 +40,8 @@ export interface BuildContext {
   /** The publisher's ISBN register, for hyphenated ISBNs on the copyright page. */
   isbnRegister?: IsbnRegister | null;
   alsoBy?: AlsoByGroup[];
+  /** The library's folder of personal spec file copies, when the build runs inside a library. */
+  userSpecsDir?: string;
 }
 
 export interface ExportCommon {
@@ -390,6 +394,17 @@ export async function preflightInteriorFile(ctx: BuildContext, res: InteriorExpo
       fileSizeBytes: bytes.length, buildWarnings: res.warnings, images: res.images, isbnRegister: ctx.isbnRegister,
     });
     const extra = manuscriptChecks(await manuscriptDocs(ctx), ctx.project.book);
+    // A large print edition is also held against the accessible format guidance in specs/large-print.json.
+    if (format.largePrint) {
+      const rules = await loadLargePrintSpec(ctx.host, bundledSpecsDir(ctx.resourcesDir), ctx.userSpecsDir);
+      if (rules) {
+        let italicPassages = 0;
+        for (const sec of res.assembled.sections) {
+          if (sec.zone === 'body') walkInlines(sec.blocks, (n) => { if (n.t === 'em') italicPassages++; });
+        }
+        extra.push(...largePrintChecks({ spec: rules, design: res.assembled.design, format, italicPassages, pdf }));
+      }
+    }
     report = summarise(report.target, report.kind, platform, format.id, [...report.checks, ...extra]);
     await ctx.host.writeText(res.pdfPath.replace(/_interior\.pdf$|\.pdf$/, '_preflight.txt'), formatPreflight(report));
   }

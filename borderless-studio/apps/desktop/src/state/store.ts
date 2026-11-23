@@ -193,7 +193,7 @@ export const useStore = create<State>((set, get) => ({
     const alsoBy = alsoByNode?.data?.auto && library
       ? alsoByFromLibrary({ id: project.book.id, series: project.book.series, author: primaryAuthor(project.book) }, await library.listBooks())
       : undefined;
-    return { host, project, specs, resourcesDir: resources, isbnRegister: library ? await library.isbnRegister() : null, alsoBy };
+    return { host, project, specs, resourcesDir: resources, isbnRegister: library ? await library.isbnRegister() : null, alsoBy, userSpecsDir: library?.specsDir };
   },
 }));
 

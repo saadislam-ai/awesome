@@ -8,6 +8,7 @@
  */
 import { ChecklistFileSchema } from '../build/publish';
 import type { Host } from '../host';
+import { LargePrintSpecSchema } from '../preflight/largeprint';
 import { joinPath } from '../util/paths';
 import { isStale, monthsSince, parseCurrencyTable, parsePlatformSpec, parseSpecText, parseTaxTable, unverifiedSections } from './index';
 
@@ -18,6 +19,7 @@ export const SPEC_FILES = [
   { file: 'currencies.json', label: 'Currency rates', about: 'Rates used to show prices in other currencies; update them whenever you price a book' },
   { file: 'tax.json', label: 'Sales tax on ebooks', about: 'Tax included in ebook list prices, by country' },
   { file: 'publishing-checklist.json', label: 'Publishing checklist', about: 'The steps shown under Publish, Checklist' },
+  { file: 'large-print.json', label: 'Large print guidance', about: 'Type size, line spacing and alignment that a large print edition is checked against' },
 ] as const;
 export type SpecFileName = (typeof SPEC_FILES)[number]['file'];
 
@@ -43,6 +45,7 @@ function validate(file: string, text: string): { errors: string[]; platform?: Re
   if (file === 'currencies.json') return { errors: parseCurrencyTable(text).errors };
   if (file === 'tax.json') return { errors: parseTaxTable(text).errors };
   if (file === 'publishing-checklist.json') return { errors: parseSpecText(text, ChecklistFileSchema as never).errors };
+  if (file === 'large-print.json') return { errors: parseSpecText(text, LargePrintSpecSchema as never).errors };
   const parsed = parsePlatformSpec(text);
   const expected = file.replace(/\.json$/, '');
   const errors = [...parsed.errors];

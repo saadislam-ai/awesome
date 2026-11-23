@@ -7,7 +7,7 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { strFromU8, unzipSync } from 'fflate';
 import {
-  PREVIEW_THEME_MARKER, assembleProject, bundledSpecsDir, epubPreview, exportEpub, exportInterior, inspectPdf, loadSpecs, openBook, type BuildContext,
+  PREVIEW_THEME_MARKER, assembleProject, bundledSpecsDir, epubPreview, exportEpub, exportInterior, inspectPdf, loadSpecs, openBook, preflightInteriorFile, type BuildContext,
 } from '@borderless/core';
 import { NodeHost, REPO_ROOT } from '../src/nodeHost';
 
@@ -54,6 +54,33 @@ describe('samples and advance reader copies', () => {
     const record = ctx.project.path('.borderless', 'build', 'paperback-kdp-arc', 'last.json');
     expect(fs.existsSync(record)).toBe(false);
   }, 120_000);
+});
+
+describe('large print edition', () => {
+  it('is held against the large print guidance when its interior is checked', async () => {
+    // A copy of the sample book, whose large print edition is set up the way the Editions screen sets one up (16 pt, ragged right, no hyphenation).
+    const dir = `${tmp}/large-print-book`;
+    fs.cpSync(path.join(REPO_ROOT, 'sample-book'), dir, { recursive: true });
+    const project = await openBook(host, dir);
+    const edition = project.book.formats.find((f) => f.id === 'large-print')!;
+    expect(edition).toMatchObject({ largePrint: true, designOverride: { fontSizePt: 16, justify: false, hyphenate: false } });
+    const lp: BuildContext = { ...ctx, project };
+    const interior = await exportInterior(lp, { formatId: 'large-print', platform: 'kdp', sampleChapters: 2, variant: 'test', outFile: `${tmp}/large.pdf` });
+    expect(interior.ok).toBe(true);
+    const report = await preflightInteriorFile(lp, interior, 'kdp');
+    const lpChecks = Object.fromEntries(report.checks.filter((c) => c.id.startsWith('lp-')).map((c) => [c.id, c.status]));
+    expect(lpChecks).toMatchObject({ 'lp-size': 'info', 'lp-leading': 'pass', 'lp-align': 'pass', 'lp-hyphens': 'pass', 'lp-typeface': 'info' });
+    expect(lpChecks['lp-italics']).toBe('info');
+    // An ordinary edition is not held against these rules.
+    const plain = await exportInterior(lp, { formatId: 'paperback-6x9', platform: 'kdp', sampleChapters: 1, variant: 'test', outFile: `${tmp}/plain.pdf` });
+    expect((await preflightInteriorFile(lp, plain, 'kdp')).checks.some((c) => c.id.startsWith('lp-'))).toBe(false);
+    // Making the type too small is a failure that says what to do.
+    edition.designOverride = { fontSizePt: 13, lineHeight: 1.4, hyphenate: false, justify: false };
+    const small = await exportInterior(lp, { formatId: 'large-print', platform: 'kdp', sampleChapters: 1, variant: 'test', outFile: `${tmp}/small.pdf` });
+    const failed = (await preflightInteriorFile(lp, small, 'kdp')).checks.find((c) => c.id === 'lp-size')!;
+    expect(failed.status).toBe('fail');
+    expect(failed.fix).toMatch(/at least 16 pt/);
+  }, 180_000);
 });
 
 describe('ebook preview', () => {

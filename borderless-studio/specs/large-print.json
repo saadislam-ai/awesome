@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "lastVerified": "2026-11-23",
+  "sources": [
+    {
+      "id": "ukaaf-g003",
+      "title": "UKAAF guidance G003, version 4: Creating clear print and large print documents",
+      "url": "https://www.ukaaf.org/standards/creating-clear-print-and-large-print-documents/"
+    },
+    {
+      "id": "aph-large-print",
+      "title": "American Printing House: large print guidelines (not read for this file; compare if your readers are in the United States)",
+      "url": "https://www.aph.org/resources/large-print-guidelines/"
+    }
+  ],
+  "rules": {
+    "minBodySizePt": 16,
+    "idealBodySizePt": 18,
+    "giantPrintSizePt": 24,
+    "minLineHeight": 1.2,
+    "allowJustified": false,
+    "allowHyphenation": false,
+    "sansSerifPreferred": true,
+    "avoidItalics": true,
+    "glossyCoverAllowed": false
+  },
+  "notes": [
+    "Source of every rule: the summary of minimum standards in UKAAF guidance G003 (UK Association for Accessible Formats), read on the date above. It asks for a minimum of 16 point for large print, ideally 18 point; 24 point is sometimes called giant print.",
+    "Typeface: the summary names a legible sans serif typeface such as Arial. The detailed guidance of the same document says there is no definitive evidence that serif or sans serif is easier to read, and lists Times New Roman among legible typefaces. The app therefore only remarks on a serif typeface; it does not count it as a fault.",
+    "Line spacing: the guidance asks for single line spacing at least, and warns that both too little and too much space make reading harder. It gives no number. minLineHeight 1.2 is this app's reading of single line spacing (about 1.2 times the type size) and is not a quoted figure.",
+    "Alignment and word breaks: text is aligned to the left and not justified, and words are not split across two lines where possible.",
+    "Emphasis: no italics, underlining or large blocks of capital letters. Bold or quotation marks are the suggested alternatives.",
+    "Paper and cover: non-glossy, and heavy enough that the print does not show through (the guidance says 100 gsm is usually suitable). Print on demand services offer fixed papers, so the app checks the cover finish only.",
+    "Other organisations publish different figures. If you make large print for a library service or a charity, ask which guideline they follow and change the numbers here."
+  ]
+}
