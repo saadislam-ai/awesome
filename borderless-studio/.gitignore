@@ -1,0 +1,17 @@
+node_modules/
+dist/
+target/
+tools/
+*.log
+.DS_Store
+Thumbs.db
+.vite/
+# Build caches inside book projects (safe to delete, always regenerated)
+.borderless/
+# Generated exports of the sample book are rebuilt by `npm run sample`
+sample-book/exports/
+# Tauri sidecars are fetched by scripts/fetch-tools.mjs
+apps/desktop/src-tauri/binaries/
+apps/desktop/src-tauri/gen/
+apps/desktop/src-tauri/bundled-tools/
+coverage/

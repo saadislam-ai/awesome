@@ -1,0 +1,14 @@
+{
+  "name": "@borderless/host-node",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Node implementation of the Borderless Studio Host interface, the bstudio command line tool and the development bridge used by browser based UI tests.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "bin": { "bstudio": "./src/cli.ts" },
+  "dependencies": {
+    "@borderless/core": "*"
+  }
+}

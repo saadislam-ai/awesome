@@ -1,0 +1,33 @@
+{
+  "name": "borderless-studio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Offline desktop studio for writing, typesetting and exporting books for KDP, IngramSpark and Draft2Digital.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "fetch-tools": "node scripts/fetch-tools.mjs",
+    "typecheck": "tsc --noEmit -p packages/core && tsc --noEmit -p packages/host-node && tsc --noEmit -p apps/desktop",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cli": "tsx packages/host-node/src/cli.ts",
+    "sample": "tsx packages/host-node/src/cli.ts build sample-book --all",
+    "bridge": "tsx packages/host-node/src/bridge.ts",
+    "dev": "npm run dev -w @borderless/desktop",
+    "tauri": "npm run tauri -w @borderless/desktop --",
+    "build": "npm run build -w @borderless/desktop"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
