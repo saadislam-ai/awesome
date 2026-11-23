@@ -46,6 +46,8 @@ interface Props {
   onTextChanged?(text: string): void;
   /** Called once the document is loaded and shown. */
   onReady?(): void;
+  /** Right click on a word the spell checker marked. Position is in window coordinates. */
+  onMisspelledMenu?(info: { word: string; from: number; to: number; x: number; y: number }): void;
 }
 
 const wrapWith = (before: string, after: string) => (view: EditorView) => {
@@ -168,6 +170,26 @@ export const MarkdownEditor = forwardRef<EditorHandle, Props>(function MarkdownE
             ...historyKeymap,
             ...defaultKeymap,
           ]),
+          EditorView.domEventHandlers({
+            contextmenu: (event, view) => {
+              const handler = propsRef.current.onMisspelledMenu;
+              if (!handler) return false;
+              const pos = view.posAtCoords({ x: event.clientX, y: event.clientY });
+              if (pos === null) return false;
+              const line = view.state.doc.lineAt(pos);
+              for (const m of line.text.matchAll(/[\p{L}\p{M}]+(?:['\u2019][\p{L}\p{M}]+)*/gu)) {
+                const from = line.from + m.index;
+                const to = from + m[0].length;
+                if (pos < from || pos > to) continue;
+                const word = m[0].replace(/\u2019/g, "'");
+                if (!propsRef.current.options.misspelled.has(word)) return false;
+                event.preventDefault();
+                handler({ word, from, to, x: event.clientX, y: event.clientY });
+                return true;
+              }
+              return false;
+            },
+          }),
           EditorView.contentAttributes.of({ spellcheck: 'false', autocorrect: 'off', autocapitalize: 'sentences', 'aria-label': 'Manuscript text' }),
           EditorView.updateListener.of((u) => {
             if (u.docChanged) {

@@ -3,7 +3,7 @@
  * tracked changes and typography, version history, and search across the book.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { Check, ChevronRight, History, ListChecks, MessageSquare, RotateCcw, Search, SlidersHorizontal, X } from 'lucide-react';
+import { Check, ChevronRight, History, ListChecks, MessageSquare, RotateCcw, Search, SlidersHorizontal, SpellCheck, X } from 'lucide-react';
 import {
   KIND_TITLES, STATUSES, applyAllChanges, applyEdits, changeResult, findDashes, parseCritic, replaceInProject, searchProject, summariseEdits,
   typographyEdits, type BinderNode, type CriticSpan, type DocStatus, type SearchMatch, type SnapshotInfo,
@@ -11,8 +11,10 @@ import {
 import { useStore } from '../state/store';
 import { Field, Modal, fmtNumber } from '../ui/kit';
 import type { EditorHandle } from '../editor/MarkdownEditor';
+import type { SpellStatus } from '../editor/spell';
+import { CheckPanel } from './CheckPanel';
 
-export type InspectorTab = 'details' | 'review' | 'history' | 'search';
+export type InspectorTab = 'details' | 'review' | 'check' | 'history' | 'search';
 
 interface Props {
   node: BinderNode | null;
@@ -24,6 +26,9 @@ interface Props {
   words: number;
   /** Ask the writer view to reload the open document from disk. */
   onReload(): void;
+  /** Words of the open document that the spell checker does not know. */
+  misspelled: Set<string>;
+  spellStatus: SpellStatus;
 }
 
 export function Inspector(props: Props) {
@@ -33,18 +38,20 @@ export function Inspector(props: Props) {
     <div className="pane inspector">
       <div className="head">
         <div className="tabs">
-          <button className={tab === 'details' ? 'on' : ''} onClick={() => props.onTab('details')} title="Details"><SlidersHorizontal size={14} /> Details</button>
+          <button className={tab === 'details' ? 'on' : ''} onClick={() => props.onTab('details')} title="Details"><SlidersHorizontal size={14} /><span className="lbl">Details</span></button>
           <button className={tab === 'review' ? 'on' : ''} onClick={() => props.onTab('review')} title="Tracked changes, comments and typography">
-            <ListChecks size={14} /> Review{pending > 0 ? ` (${pending})` : ''}
+            <ListChecks size={14} /><span className="lbl">Review</span>{pending > 0 && <span className="count neutral">{pending}</span>}
           </button>
-          <button className={tab === 'history' ? 'on' : ''} onClick={() => props.onTab('history')} title="Earlier versions"><History size={14} /></button>
-          <button className={tab === 'search' ? 'on' : ''} onClick={() => props.onTab('search')} title="Search the whole book"><Search size={14} /></button>
+          <button className={tab === 'check' ? 'on' : ''} onClick={() => props.onTab('check')} title="Spelling, style and consistency"><SpellCheck size={14} /><span className="lbl">Check</span>{props.misspelled.size > 0 && <span className="count">{props.misspelled.size}</span>}</button>
+          <button className={tab === 'history' ? 'on' : ''} onClick={() => props.onTab('history')} title="Earlier versions"><History size={14} /><span className="lbl">History</span></button>
+          <button className={tab === 'search' ? 'on' : ''} onClick={() => props.onTab('search')} title="Search the whole book"><Search size={14} /><span className="lbl">Search</span></button>
         </div>
       </div>
       <div className="scroll">
         {tab === 'details' && (node ? <Details node={node} words={props.words} /> : <div className="dim">Select an item in the binder.</div>)}
         {tab === 'review' && <Review {...props} />}
         {tab === 'history' && (node?.file ? <Snapshots node={node} editor={props.editor} onReload={props.onReload} /> : <div className="dim">Open a document to see its earlier versions.</div>)}
+        {tab === 'check' && <CheckPanel text={props.text} editor={props.editor} misspelled={props.misspelled} spellStatus={props.spellStatus} />}
         {tab === 'search' && <SearchPanel editor={props.editor} onReload={props.onReload} />}
       </div>
     </div>

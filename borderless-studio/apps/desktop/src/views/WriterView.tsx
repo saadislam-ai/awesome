@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Bold, Focus, Highlighter, Italic, Maximize2, MessageSquarePlus, Minimize2, Minus, Moon, PanelRight, Pilcrow, SquarePen, Sun, Superscript, Coffee, Flame,
 } from 'lucide-react';
-import { KIND_TITLES, findNode, walkBinder, writingStreak, isoDate, type BinderNode, type WritingLog } from '@borderless/core';
+import { KIND_TITLES, findNode, joinPath, walkBinder, writingStreak, isoDate, type BinderNode, type WritingLog } from '@borderless/core';
 import { useStore } from '../state/store';
 import { BookTitle } from '../App';
 import { Binder } from './Binder';
@@ -14,7 +14,8 @@ import { Inspector, type InspectorTab } from './Inspector';
 import { MarkdownEditor, type EditorHandle, type EditorStats } from '../editor/MarkdownEditor';
 import { editorFontStack } from '../editor/fonts';
 import type { ProseOptions } from '../editor/extensions';
-import { fmtNumber } from '../ui/kit';
+import { Menu, fmtNumber, type MenuItem } from '../ui/kit';
+import { addPersonalWord, readPersonalWords, spellService, wordsOf, type SpellStatus } from '../editor/spell';
 
 type SaveState = 'saved' | 'saving' | 'unsaved' | 'error';
 
@@ -37,6 +38,11 @@ export function WriterView() {
   const [saveState, setSaveState] = useState<{ state: SaveState; message?: string }>({ state: 'saved' });
   const [suggesting, setSuggesting] = useState(false);
   const [tab, setTab] = useState<InspectorTab>('details');
+  const host = useStore((s) => s.host);
+  const library = useStore((s) => s.library);
+  const [misspelled, setMisspelled] = useState<Set<string>>(new Set());
+  const [spellStatus, setSpellStatus] = useState<SpellStatus>({ language: '', ready: false });
+  const [spellMenu, setSpellMenu] = useState<{ word: string; from: number; to: number; x: number; y: number; suggestions: string[] | null } | null>(null);
   const [showInspector, setShowInspector] = useState(true);
   const [text, setText] = useState('');
   const [reloadKey, setReloadKey] = useState(0);
@@ -151,10 +157,71 @@ export function WriterView() {
     return () => window.removeEventListener('keydown', onKey);
   }, [zen, setZen]);
 
+  // Spelling: load the dictionary of the book's language, then check the open document after each pause in typing.
+  const spelling = project.book.style.spelling;
+  useEffect(() => {
+    if (!settings.spellcheck) {
+      setMisspelled(new Set());
+      return;
+    }
+    let alive = true;
+    void (async () => {
+      const { resources } = await host.paths();
+      const personal = await readPersonalWords(host, [...(library ? [joinPath(library.dir, 'dictionary.txt')] : []), project.path('metadata/dictionary.txt')]);
+      // Names on the title page are never spelling mistakes.
+      for (const c of project.book.contributors) personal.push(...c.name.split(/\s+/).filter((w) => w.length > 1));
+      const status = await spellService.load(host, resources, library?.dir ?? null, spelling, personal);
+      if (alive) setSpellStatus({ ...status });
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [host, library, project, spelling, settings.spellcheck]);
+  useEffect(() => {
+    if (!settings.spellcheck || !spellStatus.ready) return;
+    let alive = true;
+    void spellService.check(wordsOf(text)).then((wrong) => alive && setMisspelled(new Set(wrong)));
+    return () => {
+      alive = false;
+    };
+  }, [text, spellStatus, settings.spellcheck]);
+
   const options: ProseOptions = useMemo(
-    () => ({ flagDashes: project.book.style.dashPolicy.mode !== 'allow', focusMode: settings.focusMode, entityNames: [], misspelled: new Set<string>() }),
-    [project, settings.focusMode, rev],
+    () => ({ flagDashes: project.book.style.dashPolicy.mode !== 'allow', focusMode: settings.focusMode, entityNames: [], misspelled }),
+    [project, settings.focusMode, rev, misspelled],
   );
+
+  const openSpellMenu = (info: { word: string; from: number; to: number; x: number; y: number }) => {
+    setSpellMenu({ ...info, suggestions: null });
+    void spellService.suggest(info.word).then((list) => setSpellMenu((m) => (m && m.word === info.word ? { ...m, suggestions: list } : m)));
+  };
+  const acceptWord = async (word: string, scope: 'book' | 'library' | 'session') => {
+    await spellService.add(word);
+    setMisspelled((prev) => {
+      const next = new Set(prev);
+      next.delete(word);
+      return next;
+    });
+    try {
+      if (scope === 'book') await addPersonalWord(host, project.path('metadata/dictionary.txt'), word);
+      if (scope === 'library' && library) await addPersonalWord(host, joinPath(library.dir, 'dictionary.txt'), word);
+    } catch (e) {
+      toast('fail', `The word could not be saved to the dictionary: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+  const spellItems = (): MenuItem[] => {
+    if (!spellMenu) return [];
+    const m = spellMenu;
+    const items: MenuItem[] = [{ heading: m.suggestions === null ? 'Looking for suggestions...' : m.suggestions.length ? 'Did you mean' : 'No suggestions' }];
+    for (const sug of m.suggestions ?? []) {
+      items.push({ label: sug, onClick: () => editor.current?.view()?.dispatch({ changes: { from: m.from, to: m.to, insert: sug }, userEvent: 'input.spell' }) });
+    }
+    items.push({ separator: true });
+    items.push({ label: `Add "${m.word}" to this book's dictionary`, onClick: () => void acceptWord(m.word, 'book') });
+    items.push({ label: 'Add to my dictionary for all books', onClick: () => void acceptWord(m.word, 'library') });
+    items.push({ label: 'Ignore until the app is closed', onClick: () => void acceptWord(m.word, 'session') });
+    return items;
+  };
 
   const insertFootnote = () => {
     const view = editor.current?.view();
@@ -244,6 +311,7 @@ export function WriterView() {
                   setReady(true);
                   setText(editor.current?.getText() ?? '');
                 }}
+                onMisspelledMenu={openSpellMenu}
               />
             ) : (
               <NodeInfo node={node} />
@@ -269,8 +337,9 @@ export function WriterView() {
             </div>
           </div>
           {showInspector && (
-            <Inspector node={node} tab={tab} onTab={setTab} editor={editor} text={text} words={stats.words} onReload={() => setReloadKey((k) => k + 1)} />
+            <Inspector node={node} tab={tab} onTab={setTab} editor={editor} text={text} words={stats.words} onReload={() => setReloadKey((k) => k + 1)} misspelled={misspelled} spellStatus={spellStatus} />
           )}
+          {spellMenu && <Menu x={spellMenu.x} y={spellMenu.y} items={spellItems()} onClose={() => setSpellMenu(null)} />}
         </div>
       </div>
     </>

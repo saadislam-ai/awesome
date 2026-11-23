@@ -40,7 +40,7 @@ export interface ProseOptions {
   focusMode: boolean;
   /** Names from the story bible to underline in the text. */
   entityNames: string[];
-  /** Misspelled words found by the spell checker (lower case). */
+  /** Misspelled words found by the spell checker, exactly as written (with plain apostrophes). */
   misspelled: Set<string>;
 }
 
@@ -157,7 +157,7 @@ function buildDecorations(view: EditorView): DecorationSet {
     }
     if (opts.misspelled.size) {
       for (const m of text.matchAll(WORD)) {
-        if (opts.misspelled.has(m[0].toLowerCase().replace(/\u2019/g, "'"))) {
+        if (opts.misspelled.has(m[0].replace(/\u2019/g, "'"))) {
           decos.push(markDeco('cm-misspelled').range(start + m.index, start + m.index + m[0].length));
         }
       }

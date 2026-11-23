@@ -405,3 +405,27 @@ table.prices td.right, table.prices th.right { text-align: right; }
 .check-item { display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-top: 1px solid var(--border); }
 .check-item:first-of-type { border-top: 0; }
 .check-item input { margin-top: 3px; width: 15px; height: 15px; accent-color: var(--accent); }
+
+/* ------------------------------------------------------------ check panel */
+.check-panel .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { border: 1px solid var(--border-strong); background: var(--raised); border-radius: 12px; padding: 1px 8px; font-size: 12px; cursor: pointer; }
+.chip:hover { border-color: var(--fail); color: var(--fail); }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.stat-grid > div { background: var(--sunken); border-radius: 8px; padding: 6px 8px; display: flex; flex-direction: column; }
+.stat-grid b { font-size: 15px; }
+.stat-grid span { font-size: 11px; color: var(--text-dim); }
+.kind-row { display: flex; align-items: center; gap: 6px; width: 100%; border: 0; background: transparent; padding: 4px 6px; border-radius: 6px; cursor: pointer; text-align: left; }
+.kind-row:hover:not(:disabled) { background: var(--sunken); }
+.kind-row.on { background: var(--accent-soft); color: var(--accent); }
+.kind-row:disabled { opacity: 0.5; cursor: default; }
+.finding-list { margin-top: 6px; max-height: 260px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; padding: 4px; }
+.finding { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 3px 6px; border-radius: 5px; cursor: pointer; font-size: 12.5px; }
+.finding:hover { background: var(--sunken); }
+.consistency { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 2px; }
+.inspector .head .count { font-size: 10px; background: var(--fail-soft); color: var(--fail); border-radius: 8px; padding: 0 5px; margin-left: 2px; }
+/* Inspector tabs: only the open tab shows its name, so five tabs fit the narrow pane. */
+.inspector .head .tabs { display: flex; width: 100%; }
+.inspector .head .tabs button { display: inline-flex; align-items: center; gap: 5px; padding: 0 9px; }
+.inspector .head .tabs button .lbl { display: none; }
+.inspector .head .tabs button.on .lbl { display: inline; }
+.inspector .head .count.neutral { background: var(--accent-soft); color: var(--accent); }

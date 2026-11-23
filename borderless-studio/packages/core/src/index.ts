@@ -57,3 +57,4 @@ export * from './metadata/listing';
 export * from './metadata/onix';
 export * from './metadata/sheet';
 export * from './build/publish';
+export * from './editor/analysis';
