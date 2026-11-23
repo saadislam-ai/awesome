@@ -7,8 +7,9 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { strFromU8, unzipSync } from 'fflate';
 import {
-  PREVIEW_THEME_MARKER, assembleProject, bundledSpecsDir, defaultAudioOptions, durationText, epubPreview, exportAudiobookKit, exportEpub, exportInterior, inspectPdf, loadSpecs, newBibleEntry,
-  openBook, planAudiobook, preflightInteriorFile, type BuildContext,
+  DEFAULT_PUBLISHER, PREVIEW_THEME_MARKER, assembleProject, bundledSpecsDir, defaultAudioOptions, durationText, epubPreview, exportAudiobookKit, exportEbookCover, exportEpub, exportInterior,
+  exportMarketingKit, imageInfo, inspectPdf, loadListing, loadSpecs, marketingCopy, marketingFacts, newBibleEntry, openBook, planAudiobook, preflightInteriorFile, saveListing, textNodes,
+  type BuildContext,
 } from '@borderless/core';
 import { NodeHost, REPO_ROOT } from '../src/nodeHost';
 
@@ -135,6 +136,57 @@ describe('audiobook kit', () => {
     expect(req).toMatch(/not yet confirmed against the official page/);
     expect(req).toMatch(/\[ \] Loudness: Each file measures between -23 dB and -18 dB RMS\./);
     expect(req).toContain('https://www.acx.com/');
+  });
+});
+
+describe('marketing kit', () => {
+  it('makes the copy, a one page sell sheet and quote cards from the book itself', async () => {
+    const dir = `${tmp}/marketing-book`;
+    fs.cpSync(path.join(REPO_ROOT, 'sample-book'), dir, { recursive: true });
+    const project = await openBook(host, dir);
+    const scene = textNodes(project.binder).find((n) => n.kind === 'scene')!;
+    const text = await project.readDoc(scene.id);
+    await project.writeDoc(scene.id, text.replace('The smell of rain came in over the river mouth', '{==The smell of *rain* came in over the river mouth==}') + '\n\n{==Short.==} {==A second line worth keeping, about salt and patience and the long road home.==}\n');
+    await saveListing(project, { ...(await loadListing(project)), description: 'A family waits for a ferry that may never come.\n\nOver one long dry season, three generations learn what a border costs.', shortDescription: 'Three generations, one river, and the ferry that connects them.', keywords: ['river', 'family saga'], thema: ['FBA'] });
+    const mctx: BuildContext = { ...ctx, project };
+    await exportEbookCover(mctx, { formatId: 'ebook', platform: 'kdp' });
+    const kit = await exportMarketingKit(mctx, { publisher: { ...DEFAULT_PUBLISHER, authorBio: 'Dr Saad Islam writes in Sydney.', website: 'example.org' }, sizes: ['square', 'wide'] });
+    expect(kit.warnings).toEqual([]);
+
+    // Quotations are the highlighted passages; a fragment that is too short is not one.
+    expect(kit.facts.quotes.map((q) => q.text)).toEqual(['The smell of rain came in over the river mouth', 'A second line worth keeping, about salt and patience and the long road home.']);
+    expect(kit.facts.quotes[0].from).toBe('The River');
+
+    const copy = fs.readFileSync(kit.copyPath, 'utf8');
+    expect(copy).toContain('## In one line\n\nThree generations, one river, and the ferry that connects them.');
+    expect(copy).toContain('Over one long dry season, three generations learn what a border costs.');
+    expect(copy).toContain('- Author: Dr Saad Islam');
+    expect(copy).toMatch(/- Paperback[^\n]*ISBN 978/);
+    expect(copy).toContain('Bookshops and libraries can order the printed editions from Ingram');
+    expect(copy).toContain('> The smell of rain came in over the river mouth');
+    expect(copy).toContain('Blessings Foundation Bangladesh');
+    expect(copy).not.toMatch(/[\u2013\u2014]/);
+
+    // The sell sheet is a single page with its fonts inside.
+    const sheet = await inspectPdf(new Uint8Array(fs.readFileSync(kit.sheetPath!)));
+    expect(sheet.pageCount).toBe(1);
+    expect(sheet.fonts.length).toBeGreaterThan(0);
+    expect(sheet.fonts.every((f) => f.embedded)).toBe(true);
+
+    // Two quotations in two sizes, each picture exactly the size a social site expects.
+    expect(kit.cards).toHaveLength(4);
+    const sizes = kit.cards.map((c) => { const i = imageInfo(new Uint8Array(fs.readFileSync(c.path))); return `${c.size}:${i.width}x${i.height}`; });
+    expect(sizes).toEqual(['square:1080x1080', 'wide:1200x675', 'square:1080x1080', 'wide:1200x675']);
+  }, 120_000);
+
+  it('says what is missing instead of inventing it', async () => {
+    const facts = await marketingFacts(ctx, await assembleProject(ctx, { formatId: 'ebook' }), null);
+    expect(facts.quotes).toEqual([]);
+    expect(facts.description).toEqual([]);
+    const copy = marketingCopy(facts);
+    expect(copy).toContain('(Nothing yet. Fill this in under Publish, Listing.)');
+    expect(copy).toContain('(None yet. In the Writer, select a sentence and press the highlighter button');
+    expect(copy).not.toMatch(/About the price/);
   });
 });
 

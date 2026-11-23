@@ -1,4 +1,4 @@
-/** The Publish screen: prices, the retail listing, ISBNs, the publishing checklist, and audiobook preparation. */
+/** The Publish screen: prices, the retail listing, ISBNs, the publishing checklist, the marketing kit and audiobook preparation. */
 import { useState } from 'react';
 import { BookTitle } from '../../App';
 import { PricingTab } from './PricingTab';
@@ -6,12 +6,14 @@ import { ListingTab } from './ListingTab';
 import { IsbnTab } from './IsbnTab';
 import { ChecklistTab } from './ChecklistTab';
 import { AudiobookTab } from './AudiobookTab';
+import { MarketingTab } from './MarketingTab';
 
 const TABS = [
   { id: 'prices', label: 'Prices' },
   { id: 'listing', label: 'Listing' },
   { id: 'isbn', label: 'ISBNs' },
   { id: 'checklist', label: 'Checklist' },
+  { id: 'marketing', label: 'Marketing' },
   { id: 'audiobook', label: 'Audiobook' },
 ] as const;
 type TabId = (typeof TABS)[number]['id'];
@@ -37,6 +39,7 @@ export function PublishView() {
         {tab === 'listing' && <ListingTab />}
         {tab === 'isbn' && <IsbnTab />}
         {tab === 'checklist' && <ChecklistTab />}
+        {tab === 'marketing' && <MarketingTab />}
         {tab === 'audiobook' && <AudiobookTab />}
       </div>
     </>

@@ -18,10 +18,13 @@
  *                                               Word files: manuscript format, and one for stores that convert Word themselves
  *   bstudio import <file> <parent folder> [--title "..."] [--author "..."]
  *                                               start a book from a Word, Markdown, text, EPUB or Scrivener file
+ *   bstudio marketing <book folder>             copy, sell sheet and quote cards in exports/marketing
+ *   bstudio audiobook <book folder> [--narrator "Name"]
+ *                                               narration scripts, recording plan and pronunciation guide in exports/audiobook
  *   bstudio new <parent folder> --title "..." --author "..." [--genre novel]
  */
 import {
-  assembleProject, bundledSpecsDir, coverKindsFor, createBook, exportCover, exportDocx, exportEbookCover, exportEpub, exportInterior, fillNewBookFromImport, importFile, previewCover, isStale, loadSpecs, openBook, preflightCoverFile, preflightEpubFile, preflightInteriorFile, unverifiedSections,
+  assembleProject, bundledSpecsDir, coverKindsFor, createBook, exportCover, defaultAudioOptions, durationText, exportAudiobookKit, exportDocx, exportEbookCover, exportEpub, exportInterior, exportMarketingKit, fillNewBookFromImport, importFile, previewCover, isStale, loadSpecs, openBook, preflightCoverFile, preflightEpubFile, preflightInteriorFile, unverifiedSections,
   GENRES, type BuildContext, type BuildWarning, type Genre, type PlatformId, type PreflightReport, type ToolId,
 } from '@borderless/core';
 import * as nodePath from 'node:path';
@@ -219,6 +222,24 @@ async function cmdImport(host: NodeHost, file: string, parent: string | undefine
   return 0;
 }
 
+async function cmdMarketing(host: NodeHost, dir: string): Promise<number> {
+  const kit = await exportMarketingKit(await context(host, dir));
+  console.log(`Marketing kit: ${kit.dir}`);
+  console.log(`    copy: ${kit.copyPath}`);
+  if (kit.sheetPath) console.log(`    sell sheet: ${kit.sheetPath}`);
+  console.log(`    ${kit.cards.length} quote card(s) from ${kit.facts.quotes.length} highlighted passage(s)`);
+  for (const w of kit.warnings) console.log(`    note: ${w}`);
+  return kit.sheetPath ? 0 : 1;
+}
+
+async function cmdAudiobook(host: NodeHost, dir: string): Promise<number> {
+  const kit = await exportAudiobookKit(await context(host, dir), { ...defaultAudioOptions(), narrator: flag('narrator') ?? '' });
+  console.log(`Audiobook kit: ${kit.dir}`);
+  console.log(`    ${kit.plan.files.length} audio files, ${kit.plan.totalWords} words, about ${durationText(kit.plan.totalMinutes)} finished`);
+  for (const w of kit.plan.warnings) console.log(`    note: ${w}`);
+  return 0;
+}
+
 async function cmdNew(host: NodeHost, parent: string): Promise<number> {
   const title = flag('title');
   const author = flag('author');
@@ -256,13 +277,19 @@ async function main(): Promise<number> {
     case 'import':
       if (!target) break;
       return cmdImport(host, target, args[2]);
+    case 'marketing':
+      if (!target) break;
+      return cmdMarketing(host, target);
+    case 'audiobook':
+      if (!target) break;
+      return cmdAudiobook(host, target);
     case 'new':
       if (!target) break;
       return cmdNew(host, target);
     default:
       break;
   }
-  console.log('Usage: bstudio <tools | specs | info <book> | build <book> [--format id] [--platform id] | word <book> | import <file> <folder> | new <folder> --title .. --author ..>');
+  console.log('Usage: bstudio <tools | specs | info <book> | build <book> [--format id] [--platform id] | word <book> | marketing <book> | audiobook <book> | import <file> <folder> | new <folder> --title .. --author ..>');
   return cmd ? 1 : 0;
 }
 
