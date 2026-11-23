@@ -1,0 +1,11 @@
+{
+  "_note": "Your details for the business card and the letterhead. Fill in, then run: python3 make-brand.py",
+  "name": "Dr Saad Islam",
+  "role": "Publisher",
+  "city": "Sydney, Australia",
+  "email": "",
+  "website": "",
+  "phone": "",
+  "abn": "",
+  "tagline": "Books priced for readers."
+}
