@@ -23,6 +23,8 @@ import { textNodes } from '../model/book';
 import { buildCoverPdf, buildEbookCover, renderCoverPreview, type CoverBuildInput, type CoverEnv, type CoverPdfResult, type EbookCoverResult } from '../cover/build';
 import { coverGeometry, coverKindsFor, type CoverGeometryResult, type CoverKind } from '../cover/geometry';
 import { CoverDesignSchema, type CoverDesign } from '../cover/model';
+import { bookMockup } from '../cover/mockup';
+import { decodePng, encodePng, flattenAlpha } from '../image/png';
 import { formatPreflight, manuscriptChecks, preflightCover, preflightEpub, preflightInterior, summarise, type ManuscriptDoc, type PreflightReport } from '../preflight/index';
 import { assembleBook, type AlsoByGroup, type AssembledBook, type BuildWarning } from './assemble';
 
@@ -561,7 +563,7 @@ export async function exportEbookCover(ctx: BuildContext, opts: { formatId?: str
     book, format, design, imprint: book.imprint, website: book.publisherWebsite,
     geometry: {
       platform, platformName: ctx.specs.platforms[platform]!.displayName, kind: 'paperback', pages: 0, trimWidthIn: 5, trimHeightIn: 8,
-      widthIn: 5, heightIn: 8, bleedIn: 0, trim: blank, back: blank, spine: blank, front: blank, backFlap: null, frontFlap: null, hinges: [],
+      widthIn: 5, heightIn: 8, art: { x: 0, y: 0, w: 5, h: 8 }, onSheet: false, bleedIn: 0, trim: blank, back: blank, spine: blank, front: blank, backFlap: null, frontFlap: null, hinges: [],
       safe: { back: blank, front: blank, spine: null, backFlap: null, frontFlap: null }, barcode: blank, barcodeRequired: false, platformAddsBarcode: false,
       spineWidthIn: 0, spineBasis: '', spineTextAllowed: false, maxInkPercent: null, colorSpace: 'rgb-or-cmyk', minImageDpi: 300, notes: [],
     },
@@ -594,4 +596,23 @@ export async function preflightCoverFile(ctx: BuildContext, res: CoverExport, ta
   });
   await ctx.host.writeText(res.pdfPath.replace(/\.pdf$/, '_preflight.txt'), formatPreflight(report));
   return report;
+}
+
+/**
+ * Make a three dimensional mock-up picture of an edition (front cover and
+ * spine at an angle). Written to exports/ as a PNG with a transparent
+ * background, and as a second PNG on white for places that need one.
+ */
+export async function exportMockup(ctx: BuildContext, target: CoverTarget & { size?: number; angle?: number }): Promise<{ ok: boolean; pngPath: string; whitePath: string; warnings: BuildWarning[] }> {
+  const ppi = 150;
+  const flat = await previewCover(ctx, { ...target, guides: false, ppi });
+  if (!flat.ok || !flat.plan.geometry) return { ok: false, pngPath: '', whitePath: '', warnings: flat.warnings };
+  const picture = decodePng(await ctx.host.readBinary(flat.pngPath));
+  const base = ctx.project.path(LAYOUT.exportsDir, `${exportBaseName(ctx, { formatId: target.formatId })}_mockup`);
+  const clear = bookMockup(picture, flat.plan.geometry, ppi, { size: target.size, angle: target.angle, background: null });
+  await ctx.host.mkdirp(ctx.project.path(LAYOUT.exportsDir));
+  await ctx.host.writeBinary(`${base}.png`, encodePng(clear));
+  // The same picture on white, without drawing it twice.
+  await ctx.host.writeBinary(`${base}_white.png`, encodePng(flattenAlpha(clear, [255, 255, 255])));
+  return { ok: true, pngPath: `${base}.png`, whitePath: `${base}_white.png`, warnings: flat.warnings };
 }

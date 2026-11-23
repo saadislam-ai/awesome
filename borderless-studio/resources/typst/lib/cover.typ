@@ -286,20 +286,25 @@
   let red = rgb(220, 40, 60)
   // Bleed or wrap: everything outside the trim lines is cut off or folded away.
   let t = p.trim
-  let W = spec.page.w
+  let a = spec.full
   let H = spec.page.h
   let veil = rgb(220, 40, 60, 38)
-  shade((x: 0, y: 0, w: W, h: t.y), veil)
-  shade((x: 0, y: t.y + t.h, w: W, h: H - t.y - t.h), veil)
-  shade((x: 0, y: t.y, w: t.x, h: t.h), veil)
-  shade((x: t.x + t.w, y: t.y, w: W - t.x - t.w, h: t.h), veil)
+  shade((x: a.x, y: a.y, w: a.w, h: t.y - a.y), veil)
+  shade((x: a.x, y: t.y + t.h, w: a.w, h: a.y + a.h - t.y - t.h), veil)
+  shade((x: a.x, y: t.y, w: t.x - a.x, h: t.h), veil)
+  shade((x: t.x + t.w, y: t.y, w: a.x + a.w - t.x - t.w, h: t.h), veil)
   outline(t, 0.7pt + red)
+  // On a template sheet, show the edge of the sheet and of the cover area.
+  if a.w < spec.page.w - 0.01 or a.h < spec.page.h - 0.01 {
+    outline(a, (paint: rgb(120, 120, 120), thickness: 0.5pt, dash: "dotted"))
+    outline((x: 0, y: 0, w: spec.page.w, h: spec.page.h), 0.5pt + rgb(170, 170, 170))
+  }
   for h in p.hinges { shade(h, rgb(240, 150, 0, 60)) }
   for r in (p.safeBack, p.safeFront, p.safeSpine, p.safeBackFlap, p.safeFrontFlap) {
     if r != none { outline(r, (paint: rgb(0, 150, 90), thickness: 0.6pt, dash: "dashed")) }
   }
   // Fold lines at both sides of the spine, and at the flaps of a jacket.
-  let fold(x) = at(x, 0, line(start: (0pt, 0pt), end: (0pt, H * 1in), stroke: (paint: rgb(0, 120, 220), thickness: 0.6pt, dash: "dash-dotted")))
+  let fold(x) = at(x, a.y, line(start: (0pt, 0pt), end: (0pt, a.h * 1in), stroke: (paint: rgb(0, 120, 220), thickness: 0.6pt, dash: "dash-dotted")))
   fold(p.spine.x)
   fold(p.spine.x + p.spine.w)
   if p.backFlap != none { fold(p.backFlap.x + p.backFlap.w); fold(p.back.x) }
@@ -315,17 +320,18 @@
   set text(font: spec.fonts.body, lang: spec.lang, fill: col(spec, spec.colors.text))
   set par(spacing: 0pt)
   let p = spec.panels
-  let full = (x: 0, y: 0, w: spec.page.w, h: spec.page.h)
+  // The cover area: the whole page, or the middle of a platform's template sheet (the rest stays white).
+  let full = spec.full
   fill-rect(full, col(spec, spec.colors.background))
   if spec.only == "front" {
     front(spec)
   } else {
     // Back cover, spine and flaps share the second background colour.
-    let left-w = p.spine.x + p.spine.w
-    fill-rect((x: 0, y: 0, w: left-w, h: spec.page.h), col(spec, spec.colors.backBackground))
+    let spine-right = p.spine.x + p.spine.w
+    fill-rect((x: full.x, y: full.y, w: spine-right - full.x, h: full.h), col(spec, spec.colors.backBackground))
     if p.frontFlap != none {
       let fx = p.front.x + p.front.w
-      fill-rect((x: fx, y: 0, w: spec.page.w - fx, h: spec.page.h), col(spec, spec.colors.backBackground))
+      fill-rect((x: fx, y: full.y, w: full.x + full.w - fx, h: full.h), col(spec, spec.colors.backBackground))
     }
     if spec.art.wrap != none {
       picture(full, spec.art.wrap)

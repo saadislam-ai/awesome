@@ -39,14 +39,16 @@ The app is built in phases. After each phase it builds, runs and is usable.
 | Phase | Contents | State |
 | --- | --- | --- |
 | 1 | Library and new book wizard, writer, binder, tracked changes and comments, snapshots, search and replace, typography cleaner with dash policy, EPUB 3 export with EPUBCheck, print interior PDF for KDP and IngramSpark trim sizes | Done |
-| 2 | Design screen with the six templates, front and back matter generators, live spread preview, cover builder, PDF/X for IngramSpark, preflight checker | In progress |
+| 2 | Book screen (details, editions, interior design with the six templates and a live preview of real pages, front and back matter), cover builder (paperback, hardcover case, dust jacket, barcode, ebook covers, 3D picture), PDF/X-1a for print files, preflight for interiors, covers and ebooks | Done |
 | 3 | Metadata and listing manager, Reach First pricing calculator, ISBN manager, Bangla checks | Planned |
 | 4 | Extras: AI assistant (off by default), large print, sample and ARC builder, marketing kit, audiobook prep, series manager, backup, imports, publishing checklist, spec updater | Planned |
 
 The engine also runs without the interface, from a terminal:
 
 ```
-npm run cli -- build sample-book --all      build every edition of the sample book
+npm run cli -- build sample-book --all      build interiors, covers and ebooks of every edition, with preflight
+npm run cli -- build sample-book --format paperback --platform kdp --preview
+                                            one edition for one platform, plus a cover picture with guides
 npm run cli -- info  sample-book            show the structure, word counts and editions
 npm run cli -- specs                        show the spec files and their age
 npm run cli -- tools                        show which helper tools were found
@@ -140,10 +142,11 @@ If you do not want to set up both, let GitHub do it: the workflow in
 Windows `.msi` and `.exe` on every push, and attaches them to a draft release
 when you push a tag such as `borderless-studio-v0.1.0`.
 
-**On a fork, GitHub keeps workflows switched off until you allow them.** Open
-the **Actions** tab of the repository once and press the button that enables
-workflows. After that, use **Run workflow** on the "Borderless Studio"
-workflow, or push a commit.
+If the **Actions** tab of the repository shows a button asking you to enable
+workflows (GitHub does this on some forks), press it once. After that, use
+**Run workflow** on the "Borderless Studio" workflow, or push a commit. The
+workflow has been run on this repository: it produced the macOS `.dmg`
+(about 96 MB) and the Windows `.msi` and `.exe` (about 90 MB each).
 
 If you skip `build-jre.mjs` the app still works, but exporting ebooks then
 needs a Java installed on the computer (EPUBCheck is a Java program).
@@ -280,9 +283,16 @@ differ from what you told me. They are marked in the spec files too.
    is higher: 40 percent for the US and Canada, 35 percent for the UK, EU and
    Australia. Check on the title setup page what your account really allows.
    The pricing calculator will use your 30 percent but warn about it.
-2. **IngramSpark spine width.** IngramSpark publishes no formula. Take the
-   spine width from its cover template generator for the exact page count and
-   paper, and enter it in the cover builder.
+2. **IngramSpark spine width and template size.** IngramSpark publishes no
+   spine formula. Take the spine width from its cover template generator for
+   the exact page count and paper, and enter it for the edition (Book screen,
+   Editions). IngramSpark also asks that the cover file keeps the document
+   size of its template. When you enter that size, or let the app read it
+   from the template PDF, the cover is exported on a sheet of that size with
+   the cover in the centre. A real template could not be examined while this
+   was written, so lay the first export over your template once and confirm
+   that the trim marks line up. Without a template size the file has the
+   size of the cover with bleed.
 3. **KDP hardcover spine and case sizes.** The help page figures contradict
    each other, so the spec follows the official calculator. Check the
    calculator before ordering a hardcover proof.
@@ -292,16 +302,22 @@ differ from what you told me. They are marked in the spec files too.
    retailers. D2D Print states Latin based languages only.
 5. **Price barcodes.** The five digit price add-on exists for US and Canadian
    dollars only. There is no Australian dollar code, so Australian editions
-   use `90000` (no price) or no add-on.
-6. **KDP hardcovers are not sold on Amazon Australia.**
-7. **IngramSpark ebook rules and cover pixel limits.** The help centre could
+   use `90000` (no price) or no add-on. The barcodes the app draws are read
+   back by a scanner library in the tests, but scan the barcode on your first
+   printed proof with a phone as well.
+6. **Colour on covers.** Pictures for IngramSpark are converted to CMYK by
+   the app, inside the 240 percent ink limit. Screen colours that no press
+   can print (very bright blues and greens) become duller. For a colour
+   critical cover, order a proof before you approve the title.
+7. **KDP hardcovers are not sold on Amazon Australia.**
+8. **IngramSpark ebook rules and cover pixel limits.** The help centre could
    not be read; a 1600 x 2560 pixel cover is used as a safe size.
-8. **Draft2Digital Print** publishes no margin rules and no spine formula;
+9. **Draft2Digital Print** publishes no margin rules and no spine formula;
    the values in its spec are cautious placeholders and its own template
    decides.
-9. **KDP interior colour space.** KDP states CMYK for covers only. Black text
+10. **KDP interior colour space.** KDP states CMYK for covers only. Black text
    is exported as pure black (K only), which is correct either way.
-10. **Printing costs, royalty thresholds and fees change.** They are dated in
+11. **Printing costs, royalty thresholds and fees change.** They are dated in
     the spec files. Compare one book with each platform's own calculator
     before you set prices.
 
@@ -314,11 +330,19 @@ differ from what you told me. They are marked in the spec files too.
 * the Markdown dialect, tracked changes, typography and the dash policy
 * the spec files: structure, sources, dates, and spot checks against the
   official figures
+* colour conversion: paper white stays free of ink, black stays inside the
+  ink limit, printable colours are reproduced within 2 delta E
+* cover geometry for KDP and IngramSpark paperbacks, hardcover cases and dust
+  jackets, worked out by hand from the published formulas
+* barcodes: bar patterns, sizes, quiet zones; where the zbar tool is
+  installed the barcode on the finished cover is read back by it
+* preflight: deliberately broken files (wrong page size, text in the gutter,
+  a font that is not embedded, a coarse RGB picture) must each be reported
 * crash safe saving, snapshots and the trash folder
 * end to end exports of the sample book with the real tools. The produced
   PDFs are opened again and measured: page size, the real margins on every
-  page, embedded fonts, pure black text, no transparency. The EPUB is run
-  through EPUBCheck.
+  page, embedded fonts, pure black text, no transparency, PDF/X-1a markers,
+  greyscale or CMYK pictures. The EPUB is run through EPUBCheck.
 
 The sample book (`sample-book/`, about 62,000 words of placeholder text with
 footnotes, images and an index, about 200 pages) is built at 5.5 x 8.5 in and

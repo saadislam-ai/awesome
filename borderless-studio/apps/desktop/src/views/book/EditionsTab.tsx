@@ -7,7 +7,7 @@
 import { useMemo } from 'react';
 import { AlertTriangle, BookCopy, CheckCircle2, CircleAlert, ExternalLink, Plus, Tablet, Trash2 } from 'lucide-react';
 import {
-  PLATFORM_IDS, languageProblem, trimAvailability, validateIsbn,
+  PLATFORM_IDS, joinPath, languageProblem, readCoverTemplate, trimAvailability, validateIsbn,
   type Book, type BookFormat, type PlatformId, type SpecSet,
 } from '@borderless/core';
 import { useStore } from '../../state/store';
@@ -80,7 +80,27 @@ export function EditionsTab() {
 }
 
 function Edition(props: { format: BookFormat; index: number; trims: TrimOption[]; specs: SpecSet | null; language: string; onOpen: (url: string) => void }) {
-  const { update } = useBookEditor();
+  const { update, project } = useBookEditor();
+  const host = useStore((s) => s.host);
+  const toast = useStore((s) => s.toast);
+  /** Read the document size from the template PDF and keep a copy of the template in the book folder. */
+  const importTemplate = async () => {
+    const file = await host.ui?.pickFile('Choose the cover template PDF from IngramSpark', [{ name: 'PDF', extensions: ['pdf'] }]);
+    if (!file) return;
+    try {
+      const info = await readCoverTemplate(await host.readBinary(file));
+      const rel = `cover/templates/ingramspark-${props.format.id}.pdf`;
+      await host.mkdirp(joinPath(project.dir, 'cover/templates'));
+      await host.copy(file, joinPath(project.dir, rel));
+      update((b) => {
+        const x = b.formats[props.index];
+        x.platformOptions = { ...x.platformOptions, ingramspark: { ...(x.platformOptions.ingramspark ?? {}), templateWidthIn: info.widthIn, templateHeightIn: info.heightIn, templateFile: rel } };
+      });
+      toast('ok', `Template size ${info.widthIn} x ${info.heightIn} in read. Now type the spine width printed on the template.`);
+    } catch (e) {
+      toast('fail', e instanceof Error ? e.message : String(e));
+    }
+  };
   const { format: f, index: i, specs } = props;
   const edit = (change: (f: BookFormat) => void) => update((b) => change(b.formats[i]));
   const isbn = f.isbn ? validateIsbn(f.isbn) : null;
@@ -203,12 +223,16 @@ function Edition(props: { format: BookFormat; index: number; trims: TrimOption[]
                 )}
               </div>
               <div className="dim" style={{ margin: '6px 0 8px' }}>
-                IngramSpark publishes no spine formula. Build the interior first, generate a cover template on their site for the exact page count and paper, and copy the numbers here. The app never guesses them.
+                IngramSpark publishes no spine formula. Build the interior first, generate a cover template on their site for the exact page count and paper, and copy the numbers here. The app never guesses them. The document size is printed at the bottom left of the template; with it, the cover file is made in exactly that size.
               </div>
               <div className="grid3">
                 <Field label="Spine width (in)"><input className="input" type="number" step={0.001} min={0} value={ingram.spineWidthIn ?? ''} onChange={(e) => setIngram({ spineWidthIn: num(e.target.value) })} /></Field>
-                <Field label="Template width (in), optional"><input className="input" type="number" step={0.001} min={0} value={ingram.templateWidthIn ?? ''} onChange={(e) => setIngram({ templateWidthIn: num(e.target.value) })} /></Field>
-                <Field label="Template height (in), optional"><input className="input" type="number" step={0.001} min={0} value={ingram.templateHeightIn ?? ''} onChange={(e) => setIngram({ templateHeightIn: num(e.target.value) })} /></Field>
+                <Field label="Template document width (in)"><input className="input" type="number" step={0.001} min={0} value={ingram.templateWidthIn ?? ''} onChange={(e) => setIngram({ templateWidthIn: num(e.target.value) })} /></Field>
+                <Field label="Template document height (in)"><input className="input" type="number" step={0.001} min={0} value={ingram.templateHeightIn ?? ''} onChange={(e) => setIngram({ templateHeightIn: num(e.target.value) })} /></Field>
+              </div>
+              <div className="row" style={{ marginTop: 8 }}>
+                <button className="btn small" onClick={() => void importTemplate()}>Read the size from the template PDF</button>
+                {typeof ingram.templateFile === 'string' && ingram.templateFile && <span className="small dim selectable">{ingram.templateFile}</span>}
               </div>
             </div>
           )}

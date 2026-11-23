@@ -35,9 +35,13 @@ export interface CoverGeometry {
   pages: number;
   trimWidthIn: number;
   trimHeightIn: number;
-  /** Size of the cover file. */
+  /** Size of the cover file. Normally the cover with its bleed; the platform's template sheet when one was entered. */
   widthIn: number;
   heightIn: number;
+  /** The cover itself inside the file, including bleed or wrap. Equal to the whole file unless a template sheet is used. */
+  art: Rect;
+  /** True when the cover sits in the centre of a larger template sheet. */
+  onSheet: boolean;
   /** Paper beyond the fold or trim lines on the outer edges: bleed, or the wrap of a hardcover case. */
   bleedIn: number;
   /** What stays visible: inside the trim lines (paperback, jacket) or the outer fold lines (case). */
@@ -93,7 +97,11 @@ export interface CoverGeometryOptions {
   kind?: CoverKind;
   /** Spine width from the platform's template, for platforms that publish no formula. */
   templateSpineIn?: number | null;
-  /** Full size of the platform's template, to compare with the calculated size. */
+  /**
+   * Document size of the platform's template (IngramSpark prints it at the
+   * bottom left of the template). When it is larger than the cover, the file
+   * is made in that size with the cover in the centre.
+   */
   templateWidthIn?: number | null;
   templateHeightIn?: number | null;
 }
@@ -160,7 +168,7 @@ export function coverGeometry(
     const front = rect(b + tw + s, b, tw, th);
     g = {
       ...base,
-      widthIn: r4(2 * b + 2 * tw + s), heightIn: r4(2 * b + th), bleedIn: b,
+      widthIn: r4(2 * b + 2 * tw + s), heightIn: r4(2 * b + th), bleedIn: b, art: rect(0, 0, 2 * b + 2 * tw + s, 2 * b + th), onSheet: false,
       trim: rect(b, b, 2 * tw + s, th), back, spine, front, backFlap: null, frontFlap: null, hinges: [],
       safe: { back: inset(back, m), front: inset(front, m), spine: spineTextAllowed ? inset(spine, spineMargin, m) : null, backFlap: null, frontFlap: null },
       barcode: barcodeBox(back, 0, 0),
@@ -179,7 +187,7 @@ export function coverGeometry(
     const inner = c.hingeInsidePanel ? hinge + m : m;
     g = {
       ...base,
-      widthIn: r4(2 * wrap + 2 * bw + 2 * gap + s), heightIn: r4(2 * wrap + bh), bleedIn: wrap,
+      widthIn: r4(2 * wrap + 2 * bw + 2 * gap + s), heightIn: r4(2 * wrap + bh), bleedIn: wrap, art: rect(0, 0, 2 * wrap + 2 * bw + 2 * gap + s, 2 * wrap + bh), onSheet: false,
       trim: rect(wrap, wrap, 2 * bw + 2 * gap + s, bh), back, spine, front, backFlap: null, frontFlap: null, hinges,
       safe: { back: inset(back, m, m, inner, m), front: inset(front, inner, m, m, m), spine: spineTextAllowed ? inset(spine, spineMargin, m) : null, backFlap: null, frontFlap: null },
       barcode: barcodeBox(back, c.hingeInsidePanel ? hinge : 0, 0),
@@ -198,7 +206,7 @@ export function coverGeometry(
     const jm = dj.safeMarginIn;
     g = {
       ...base,
-      widthIn: r4(2 * b + 2 * dj.flapIn + 2 * dj.flapWrapIn + 2 * pw + s), heightIn: r4(2 * b + ph), bleedIn: b,
+      widthIn: r4(2 * b + 2 * dj.flapIn + 2 * dj.flapWrapIn + 2 * pw + s), heightIn: r4(2 * b + ph), bleedIn: b, art: rect(0, 0, 2 * b + 2 * dj.flapIn + 2 * dj.flapWrapIn + 2 * pw + s, 2 * b + ph), onSheet: false,
       trim: rect(b, b, 2 * dj.flapIn + 2 * dj.flapWrapIn + 2 * pw + s, ph), back, spine, front, backFlap, frontFlap, hinges: [],
       safe: { back: inset(back, jm), front: inset(front, jm), spine: spineTextAllowed ? inset(spine, spineMargin, jm) : null, backFlap: inset(backFlap, jm), frontFlap: inset(frontFlap, jm) },
       barcode: barcodeBox(back, 0, 0),
@@ -208,17 +216,37 @@ export function coverGeometry(
     }
   }
 
-  // Compare with the platform's own template when its size was entered.
+  // The platform's own template sheet, when its document size was entered.
   if (opts.templateWidthIn && opts.templateHeightIn) {
-    const dw = Math.abs(opts.templateWidthIn - g.widthIn);
-    const dh = Math.abs(opts.templateHeightIn - g.heightIn);
-    if (dw > 0.02 || dh > 0.02) {
-      cautions.push(`The calculated cover is ${g.widthIn} x ${g.heightIn} in, but the template you entered is ${opts.templateWidthIn} x ${opts.templateHeightIn} in. Check the page count, paper and trim size used for the template.`);
+    const dw = opts.templateWidthIn - g.widthIn;
+    const dh = opts.templateHeightIn - g.heightIn;
+    if (dw < -0.02 || dh < -0.02) {
+      problems.push(`The template size you entered (${opts.templateWidthIn} x ${opts.templateHeightIn} in) is smaller than the cover worked out from the spine width (${g.widthIn} x ${g.heightIn} in). Check the template size, the spine width, the page count and the trim size.`);
+    } else if (dw > 0.02 || dh > 0.02) {
+      g = placeOnSheet(g, opts.templateWidthIn, opts.templateHeightIn);
+      cautions.push(`The cover (${g.art.w} x ${g.art.h} in with bleed) is placed in the centre of the ${name} template sheet of ${g.widthIn} x ${g.heightIn} in. Lay the result over your template once to confirm that the trim marks line up.`);
     }
+  } else if (spineRes.mode === 'template') {
+    cautions.push(`${name} asks for the cover in the document size of its template (printed at the bottom left of the template). Enter that size for the edition to export on the template sheet; without it the file has the size of the cover with bleed.`);
   }
   if (spineRes.mode === 'template') cautions.push(`The spine width (${s} in) comes from the ${name} template you entered. Generate a new template whenever the page count or paper changes.`);
   if (g.barcode.x < g.back.x + m - 1e-6 || g.barcode.y < g.back.y + m - 1e-6) problems.push('The back cover is too small for the barcode box.');
   return { geometry: g, problems, cautions };
+}
+
+/** Move a finished layout onto a larger sheet, centred. Every rectangle shifts by the same amount. */
+export function placeOnSheet(g: CoverGeometry, sheetWidthIn: number, sheetHeightIn: number): CoverGeometry {
+  const dx = (sheetWidthIn - g.widthIn) / 2;
+  const dy = (sheetHeightIn - g.heightIn) / 2;
+  const mv = (r: Rect): Rect => rect(r.x + dx, r.y + dy, r.w, r.h);
+  const opt = (r: Rect | null): Rect | null => (r ? mv(r) : null);
+  return {
+    ...g,
+    widthIn: r4(sheetWidthIn), heightIn: r4(sheetHeightIn), onSheet: true,
+    art: mv(g.art), trim: mv(g.trim), back: mv(g.back), spine: mv(g.spine), front: mv(g.front),
+    backFlap: opt(g.backFlap), frontFlap: opt(g.frontFlap), hinges: g.hinges.map(mv), barcode: mv(g.barcode),
+    safe: { back: mv(g.safe.back), front: mv(g.safe.front), spine: opt(g.safe.spine), backFlap: opt(g.safe.backFlap), frontFlap: opt(g.safe.frontFlap) },
+  };
 }
 
 /** Is rectangle `a` fully inside rectangle `b` (with a small tolerance)? */

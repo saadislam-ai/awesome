@@ -4,9 +4,9 @@
  * the trim, the folds of the spine, the safe zones and the barcode area.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AlertTriangle, CircleAlert, FileDown, ImagePlus, Info, Loader2, Play, Tablet, Trash2 } from 'lucide-react';
+import { AlertTriangle, Box, CircleAlert, FileDown, ImagePlus, Info, Loader2, Play, Tablet, Trash2 } from 'lucide-react';
 import {
-  COVER_KIND_LABEL, COVER_LAYOUTS, COVER_LAYOUT_INFO, FONT_CATALOG, basename, coverKindsFor, exportCover, exportEbookCover, extname, joinPath,
+  COVER_KIND_LABEL, COVER_LAYOUTS, COVER_LAYOUT_INFO, FONT_CATALOG, basename, coverKindsFor, exportCover, exportEbookCover, exportMockup, extname, joinPath,
   loadCoverDesign, preflightCoverFile, previewCover, saveCoverDesign, slugify,
   type CoverDesign, type CoverExport, type CoverKind, type CoverPlan, type EbookCoverResult, type PlatformId, type PreflightReport,
 } from '@borderless/core';
@@ -57,6 +57,7 @@ export function CoverView() {
   const [building, setBuilding] = useState(false);
   const [result, setResult] = useState<{ cover: CoverExport; preflight: PreflightReport } | null>(null);
   const [ebook, setEbook] = useState<(EbookCoverResult & { platform: PlatformId })[]>([]);
+  const [mockup, setMockup] = useState<{ path: string; stamp: number } | null>(null);
   const request = useRef(0);
   const saveTimer = useRef<number | null>(null);
 
@@ -153,6 +154,25 @@ export function CoverView() {
     }
   };
 
+  const buildMockup = async () => {
+    if (!format || !platform || !kind || !design) return;
+    setBuilding(true);
+    try {
+      await saveCoverDesign(project, design);
+      const res = await exportMockup(await buildContext(), { formatId: format.id, platform, kind: kind === 'dust-jacket' ? 'dust-jacket' : kind });
+      if (res.ok) {
+        setMockup({ path: res.whitePath, stamp: Date.now() });
+        toast('ok', 'The mock-up pictures are in the exports folder (one transparent, one on white).');
+      } else {
+        toast('fail', res.warnings.find((w) => w.severity === 'fail')?.message ?? 'The mock-up could not be made.');
+      }
+    } catch (e) {
+      toast('fail', e instanceof Error ? e.message : String(e));
+    } finally {
+      setBuilding(false);
+    }
+  };
+
   if (!format) {
     return (
       <>
@@ -180,6 +200,7 @@ export function CoverView() {
           <Seg value={platform ?? platforms[0]} onChange={(v) => setPlatform(v)} options={platforms.map((p) => ({ value: p, label: specs?.platforms[p]?.displayName ?? p }))} />
         )}
         {kinds.length > 1 && <Seg value={kind ?? kinds[0]} onChange={(v) => setKind(v)} options={kinds.map((k) => ({ value: k, label: COVER_KIND_LABEL[k] }))} />}
+        <button className="btn" disabled={building || !platform} title="A picture of the printed book at an angle, for websites and social posts" onClick={() => void buildMockup()}><Box size={14} /> 3D picture</button>
         <button className="btn" disabled={building} onClick={() => void buildEbook()}><Tablet size={14} /> Ebook cover</button>
         <button className="btn primary" disabled={building || !platform} onClick={() => void build()}>{building ? <Loader2 size={14} className="spin" /> : <Play size={14} />} Build cover file</button>
       </div>
@@ -345,6 +366,12 @@ export function CoverView() {
                 </div>
                 {result.cover.pdfPath && <div className="small faint selectable" style={{ marginTop: 4 }}>{result.cover.pdfPath}</div>}
                 <PreflightList report={result.preflight} />
+              </div>
+            )}
+            {mockup && (
+              <div style={{ padding: '10px 12px', borderTop: '1px solid var(--border)' }}>
+                <div className="row"><b>3D picture</b><div className="grow" /><button className="btn small" onClick={() => void host.ui?.revealPath(mockup.path)}>Show in folder</button></div>
+                <FileImage path={mockup.path} version={mockup.stamp} alt="The book at an angle" style={{ maxWidth: 420, width: '100%', display: 'block', margin: '8px auto 0' }} />
               </div>
             )}
             {ebook.length > 0 && (

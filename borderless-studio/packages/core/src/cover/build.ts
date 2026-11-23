@@ -108,10 +108,12 @@ export function buildCoverSpec(input: CoverBuildInput, opts: CoverRenderOptions)
 
   let page = { w: g.widthIn, h: g.heightIn };
   let panels: Record<string, unknown>;
-  const full: Rect = { x: 0, y: 0, w: g.widthIn, h: g.heightIn };
+  // The cover area inside the file: the whole file, or the middle of a template sheet.
+  let full: Rect = g.art;
   if (opts.frontOnly) {
     page = { w: opts.frontOnly.widthIn, h: opts.frontOnly.heightIn };
     const whole: Rect = { x: 0, y: 0, w: page.w, h: page.h };
+    full = whole;
     const margin = Math.min(page.w, page.h) * 0.06;
     panels = {
       trim: whole, back: whole, spine: { x: 0, y: 0, w: 0, h: page.h }, front: whole, backFlap: null, frontFlap: null, hinges: [],
@@ -119,7 +121,7 @@ export function buildCoverSpec(input: CoverBuildInput, opts: CoverRenderOptions)
     };
   } else {
     // The front picture runs off the top, bottom and outer edge; at the spine side it stops at the fold.
-    const frontBleed: Rect = { x: g.front.x, y: 0, w: (g.frontFlap ? g.frontFlap.x : g.widthIn) - g.front.x, h: g.heightIn };
+    const frontBleed: Rect = { x: g.front.x, y: full.y, w: (g.frontFlap ? g.frontFlap.x : full.x + full.w) - g.front.x, h: full.h };
     panels = {
       trim: g.trim, back: g.back, spine: g.spine, front: g.front, backFlap: g.backFlap, frontFlap: g.frontFlap, hinges: g.hinges,
       safeBack: g.safe.back, safeFront: g.safe.front, safeSpine: g.safe.spine, safeBackFlap: g.safe.backFlap, safeFrontFlap: g.safe.frontFlap,
@@ -321,7 +323,7 @@ export async function buildCoverPdf(
   const page = doc.getPage(0);
   const H = g.heightIn * 72;
   page.setTrimBox(g.trim.x * 72, H - (g.trim.y + g.trim.h) * 72, g.trim.w * 72, g.trim.h * 72);
-  page.setBleedBox(0, 0, g.widthIn * 72, H);
+  page.setBleedBox(g.art.x * 72, H - (g.art.y + g.art.h) * 72, g.art.w * 72, g.art.h * 72);
   const withBoxes = await doc.save({ useObjectStreams: false });
   const finished = await finalizePrint(withBoxes, {
     removeAnnotations: true, removeOutline: true, removeXmp: true,

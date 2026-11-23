@@ -45,3 +45,6 @@ export * from './cover/geometry';
 export * from './cover/barcode';
 export * from './cover/model';
 export * from './cover/build';
+export * from './cover/template';
+export * from './image/warp';
+export * from './cover/mockup';

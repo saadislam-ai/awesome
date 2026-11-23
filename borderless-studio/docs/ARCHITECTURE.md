@@ -36,7 +36,7 @@ borderless-studio/
   apps/desktop/
     src/                    React interface
       editor/               the Markdown editor (CodeMirror 6) and its decorations
-      views/                Library, Writer, Binder, Inspector, Export, Settings
+      views/                Library, Writer, Binder, Inspector, Book, Cover, Export, Settings
       state/store.ts        one small state store (zustand)
       host/                 Tauri host and browser bridge host
     src-tauri/              Rust host, window settings, icons, installer settings
@@ -46,9 +46,12 @@ borderless-studio/
     library/                the library of books, settings, publisher profile, search index
     markdown/               Markdown dialect, tracked changes, typography, masking
     build/                  assembling a book from binder + documents; export pipeline
-    typeset/                turning the assembled book into data for Typst; running Typst
+    typeset/                turning the assembled book into data for Typst; running Typst; page previews
+    cover/                  cover geometry, barcode, cover design, cover files, 3D picture
+    color/                  screen colour to press ink (CMYK) conversion
+    preflight/              checks on finished files against the platform rules
     epub/                   EPUB 3 writer and the EPUBCheck runner
-    pdf/                    PDF reader for measurements, print finishing step
+    pdf/                    PDF reader for measurements, print finishing step, PDF/X-1a
     specs/                  loading and checking the platform spec files
     calc/                   units, margins, page sizes
     image/                  image size and resolution, PNG read and write
@@ -132,6 +135,56 @@ Points worth knowing:
   quotes and tables are padded to whole lines, so facing pages line up.
 * **Black is pure black.** Text is written as CMYK 0/0/0/100, which is what
   printers want. Rich black is never used for text.
+
+## Print files: PDF/X-1a and colour
+
+`pdf/pdfx.ts` turns the typeset PDF into PDF/X-1a:2001 when the platform's
+spec file lists that standard. It changes as little as possible: text and
+line work are left exactly as typeset (they are already pure black or CMYK),
+pictures are relabelled as plain greyscale or converted to CMYK, every page
+gets a TrimBox, and the file states the printing condition it was prepared
+for (CGATS TR 001, the one IngramSpark's own export settings name).
+
+`color/` holds the conversion from screen colours to ink. The bundled
+profile says which colour each ink mix produces on paper; `color/cmyk.ts`
+searches, for a grid of screen colours, the ink mix that comes closest while
+staying under the ink limit from the spec file (240 percent for IngramSpark)
+and using black ink for dark and grey areas. Pictures are converted by
+looking colours up in that grid. The trade-off is stated in the file: it is
+a careful approximation, not a colour management system, and very bright
+screen colours become duller in print.
+
+Pictures are prepared for print on a copy in the build folder (greyscale for
+black and white interiors, transparency flattened). Original files in the
+book folder are never changed.
+
+## Covers
+
+```
+cover/cover.json + spec file + page count
+   -> geometry   (cover/geometry.ts)  size of the file, panels, folds, safe zones, barcode area
+   -> barcode    (cover/barcode.ts)   EAN-13 and price add-on as plain black rectangles
+   -> cover spec (cover/build.ts)     colours as ink values, texts, pictures: all as data
+   -> resources/typst/lib/cover.typ   Typst draws the cover
+   -> finishing and preflight         TrimBox, PDF/X-1a where asked for, checks
+```
+
+One design serves every edition: the panels are worked out again for each
+trim size, page count and platform. The spine width comes from the formula a
+platform publishes, or from the value the user copies from the platform's
+template when there is no formula. The ebook cover is the same front design
+laid out again for the pixel proportions each store asks for, so nothing is
+stretched. Previews are drawn by the same Typst code as the print file, with
+guide lines added.
+
+## Preflight
+
+`preflight/index.ts` opens the finished file and checks it against the spec
+file: it does not trust the settings that produced the file. Margins are
+measured from the ink actually drawn on each page; fonts, picture resolution,
+colour format, transparency, page count and file size are read from the PDF.
+Each check returns a status and a sentence saying what to do. The tests feed
+it deliberately broken files to prove that every fault is reported.
 
 ## From manuscript to EPUB
 

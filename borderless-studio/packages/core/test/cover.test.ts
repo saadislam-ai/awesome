@@ -7,8 +7,9 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {
   barcodePlan, coverGeometry, coverKindsFor, defaultCoverDesign, ean13Modules, ean5Modules, layoutBarcode, parsePlatformSpec, priceAddon,
-  rectInside, rectsOverlap, contrastRatio, hexToRgb, type BookFormat,
+  rectInside, rectsOverlap, contrastRatio, hexToRgb, bookMockup, drawQuad, homography, readCoverTemplate, type BookFormat, type RasterImage,
 } from '../src/index';
+import { PDFDocument } from 'pdf-lib';
 
 const specsDir = path.resolve(__dirname, '..', '..', '..', 'specs');
 const spec = (name: string) => parsePlatformSpec(fs.readFileSync(path.join(specsDir, `${name}.json`), 'utf8')).value!;
@@ -94,9 +95,28 @@ describe('IngramSpark covers', () => {
     expect(res.cautions.join(' ')).toMatch(/template/);
   });
 
-  it('warns when the calculated size and the template size disagree', () => {
-    const res = coverGeometry(ingram, fmt({ trim: '5.5x8.5' }), 206, { templateSpineIn: 0.47, templateWidthIn: 12.1, templateHeightIn: 8.75 });
-    expect(res.cautions.join(' ')).toMatch(/template you entered is 12.1 x 8.75/);
+  it('places the cover in the centre of the template sheet when its document size is entered', () => {
+    const plain = coverGeometry(ingram, fmt({ trim: '5.5x8.5' }), 206, { templateSpineIn: 0.47 });
+    expect(plain.geometry!.onSheet).toBe(false);
+    expect(plain.cautions.join(' ')).toMatch(/document size of its template/);
+    const res = coverGeometry(ingram, fmt({ trim: '5.5x8.5' }), 206, { templateSpineIn: 0.47, templateWidthIn: 15, templateHeightIn: 12 });
+    const g = res.geometry!;
+    expect(g.onSheet).toBe(true);
+    expect([g.widthIn, g.heightIn]).toEqual([15, 12]);
+    // The cover with bleed is 11.72 x 8.75 in: (15 - 11.72) / 2 = 1.64 and (12 - 8.75) / 2 = 1.625
+    expect(g.art).toEqual({ x: 1.64, y: 1.625, w: 11.72, h: 8.75 });
+    expect(g.trim).toEqual({ x: 1.765, y: 1.75, w: 11.47, h: 8.5 });
+    expect(g.back.x).toBeCloseTo(1.765, 4);
+    expect(g.spine.x - g.back.x).toBeCloseTo(5.5, 4);
+    expect(rectInside(g.barcode, g.safe.back)).toBe(true);
+    expect(rectInside(g.trim, g.art)).toBe(true);
+    expect(res.problems).toEqual([]);
+    expect(res.cautions.join(' ')).toMatch(/centre of the IngramSpark template sheet of 15 x 12 in/);
+  });
+
+  it('refuses a template size that is smaller than the cover', () => {
+    const res = coverGeometry(ingram, fmt({ trim: '5.5x8.5' }), 206, { templateSpineIn: 0.47, templateWidthIn: 11, templateHeightIn: 8.75 });
+    expect(res.problems.join(' ')).toMatch(/smaller than the cover/);
   });
 
   it('builds the case with a narrower board and hinges beside the spine', () => {
@@ -212,5 +232,52 @@ describe('barcode plan and colours', () => {
     expect(hexToRgb('#1f3a5f')).toEqual([31, 58, 95]);
     expect(contrastRatio('#000000', '#ffffff')).toBeCloseTo(21, 0);
     expect(contrastRatio('#777777', '#808080')).toBeLessThan(1.5);
+  });
+});
+
+describe('3D mock-up and template reading', () => {
+  it('maps the corners of a shape exactly', () => {
+    const h = homography([[0, 0], [10, 0], [10, 20], [0, 20]], [[5, 5], [45, 9], [40, 70], [8, 60]]);
+    const map = (x: number, y: number) => {
+      const w = h[6] * x + h[7] * y + h[8];
+      return [(h[0] * x + h[1] * y + h[2]) / w, (h[3] * x + h[4] * y + h[5]) / w];
+    };
+    expect(map(0, 0)[0]).toBeCloseTo(5, 6);
+    expect(map(10, 0)).toEqual([expect.closeTo(45, 6), expect.closeTo(9, 6)]);
+    expect(map(10, 20)).toEqual([expect.closeTo(40, 6), expect.closeTo(70, 6)]);
+    expect(map(0, 20)).toEqual([expect.closeTo(8, 6), expect.closeTo(60, 6)]);
+  });
+
+  it('draws a picture into a four cornered shape and nowhere else', () => {
+    const red: RasterImage = { width: 4, height: 4, channels: 3, data: new Uint8Array(48).map((_, i) => (i % 3 === 0 ? 200 : 10)) };
+    const dest: RasterImage = { width: 40, height: 40, channels: 4, data: new Uint8Array(40 * 40 * 4) };
+    drawQuad(dest, red, [[10, 10], [30, 12], [28, 30], [12, 28]]);
+    const px = (x: number, y: number) => [...dest.data.subarray((y * 40 + x) * 4, (y * 40 + x) * 4 + 4)];
+    expect(px(20, 20)).toEqual([200, 10, 10, 255]);
+    expect(px(2, 2)[3]).toBe(0);
+    expect(px(38, 38)[3]).toBe(0);
+  });
+
+  it('makes a mock-up with the front cover, the spine and a shadow', () => {
+    const g = coverGeometry(kdp, fmt({}), 300).geometry!;
+    const ppi = 20;
+    const flat: RasterImage = { width: Math.round(g.widthIn * ppi), height: Math.round(g.heightIn * ppi), channels: 3, data: new Uint8Array(Math.round(g.widthIn * ppi) * Math.round(g.heightIn * ppi) * 3).fill(180) };
+    const out = bookMockup(flat, g, ppi, { size: 300 });
+    expect([out.width, out.height, out.channels]).toEqual([300, 300, 4]);
+    // The centre of the picture is the book (opaque); a corner is empty.
+    expect(out.data[(150 * 300 + 150) * 4 + 3]).toBe(255);
+    expect(out.data[3]).toBe(0);
+    const partly = out.data.filter((_, i) => i % 4 === 3).filter((a) => a > 0 && a < 200).length;
+    expect(partly).toBeGreaterThan(200); // the soft shadow
+    const white = bookMockup(flat, g, ppi, { size: 300, background: [255, 255, 255] });
+    expect([...white.data.subarray(0, 4)]).toEqual([255, 255, 255, 255]);
+  });
+
+  it('reads the document size of a template PDF', async () => {
+    const doc = await PDFDocument.create();
+    doc.addPage([15 * 72, 12 * 72]);
+    const info = await readCoverTemplate(await doc.save());
+    expect(info).toEqual({ widthIn: 15, heightIn: 12, pages: 1 });
+    await expect(readCoverTemplate(new Uint8Array([1, 2, 3]))).rejects.toThrow(/could not be read as a PDF/);
   });
 });
