@@ -19,7 +19,9 @@ import { baseLanguage, languageRegion, primaryAuthor, authorsLine } from '../mod
 import { preferredMargins, type Design } from '../model/design';
 import { extname, joinPath } from '../util/paths';
 import { hashString, roundTo } from '../util/text';
-import { finalizePrintPdf } from '../pdf/finalize';
+import { finalizePrint } from '../pdf/finalize';
+import type { PdfxOptions, PdfxSummary } from '../pdf/pdfx';
+import { prepareImageForPrint } from '../image/prepare';
 
 export interface TrimSize {
   id: string;
@@ -48,8 +50,21 @@ export interface InteriorOptions {
   bookmarks?: boolean;
   /** Page count from an earlier build, as the starting guess. */
   pageCountHint?: number;
-  /** Image preparation hook (greyscale conversion and so on). Returns the path to use. */
-  prepareImage?: (absPath: string, buildDir: string) => Promise<string>;
+  /** Convert colour pictures to greyscale (black and white interiors). */
+  greyscaleImages?: boolean;
+  /** Write a PDF/X-1a:2001 file (IngramSpark, and preferred by KDP). */
+  pdfx?: PdfxOptions | null;
+}
+
+/** A picture as it went into the print file. */
+export interface StagedImage {
+  /** Path as written in the manuscript. */
+  src: string;
+  widthPx: number;
+  heightPx: number;
+  format: string;
+  /** What was done to the copy used for print ("converted to greyscale"). Empty when the original was used. */
+  actions: string[];
 }
 
 export interface InteriorResult {
@@ -67,6 +82,10 @@ export interface InteriorResult {
   warnings: BuildWarning[];
   /** Raw Typst messages, for the log. */
   log: string;
+  /** "PDF/X-1a:2001", or null for an ordinary PDF. */
+  pdfStandard: string | null;
+  pdfx?: PdfxSummary;
+  images: StagedImage[];
 }
 
 /* ------------------------------------------------------------------ */
@@ -445,29 +464,61 @@ async function copyLib(host: Host, from: string, to: string): Promise<void> {
   }
 }
 
-/** Copy the pictures a book uses into the build folder and return old path to new path. */
+/**
+ * Put the pictures a book uses into the build folder, prepared for print
+ * (greyscale for black and white interiors, transparency flattened). The
+ * originals in the book folder are never changed. Prepared copies are reused
+ * on the next build as long as the original file is unchanged.
+ */
 async function stageImages(
   host: Host,
   images: string[],
   opts: InteriorOptions,
   warnings: BuildWarning[],
-): Promise<Map<string, string>> {
+): Promise<{ map: Map<string, string>; staged: StagedImage[] }> {
   const map = new Map<string, string>();
-  if (images.length === 0) return map;
+  const staged: StagedImage[] = [];
+  if (images.length === 0) return { map, staged };
   await host.mkdirp(joinPath(opts.buildDir, 'img'));
+  const grey = opts.greyscaleImages ?? false;
   for (const src of images) {
     const abs = /^([A-Za-z]:)?\//.test(src) ? src : joinPath(opts.projectDir, src);
-    if (!(await host.exists(abs))) {
+    const stat = await host.stat(abs);
+    if (!stat || !stat.isFile) {
       warnings.push({ severity: 'fail', code: 'missing-image', message: `The picture "${src}" was not found in the book folder.` });
       continue;
     }
-    let staged = abs;
-    if (opts.prepareImage) staged = await opts.prepareImage(abs, opts.buildDir);
-    const name = `img/${hashString(src)}${extname(staged)}`;
-    await host.copy(staged, joinPath(opts.buildDir, name));
-    map.set(src, name);
+    const key = hashString(`${src}|${stat.size}|${Math.round(stat.mtimeMs)}|${grey ? 'grey' : 'colour'}|v1`);
+    const notePath = joinPath(opts.buildDir, 'img', `${key}.json`);
+    let note: (StagedImage & { file: string; caution?: string }) | null = null;
+    if (await host.exists(notePath)) {
+      try {
+        const cached = JSON.parse(await host.readText(notePath)) as StagedImage & { file: string; caution?: string };
+        if (await host.exists(joinPath(opts.buildDir, cached.file))) note = cached;
+      } catch {
+        note = null;
+      }
+    }
+    if (!note) {
+      const prepared = prepareImageForPrint(await host.readBinary(abs), { greyscale: grey });
+      if (prepared.problem) {
+        warnings.push({ severity: 'fail', code: 'image-unusable', message: `The picture "${src}" cannot be used: ${prepared.problem}` });
+        continue;
+      }
+      const file = `img/${key}${prepared.ext || extname(abs)}`;
+      if (prepared.changed) await host.writeBinary(joinPath(opts.buildDir, file), prepared.bytes);
+      else await host.copy(abs, joinPath(opts.buildDir, file));
+      note = {
+        src, file, widthPx: prepared.info.width, heightPx: prepared.info.height, format: prepared.info.format,
+        actions: prepared.actions, caution: prepared.caution,
+      };
+      await host.writeText(notePath, JSON.stringify(note));
+    }
+    if (note.caution) warnings.push({ severity: 'warn', code: 'image-format', message: `Picture "${src}": ${note.caution}` });
+    map.set(src, note.file);
+    staged.push({ src, widthPx: note.widthPx, heightPx: note.heightPx, format: note.format, actions: note.actions });
   }
-  return map;
+  return { map, staged };
 }
 
 export async function typstCompile(
@@ -502,7 +553,8 @@ export async function buildInterior(host: Host, assembled: AssembledBook, opts: 
   await host.mkdirp(opts.buildDir);
   await copyLib(host, opts.typstLibDir, joinPath(opts.buildDir, 'lib'));
   await host.writeText(joinPath(opts.buildDir, 'main.typ'), MAIN_TYP);
-  const imageMap = await stageImages(host, assembled.stats.images, opts, warnings);
+  const { map: imageMap, staged: stagedImages } = await stageImages(host, assembled.stats.images, opts, warnings);
+  const pdfStandard = opts.pdfx ? 'PDF/X-1a:2001' : null;
   const outTmp = joinPath(opts.buildDir, 'interior.pdf');
 
   // First guess: an earlier result, or a rough estimate from the word count.
@@ -514,6 +566,7 @@ export async function buildInterior(host: Host, assembled: AssembledBook, opts: 
   let margins!: ResolvedMargins;
   let contentPages = 0;
   let bytes: Uint8Array | null = null;
+  let pdfx: PdfxSummary | undefined;
   const insideFor = (pages: number) => buildMargins(assembled, opts, pages).margins.inside;
 
   // A wider gutter can only add pages and a narrower one can only remove
@@ -541,6 +594,7 @@ export async function buildInterior(host: Host, assembled: AssembledBook, opts: 
       return {
         ok: false, pdfPath: '', pageCount: 0, contentPages: 0, blankPagesAdded: 0, margins,
         page: pageSize(trim.widthIn, trim.heightIn, format.bleed, rules), passes, warnings, log,
+        pdfStandard, images: stagedImages,
       };
     }
     bytes = await host.readBinary(outTmp);
@@ -560,14 +614,21 @@ export async function buildInterior(host: Host, assembled: AssembledBook, opts: 
   add += paddedPageCount(total + add, rules) - (total + add);
   if (bytes) {
     // Print files carry no links or bookmarks; reading copies (samples, review copies) keep them.
-    bytes = await finalizePrintPdf(bytes, {
+    const finished = await finalizePrint(bytes, {
       addBlankPages: add,
       removeAnnotations: !opts.bookmarks,
       removeOutline: !opts.bookmarks,
+      removeXmp: !opts.bookmarks,
       title: assembled.book.subtitle ? `${assembled.book.title}: ${assembled.book.subtitle}` : assembled.book.title,
       author: authorsLine(assembled.book),
       version: [1, 4],
+      pdfx: opts.pdfx ?? undefined,
     });
+    bytes = finished.bytes;
+    pdfx = finished.pdfx;
+    for (const problem of pdfx?.problems ?? []) {
+      warnings.push({ severity: 'fail', code: 'pdfx', message: `The file does not meet PDF/X-1a: ${problem}` });
+    }
     total += add;
   }
   await host.mkdirp(opts.outFile.slice(0, opts.outFile.lastIndexOf('/')));
@@ -594,5 +655,8 @@ export async function buildInterior(host: Host, assembled: AssembledBook, opts: 
     passes,
     warnings,
     log,
+    pdfStandard,
+    pdfx,
+    images: stagedImages,
   };
 }

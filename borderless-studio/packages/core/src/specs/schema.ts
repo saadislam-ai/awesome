@@ -175,6 +175,10 @@ export const PrintSpecSchema = z.object({
     spreadsAllowed: z.boolean().default(false),
     /** ICC profiles must be removed from the file. */
     iccProfilesAllowed: z.boolean().default(true),
+    /** Highest total ink coverage for colour pictures, in percent (240 means 240 %). Null when the platform states none. */
+    maxInkPercent: z.number().nullable().default(null),
+    /** Smallest type size the platform prints reliably, in points. */
+    minFontSizePt: z.number().nullable().default(null),
     notes: z.array(z.string()).default([]),
     ...meta,
   }),

@@ -11,6 +11,7 @@
  * Page content is never re-encoded: text stays text, fonts stay embedded.
  */
 import { PDFDocument, PDFName } from 'pdf-lib';
+import { applyPdfx1a, type PdfxOptions, type PdfxSummary } from './pdfx';
 
 export interface FinalizeOptions {
   /** Blank pages to append. */
@@ -26,11 +27,26 @@ export interface FinalizeOptions {
   version?: [number, number];
   /** Fixed timestamp for reproducible output (tests). */
   date?: Date;
+  /** Remove the XMP metadata packet. The document information (title, author) is kept. */
+  removeXmp?: boolean;
+  /** Make the file a PDF/X-1a:2001 file (see pdfx.ts). Sets the header version to 1.3. */
+  pdfx?: PdfxOptions;
+}
+
+export interface FinalizeResult {
+  bytes: Uint8Array;
+  /** What the PDF/X step did, when it ran. */
+  pdfx?: PdfxSummary;
 }
 
 export const PRODUCER = 'Borderless Studio (Typst, pdf-lib)';
 
+/** The finishing step, returning the bytes only. */
 export async function finalizePrintPdf(bytes: Uint8Array, opts: FinalizeOptions = {}): Promise<Uint8Array> {
+  return (await finalizePrint(bytes, opts)).bytes;
+}
+
+export async function finalizePrint(bytes: Uint8Array, opts: FinalizeOptions = {}): Promise<FinalizeResult> {
   const doc = await PDFDocument.load(bytes, { updateMetadata: false });
 
   if (opts.addBlankPages && opts.addBlankPages > 0) {
@@ -74,9 +90,14 @@ export async function finalizePrintPdf(bytes: Uint8Array, opts: FinalizeOptions 
   doc.setCreationDate(when);
   doc.setModificationDate(when);
 
+  if (opts.removeXmp) doc.catalog.delete(PDFName.of('Metadata'));
+  const pdfx = opts.pdfx ? applyPdfx1a(doc, opts.pdfx) : undefined;
+
   const out = await doc.save({ useObjectStreams: false, updateFieldAppearances: false, addDefaultPage: false });
-  if (opts.version) setPdfVersion(out, opts.version[0], opts.version[1]);
-  return out;
+  // PDF/X-1a:2001 is defined on PDF 1.3.
+  const version = pdfx ? ([1, 3] as [number, number]) : opts.version;
+  if (version) setPdfVersion(out, version[0], version[1]);
+  return { bytes: out, pdfx };
 }
 
 /**

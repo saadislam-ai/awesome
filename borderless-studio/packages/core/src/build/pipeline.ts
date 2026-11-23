@@ -15,6 +15,8 @@ import { buildInterior, type InteriorResult } from '../typeset/interior';
 import { buildEpub, mediaTypeForImage, type EpubFont, type EpubImage, type EpubResult } from '../epub/build';
 import { runEpubCheck, type EpubCheckResult } from '../epub/epubcheck';
 import { joinPath, slugify } from '../util/paths';
+import { rgbToCmykConverter } from '../color/cmyk';
+import type { PdfxOptions } from '../pdf/pdfx';
 import { assembleBook, type AlsoByGroup, type AssembledBook, type BuildWarning } from './assemble';
 
 export interface BuildContext {
@@ -80,6 +82,34 @@ export interface InteriorExportOptions extends ExportCommon {
   outFile?: string;
   bookmarks?: boolean;
   pageCountHint?: number;
+  /**
+   * "auto" (default) writes PDF/X-1a when the platform's spec file lists it;
+   * "plain" always writes an ordinary PDF.
+   */
+  pdfStandard?: 'auto' | 'plain';
+}
+
+/** Location of the CMYK profile that describes the press condition used for colour conversion. */
+export const PRINT_PROFILE = 'icc/CGATS001Compat-v2-micro.icc';
+
+/**
+ * PDF/X settings for a platform and format, or null when the platform does
+ * not ask for PDF/X. The colour converter is only built when the interior or
+ * cover can contain colour.
+ */
+export async function pdfxOptions(ctx: BuildContext, platform: PlatformId, needsColour: boolean, maxInkPercent?: number | null): Promise<PdfxOptions | null> {
+  const spec = ctx.specs.platforms[platform];
+  const standards = spec?.print?.interiorFile.pdfStandards ?? [];
+  if (!standards.some((s) => /^PDF\/X-1a/i.test(s))) return null;
+  const opts: PdfxOptions = {};
+  if (needsColour) {
+    const profilePath = joinPath(ctx.resourcesDir, PRINT_PROFILE);
+    if (await ctx.host.exists(profilePath)) {
+      const conv = rgbToCmykConverter(await ctx.host.readBinary(profilePath), { inkLimit: (maxInkPercent ?? 240) / 100 });
+      opts.rgbToCmyk = (rgb) => conv.pixels(rgb, 3);
+    }
+  }
+  return opts;
 }
 
 /** Build the print interior PDF for one format and one platform. */
@@ -99,7 +129,7 @@ export async function exportInterior(ctx: BuildContext, opts: InteriorExportOpti
       ok: false, pdfPath: '', pageCount: 0, contentPages: 0, blankPagesAdded: 0,
       margins: { margins: { top: 0, bottom: 0, inside: 0, outside: 0 }, raised: [], headerGapIn: 0, footerGapIn: 0 },
       page: { trimWidthIn: 0, trimHeightIn: 0, bleedIn: 0, pdfWidthIn: 0, pdfHeightIn: 0 },
-      passes: 0, warnings: [...assembled.warnings, ...pre], log: '', platforms: [opts.platform], rules, assembled,
+      passes: 0, warnings: [...assembled.warnings, ...pre], log: '', pdfStandard: null, images: [], platforms: [opts.platform], rules, assembled,
     };
   }
   const base = exportBaseName(ctx, opts, opts.platform);
@@ -116,6 +146,11 @@ export async function exportInterior(ctx: BuildContext, opts: InteriorExportOpti
     watermark: opts.watermark,
     bookmarks: opts.bookmarks,
     pageCountHint: opts.pageCountHint,
+    greyscaleImages: format.ink === 'bw' && assembled.design.greyscaleImages,
+    // Reading copies with bookmarks and links are ordinary PDFs: PDF/X forbids links.
+    pdfx: opts.pdfStandard === 'plain' || opts.bookmarks
+      ? null
+      : await pdfxOptions(ctx, opts.platform, format.ink !== 'bw' || !assembled.design.greyscaleImages, spec.print.interiorFile.maxInkPercent),
   });
   result.warnings.unshift(...pre);
   if (pre.some((w) => w.severity === 'fail')) result.ok = false;

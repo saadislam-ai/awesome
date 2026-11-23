@@ -107,8 +107,36 @@ describe('print interior of the sample book', () => {
     expect(report.pages.reduce((n, p) => n + p.annotations, 0)).toBe(0);
     expect(report.hasOutline).toBe(false);
     expect(report.usesObjectStreams).toBe(false);
-    expect(report.version).toBe('1.4');
     expect(report.info.Title).toContain('The Salt Road');
+  });
+
+  it.each(cases)('$formatId for $platform: the file is PDF/X-1a:2001 with greyscale pictures and no colour profiles', (c) => {
+    if (!haveTypst) return;
+    const { res, report } = built.get(`${c.formatId}/${c.platform}`)!;
+    expect(res.pdfStandard).toBe('PDF/X-1a:2001');
+    expect(res.pdfx?.problems).toEqual([]);
+    expect(report.version).toBe('1.3');
+    expect(report.pdfx).toBe('PDF/X-1a:2001');
+    expect(report.info.GTS_PDFXVersion).toBe('PDF/X-1:2001');
+    expect(report.info.Trapped).toBe('False');
+    expect(report.outputIntents).toEqual([{ subtype: 'GTS_PDFX', condition: 'CGATS TR 001', hasProfile: false }]);
+    expect(report.hasXmp).toBe(false);
+    expect(report.encrypted).toBe(false);
+    // The sample book has one colour picture; in a black and white interior it must arrive as plain greyscale.
+    expect(report.images.map((i) => i.color)).toEqual(['gray', 'gray', 'gray']);
+    expect(report.images.some((i) => i.hasSoftMask)).toBe(false);
+    for (const p of report.pages) expect(p.hasTrimBox, `page ${p.number} has a TrimBox`).toBe(true);
+    expect(res.images.find((i) => i.actions.includes('converted to greyscale'))).toBeTruthy();
+  });
+
+  it('an ordinary PDF can still be requested', async () => {
+    if (!haveTypst) return;
+    const res = await exportInterior(ctx, { formatId: 'paperback', platform: 'kdp', pdfStandard: 'plain', outFile: path.join(sampleDir, '.borderless', 'test-plain.pdf').replace(/\\/g, '/') });
+    const report = await inspectPdf(new Uint8Array(fs.readFileSync(res.pdfPath)), { shallow: true });
+    expect(res.pdfStandard).toBeNull();
+    expect(report.version).toBe('1.4');
+    expect(report.pdfx).toBeNull();
+    expect(report.outputIntents).toEqual([]);
   });
 
   it('pictures are printed at 300 dpi or more', () => {

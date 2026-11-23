@@ -187,7 +187,7 @@ ing_print = {
         'pdfStandards': Q['pdf_standards']['value'], 'pdfStandardRequired': False,
         'minImageDpi': Q['image_ppi']['value'], 'maxFileMB': 1500,
         'fontsMustBeEmbedded': True, 'transparencyAllowed': False, 'cropMarksAllowed': False, 'bookmarksAllowed': False,
-        'spreadsAllowed': False, 'iccProfilesAllowed': False,
+        'spreadsAllowed': False, 'iccProfilesAllowed': False, 'maxInkPercent': 240, 'minFontSizePt': None,
         'notes': [
             'Preferred standards are PDF/X-1a:2001 and PDF/X-3:2002. All fonts embedded. Single pages, no crop or registration marks, no spot colours, no ICC profiles.',
             'Black and white interiors: greyscale images at 300 ppi, 1 bit line art at 600 ppi, text in 100% black.',

@@ -75,6 +75,10 @@ export interface PdfReport {
   fonts: PdfFontInfo[];
   images: PdfImageInfo[];
   info: Record<string, string>;
+  /** The PDF/X conformance the file declares ("PDF/X-1a:2001"), or null. */
+  pdfx: string | null;
+  /** True when the file carries an XMP metadata packet. */
+  hasXmp: boolean;
   /** Output intents (PDF/X): subtype and condition identifier. */
   outputIntents: { subtype: string; condition: string; hasProfile: boolean }[];
   encrypted: boolean;
@@ -656,7 +660,8 @@ export async function inspectPdf(bytes: Uint8Array, opts: InspectOptions = {}): 
   const info: Record<string, string> = {};
   if (infoDict) {
     for (const [k, v] of infoDict.entries()) {
-      const t = r.text(v);
+      // Text entries and name entries (Trapped is a name).
+      const t = r.text(v) ?? r.name(v);
       if (t !== undefined) info[k.decodeText()] = t;
     }
   }
@@ -686,6 +691,8 @@ export async function inspectPdf(bytes: Uint8Array, opts: InspectOptions = {}): 
     fonts: [...fonts.values()],
     images,
     info,
+    pdfx: info.GTS_PDFXConformance ?? info.GTS_PDFXVersion ?? null,
+    hasXmp: catalog.get(PDFName.of('Metadata')) !== undefined,
     outputIntents,
     encrypted: doc.isEncrypted,
     hasOutline: catalog.get(PDFName.of('Outlines')) !== undefined,

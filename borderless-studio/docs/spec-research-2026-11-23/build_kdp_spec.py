@@ -171,6 +171,8 @@ interior_file = {
     'bookmarksAllowed': False,
     'spreadsAllowed': False,
     'iccProfilesAllowed': True,
+    'maxInkPercent': None,
+    'minFontSizePt': 7,
     'notes': [
         'Upload single pages, not spreads. Flatten transparency and remove crop marks, bookmarks, comments and document metadata.',
         'KDP prefers PDF/X-1a but accepts an ordinary PDF with embedded fonts.',
