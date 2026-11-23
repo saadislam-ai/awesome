@@ -1,0 +1,40 @@
+{
+  "name": "@borderless/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Borderless Studio desktop app: React interface inside a Tauri shell.",
+  "scripts": {
+    "dev:vite": "vite",
+    "build:vite": "tsc --noEmit && vite build",
+    "dev": "tauri dev",
+    "build": "node ../../scripts/prepare-bundle.mjs && tauri build",
+    "tauri": "tauri",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@borderless/core": "*",
+    "@codemirror/commands": "^6.8.0",
+    "@codemirror/lang-markdown": "^6.3.0",
+    "@codemirror/language": "^6.10.0",
+    "@codemirror/search": "^6.5.0",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.0",
+    "@lezer/highlight": "^1.2.0",
+    "@lezer/markdown": "^1.4.0",
+    "@tauri-apps/api": "^2.2.0",
+    "@tauri-apps/plugin-dialog": "^2.2.0",
+    "lucide-react": "^0.469.0",
+    "nspell": "^2.1.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.2.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
+  }
+}

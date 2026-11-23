@@ -95,6 +95,8 @@ export interface HostUi {
   /** Show a file in Finder or Explorer. */
   revealPath(path: string): Promise<void>;
   openExternal(url: string): Promise<void>;
+  /** A URL the web view can load a local file from (pictures, previews). */
+  fileUrl(path: string): string;
 }
 
 /** Minimal SQL access for the rebuildable library index. */

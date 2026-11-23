@@ -23,7 +23,7 @@ describe('bundled spec files', () => {
   });
 
   it('contain no em or en dashes (house style)', () => {
-    for (const f of fs.readdirSync(specsDir)) expect(read(f)).not.toMatch(/[–—]/);
+    for (const f of fs.readdirSync(specsDir)) expect(read(f)).not.toMatch(/[\u2013\u2014]/);
   });
 
   it('KDP carries the verified margin, bleed and spine values', () => {

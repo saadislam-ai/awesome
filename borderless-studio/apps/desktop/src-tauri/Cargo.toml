@@ -1,0 +1,32 @@
+[package]
+name = "borderless-studio"
+version = "0.1.0"
+description = "Borderless Studio: write, typeset and export books, fully offline"
+authors = ["Borderless Publishing"]
+license = "MIT"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "borderless_studio_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# SQLite is compiled in ("bundled"), so the app needs nothing installed on the computer.
+rusqlite = { version = "0.32", features = ["bundled"] }
+# Only used by the optional online features (AI assistant with your own key). Never called unless you turn them on.
+ureq = { version = "2", default-features = false, features = ["tls"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

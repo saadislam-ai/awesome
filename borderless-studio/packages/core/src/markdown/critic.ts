@@ -171,6 +171,10 @@ export function resolveCritic(src: string, view: CriticView = 'original'): Resol
 }
 
 /** Text a single change turns into when it is accepted or rejected. */
+export function changeResult(span: CriticSpan, accept: boolean): string {
+  return replacement(span, accept);
+}
+
 function replacement(span: CriticSpan, accept: boolean): string {
   switch (span.kind) {
     case 'insert':

@@ -32,3 +32,6 @@ export * from './epub/epubcheck';
 export * from './pdf/content';
 export * from './pdf/inspect';
 export * from './pdf/finalize';
+export * from './project/search';
+export * from './library/library';
+export * from './editor/cleaner';
