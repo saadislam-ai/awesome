@@ -60,3 +60,4 @@ export * from './build/publish';
 export * from './editor/analysis';
 export * from './docx/write';
 export * from './import/index';
+export * from './backup/index';

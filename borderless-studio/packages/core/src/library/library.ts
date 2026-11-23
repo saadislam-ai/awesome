@@ -39,6 +39,17 @@ export interface AppSettings {
   toolPaths: Record<string, string>;
   /** Book opened last, to return to it on start. */
   lastBook: string;
+  /** Backups of books as zip files. */
+  backup: {
+    /** Folder for the zip files. Empty means "backups" inside the library folder. */
+    dir: string;
+    /** Make a backup once a day when a book has changed. */
+    auto: boolean;
+    /** How many automatic backups to keep for each book. Backups made by hand are never removed. */
+    keep: number;
+  };
+  /** Book folders in which the user has switched Git version history on. Git is never run anywhere else. */
+  gitBooks: string[];
   /** Optional AI assistant. Off unless switched on here. */
   ai: {
     enabled: boolean;
@@ -64,6 +75,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   autosaveSeconds: 1.5,
   toolPaths: {},
   lastBook: '',
+  backup: { dir: '', auto: true, keep: 10 },
+  gitBooks: [],
   ai: { enabled: false, provider: 'ollama', ollamaUrl: 'http://localhost:11434', ollamaModel: 'llama3.1', claudeModel: 'claude-sonnet-5-5', claudeApiKey: '' },
 };
 
@@ -125,7 +138,7 @@ export async function loadSettings(host: Host): Promise<AppSettings> {
   if (!(await host.exists(p))) return structuredClone(DEFAULT_SETTINGS);
   try {
     const raw = await readJson<Partial<AppSettings>>(host, p);
-    return { ...structuredClone(DEFAULT_SETTINGS), ...raw, ai: { ...DEFAULT_SETTINGS.ai, ...(raw.ai ?? {}) } };
+    return { ...structuredClone(DEFAULT_SETTINGS), ...raw, ai: { ...DEFAULT_SETTINGS.ai, ...(raw.ai ?? {}) }, backup: { ...DEFAULT_SETTINGS.backup, ...(raw.backup ?? {}) }, gitBooks: Array.isArray(raw.gitBooks) ? raw.gitBooks : [] };
   } catch {
     // A damaged settings file must never stop the app from starting.
     return structuredClone(DEFAULT_SETTINGS);
@@ -177,6 +190,11 @@ export class Library {
 
   private async save(): Promise<void> {
     await writeJson(this.host, joinPath(this.dir, 'library.json'), this.file);
+  }
+
+  /** Where backups go when the settings do not name another folder. */
+  get backupsDir(): string {
+    return joinPath(this.dir, 'backups');
   }
 
   get booksDir(): string {

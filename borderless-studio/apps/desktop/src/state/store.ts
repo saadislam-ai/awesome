@@ -5,7 +5,7 @@
  */
 import { create } from 'zustand';
 import {
-  DEFAULT_SETTINGS, Library, defaultLibraryDir, loadSettings, saveSettings,
+  DEFAULT_SETTINGS, Library, autoBackupIfDue, defaultLibraryDir, loadSettings, saveSettings,
   type AppSettings, type BookSummary, type BuildContext, type Host, type Project, type PublisherProfile, type SpecSet,
 } from '@borderless/core';
 import { createHost, isTauri } from '../host';
@@ -118,6 +118,12 @@ export const useStore = create<State>((set, get) => ({
       const next = { ...settings, lastBook: project.dir };
       set({ settings: next });
       void saveSettings(host, next);
+      // The daily safety net: one backup a day when the book has changed. A failure is reported, never hidden.
+      if (settings.backup.auto) {
+        void autoBackupIfDue(project, settings.backup.dir || library.backupsDir, { keep: settings.backup.keep }).catch((e) =>
+          get().toast('warn', `The daily backup could not be made: ${e instanceof Error ? e.message : String(e)}`),
+        );
+      }
     } catch (e) {
       get().toast('fail', e instanceof Error ? e.message : String(e));
     }

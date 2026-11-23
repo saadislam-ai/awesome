@@ -1,16 +1,18 @@
-/** The Book screen: details, editions, interior design and front and back matter. */
+/** The Book screen: details, editions, interior design, front and back matter, and backups. */
 import { useState } from 'react';
 import { BookTitle } from '../../App';
 import { DetailsTab } from './DetailsTab';
 import { EditionsTab } from './EditionsTab';
 import { DesignTab } from './DesignTab';
 import { MatterTab } from './MatterTab';
+import { BackupTab } from './BackupTab';
 
 const TABS = [
   { id: 'details', label: 'Details' },
   { id: 'editions', label: 'Editions' },
   { id: 'design', label: 'Interior design' },
   { id: 'matter', label: 'Front and back matter' },
+  { id: 'backup', label: 'Backups' },
 ] as const;
 type TabId = (typeof TABS)[number]['id'];
 
@@ -38,6 +40,7 @@ export function BookView() {
           {tab === 'details' && <DetailsTab />}
           {tab === 'editions' && <EditionsTab />}
           {tab === 'matter' && <MatterTab />}
+          {tab === 'backup' && <BackupTab />}
         </div>
       )}
     </>
