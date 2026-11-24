@@ -1,4 +1,7 @@
 #import "options-lib.typ": *
+#import "options2-lib.typ": OPTIONS2
+#let LIST = if sys.inputs.at("set", default: "1") == "2" { OPTIONS2 } else { OPTIONS }
+#let FIRST = if sys.inputs.at("set", default: "1") == "2" { 6 } else { 1 }
 #set page(paper: "a4", flipped: true, margin: 14mm, fill: white)
 #set text(font: "Source Sans 3", size: 10pt, fill: rgb("#222222"))
 #let only = sys.inputs.at("only", default: "")
@@ -7,13 +10,13 @@
   rect(width: 34mm, height: 16mm, fill: col, radius: 2pt, stroke: 0.5pt + rgb("#dddddd")),
   text(size: 8.5pt, weight: "semibold", name), text(size: 8pt, fill: rgb("#666666"), upper(col.to-hex())))
 
-#for (i, o) in OPTIONS.enumerate() {
+#for (i, o) in LIST.enumerate() {
   if only != "" and only != o.id { continue }
   let light = on-light(o)
   let dark = on-dark(o)
   let black-scheme = (mark: (a: black, b: black, c: rgb("#777777")), ink: black, accent: black)
   page[
-    #text(size: 9pt, tracking: 0.12em, fill: rgb("#888888"), upper("Option " + str(i + 1)))
+    #text(size: 9pt, tracking: 0.12em, fill: rgb("#888888"), upper("Option " + str(i + FIRST)))
     #v(-2mm)
     #text(size: 22pt, weight: "semibold", o.name)
     #h(6mm) #text(size: 11pt, fill: rgb("#555555"), o.idea)

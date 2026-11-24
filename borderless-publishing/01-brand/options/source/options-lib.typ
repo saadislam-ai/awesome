@@ -122,6 +122,8 @@
 
 #let wordmark(o, size, ink, accent) = {
   set par(spacing: 0pt, leading: 0pt)
+  // An option may draw its own wordmark (for example with a globe in place of a letter).
+  if o.at("word", default: none) != none { return (o.word)(size, ink, accent, o) }
   let ts = o.top-style
   let bs = o.bottom-style
   stack(dir: ttb, spacing: size * 0.3,
@@ -137,9 +139,9 @@
   (mark: (a: light, b: o.colours.b, c: if o.id == "paper-boat" { o.colours.c } else { o.colours.b }), ink: light, accent: o.colours.b)
 }
 
-#let lockup(o, h, scheme) = stack(dir: ltr, spacing: h * 0.22,
+#let lockup(o, h, scheme) = if o.at("solo", default: false) { wordmark(o, h * 0.5, scheme.ink, scheme.accent) } else { stack(dir: ltr, spacing: h * 0.22,
   (o.mark)(h, scheme.mark),
-  box(height: h, align(horizon, wordmark(o, h * 0.36, scheme.ink, scheme.accent))))
+  box(height: h, align(horizon, wordmark(o, h * 0.36, scheme.ink, scheme.accent)))) }
 
 #let stacked(o, w, scheme) = align(center, stack(dir: ttb, spacing: w * 0.07,
   align(center, (o.mark)(w * 0.4, scheme.mark)),
