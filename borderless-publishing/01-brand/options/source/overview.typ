@@ -1,7 +1,9 @@
 #import "options-lib.typ": *
 #import "options2-lib.typ": OPTIONS2
-#let LIST = if sys.inputs.at("set", default: "1") == "2" { OPTIONS2 } else { OPTIONS }
-#let FIRST = if sys.inputs.at("set", default: "1") == "2" { 6 } else { 1 }
+#import "options3-lib.typ": OPTIONS3
+#let SET = sys.inputs.at("set", default: "1")
+#let LIST = if SET == "3" { OPTIONS3 } else if SET == "2" { OPTIONS2 } else { OPTIONS }
+#let FIRST = if SET == "3" { 16 } else if SET == "2" { 6 } else { 1 }
 #set page(width: 300mm, height: auto, margin: 10mm, fill: white)
 #set text(font: "Source Sans 3", size: 10pt)
 #for (i, o) in LIST.enumerate() {

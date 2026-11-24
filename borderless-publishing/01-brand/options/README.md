@@ -1,9 +1,10 @@
 # Brand options
 
-Fifteen directions for the Borderless Publishing brand, in two rounds.
+Twenty three directions for the Borderless Publishing brand, in three rounds.
 
 - Options 1 to 5: `borderless-brand-options.pdf` (one page each) and `options-overview.png`.
 - Options 6 to 15, combining a book and a globe and built on options 1 and 4: `book-and-globe-options-6-to-15.pdf` and `book-and-globe-overview.png`.
+- Options 16 to 23, more detailed: a real book silhouette and a real globe with the continents: `book-silhouette-options-16-to-23.pdf` and `book-silhouette-overview.png`. Vector files of these marks are in `svg/`.
 
 Each page shows the logo on a light and a dark background, the colours, the typeface, the front and back of a business card, the mark on a book spine, the mark at small sizes and as an app icon, and a tagline. All five use typefaces that come with Borderless Studio and are free to use.
 
@@ -36,10 +37,27 @@ These ten bring the borderless idea into the picture with a globe, and borrow fr
 
 Colours, typefaces and taglines can be swapped between options: for example option 10 in ink and vermilion, or option 6 with option 4's lettering.
 
+## Options 16 to 23: book silhouettes and a real globe
+
+These are more detailed. Each book is drawn as a real object (cover boards, the stack of pages at the edges, a spine with raised bands, a ribbon bookmark) and the globe shows the real continents, centred on Africa, Asia and Australia, from Natural Earth map data (public domain). All are in navy, gold and paper, the colours of option 1.
+
+| | Option | The idea | Typeface | Tagline |
+| --- | --- | --- | --- | --- |
+| 16 | **Atlas Rising** | A real globe rising out of the gutter of an open book, drawn with its cover boards, stacked pages and lines of text | EB Garamond | A world in every book. |
+| 17 | **Turning World** | The globe is a book: its right half lifts away as a page being turned, the other side of the world showing through the paper | EB Garamond | Turn the page, cross the world. |
+| 18 | **Window Book** | A standing hardcover with raised bands on the spine and a round window in the cover, opening onto the world | Libre Baskerville | Every book is a window. |
+| 19 | **Globe on Books** | A desk globe on a gold stand, resting on a stack of three books | EB Garamond | Stories for the whole world. |
+| 20 | **Atlas Seal** | A press seal: the globe on an open book with the name around the ring. Show it large; use 16 or 19 when small | EB Garamond | Published in Sydney, read everywhere. |
+| 21 | **Atlas Spread** | An open atlas with the map of the world across both pages and a ribbon bookmark | EB Garamond | Books without borders. |
+| 22 | **Bookmark Earth** | A closed hardcover with the globe stamped in gold on the cover and a gold ribbon bookmark | Libre Baskerville | Bookmark the world. |
+| 23 | **World Inside a Book** | The silhouette of an open book filled with the globe, pages fanning out underneath | EB Garamond | The world, between two covers. |
+
+Detailed marks look best from about 1 cm upwards: on a website, a sign, a title page, a business card or a tote bag. On a spine at 6 mm the continents become small specks, so a chosen detailed mark should come with a simplified twin for tiny sizes (the same outline with fewer details, or the globe alone); that twin is made when you choose. The `svg` folder has every mark in the brand colours for light backgrounds and for dark ones (`-on-dark`). The seal (20) is drawn there without its lettering, which is set in type on the boards.
+
 ## How to choose
 
 - **Look at the spine and the smallest mark.** A publisher's logo is seen most often tiny, on a spine or a store thumbnail. Options 4, 1, 10, 12 and 15 hold up best at that size; 13 needs to be shown large.
 - **Think of your list.** Literary fiction and memoir suit options 1 and 4; books that cross cultures and translations suit 3 and 5; a broad, modern list suits 2.
 - **Check the name is free** before you commit (setup checklist, section 1), and search the image of your favourite on a trade mark register too: simple shapes such as a boat or an open book are common.
 
-The drawings are in `source/options-lib.typ` (1 to 5) and `source/options2-lib.typ` (6 to 15); the boards are made by `source/boards.typ` and `source/overview.typ` (add `--input set=2` for 6 to 15) with the Typst program that comes with Borderless Studio.
+The drawings are in `source/options-lib.typ` (1 to 5) and `source/options2-lib.typ` (6 to 15); options 16 to 23 are drawn by `source/make-marks3.mjs` into `source/marks3/` (it needs the npm packages world-atlas, topojson-client and d3-geo) and placed by `source/options3-lib.typ`. The boards are made by `source/boards.typ` and `source/overview.typ` (add `--input set=2` for 6 to 15 and `--input set=3` for 16 to 23) with the Typst program that comes with Borderless Studio.
