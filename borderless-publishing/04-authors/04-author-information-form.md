@@ -22,7 +22,6 @@
 | Bank | |
 | BSB (Australia) or SWIFT code | |
 | Account number or IBAN | |
-| Would you like any royalties paid to Blessings Foundation Bangladesh instead? | No / Yes, ____ percent |
 
 ## For the book
 

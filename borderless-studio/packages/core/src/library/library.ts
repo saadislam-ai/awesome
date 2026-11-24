@@ -109,7 +109,7 @@ export const DEFAULT_PUBLISHER: PublisherProfile = {
   defaultLanguage: 'en-AU',
   baseCurrency: 'AUD',
   ingramDiscountPercent: 30,
-  donation: { enabled: true, charity: 'Blessings Foundation Bangladesh', note: 'Any margin above cost is donated.' },
+  donation: { enabled: false, charity: '', note: '' },
 };
 
 export interface BookSummary {

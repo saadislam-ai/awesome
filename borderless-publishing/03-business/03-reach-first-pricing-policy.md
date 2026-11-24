@@ -14,7 +14,7 @@ Borderless Studio, the program we use to make our books, works out these prices 
 
 ## Where the money goes
 
-From each copy sold, the store keeps its share and the printer is paid. What remains is the margin. Half of the margin goes to the author. From our half we repay the direct costs of making the book (editing, cover, proofs). After that, our share is donated to Blessings Foundation Bangladesh. We publish a statement every year.
+From each copy sold, the store keeps its share and the printer is paid. What remains is the margin. Half of the margin goes to the author. From our half we repay the direct costs of making the book (editing, cover, proofs), and what remains keeps the press going and pays for the next book.
 
 ## What this means
 
@@ -24,4 +24,4 @@ From each copy sold, the store keeps its share and the printer is paid. What rem
 
 ## Exceptions
 
-An author may ask us to set a higher price for their book, for example to give more to the charity. We will discuss it and agree it in writing.
+An author may ask us to set a higher price for their book, for example to match the other books in a series. We will discuss it and agree it in writing.

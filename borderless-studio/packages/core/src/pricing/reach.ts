@@ -1,8 +1,7 @@
 /**
  * The "Reach First" price plan: for every edition, platform and marketplace,
  * the lowest list price the platform accepts, so that the book costs readers
- * as little as possible, optionally plus a fixed amount per copy for a
- * charity. All rates, costs, thresholds and taxes are read from the spec
+ * as little as possible, optionally plus a fixed amount per copy. All rates, costs, thresholds and taxes are read from the spec
  * files; nothing here is a platform number.
  */
 import type { Book, BookFormat, PlatformId } from '../model/book';

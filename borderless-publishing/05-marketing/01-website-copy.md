@@ -8,7 +8,7 @@ Text for a simple website of four pages. Replace the bracketed parts. Keep the l
 
 *Books priced for readers.*
 
-We are an independent publisher in Sydney. We publish fiction and nonfiction in English and Bangla, and we set every price as close to cost as booksellers allow, so that our books reach as many readers as possible. Our share of any margin goes to Blessings Foundation Bangladesh.
+We are an independent publisher in Sydney. We publish fiction and nonfiction in English and Bangla, and we set every price as close to cost as booksellers allow, so that our books reach as many readers as possible.
 
 [Cover of the latest book] **[Title]** by [Author]. [One sentence.] [Buy links: Amazon, Apple Books, Kobo, your local bookshop]
 
@@ -18,7 +18,7 @@ We are an independent publisher in Sydney. We publish fiction and nonfiction in 
 
 Borderless Publishing was founded in Sydney by [Dr Saad Islam], a writer who believes a book should reach every reader who wants it, wherever they live and whatever they can afford.
 
-Most books are priced to earn as much as possible. Ours are priced to reach as many readers as possible: the lowest price each bookseller allows, plus a small margin. Half of that margin goes to the author. From our half we pay the costs of making the book, and we donate what remains to Blessings Foundation Bangladesh, [one sentence about the Foundation's work, approved by them]. Every year we publish what was donated.
+Most books are priced to earn as much as possible. Ours are priced to reach as many readers as possible: the lowest price each bookseller allows, plus a small margin. Half of that margin goes to the author; our half pays for making the next book.
 
 We publish in English and Bangla, and translate between them, because good stories should not stop at a border.
 
@@ -32,9 +32,9 @@ For each book: cover, title, author, one paragraph, formats and prices, buy link
 
 [The text of 04-authors/01-submission-guidelines, then the email address for submissions.]
 
-## Our prices and donations
+## Our prices
 
-[The text of 03-business/03-reach-first-pricing-policy, then 04-donation-and-transparency-policy, then the latest yearly statement.]
+[The text of 03-business/03-reach-first-pricing-policy.]
 
 ## Contact
 

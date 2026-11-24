@@ -61,7 +61,7 @@ The print values are close equivalents for coated paper. Printers vary: ask for 
 
 *Books priced for readers.*
 
-Use it under the logo on banners and cards, in EB Garamond italic. Avoid describing Borderless Publishing as "not for profit" or a "charity": it is a business that donates its margin.
+Use it under the logo on banners and cards, in EB Garamond italic.
 
 ## Please do not
 

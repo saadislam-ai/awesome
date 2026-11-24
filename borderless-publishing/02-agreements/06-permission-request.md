@@ -27,7 +27,7 @@ Borderless Publishing, an independent publisher in Sydney, Australia, will publi
 | Expected print quantity | Printed on demand; we expect [under 2,000] copies in the first two years |
 | Retail price | About AUD [____] for print and AUD [____] for the ebook |
 
-We price our books as close to cost as booksellers allow, and donate our share of any margin to charity, so we would be grateful if you could grant permission without a fee, or for a modest fee.
+We price our books as close to cost as booksellers allow, so we would be grateful if you could grant permission without a fee, or for a modest fee.
 
 We will credit the material in the form you prefer, for example: "[Title] by [Author], copyright [year] [owner]. Reproduced by permission of [owner]."
 

@@ -227,7 +227,7 @@ describe('Reach First plan', () => {
     expect(plan.notes.join(' ')).toMatch(/can't set your book's list price as free/);
   });
 
-  it('adds a margin for the charity when asked, converted from Australian dollars', () => {
+  it('adds a margin when asked, converted from Australian dollars', () => {
     const withMargin = buildReachPlan({ book, specs, settings: PricingSettingsSchema.parse({ marginPerCopy: 1, ending: 'exact' }), pages, ebookFileSizeMB: 0.3 });
     const us = withMargin.rows.find((r) => r.key === 'paperback/kdp/US')!;
     const marginUsd = currencies.rates.USD; // one Australian dollar in US dollars

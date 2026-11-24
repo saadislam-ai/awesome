@@ -45,8 +45,6 @@ You receive half of what we receive for each copy, after the bookseller's share 
 
 You may buy copies of your book at our printing cost, plus postage, to sell at events. You keep what you make on those sales.
 
-If you would like to give some or all of your royalties to Blessings Foundation Bangladesh, tell us in writing and we will pay it directly. Please ask your own adviser about the tax side first.
-
 ## Your rights
 
 You keep your copyright. Our licence runs for five years from publication and then from year to year. If the book sells fewer than 25 copies in a year, or if we do not do what we promised, you can take your rights back; there are letters for this in our agreement pack.

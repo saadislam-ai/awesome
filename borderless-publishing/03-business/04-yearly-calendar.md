@@ -10,8 +10,7 @@ Put these in your phone calendar with a reminder a week before. The Australian f
 | | File signed contracts and permissions with the book | Agreements |
 | **January** | Collect platform payout reports for July to December | Money tracker |
 | **By end of February** | Send royalty statements and payments for July to December (within 60 days of 31 December) | Money tracker, email templates |
-| **By 31 March** | Donate for the previous calendar year and publish the yearly donation statement | Donation policy |
-| | Lending rights: claim new titles (check the closing date each year) | Office for the Arts |
+| **By 31 March** | Lending rights: claim new titles (check the closing date each year) | Office for the Arts |
 | **May** | Review the spec files in Borderless Studio (Settings, Platform rules); check prices still match each store's rules | Borderless Studio |
 | **30 June** | End of financial year: download all platform reports, reconcile the bank account | Money tracker |
 | **July** | Collect payout reports for January to June | Money tracker |

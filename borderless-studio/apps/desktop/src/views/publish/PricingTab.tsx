@@ -71,7 +71,7 @@ export function PricingTab() {
       <div className="card">
         <h2>Reach first</h2>
         <p className="dim small" style={{ marginTop: 0 }}>
-          Prices start at the lowest amount each platform accepts. Add an amount per copy if you want every sale to carry a donation.
+          Prices start at the lowest amount each platform accepts. Add an amount per copy if you want every sale to earn a margin.
         </p>
         <div className="grid3" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
           <Field label={`Kept per copy (${settings.marginCurrency})`} hint="0 means the lowest possible price.">

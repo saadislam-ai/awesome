@@ -29,4 +29,4 @@ Account name: [__________]
 BSB: [___-___] Account number: [__________]
 Reference: the invoice number
 
-Thank you for supporting independent publishing. Our share of the margin on every book is donated to Blessings Foundation Bangladesh.
+Thank you for supporting independent publishing.

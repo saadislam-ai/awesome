@@ -56,10 +56,4 @@ The hyphen is used only inside compound words (well-worn, half-forgotten). Borde
 
 ## Front and back matter
 
-Half title, title page, copyright page (with ISBN of the edition, the National Library catalogue line where available, and the donation statement), dedication, epigraph, contents (nonfiction and long fiction), the text, acknowledgements, about the author, also by the author.
-
-## The copyright page donation line
-
-> Borderless Publishing donates its share of the margin from this book to Blessings Foundation Bangladesh. See [your website] for our yearly statement.
-
-[Use this line only after the points in the setup checklist, section 3, have been settled.]
+Half title, title page, copyright page (with the ISBN of the edition and the National Library catalogue line where available), dedication, epigraph, contents (nonfiction and long fiction), the text, acknowledgements, about the author, also by the author.

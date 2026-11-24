@@ -164,7 +164,8 @@ describe('marketing kit', () => {
     expect(copy).toMatch(/- Paperback[^\n]*ISBN 978/);
     expect(copy).toContain('Bookshops and libraries can order the printed editions from Ingram');
     expect(copy).toContain('> The smell of rain came in over the river mouth');
-    expect(copy).toContain('Blessings Foundation Bangladesh');
+    // No donation is mentioned unless the publisher switches it on.
+    expect(copy).not.toMatch(/donat/i);
     expect(copy).not.toMatch(/[\u2013\u2014]/);
 
     // The sell sheet is a single page with its fonts inside.

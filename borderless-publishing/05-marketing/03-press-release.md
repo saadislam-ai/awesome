@@ -15,7 +15,7 @@
 
 [A paragraph about the author: where they live, what else they have written, any connection to the story.]
 
-[Title] is priced at [AUD ____] in paperback and [AUD ____] as an ebook, set as close to cost as booksellers allow under Borderless Publishing's Reach First policy. The publisher donates its share of the margin to Blessings Foundation Bangladesh.
+[Title] is priced at [AUD ____] in paperback and [AUD ____] as an ebook, set as close to cost as booksellers allow under Borderless Publishing's Reach First policy.
 
 **Book details**
 
@@ -31,6 +31,6 @@
 
 **For interviews, review copies and images:** [Name], [email], [phone]
 
-**About Borderless Publishing:** Borderless Publishing is an independent publisher in Sydney that publishes fiction and nonfiction in English and Bangla at prices close to cost, so that books reach as many readers as possible. Its share of any margin is donated to Blessings Foundation Bangladesh.
+**About Borderless Publishing:** Borderless Publishing is an independent publisher in Sydney that publishes fiction and nonfiction in English and Bangla at prices close to cost, so that books reach as many readers as possible.
 
 ENDS

@@ -89,7 +89,7 @@ Dear [Name],
 
 I am writing from Borderless Publishing, an independent publisher in Sydney. On [date] we publish [Title] by [Author], [one sentence about the book]. Given your interest in [their area], I wonder whether you would like a review copy, as an ebook or in print.
 
-The book is priced at [AUD ____] in print and [____] as an ebook, close to cost, and our share of any margin goes to Blessings Foundation Bangladesh.
+The book is priced at [AUD ____] in print and [____] as an ebook, close to cost so that it reaches as many readers as possible.
 
 The press release and cover are attached. Thank you for considering it.
 

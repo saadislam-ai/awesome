@@ -10,7 +10,6 @@ This page is a summary for the Author. The clauses that follow are the agreement
 - **You pay nothing.** We pay for editing, cover, typesetting, ISBNs, proofs and distribution. We will never ask you for money to publish your book.
 - **Prices are low on purpose.** We set each price close to the lowest the platforms allow, so the book reaches as many readers as possible. That means the money per copy is small.
 - **You receive [50] percent of what we receive** for each copy, after the platform's share and the printing cost. You receive a statement every six months.
-- **Our share goes to charity.** After our direct costs, our share of any margin is donated to Blessings Foundation Bangladesh, and we publish a yearly statement of what was donated. You may choose to donate your share too, but you do not have to.
 - **You approve the text and are consulted on the cover.** Nothing is changed in your words without your approval.
 - **You can get your rights back**: at the end of the term, if the book stops selling, or if we do not publish on time.
 
@@ -26,7 +25,7 @@ This page is a summary for the Author. The clauses that follow are the agreement
 
 A. The Author is the author and owner of copyright in the work described in Schedule 1.
 
-B. The Publisher publishes books at prices set close to cost so that they reach as many readers as possible, and donates its share of any margin to charity as described in its Donation Policy.
+B. The Publisher publishes books at prices set close to cost so that they reach as many readers as possible.
 
 C. The parties agree that the Publisher will publish the work on the terms of this agreement.
 
@@ -45,10 +44,6 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 **Platform** means a printer, distributor, retailer or aggregator through which the Publisher sells or distributes the Work, such as Amazon KDP, IngramSpark and Draft2Digital.
 
 **Net Receipts** means the money the Publisher actually receives from the sale or licensing of the Work in a Format, after the Platform has taken its share, and less only: (a) the printing and delivery cost the Platform charges for printed copies; (b) any GST or other sales tax included in the amount received; and (c) refunds and returns. No other costs are deducted.
-
-**Charity** means Blessings Foundation Bangladesh, or another charity named by the Publisher under its Donation Policy.
-
-**Donation Policy** means the Publisher's published policy on donations, as updated from time to time, a copy of which has been given to the Author.
 
 **Publication Date** means the date on which the Work is first made available for sale in any Format.
 
@@ -118,10 +113,6 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 
 9.3 No royalty is payable on copies given free to the Author, to reviewers, to libraries for legal deposit, or for publicity, or on copies destroyed or returned.
 
-9.4 **Author's donation option.** The Author may by written notice at any time ask the Publisher to pay some or all of the Author's royalties directly to the Charity. The Publisher will do so and will show the payment on the Author's statement. The Author is responsible for any tax consequences of that choice and is encouraged to take advice.
-
-9.5 The Publisher's own share of Net Receipts, after the Publisher's direct costs of publishing the Work, is applied under the Donation Policy. This clause is a statement of the Publisher's policy and does not give the Author or the Charity any right to enforce it.
-
 ## 10. Statements and payment
 
 10.1 The Publisher will send the Author a royalty statement for each six month period ending 30 June and 31 December, within [60] days after the end of the period. The statement will show, for each Format and Platform, copies sold, Net Receipts and royalties.
@@ -170,11 +161,9 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 
 (b) credit the Author correctly and respect the Author's moral rights;
 
-(c) keep accurate records of sales and Net Receipts for at least five years;
+(c) keep accurate records of sales and Net Receipts for at least five years; and
 
-(d) keep the Author's personal information private and use it only for this agreement; and
-
-(e) apply its share of Net Receipts under the Donation Policy and publish a yearly donation statement.
+(d) keep the Author's personal information private and use it only for this agreement.
 
 ## 14. Revised editions
 
@@ -202,7 +191,7 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 
 17.3 **Governing law.** This agreement is governed by the law of New South Wales, Australia, and the parties submit to the courts of New South Wales.
 
-17.4 **Entire agreement.** This agreement, with its Schedules and the Donation Policy referred to in it, is the whole agreement between the parties about the Work. Changes must be in writing and signed by both parties.
+17.4 **Entire agreement.** This agreement, with its Schedules, is the whole agreement between the parties about the Work. Changes must be in writing and signed by both parties.
 
 17.5 **Assignment.** The Publisher may not transfer this agreement without the Author's written consent, which will not be unreasonably withheld if the Publisher's business is transferred as a whole to a publisher that agrees to be bound by it.
 

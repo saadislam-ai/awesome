@@ -123,7 +123,7 @@ export function MatterTab() {
           <textarea className="textarea" rows={4} value={book.copyright.rightsStatement} onChange={(e) => update((b) => { b.copyright.rightsStatement = e.target.value; })} />
         </Field>
         <div style={{ height: 10 }} />
-        <Field label="Further lines" hint="One line each: cover design credit, editor, disclaimers, a note about your charity.">
+        <Field label="Further lines" hint="One line each: cover design credit, editor, disclaimers.">
           <textarea className="textarea" rows={4} value={book.copyright.extraLines.join('\n')} onChange={(e) => update((b) => { b.copyright.extraLines = e.target.value.split('\n'); })} onBlur={() => update((b) => { b.copyright.extraLines = b.copyright.extraLines.map((l) => l.trim()).filter(Boolean); })} />
         </Field>
         <label className="check" style={{ marginTop: 10 }} title="A line saying that a catalogue record for the book is available from the National Library of Australia">

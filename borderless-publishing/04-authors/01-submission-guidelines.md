@@ -2,7 +2,7 @@
 
 *For the website.*
 
-Borderless Publishing is a small independent publisher in Sydney. We publish fiction and nonfiction in English and Bangla, and translations between them. We price our books as close to cost as booksellers allow, so that they reach as many readers as possible, and we donate our share of any margin to Blessings Foundation Bangladesh.
+Borderless Publishing is a small independent publisher in Sydney. We publish fiction and nonfiction in English and Bangla, and translations between them. We price our books as close to cost as booksellers allow, so that they reach as many readers as possible.
 
 ## What we are looking for
 

@@ -6,7 +6,7 @@ export const PRICE_ENDINGS = ['exact', '.99', '.95', '.49-.99', '.00'] as const;
 export const PricingSettingsSchema = z.object({
   schema: z.literal(1).default(1),
   /**
-   * Amount to earn on every copy, for the charity. 0 means "reach first":
+   * Amount to earn on every copy. 0 means "reach first":
    * the lowest price each platform accepts.
    */
   marginPerCopy: z.number().nonnegative().default(0),

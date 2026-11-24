@@ -263,7 +263,6 @@ async function main() {
   book.publicationDate = '2026-11-23';
   book.copyright.extraLines = [
     'This is a sample produced by Borderless Studio. The text is placeholder prose generated from word lists; any resemblance to real people or events is accidental.',
-    'Any profit from Borderless Publishing books is donated to Blessings Foundation Bangladesh.',
   ];
   // Example ISBNs with valid check digits. They are NOT registered numbers.
   const paperback = book.formats.find((f) => f.id === 'paperback')!;
@@ -318,7 +317,7 @@ async function main() {
     back: {
       headline: 'Every crossing has a price.',
       blurb: 'When the last ferry of the season fails to arrive, a customs clerk, a schoolteacher and a ferryman\'s daughter are left on the wrong bank of the river with a ledger that does not add up.\n\nOver one long dry season they learn what the delta keeps and what it gives back. *The Salt Road* is placeholder text, written by a machine from lists of words, and set here to show what a finished book looks like.\n\nIt has nineteen chapters, forty footnotes, three pictures and an index, which is exactly what a typesetting test needs.',
-      bio: '**Dr Saad Islam** writes in Sydney. Any profit from Borderless Publishing books is donated to Blessings Foundation Bangladesh.',
+      bio: '**Dr Saad Islam** writes in Sydney.',
     },
     flaps: {
       front: 'When the last ferry of the season fails to arrive, three people are left on the wrong bank of the river.\n\nA sample book of placeholder text.',
