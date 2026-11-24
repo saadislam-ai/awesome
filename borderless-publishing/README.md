@@ -8,11 +8,11 @@ Each document is written in Markdown (plain text you can read anywhere and keep 
 
 | Folder | Contents |
 | --- | --- |
-| `01-brand` | The logo in every version (SVG, PNG, print PDF), brand guidelines, a print-ready business card, letterhead logo, social media images (avatar, banners, link preview) |
+| `01-brand` | The logo in every version (SVG, PNG, print PDF), brand guidelines, a print-ready business card, letterhead logo, social media images (avatar, banners, link preview), and five brand options to choose from (`01-brand/options`) |
 | `02-agreements` | Author publishing agreement, translation, freelance services (editor, cover designer, illustrator), audiobook narration, bookshop consignment, permission request, rights reversion letters |
 | `03-business` | Setup checklist for New South Wales, one page business plan, Reach First pricing policy, yearly calendar, money tracker (royalties, costs, yearly summary), invoice |
 | `04-authors` | Submission guidelines, guide for authors, house style, author information form |
-| `05-marketing` | Website text, email templates, press release, launch checklist |
+| `05-marketing` | Website text, email templates, press release, launch checklist, and a detailed prompt for an AI model to build the website |
 | `tools` | The script that builds the Word files |
 
 ## Where to start
