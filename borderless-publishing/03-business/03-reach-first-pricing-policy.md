@@ -14,7 +14,7 @@ Borderless Studio, the program we use to make our books, works out these prices 
 
 ## Where the money goes
 
-From each copy sold, the store keeps its share and the printer is paid. What remains is the margin. Each author chooses one of five publishing models: half of the margin to the author (our standard), all of it to the author, no margin at all, a free ebook, or open access. From our half we repay the direct costs of making the book (editing, cover, proofs), and what remains keeps the press going and pays for the next book.
+From each copy sold, the store keeps its share and the printer is paid. What remains is the margin. The margin has two parts, each chosen separately and each allowed to be nothing: the author's margin, chosen by the author, and the publisher's margin, chosen by us. What a copy earns is shared in proportion to the two. An author may also choose a free ebook or open access. From the publisher's part we repay the direct costs of making the book (editing, cover, proofs), and what remains keeps the press going and pays for the next book.
 
 ## What this means
 

@@ -32,7 +32,7 @@ Dear [Name],
 
 We would love to publish [Title]. [One or two sentences about what you admire in it.]
 
-I attach our Author Publishing Agreement, which begins with a one page summary in plain words, together with our Reach First Pricing Policy and our guide for authors. In short: you pay nothing, you keep your copyright, and our prices are close to cost so that the book reaches as many readers as possible. You choose one of five publishing models, from a margin we share 50/50 to selling at cost or giving the ebook away free; the enclosed sheet "Five ways to publish your book with us" explains each with real figures.
+I attach our Author Publishing Agreement, which begins with a one page summary in plain words, together with our Reach First Pricing Policy and our guide for authors. In short: you pay nothing, you keep your copyright, and our prices are close to cost so that the book reaches as many readers as possible. You choose your own margin per copy, from several dollars to nothing at all, and you can also choose to give the ebook away free; the enclosed sheet "Choose your margin" explains how it works with real figures.
 
 Please take your time, and do have the agreement checked by the Australian Society of Authors or a lawyer. I am happy to talk through any part of it.
 

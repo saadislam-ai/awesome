@@ -45,7 +45,7 @@ for i, (t, f) in enumerate([
     ("3. Royalty statement: type the author and the period; it adds up that author's lines from the Sales log. Print it or save it as PDF and send it with the payment.", None),
     ("4. Year summary: what the books earned each year, what authors received, the costs, and the publisher's share.", None),
     ('', None),
-    ("Royalty rate: 50 percent of net receipts, as in the Author Publishing Agreement. Change it in cell B4 of the Royalty statement sheet only if an author's contract says otherwise.", note),
+    ("Royalty rate: the author's share of net receipts follows from the two margins in Schedule 1 of the author's agreement: Author's Margin / (Author's Margin + Publisher's Margin), or all of it when both are nothing. Type the two margins for each author in D2 and D3 of the Royalty statement sheet.", note),
     ('Keep platform reports and receipts for five years. This file is a summary, not a replacement for them.', note),
 ], 1):
     c = ws.cell(row=i, column=1, value=t)
@@ -84,13 +84,22 @@ for r in range(2, 302):
 rs = wb.create_sheet('Royalty statement')
 rs.column_dimensions['A'].width = 34
 for col in 'BCD':
-    rs.column_dimensions[col].width = 20
+    rs.column_dimensions[col].width = 26
 rs['A1'], rs['A1'].font = 'Royalty statement', title
 for r, (k, v) in enumerate([('Author', 'Dr Saad Islam'), ('Period', '2027 H1'), ('Royalty rate', 0.5)], 2):
     rs.cell(row=r, column=1, value=k)
     c = rs.cell(row=r, column=2, value=v)
     c.fill = inputfill
 rs['B4'].number_format = '0%'
+# The author's share follows from the two margins in Schedule 1 of the agreement.
+rs['C2'], rs['D2'] = "Author's Margin (AUD)", 0.5
+rs['C3'], rs['D3'] = "Publisher's Margin (AUD)", 0.5
+for ref in ('D2', 'D3'):
+    rs[ref].fill = inputfill
+    rs[ref].number_format = money
+rs['B4'] = '=IF(D2+D3=0,1,D2/(D2+D3))'
+rs['B4'].fill = PatternFill()
+rs['C4'] = 'Author share, from the two margins'
 rs['A5'], rs['B5'] = 'Statement date', '=TODAY()'
 rs['B5'].number_format = 'd mmmm yyyy'
 for i, c in enumerate(['Format', 'Copies', 'Net receipts (AUD)', 'Royalty (AUD)'], 1):

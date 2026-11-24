@@ -9,7 +9,7 @@ import { findTrim, inkPaperFor, type SpecSet } from '../specs';
 import type { EbookMarket, PlatformSpec, PrintMarket } from '../specs/schema';
 import { bestKdpPlan, kdpEbookRoyalty, kdpLowestPrice, type KdpPlan } from './ebook';
 import { applyEnding, ceilMoney, convert, roundMoney } from './money';
-import type { PricingSettings } from './model';
+import { authorShareOf, totalMargin, type PricingSettings } from './model';
 import { minimumListPrice, printCost, printEarnings, shelfPrice, type PrintTerms } from './print';
 
 export interface PriceRow {
@@ -36,6 +36,12 @@ export interface PriceRow {
   /** What the publisher receives per copy at that price, in the marketplace currency and in the base currency. */
   earnings: number | null;
   earningsBase: number | null;
+  /** The author's and the publisher's parts of the earnings, in the marketplace currency. */
+  authorEarnings: number | null;
+  publisherEarnings: number | null;
+  /** The same in the base currency. */
+  authorEarningsBase: number | null;
+  publisherEarningsBase: number | null;
   /** Share of the list price the publisher keeps before printing cost (0.6 = 60%). */
   rate: number | null;
   /** What the reader pays, tax included, in the marketplace currency and in the base currency. */
@@ -93,6 +99,7 @@ function printRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
       key, kind: 'print', formatId: format.id, formatLabel: format.label || format.id, platform, platformName: spec.displayName,
       marketId: market.id, marketLabel: market.label, currency: market.currency, decimals: market.decimals, pages,
       cost: null, costBasis: '', minimum: null, price: null, overridden: false, earnings: null, earningsBase: null, rate: null,
+      authorEarnings: null, publisherEarnings: null, authorEarningsBase: null, publisherEarningsBase: null,
       shelf: null, shelfBase: null, taxNote: taxNote(market), notes: [], problems: [],
     };
     plan.rows.push(row);
@@ -129,7 +136,7 @@ function printRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
       }
       if (market.discount && settings.ingramDiscountPercent > market.discount.max) row.problems.push(`The discount cannot be above ${market.discount.max}% in ${market.label}.`);
     }
-    const margin = settings.marginPerCopy > 0 ? (convert(settings.marginPerCopy, settings.marginCurrency, market.currency, specs.currencies) ?? 0) : 0;
+    const margin = marginIn(settings, market.currency, specs);
     row.minimum = minimumListPrice(cost.cost, terms, 0, market.decimals);
     let price = applyEnding(minimumListPrice(cost.cost, terms, margin, market.decimals), settings.ending, market.decimals);
     const max = market.maxListPrice[type];
@@ -152,6 +159,7 @@ function printRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
     const sb = convert(row.shelf, market.currency, base, specs.currencies);
     row.earningsBase = eb === null ? null : roundMoney(eb, 2);
     row.shelfBase = sb === null ? null : roundMoney(sb, 2);
+    splitEarnings(row, settings);
     if (pricing.rateModel === 'tiered') {
       const tiers = terms.tiers!;
       const threshold = tiers.find((t) => t.below !== undefined)?.below;
@@ -162,6 +170,24 @@ function printRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
     const names = pricing.marketplaces.filter((m) => pricing.rateModel === 'tiered' && !m.royaltyTiers?.[type]).map((m) => m.label);
     plan.notes.push(`${spec.displayName} does not sell ${type} books in: ${names.join(', ')}.`);
   }
+}
+
+/** The two margins together, in a marketplace currency. */
+function marginIn(settings: PricingSettings, currency: string, specs: SpecSet): number {
+  const total = totalMargin(settings);
+  return total > 0 ? (convert(total, settings.marginCurrency, currency, specs.currencies) ?? 0) : 0;
+}
+
+/** Split what a copy earns between the author and the publisher, in the proportion of their margins. */
+function splitEarnings(row: PriceRow, settings: PricingSettings): void {
+  const share = authorShareOf(settings);
+  const part = (v: number | null, decimals: number) => {
+    if (v === null) return [null, null] as const;
+    const author = roundMoney(v * share, decimals);
+    return [author, roundMoney(v - author, decimals)] as const;
+  };
+  [row.authorEarnings, row.publisherEarnings] = part(row.earnings, row.decimals);
+  [row.authorEarningsBase, row.publisherEarningsBase] = part(row.earningsBase, 2);
 }
 
 function kdpEbookPrice(market: EbookMarket, sizeMB: number, select: boolean, margin: number): { price: number; plan: KdpPlan } | null {
@@ -193,6 +219,7 @@ function ebookRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
     key: `${format.id}/${platform}/${marketId}`, kind: 'ebook', formatId: format.id, formatLabel: format.label || format.id, platform, platformName: spec.displayName,
     marketId, marketLabel: label, currency, decimals, pages: null, cost: null, costBasis: '', minimum: null, price: null, overridden: false,
     earnings: null, earningsBase: null, rate: null, shelf: null, shelfBase: null, taxNote: '', notes: [], problems: [],
+    authorEarnings: null, publisherEarnings: null, authorEarningsBase: null, publisherEarningsBase: null,
   });
   const finish = (row: PriceRow) => {
     if (row.earnings !== null) {
@@ -203,6 +230,7 @@ function ebookRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
       const sb = convert(row.shelf, row.currency, base, specs.currencies);
       row.shelfBase = sb === null ? null : roundMoney(sb, 2);
     }
+    splitEarnings(row, settings);
     plan.rows.push(row);
   };
 
@@ -211,7 +239,7 @@ function ebookRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
       if (settings.hidden.includes(`${platform}/${market.id}`)) continue;
       const row = blank(market.id, market.label, market.currency, market.decimals);
       row.taxNote = taxNote(market);
-      const margin = settings.marginPerCopy > 0 ? (convert(settings.marginPerCopy, settings.marginCurrency, market.currency, specs.currencies) ?? 0) : 0;
+      const margin = marginIn(settings, market.currency, specs);
       const lowest = kdpLowestPrice(market, sizeMB, settings.kdpSelect);
       const target = kdpEbookPrice(market, sizeMB, settings.kdpSelect, margin);
       if (!lowest || !target) {
@@ -250,10 +278,10 @@ function ebookRows(input: ReachInput, format: BookFormat, platform: PlatformId, 
   const currency = pricing.currency ?? 'USD';
   const row = blank('ALL', 'All stores', currency, 2);
   const share = pricing.authorShare ?? null;
-  const margin = settings.marginPerCopy > 0 ? (convert(settings.marginPerCopy, settings.marginCurrency, currency, specs.currencies) ?? 0) : 0;
+  const margin = marginIn(settings, currency, specs);
   const floor = pricing.minPrice ?? 0;
   let price: number;
-  if (margin <= 0 && pricing.freeAllowed) {
+  if (settings.freeEbook && pricing.freeAllowed) {
     price = 0;
     row.minimum = 0;
   } else {
@@ -304,6 +332,13 @@ export function buildReachPlan(input: ReachInput): ReachPlan {
     }
   }
   if (!specs.currencies) plan.warnings.push('No currency table was found, so amounts cannot be shown in your own currency.');
-  if (settings.marginPerCopy === 0) plan.notes.unshift('Reach first: every price is the lowest the platform accepts, so you earn nothing or almost nothing per copy.');
+  if (totalMargin(settings) === 0) {
+    plan.notes.unshift('Reach first: neither the publisher nor the author takes a margin, so every price is the lowest the platform accepts. The few cents a copy may still earn go to the author.');
+  } else if (settings.publisherMargin === 0) {
+    plan.notes.unshift('The publisher takes nothing: everything a copy earns goes to the author.');
+  } else if (settings.authorMargin === 0) {
+    plan.notes.unshift('The author has chosen to take nothing: what a copy earns stays with the publisher to cover publishing costs.');
+  }
+  if (settings.freeEbook) plan.notes.push('Free ebook: the price is 0 wherever a store allows it. Amazon does not allow a free price; there the lowest price is used.');
   return plan;
 }

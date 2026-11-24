@@ -216,15 +216,58 @@ describe('Reach First plan', () => {
     expect(plan.notes.join(' ')).toMatch(/Expanded Distribution switched off/);
   });
 
-  it('prices ebooks at the floor: 0.99 on Kindle, free on Draft2Digital', () => {
+  it('prices ebooks at the floor: 0.99 on Kindle, and free on Draft2Digital when a free ebook is chosen', () => {
     const us = row('ebook/kdp/US');
     expect(us.price).toBe(0.99);
     expect(us.plan).toBe('35');
     expect(us.earnings).toBe(0.35);
-    const d = row('ebook/draft2digital/ALL');
+    expect(plan.notes.join(' ')).toMatch(/can't set your book's list price as free/);
+    const free = buildReachPlan({ book, specs, settings: PricingSettingsSchema.parse({ freeEbook: true }), pages, ebookFileSizeMB: 0.3 });
+    const d = free.rows.find((r) => r.key === 'ebook/draft2digital/ALL')!;
     expect(d.price).toBe(0);
     expect(d.earnings).toBe(0);
-    expect(plan.notes.join(' ')).toMatch(/can't set your book's list price as free/);
+    // Amazon cannot be free: the lowest price stays.
+    expect(free.rows.find((r) => r.key === 'ebook/kdp/US')!.price).toBe(0.99);
+    expect(free.notes.join(' ')).toMatch(/Free ebook/);
+    expect(row('ebook/draft2digital/ALL').price).toBeGreaterThan(0);
+  });
+
+  it('lets the publisher and the author each choose a margin, either of which can be zero', () => {
+    const at = (publisherMargin: number, authorMargin: number) => buildReachPlan({ book, specs, settings: PricingSettingsSchema.parse({ publisherMargin, authorMargin, ending: 'exact' }), pages, ebookFileSizeMB: 0.3 });
+    const key = 'paperback/kdp/AU';
+    // Nobody takes a margin: the lowest price, and the few cents left go to the author.
+    const none = at(0, 0);
+    const n = none.rows.find((r) => r.key === key)!;
+    expect(n.price).toBe(n.minimum);
+    expect(n.publisherEarnings).toBe(0);
+    expect(n.authorEarnings).toBe(n.earnings);
+    expect(none.notes[0]).toMatch(/neither the publisher nor the author/);
+    // Author takes 2, publisher nothing: everything to the author.
+    const author = at(0, 2).rows.find((r) => r.key === key)!;
+    expect(author.publisherEarnings).toBe(0);
+    expect(author.authorEarnings).toBe(author.earnings);
+    expect(author.earnings!).toBeGreaterThanOrEqual(2 - 0.01);
+    // Publisher 1, author 3: three quarters to the author.
+    const both = at(1, 3).rows.find((r) => r.key === key)!;
+    expect(both.earnings!).toBeGreaterThanOrEqual(4 - 0.01);
+    expect(both.authorEarnings! + both.publisherEarnings!).toBeCloseTo(both.earnings!, 2);
+    expect(both.authorEarnings! / both.earnings!).toBeCloseTo(0.75, 1);
+    // The author gives up their margin: the publisher keeps what is left.
+    const pub = at(1, 0);
+    expect(pub.rows.find((r) => r.key === key)!.authorEarnings).toBe(0);
+    expect(pub.notes[0]).toMatch(/author has chosen to take nothing/);
+    // More margin never lowers a price.
+    expect(both.price!).toBeGreaterThan(author.price!);
+  });
+
+  it('reads an older pricing file with one margin as an even split', () => {
+    const old = PricingSettingsSchema.parse({ marginPerCopy: 2 });
+    expect(old.publisherMargin).toBe(1);
+    expect(old.authorMargin).toBe(1);
+    expect(old.freeEbook).toBe(false);
+    const zero = PricingSettingsSchema.parse({ marginPerCopy: 0 });
+    expect(zero.freeEbook).toBe(true);
+    expect('marginPerCopy' in zero).toBe(false);
   });
 
   it('adds a margin when asked, converted from Australian dollars', () => {

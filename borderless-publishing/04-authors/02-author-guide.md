@@ -41,7 +41,7 @@ From final manuscript to publication usually takes [six to nine] months.
 
 ## Money
 
-What you receive depends on the publishing model you chose (see "Five ways to publish your book with us"): half or all of what we receive for each copy after the bookseller's share and the printing cost, or nothing at all if you chose to sell at cost or give the ebook away. Because our prices are close to cost, it is a small amount per copy in every model. Statements cover January to June and July to December, and are sent within 60 days. Amounts under 20 dollars are carried to the next statement, and everything is paid at least once a year.
+What you receive depends on the margin you chose (see "Choose your margin"): what each copy earns after the bookseller's share and the printing cost is shared between you and us in proportion to our two margins, and it is all yours if neither of us takes a margin. If you chose nothing, or a free ebook, you may receive little or nothing. You can lower your margin at any time. Statements cover January to June and July to December, and are sent within 60 days. Amounts under 20 dollars are carried to the next statement, and everything is paid at least once a year.
 
 You may buy copies of your book at our printing cost, plus postage, to sell at events. You keep what you make on those sales.
 

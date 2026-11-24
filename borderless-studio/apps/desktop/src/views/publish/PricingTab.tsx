@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AlertTriangle, CircleAlert, ExternalLink, Info, RotateCcw } from 'lucide-react';
 import {
-  PRICE_ENDINGS, PRICE_ENDING_LABEL, isStale, loadPricing, reachPlan, savePricing,
+  MARGIN_PRESETS, PRICE_ENDINGS, PRICE_ENDING_LABEL, isStale, loadPricing, reachPlan, savePricing, totalMargin,
   type PlatformId, type PriceRow, type PricingSettings, type ReachPlan,
 } from '@borderless/core';
 import { useStore } from '../../state/store';
@@ -69,14 +69,21 @@ export function PricingTab() {
   return (
     <div style={{ maxWidth: 1180, margin: '0 auto' }}>
       <div className="card">
-        <h2>Reach first</h2>
+        <h2>Margins per copy</h2>
         <p className="dim small" style={{ marginTop: 0 }}>
-          Prices start at the lowest amount each platform accepts. Add an amount per copy if you want every sale to earn a margin.
+          Prices start at the lowest amount each platform accepts. The publisher and the author each choose what they want from a copy, and either can choose nothing.
+          With both at 0 every book is sold at the lowest possible price.
         </p>
-        <div className="grid3" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
-          <Field label={`Kept per copy (${settings.marginCurrency})`} hint="0 means the lowest possible price.">
-            <input className="input" type="number" min={0} step={0.1} value={settings.marginPerCopy} onChange={(e) => change((s) => { s.marginPerCopy = Math.max(0, Number(e.target.value) || 0); })} />
-          </Field>
+        <div className="grid2">
+          <MarginField label={`Publisher keeps per copy (${settings.marginCurrency})`} value={settings.publisherMargin} onChange={(v) => change((s) => { s.publisherMargin = v; })} />
+          <MarginField label={`Author receives per copy (${settings.marginCurrency})`} value={settings.authorMargin} onChange={(v) => change((s) => { s.authorMargin = v; })} />
+        </div>
+        <div className="small dim" style={{ margin: '8px 0 14px' }}>
+          {totalMargin(settings) === 0
+            ? 'Reach first: nobody takes a margin. Whatever a copy still earns at the lowest price goes to the author.'
+            : `Each copy is priced to earn about ${settings.marginCurrency} ${totalMargin(settings).toFixed(2)} on top of the lowest price; the earnings are split ${Math.round((settings.authorMargin / totalMargin(settings)) * 100)}% to the author and ${Math.round((settings.publisherMargin / totalMargin(settings)) * 100)}% to the publisher.`}
+        </div>
+        <div className="grid3" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
           <Field label="Round prices up to">
             <select className="select" value={settings.ending} onChange={(e) => change((s) => { s.ending = e.target.value as PricingSettings['ending']; })}>
               {PRICE_ENDINGS.map((x) => <option key={x} value={x}>{PRICE_ENDING_LABEL[x]}</option>)}
@@ -92,6 +99,9 @@ export function PricingTab() {
         <div className="row wrap" style={{ marginTop: 10 }}>
           <label className="check" title="Enrolling makes the ebook exclusive to Amazon, which rules out Draft2Digital and other stores">
             <input type="checkbox" checked={settings.kdpSelect} onChange={(e) => change((s) => { s.kdpSelect = e.target.checked; })} /> The ebook is enrolled in KDP Select
+          </label>
+          <label className="check" title="Stores that allow a free price list the ebook at 0. Amazon does not allow it and keeps its lowest price.">
+            <input type="checkbox" checked={settings.freeEbook} onChange={(e) => change((s) => { s.freeEbook = e.target.checked; })} /> Give the ebook away free where the store allows it
           </label>
           {printFormats.filter((f) => !f.platforms.some((p) => plan?.pages[f.id]?.[p])).map((f) => (
             <label key={f.id} className="row small" style={{ gap: 6 }}>
@@ -123,7 +133,7 @@ export function PricingTab() {
                   {first.kind === 'print' && <th className="right">Printing</th>}
                   <th className="right">Lowest price</th>
                   <th className="right">Your price</th>
-                  <th className="right">You receive</th>
+                  <th className="right">Earned per copy</th>
                   <th className="right">Reader pays</th>
                   <th />
                 </tr>
@@ -149,6 +159,11 @@ export function PricingTab() {
                       {r.earnings === null ? '' : <span style={{ color: r.earnings < 0 ? 'var(--fail)' : undefined }}>{r.earnings.toFixed(r.decimals)}</span>}
                       {r.rate !== null && <span className="faint small"> at {Math.round(r.rate * 100)}%{r.plan ? ' plan' : ''}</span>}
                       {r.earningsBase !== null && r.currency !== base && <div className="faint small">{base} {r.earningsBase.toFixed(2)}</div>}
+                      {r.authorEarnings !== null && r.publisherEarnings !== null && r.earnings !== null && r.earnings > 0 && (
+                        <div className="faint small" title="How the earnings of a copy are split, in the proportion of the two margins">
+                          author {r.authorEarnings.toFixed(r.decimals)} · publisher {r.publisherEarnings.toFixed(r.decimals)}
+                        </div>
+                      )}
                     </td>
                     <td className="right">
                       {r.price === 0 ? <span className="badge ok">Free</span> : money(r.shelf, r)}
@@ -181,5 +196,21 @@ export function PricingTab() {
         </div>
       )}
     </div>
+  );
+}
+
+/** An amount per copy: a number field with ready-made amounts underneath. 0 is always allowed. */
+function MarginField({ label, value, onChange }: { label: string; value: number; onChange: (v: number) => void }) {
+  return (
+    <Field label={label}>
+      <input className="input" type="number" min={0} step={0.1} value={value} onChange={(e) => onChange(Math.max(0, Number(e.target.value) || 0))} />
+      <div className="row wrap" style={{ gap: 4, marginTop: 6 }}>
+        {MARGIN_PRESETS.map((p) => (
+          <button key={p} className={`btn small${Math.abs(value - p) < 0.001 ? ' primary' : ''}`} onClick={() => onChange(p)}>
+            {p === 0 ? 'Nothing' : p.toFixed(2)}
+          </button>
+        ))}
+      </div>
+    </Field>
   );
 }
