@@ -17,7 +17,7 @@ We do not publish: poetry collections [at present], children's picture books, ac
 
 - **You pay nothing.** We never charge authors for editing, covers or publishing. A publisher that asks you for money is selling you a service, not publishing your book.
 - **You keep your copyright.** You give us a licence to publish for five years, renewable, and you can take your rights back if the book stops selling.
-- **You receive half** of what we receive from every sale, after the bookseller's share and the printing cost, with a statement every six months.
+- **You choose how your book is priced and shared**, from five models: a small margin shared 50/50 with us, all of the margin to you, selling at cost so that nobody makes a profit, a free ebook, or open access so anyone can share it. Statements come every six months.
 - **Low prices, wide reach.** Because our prices are close to cost, the money per copy is small. Please read our Reach First Pricing Policy before you submit, so there are no surprises.
 - **No advance** is paid.
 

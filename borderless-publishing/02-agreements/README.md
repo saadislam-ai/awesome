@@ -19,7 +19,7 @@ Drafts for running Borderless Publishing. Each file is written in plain Markdown
 
 ## Things to decide before the first author contract
 
-1. **Royalty rate.** The draft offers 50 percent of Net Receipts on every format, with no advance. Because prices are close to cost, Net Receipts are small; a generous share keeps the arrangement fair. Change the number in Schedule 1 if you decide otherwise, but keep it the same for all authors.
+1. **Publishing models.** Schedule 2 of the author agreement offers five models: Shared (a small margin split 50/50), Author first (all of the margin to the author), At cost (no margin, nobody makes a profit), Free ebook, and Open access (Creative Commons). The author picks one in Schedule 1. Give every author `04-authors/05-publishing-models` with the agreement. In Models 2 to 5 you never recover your costs, so decide how many such books you can afford each year.
 2. **Term.** Five years from publication, then year to year. Authors can leave if the book stops selling. This is friendlier than "for the full period of copyright" and suits a press that does not pay advances.
 3. **Sole trader or company.** The drafts name you trading as Borderless Publishing. If you later form a company, new contracts are made by the company, and existing ones are transferred with each author's consent (clause 17.5).
 

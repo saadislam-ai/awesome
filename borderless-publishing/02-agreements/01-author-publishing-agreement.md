@@ -8,8 +8,9 @@ This page is a summary for the Author. The clauses that follow are the agreement
 
 - **You keep your copyright.** You give Borderless Publishing a licence to publish your book in the formats ticked in Schedule 1, for a fixed term.
 - **You pay nothing.** We pay for editing, cover, typesetting, ISBNs, proofs and distribution. We will never ask you for money to publish your book.
-- **Prices are low on purpose.** We set each price close to the lowest the platforms allow, so the book reaches as many readers as possible. That means the money per copy is small.
-- **You receive [50] percent of what we receive** for each copy, after the platform's share and the printing cost. You receive a statement every six months.
+- **You choose how your book is priced and shared.** There are five publishing models (Schedule 2), from a small margin shared 50/50, to selling at cost so that nobody makes a profit, to giving the ebook away free and letting readers share it. You chose: **Model [__]**.
+- **Prices are low on purpose.** In every model we set prices close to the lowest the platforms allow, so the book reaches as many readers as possible. That means the money per copy is small, or nothing at all.
+- **What you receive** depends on the model: from half of what we receive per copy (Model 1) to all of it (Model 2). You receive a statement every six months.
 - **You approve the text and are consulted on the cover.** Nothing is changed in your words without your approval.
 - **You can get your rights back**: at the end of the term, if the book stops selling, or if we do not publish on time.
 
@@ -45,11 +46,15 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 
 **Net Receipts** means the money the Publisher actually receives from the sale or licensing of the Work in a Format, after the Platform has taken its share, and less only: (a) the printing and delivery cost the Platform charges for printed copies; (b) any GST or other sales tax included in the amount received; and (c) refunds and returns. No other costs are deducted.
 
-**Publication Date** means the date on which the Work is first made available for sale in any Format.
+**Publication Date** means the date on which the Work is first made available for sale, or free, in any Format.
+
+**Publishing Model** means the model chosen in Schedule 1 and described in Schedule 2.
+
+**Margin** means the amount per copy that the Publisher adds to the lowest price a Platform allows, as stated for the Publishing Model.
 
 ## 2. Grant of rights
 
-2.1 The Author grants the Publisher the exclusive licence, during the Term and in the Territory, to reproduce, publish, distribute and sell the Work in the Formats, in the language stated in Schedule 1.
+2.1 The Author grants the Publisher the exclusive licence, during the Term and in the Territory, to reproduce, publish, distribute and sell the Work in the Formats (or make it available free, where the Publishing Model provides), in the language stated in Schedule 1.
 
 2.2 The Author keeps the copyright in the Work and all rights not expressly granted in this agreement, including translation rights, film, television, stage and radio rights, and merchandising rights, unless Schedule 1 says otherwise.
 
@@ -99,7 +104,7 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 
 8.1 The Publisher will publish the Work in at least the first Format listed in Schedule 1 within [12] months of accepting the final manuscript, and will keep it available for sale during the Term.
 
-8.2 The Publisher sets prices under its Reach First Pricing Policy: as close as practical to the lowest price each Platform allows, plus a small margin. The Author acknowledges that royalties per copy will therefore be lower than at usual market prices.
+8.2 The Publisher sets prices under its Reach First Pricing Policy and the Publishing Model: as close as practical to the lowest price each Platform allows, plus the Margin for that model (which may be nothing). Where the model provides for free copies, the Publisher makes the Work available free wherever a Platform allows it. The Author acknowledges that royalties per copy will therefore be lower than at usual market prices, and may be nothing.
 
 8.3 The Publisher will tell the Author the price of each Format before publication and when it changes. The Author may ask the Publisher to review a price, and the Publisher will consider the request in good faith.
 
@@ -107,7 +112,11 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 
 ## 9. Royalties
 
-9.1 The Publisher will pay the Author [50] percent of Net Receipts from every Format, and [50] percent of Net Receipts from any licence of the Work that the Author has agreed to.
+9.1 The Publisher will pay the Author the share of Net Receipts stated in Schedule 2 for the Publishing Model, from every Format and from any licence of the Work that the Author has agreed to.
+
+9.1A The Publisher pays all costs of publishing under every model, and does not recover them from the Author's share.
+
+9.1B **Changing the model.** Once a year, either party may propose a change to another Publishing Model. A change takes effect only when both parties agree in writing, and applies from the start of the next accounting period. A change away from Model 5 cannot withdraw the public licence already given under it.
 
 9.2 No advance is paid. [Or: The Publisher will pay the Author an advance of $[____] on signing, which is recouped from royalties and is not repayable.]
 
@@ -171,7 +180,7 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 
 ## 15. Reversion of rights
 
-15.1 The Author may by written notice ask for the return of rights if, in any two consecutive accounting periods after the first two years following the Publication Date, fewer than [25] copies in all Formats combined have been sold. Rights return to the Author 60 days after the notice.
+15.1 The Author may by written notice ask for the return of rights if, in any two consecutive accounting periods after the first two years following the Publication Date, fewer than [25] copies in all Formats combined have been sold or, where copies are free, downloaded. Rights return to the Author 60 days after the notice.
 
 15.2 The Author may end this agreement by written notice if the Publisher: (a) does not send a statement or pay royalties within 60 days after a written reminder; (b) stops having the Work available for sale in every Format for more than six months; or (c) becomes bankrupt, insolvent or stops trading.
 
@@ -212,13 +221,30 @@ C. The parties agree that the Publisher will publish the work on the terms of th
 | Manuscript delivery date | [__________] |
 | Material to be supplied by the Author | [Photographs, maps, permissions, author photograph, biography] |
 | Permissions paid by | [Author / Publisher] |
-| Royalty rate | [50] percent of Net Receipts, all Formats |
+| Publishing Model (Schedule 2) | Model [__]: [Shared / Author first / At cost / Free ebook / Open access] |
+| Margin per copy | [About AUD 1, or the amount in Schedule 2] |
 | Advance | [None] |
 | Author copies | [10] of each printed Format |
 | Author's email for notices | [__________] |
 | Publisher's email for notices | [__________] |
 | Author's bank account for royalties | [given separately on the Author Information Form] |
 | Other rights granted | [None] |
+
+## Schedule 2: Publishing Models
+
+The Author chooses one model in Schedule 1. In every model the Publisher pays all costs of publishing, the Author keeps the copyright, and prices start at the lowest each Platform allows.
+
+| | Model | Price | Author's share of Net Receipts | Publisher's share |
+| --- | --- | --- | --- | --- |
+| 1 | **Shared** | Lowest price plus a Margin of about AUD [1] per copy | [50] percent | [50] percent, which pays for making the next book |
+| 2 | **Author first** | Lowest price plus a Margin of about AUD [1] per copy | 100 percent | Nothing |
+| 3 | **At cost** | The lowest price each Platform allows, with no Margin | 100 percent of anything received (usually little or nothing: some stores pay a few cents or dollars even at their lowest price) | Nothing |
+| 4 | **Free ebook** | Ebook free wherever a Platform allows it (and at its lowest price where it does not); printed Formats at cost as in Model 3 | 100 percent of anything received | Nothing |
+| 5 | **Open access** | As Model 4, and the Work is also released to the public under the Creative Commons licence below | 100 percent of anything received | Nothing |
+
+**Model 5: the public licence.** On the Publication Date, the Author licenses the text of the Work to the public under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International licence (CC BY-NC-ND 4.0). Anyone may then copy and share the Work free of charge, without changing it and not for money, with credit to the Author. The Publisher may post the ebook on its website for free download. This licence to the public cannot be withdrawn later for copies already shared, so the Author should choose it only after taking advice. The Author keeps the copyright, and the Publisher's licence under clause 2 continues for sales of the Formats. Cover artwork and illustrations owned by others are not included in the public licence unless their owners agree.
+
+> Notes for the publisher: (1) Amazon does not let a publisher set a permanent price of zero; a free ebook on Amazon depends on Amazon matching a free price elsewhere, which it may or may not do. Draft2Digital can distribute free ebooks to most of its stores. (2) Amazon KDP may ask for proof of rights for books that are freely available online (Model 5); keep the signed agreement ready to send. (3) Models 2 to 5 mean you never recover your costs from sales. Decide in advance how many such books you can afford each year.
 
 ## Signatures
 

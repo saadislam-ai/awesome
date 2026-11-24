@@ -18,7 +18,7 @@ We are an independent publisher in Sydney. We publish fiction and nonfiction in 
 
 Borderless Publishing was founded in Sydney by [Dr Saad Islam], a writer who believes a book should reach every reader who wants it, wherever they live and whatever they can afford.
 
-Most books are priced to earn as much as possible. Ours are priced to reach as many readers as possible: the lowest price each bookseller allows, plus a small margin. Half of that margin goes to the author; our half pays for making the next book.
+Most books are priced to earn as much as possible. Ours are priced to reach as many readers as possible: the lowest price each bookseller allows, plus a small margin. Each author chooses how their book is shared: half of that margin to the author, all of it, no margin at all, or a free ebook that readers anywhere can download.
 
 We publish in English and Bangla, and translate between them, because good stories should not stop at a border.
 
