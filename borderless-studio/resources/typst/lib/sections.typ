@@ -109,12 +109,12 @@
   sink(cfg, 0.22)
   let d = sec.at("data", default: (:))
   align(center, block(width: 74%, {
-    set align(left)
+    set align(start)
     set par(justify: false, first-line-indent: 0pt, spacing: 0.9em)
     emph(render-blocks(cfg, sec.blocks, ctx: (in-box: true)))
     if d.at("source", default: "") != "" {
       v(0.7em)
-      align(right, text(size: 0.92em, d.source))
+      align(end, text(size: 0.92em, d.source))
     }
   }))
   end-section()
@@ -127,7 +127,7 @@
   let label = sec.at("label", default: none)
   let title = sec.at("title", default: "")
   let subtitle = sec.at("subtitle", default: "")
-  let al = if op.align == "left" { left } else if op.align == "right" { right } else { center }
+  let al = if op.align == "left" { start } else if op.align == "right" { end } else { center }
   let content = {
     set align(al)
     set par(justify: false, first-line-indent: 0pt, leading: 0.5em, spacing: 0pt)
@@ -236,7 +236,7 @@
             title
             if leaders { box(width: 1fr, inset: (x: 0.4em), repeat(gap: 0.35em, text(size: 0.8em, "."))) } else { h(1fr) }
           },
-          align(bottom, box(width: 2.2em, align(right, num))),
+          align(bottom, box(width: 2.2em, align(end, num))),
         ))
       }
     }

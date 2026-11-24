@@ -7,6 +7,7 @@
  *     a drop capital becomes a plain large letter instead of breaking.
  */
 import type { Design } from '../model/design';
+import { languageInfo } from '../i18n/languages';
 import type { EpubFont } from './build';
 
 export function fontFaceCss(fonts: EpubFont[]): string {
@@ -25,8 +26,9 @@ export function EPUB_CSS(o: { design: Design; lang: string; embedded: string | n
   const align = d.justify ? 'justify' : 'left';
   const center = d.chapterOpener.align === 'left' ? 'left' : 'center';
   const family = o.embedded ? `font-family: "${o.embedded}", serif;` : '';
-  const hyphens = d.hyphenate && o.lang !== 'bn' ? 'auto' : 'manual';
-  return `/* Borderless Studio ebook stylesheet */
+  const lang = languageInfo(o.lang);
+  const hyphens = d.hyphenate && lang.hyphenate ? 'auto' : 'manual';
+  const css = `/* Borderless Studio ebook stylesheet */
 @namespace epub "http://www.idpf.org/2007/ops";
 
 html { -webkit-text-size-adjust: 100%; }
@@ -160,4 +162,20 @@ ul.index-list li { margin: 0.15em 0; text-align: left; }
 section.cover { text-align: center; page-break-after: always; }
 section.cover img { max-width: 100%; max-height: 100%; }
 `;
+  return forLanguage(css, lang.dir === 'rtl', Boolean(lang.cursive));
+}
+
+/**
+ * Right-to-left books mirror every left and right in the layout (text
+ * alignment, floats, borders and side margins); joined scripts lose all letter
+ * spacing, which would break the joins between letters.
+ */
+function forLanguage(css: string, rtl: boolean, cursive: boolean): string {
+  let out = css;
+  if (rtl) {
+    out = out.replace(/\b(text-align|float|clear):(\s*)(left|right)\b/g, (_m, prop: string, sp: string, side: string) => `${prop}:${sp}${side === 'left' ? 'right' : 'left'}`);
+    out = out.replace(/\b(border|margin|padding)-(left|right)\b/g, (_m, prop: string, side: string) => `${prop}-${side === 'left' ? 'right' : 'left'}`);
+  }
+  if (cursive) out = out.replace(/letter-spacing:\s*[^;]+;/g, 'letter-spacing: 0;');
+  return out;
 }

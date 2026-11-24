@@ -27,8 +27,13 @@
     description: cfg.meta.at("description", default: none),
   )
 
+  let rtl-book = cfg.meta.at("dir", default: "ltr") == "rtl"
+  let cursive = cfg.meta.at("cursive", default: false)
+
   set page(
     width: pg.widthPt * 1pt,
+    // A right-to-left book is bound on the right, so "inside" is the right margin of a recto.
+    binding: if rtl-book { right } else { left },
     height: pg.heightPt * 1pt,
     margin: (
       inside: pg.margins.insidePt * 1pt,
@@ -55,6 +60,7 @@
     size: fs,
     lang: cfg.meta.lang,
     region: cfg.meta.at("region", default: none),
+    dir: if rtl-book { rtl } else { ltr },
     fill: ink,
     hyphenate: d.hyphenate,
     number-type: if d.oldstyleFigures and cfg.fontCaps.body.onum { "old-style" } else { "lining" },
@@ -82,7 +88,8 @@
     // spacing. This removes most "rivers" and loose lines in justified text.
     justification-limits: (
       spacing: (min: 78%, max: 140%),
-      tracking: (min: -0.012em, max: 0.018em),
+      // No letter spacing at all in joined scripts.
+      tracking: if cursive { (min: 0em, max: 0em) } else { (min: -0.012em, max: 0.018em) },
     ),
   )
 
@@ -105,6 +112,8 @@
   }
   show raw: set text(font: cfg.fonts.mono)
   show link: it => it.body
+
+  show: body => untracked(cfg, body)
 
   for sec in data.sections {
     render-section(cfg, sec)

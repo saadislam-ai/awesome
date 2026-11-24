@@ -10,6 +10,7 @@
  * but it has not been run through a trading partner's own validator. Ask the
  * recipient to confirm the first file you send.
  */
+import { languageInfo } from '../i18n/languages';
 import type { Book, BookFormat } from '../model/book';
 import { baseLanguage } from '../model/book';
 import type { Listing } from './listing';
@@ -41,9 +42,12 @@ export interface OnixInput {
   sent?: Date;
 }
 
-const LANGUAGE: Record<string, string> = {
-  en: 'eng', bn: 'ben', fr: 'fre', de: 'ger', es: 'spa', it: 'ita', hi: 'hin', ar: 'ara', zh: 'chi', ja: 'jpn', pt: 'por', nl: 'dut', ur: 'urd', ta: 'tam',
-};
+/** ONIX language code (ISO 639-2/B). Languages outside the app's list fall back to a few extra codes, then to English. */
+const EXTRA_LANGUAGE: Record<string, string> = { ta: 'tam', te: 'tel', kn: 'kan', ml: 'mal', gu: 'guj', pa: 'pan', si: 'sin', th: 'tha', am: 'amh' };
+function onixLanguage(tag: string): string {
+  const code = languageInfo(tag).onix;
+  return code !== 'und' ? code : EXTRA_LANGUAGE[baseLanguage(tag)] ?? 'eng';
+}
 const ROLE: Record<string, string> = {
   author: 'A01', editor: 'B01', illustrator: 'A12', translator: 'B06', foreword: 'A23', introduction: 'A24', contributor: 'A32', photographer: 'A13', narrator: 'E07',
 };
@@ -105,7 +109,7 @@ function product(input: OnixInput, edition: OnixEdition, now: Date): string {
   if (f.largePrint) d.push(el('EditionType', 'LTE'));
   if (book.editionNumber > 1) d.push(el('EditionNumber', book.editionNumber));
   d.push(el('EditionStatement', book.editionStatement));
-  d.push(`<Language>${el('LanguageRole', '01')}${el('LanguageCode', LANGUAGE[baseLanguage(book.language)] ?? 'eng')}</Language>`);
+  d.push(`<Language>${el('LanguageRole', '01')}${el('LanguageCode', onixLanguage(book.language))}</Language>`);
   if (edition.pages && !isEbook) d.push(`<Extent>${el('ExtentType', '00')}${el('ExtentValue', edition.pages)}${el('ExtentUnit', '03')}</Extent>`);
   listing.bisac.filter((b) => b.code.trim()).forEach((b, i) => {
     d.push(`<Subject>${i === 0 ? '<MainSubject/>' : ''}${el('SubjectSchemeIdentifier', '10')}${el('SubjectCode', b.code.trim().toUpperCase())}${el('SubjectHeadingText', b.heading)}</Subject>`);
@@ -195,7 +199,7 @@ export function buildOnix(input: OnixInput): string {
   const sender = input.sender ?? { name: input.book.imprint };
   const header =
     `<Header><Sender>${el('SenderName', sender.name)}${el('ContactName', sender.contact)}${el('EmailAddress', sender.email)}</Sender>` +
-    `${el('SentDateTime', stamp)}${el('DefaultLanguageOfText', LANGUAGE[baseLanguage(input.book.language)] ?? 'eng')}</Header>`;
+    `${el('SentDateTime', stamp)}${el('DefaultLanguageOfText', onixLanguage(input.book.language))}</Header>`;
   const products = input.editions.filter((e) => e.format.enabled).map((e) => product(input, e, now)).join('');
   return '<?xml version="1.0" encoding="UTF-8"?>\n' + pretty(`<ONIXMessage release="3.0" xmlns="http://ns.editeur.org/onix/3.0/reference">${header}${products}</ONIXMessage>`);
 }

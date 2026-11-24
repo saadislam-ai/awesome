@@ -11,8 +11,22 @@
  * Special characters are written as escapes on purpose so this source file
  * stays plain ASCII and no editor can silently "fix" them.
  */
-import type { DashPolicy, TextStyle } from '../model/book';
+import type { Book, DashPolicy, TextStyle } from '../model/book';
+import { languageInfo, type QuoteMarks } from '../i18n/languages';
 import type { Block, Inline } from './ir';
+
+/** The house style plus the language of the book, which decides the quotation marks. */
+export type LocalTextStyle = TextStyle & { language?: string };
+
+/** The text style used when a book is exported. */
+export const bookTextStyle = (book: Pick<Book, 'style' | 'language'>): LocalTextStyle => ({ ...book.style, language: book.language });
+
+/** Carried from one text run to the next inside a paragraph. */
+export interface SmartenState {
+  last: string;
+  /** Inner quotations opened and not yet closed. */
+  inner?: number;
+}
 
 export const CH = {
   ldquo: '\u201C',
@@ -138,12 +152,55 @@ export function dashReplacement(dash: string, policy: DashPolicy, prev: string, 
   }
 }
 
+const ENGLISH_MARKS = /[\u201C\u201D\u2018\u2019]/;
+
+/**
+ * Turn English curly quotes into the marks of another language. A closing
+ * single quote is told apart from an apostrophe by counting the inner
+ * quotations that are open: "l\u2019ami" keeps its apostrophe.
+ */
+export function localQuotes(text: string, q: QuoteMarks, state: SmartenState = { last: '' }): string {
+  if (!ENGLISH_MARKS.test(text)) return text;
+  let out = '';
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === CH.ldquo) out += q.open;
+    else if (c === CH.rdquo) out += q.close;
+    else if (c === CH.lsquo) {
+      out += q.innerOpen;
+      state.inner = (state.inner ?? 0) + 1;
+    } else if (c === CH.rsquo && (state.inner ?? 0) > 0 && !isWordChar(text[i + 1] ?? '')) {
+      out += q.innerClose;
+      state.inner = (state.inner ?? 1) - 1;
+    } else out += c;
+  }
+  return out;
+}
+
+/**
+ * French spacing: a narrow no-break space inside guillemets and before
+ * ; : ! ? so they never start a line. Times (12:30) and web addresses are left alone.
+ */
+export function frenchSpacing(text: string): string {
+  const s = CH.thinNbsp;
+  return text
+    .replace(/\u00AB[ \u00A0\u202F]*/g, `\u00AB${s}`)
+    .replace(/[ \u00A0\u202F]*\u00BB/g, `${s}\u00BB`)
+    .replace(/([\p{L}\p{N}\u00BB)\]\u2026])[ \u00A0]?([;:!?])(?=\s|$|[\u00BB!?])/gu, `$1${s}$2`);
+}
+
 /** Apply export time typography to one text run. */
-export function smartenText(text: string, style: TextStyle, before = ''): string {
+export function smartenText(text: string, style: LocalTextStyle, before = '', state: SmartenState = { last: before }): string {
   let t = text;
   t = fixEllipses(t, style.ellipsis);
   t = typedDashes(t, style.dashPolicy);
-  if (style.smartQuotes) t = smartQuotes(t, before, style.quoteStyle === 'single');
+  const lang = style.language ? languageInfo(style.language) : null;
+  if (style.smartQuotes) {
+    t = smartQuotes(t, before, style.quoteStyle === 'single');
+    const q = lang?.quotes;
+    if (q && (q.open !== CH.ldquo || q.close !== CH.rdquo || q.innerOpen !== CH.lsquo || q.innerClose !== CH.rsquo)) t = localQuotes(t, q, state);
+  }
+  if (lang?.quotes.spaced) t = frenchSpacing(t);
   t = nonBreakingSpaces(t);
   return t;
 }
@@ -153,11 +210,11 @@ export function smartenText(text: string, style: TextStyle, before = ''): string
  * the neighbouring characters, so the last character of the previous text run
  * is carried across emphasis and other inline boundaries.
  */
-export function smartenInlines(inlines: Inline[], style: TextStyle, state = { last: '' }): Inline[] {
+export function smartenInlines(inlines: Inline[], style: LocalTextStyle, state: SmartenState = { last: '' }): Inline[] {
   return inlines.map((n): Inline => {
     switch (n.t) {
       case 'text': {
-        const v = smartenText(n.v, style, state.last);
+        const v = smartenText(n.v, style, state.last, state);
         if (v.length) state.last = v[v.length - 1];
         return { t: 'text', v };
       }
@@ -184,7 +241,7 @@ export function smartenInlines(inlines: Inline[], style: TextStyle, state = { la
   });
 }
 
-export function smartenBlocks(blocks: Block[], style: TextStyle): Block[] {
+export function smartenBlocks(blocks: Block[], style: LocalTextStyle): Block[] {
   return blocks.map((b): Block => {
     switch (b.t) {
       case 'p':

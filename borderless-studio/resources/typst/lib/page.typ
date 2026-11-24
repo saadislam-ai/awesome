@@ -72,15 +72,17 @@
     else { none }
   let head = if raw == none or raw == "" { none } else { head-style(cfg, raw) }
   let folio = if folio-top { folio-text(cfg, st-zone.get()) } else { none }
-  let outer = if verso { left } else { right }
+  // Left-hand pages are even in a left-to-right book and odd in a right-to-left one.
+  // In both, the outer edge of an even page is where its lines start.
   set par(first-line-indent: 0pt, justify: false)
+  set text(dir: book-dir(cfg))
   let line-content = if rh.align == "outside" {
     let gap = h(1.1em)
-    if verso { align(left, { folio; if folio != none and head != none { gap }; head }) }
-    else { align(right, { head; if folio != none and head != none { gap }; folio }) }
+    if verso { align(start, { folio; if folio != none and head != none { gap }; head }) }
+    else { align(end, { head; if folio != none and head != none { gap }; folio }) }
   } else {
     // Centred head, page number (if it lives at the top) on the outer edge.
-    grid(columns: (1fr, auto, 1fr), align: (left, center, right),
+    grid(columns: (1fr, auto, 1fr), align: (start, center, end),
       if verso { folio }, head, if not verso { folio })
   }
   if rh.rule {
@@ -98,13 +100,14 @@
   let pos = d.folio.position
   if pos == "none" { return none }
   let folio = folio-text(cfg, st-zone.get())
+  set text(dir: book-dir(cfg))
   if info.first and info.style == "opener" {
     // Drop folio on chapter opening pages.
     if d.folio.showOnOpeners { align(center, folio) } else { none }
   } else if pos == "bottom-center" {
     align(center, folio)
   } else if pos == "bottom-outside" {
-    align(if calc.even(p) { left } else { right }, folio)
+    align(if calc.even(p) { start } else { end }, folio)
   } else {
     none
   }

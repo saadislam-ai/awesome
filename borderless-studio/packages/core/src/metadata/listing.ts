@@ -7,7 +7,7 @@
 import { z } from 'zod';
 import type { Inline } from '../markdown/ir';
 import { parseMarkdown } from '../markdown/parse';
-import { smartenBlocks } from '../markdown/typography';
+import { bookTextStyle, smartenBlocks } from '../markdown/typography';
 import type { Book } from '../model/book';
 import type { PlatformSpec } from '../specs/schema';
 
@@ -94,7 +94,7 @@ export interface DescriptionOutput {
 export function descriptionHtml(source: string, book: Book, spec?: PlatformSpec | null): DescriptionOutput {
   const tags = spec?.listing?.descriptionTags?.length ? spec.listing.descriptionTags : ['p', 'br', 'b', 'i', 'em', 'ul', 'ol', 'li'];
   const allow = new Set(tags);
-  const blocks = smartenBlocks(parseMarkdown(source).blocks, book.style);
+  const blocks = smartenBlocks(parseMarkdown(source).blocks, bookTextStyle(book));
   const parts: string[] = [];
   const para = (inner: string) => (allow.has('p') ? `<p>${inner}</p>` : inner + (allow.has('br') ? '<br><br>' : '\n\n'));
   for (const b of blocks) {
@@ -119,7 +119,7 @@ export function descriptionHtml(source: string, book: Book, spec?: PlatformSpec 
 
 /** The description as plain text with blank lines between paragraphs. */
 export function descriptionPlain(source: string, book: Book, limit: number | null = null): DescriptionOutput {
-  const blocks = smartenBlocks(parseMarkdown(source).blocks, book.style);
+  const blocks = smartenBlocks(parseMarkdown(source).blocks, bookTextStyle(book));
   const parts: string[] = [];
   for (const b of blocks) {
     if (b.t === 'p' || b.t === 'h') parts.push(inlineText(b.c));

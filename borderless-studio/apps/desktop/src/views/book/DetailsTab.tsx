@@ -1,18 +1,21 @@
 /** Book details: title, people, publisher, copyright and the house style for text. */
 import { Plus, Trash2 } from 'lucide-react';
-import { baseLanguage } from '@borderless/core';
+import { LANGUAGES, changeBookLanguage, languageInfo } from '@borderless/core';
+import { LanguageNotes, LanguageSelect } from '../../ui/language';
 import { useBookEditor } from '../../ui/useBook';
 import { Field, Seg } from '../../ui/kit';
 
-const LANGUAGES = [
-  ['en-AU', 'English (Australia)'], ['en-GB', 'English (United Kingdom)'], ['en-US', 'English (United States)'],
-  ['bn', 'Bangla'], ['bn-BD', 'Bangla (Bangladesh)'], ['bn-IN', 'Bangla (India)'],
+/** Spelling dictionaries: the three English ones, the ones bundled for other languages, and Bangla (added to the library). */
+const SPELLING: [string, string][] = [
+  ['en-AU', 'Australian English'], ['en-GB', 'British English'], ['en-US', 'American English'],
+  ...LANGUAGES.filter((l) => l.dictionary && l.code !== 'en').map((l) => [l.dictionary!, l.name] as [string, string]),
+  ['bn', 'Bangla'],
 ];
 const ROLES = ['author', 'editor', 'illustrator', 'translator', 'foreword', 'introduction', 'contributor'];
 
 export function DetailsTab() {
   const { book, update } = useBookEditor();
-  const bangla = baseLanguage(book.language) === 'bn';
+  const lang = languageInfo(book.language);
   return (
     <div className="page-narrow">
       <div className="card">
@@ -27,18 +30,11 @@ export function DetailsTab() {
             <input className="input" type="number" min={1} disabled={!book.series} value={book.series?.number ?? ''} onChange={(e) => update((b) => { if (b.series) b.series.number = e.target.value ? Number(e.target.value) : null; })} />
           </Field>
           <Field label="Language of the text">
-            <select className="select" value={book.language} onChange={(e) => update((b) => { b.language = e.target.value; })}>
-              {!LANGUAGES.some(([code]) => code === book.language) && <option value={book.language}>{book.language}</option>}
-              {LANGUAGES.map(([code, label]) => <option key={code} value={code}>{label}</option>)}
-            </select>
+            <LanguageSelect value={book.language} onChange={(tag) => update((b) => { changeBookLanguage(b, tag); })} />
           </Field>
           <Field label="Planned publication date"><input className="input" type="date" value={book.publicationDate} onChange={(e) => update((b) => { b.publicationDate = e.target.value; })} /></Field>
         </div>
-        {bangla && (
-          <div className="notice warn small" style={{ marginTop: 12 }}>
-            Amazon KDP does not accept Bangla for ebooks, paperbacks or hardcovers, and Draft2Digital Print accepts Latin script languages only. IngramSpark prints any language whose fonts are embedded. Preflight checks this for every edition.
-          </div>
-        )}
+        <LanguageNotes language={book.language} platforms={[...new Set(book.formats.filter((f) => f.enabled).flatMap((f) => f.platforms))]} />
       </div>
 
       <div className="card">
@@ -81,11 +77,20 @@ export function DetailsTab() {
         <div className="grid3">
           <Field label="Spelling">
             <select className="select" value={book.style.spelling} onChange={(e) => update((b) => { b.style.spelling = e.target.value; })}>
-              <option value="en-AU">Australian English</option><option value="en-GB">British English</option><option value="en-US">American English</option><option value="bn">Bangla</option>
+              {!SPELLING.some(([v]) => v === book.style.spelling) && <option value={book.style.spelling}>{languageInfo(book.style.spelling).name} (dictionary added to the library)</option>}
+              {SPELLING.map(([v, label]) => <option key={v} value={v}>{label}</option>)}
             </select>
           </Field>
+          {lang.nativeDigits && (
+            <Field label="Numbers" hint="Page numbers, chapter numbers and the year.">
+              <select className="select" value={book.style.digits} onChange={(e) => update((b) => { b.style.digits = e.target.value as typeof b.style.digits; })}>
+                <option value="auto">As usual in {lang.name}</option><option value="native">{lang.name} digits</option><option value="latin">0 to 9</option>
+              </select>
+            </Field>
+          )}
           <Field label="Quotation marks">
             <Seg value={book.style.quoteStyle} onChange={(v) => update((b) => { b.style.quoteStyle = v; })} options={[{ value: 'double', label: '\u201CDouble\u201D' }, { value: 'single', label: '\u2018Single\u2019' }]} />
+            {lang.code !== 'en' && <div className="small dim" style={{ marginTop: 4 }}>{lang.name} books print {lang.quotes.open}{lang.name}{lang.quotes.close} marks; type ordinary quotes and they are converted on export.</div>}
           </Field>
           <Field label="Ellipsis">
             <select className="select" value={book.style.ellipsis} onChange={(e) => update((b) => { b.style.ellipsis = e.target.value as typeof b.style.ellipsis; })}>

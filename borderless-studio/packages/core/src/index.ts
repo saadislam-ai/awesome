@@ -27,6 +27,8 @@ export * from './project/layout';
 export * from './project/templates';
 export * from './project/store';
 export * from './specs';
+export * from './i18n/languages';
+export * from './i18n/design';
 export * from './build/strings';
 export * from './build/assemble';
 export * from './build/pipeline';

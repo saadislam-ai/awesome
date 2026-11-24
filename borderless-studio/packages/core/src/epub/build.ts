@@ -12,10 +12,11 @@
  *
  * The result is checked by EPUBCheck in epubcheck.ts.
  */
+import { isRightToLeft } from '../i18n/languages';
 import { zipSync, type Zippable } from 'fflate';
 import type { AssembledBook, AssembledSection } from '../build/assemble';
 import { seriesLine } from '../build/assemble';
-import { baseLanguage, primaryAuthor } from '../model/book';
+import { primaryAuthor } from '../model/book';
 import type { SectionKind } from '../model/book';
 import { cleanIsbn, validateIsbn } from '../isbn';
 import { escapeXml, escapeXmlText, utf8 } from '../util/text';
@@ -108,7 +109,7 @@ function xhtmlDoc(lang: string, title: string, bodyAttrs: string, bodyLines: str
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<!DOCTYPE html>',
-    `<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="${escapeXml(lang)}" lang="${escapeXml(lang)}">`,
+    `<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="${escapeXml(lang)}" lang="${escapeXml(lang)}"${isRightToLeft(lang) ? ' dir="rtl"' : ''}>`,
     '<head>',
     '<meta charset="utf-8"/>',
     `<title>${escapeXmlText(title)}</title>`,
@@ -357,7 +358,7 @@ export function buildEpub(assembled: AssembledBook, opts: EpubOptions = {}): Epu
   const navDoc = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<!DOCTYPE html>',
-    `<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="${escapeXml(lang)}" lang="${escapeXml(lang)}">`,
+    `<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="${escapeXml(lang)}" lang="${escapeXml(lang)}"${isRightToLeft(lang) ? ' dir="rtl"' : ''}>`,
     '<head>',
     '<meta charset="utf-8"/>',
     `<title>${escapeXmlText(strings.contents)}</title>`,
@@ -504,7 +505,7 @@ export function buildEpub(assembled: AssembledBook, opts: EpubOptions = {}): Epu
     '<manifest>',
     ...manifest,
     '</manifest>',
-    '<spine toc="ncx">',
+    `<spine toc="ncx"${isRightToLeft(lang) ? ' page-progression-direction="rtl"' : ''}>`,
     ...spine,
     '</spine>',
     '</package>',
@@ -537,7 +538,7 @@ export function buildEpub(assembled: AssembledBook, opts: EpubOptions = {}): Epu
   ].join('\n');
   files.push({ path: 'OEBPS/toc.ncx', content: ncx });
 
-  const css = fontFaceCss(fonts) + EPUB_CSS({ design, lang: baseLanguage(lang), embedded: fonts.length > 0 ? fonts[0].family : null });
+  const css = fontFaceCss(fonts) + EPUB_CSS({ design, lang, embedded: fonts.length > 0 ? fonts[0].family : null });
   files.push({ path: 'OEBPS/css/book.css', content: css });
 
   for (const f of files) zip[f.path] = utf8(f.content);

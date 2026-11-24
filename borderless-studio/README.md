@@ -44,6 +44,7 @@ The app is built in phases. After each phase it builds, runs and is usable.
 | 2 | Book screen (details, editions, interior design with the six templates and a live preview of real pages, front and back matter), cover builder (paperback, hardcover case, dust jacket, barcode, ebook covers, 3D picture), PDF/X-1a for print files, preflight for interiors, covers and ebooks | Done |
 | 3 | Publish screen: Reach First prices for every marketplace, listing editor with KDP preview and copy and paste sheets, Thema lookup, ONIX 3.0 export, ISBN register, publishing checklist with Australian legal deposit; Bangla books from typing to print | Done |
 | 4 | Word export (manuscript format and a file for stores) and import of Word, Markdown, text, EPUB and Scrivener manuscripts; spellcheck (en-AU, en-GB, en-US), grammar check, style analysis and consistency check; outline, corkboard, story bible and split screen; backups, restore and optional Git history; samples, advance reader copies, in-app ebook preview and Kindle Previewer button; series manager; spec file editor; large print checks; marketing kit; audiobook preparation; optional writing assistant (off by default) | Done |
+| 5 | Books in other languages: 39 languages in the language list (French, Spanish, Arabic, German, Portuguese, Italian, Dutch, Russian, Hindi, Persian, Urdu, Hebrew, Chinese, Japanese, Korean and more); each language's own quotation marks and French spacing; Chapter, Contents and the copyright page in English, French, Spanish, German, Italian, Portuguese, Dutch, Russian, Arabic, Hindi and Bangla; right to left books (Arabic, Persian, Urdu, Hebrew) bound on the right with mirrored page furniture and right to left ebooks; native digits; bundled Arabic, Hebrew and Devanagari fonts; French, Spanish, Portuguese, Dutch and Russian spellcheck | Done |
 
 The engine also runs without the interface, from a terminal:
 
@@ -341,12 +342,18 @@ me. Where they concern a platform rule they are marked in the spec files too.
 3. **KDP hardcover spine and case sizes.** The help page figures contradict
    each other, so the spec follows the official calculator. Check the
    calculator before ordering a hardcover proof.
-4. **Bangla.** KDP does not support Bengali for ebooks, paperbacks or
-   hardcovers. IngramSpark print accepts any language whose fonts are
-   embedded, but nothing official confirms Bengali metadata or ebook
-   retailers. D2D Print states Latin based languages only. The app typesets
-   Bangla correctly (conjuncts, Bengali numerals, Noto Serif Bengali) and
-   preflight tells you which platforms will refuse the edition.
+4. **Languages other than English.** Each store accepts its own list of
+   languages, and the lists differ for ebooks and print. KDP does not
+   support Bengali at all and does not print Arabic or Hindi; D2D Print
+   states Latin based languages only; IngramSpark prints any language whose
+   fonts are embedded. The lists are in the spec files, the new book dialog
+   and the Details tab warn you, and preflight refuses an edition a store
+   will not take. Check the store's current list before you publish in a
+   new language. The words the app prints for you (Chapter, Contents, the
+   copyright page) were translated for this app; ask a native speaker to
+   read the copyright page of your first book in each language. For
+   Chinese, Japanese and Korean, put an OpenType font in the book's
+   `fonts` folder: those fonts are too large to bundle.
 5. **Price barcodes.** The five digit price add-on exists for US and Canadian
    dollars only. There is no Australian dollar code, so Australian editions
    use `90000` (no price) or no add-on. The barcodes the app draws are read
@@ -531,7 +538,8 @@ More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 ## Licences of bundled material
 
 * Fonts (EB Garamond, Crimson Pro, Libre Baskerville, Source Sans 3, Noto
-  Serif Bengali, Noto Sans Bengali, Tiro Bangla): SIL Open Font Licence. The
+  Serif Bengali, Noto Sans Bengali, Tiro Bangla, Amiri, Noto Naskh Arabic,
+  Noto Serif Hebrew, Noto Serif Devanagari): SIL Open Font Licence. The
   licence texts are in `resources/fonts/`.
 * Typst: Apache 2.0. EPUBCheck: BSD 3 clause. Both are downloaded by
   `npm run fetch-tools` at pinned versions and checked against known
@@ -540,8 +548,11 @@ More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 * Thema subject categories v1.7: EDItEUR, bundled unmodified under its
   licence, see `resources/lookups/`.
 * Spelling dictionaries (Australian, British and American English):
-  from the Hunspell dictionary collection, MIT and BSD licences, texts in
-  `resources/dictionaries/`.
+  from the Hunspell dictionary collection, MIT and BSD licences. French
+  (MPL 2.0), Spanish (GPL, LGPL or MPL, used under MPL), Brazilian
+  Portuguese (LGPL or MPL, used under MPL), Dutch (BSD) and Russian (BSD)
+  from the LibreOffice dictionaries. The licence texts are in each folder
+  of `resources/dictionaries/`.
 * Harper, the grammar checker: Apache 2.0.
 * Anthropic's SDK for the optional assistant: MIT.
 * BISAC subject codes are not bundled. The full list needs a licence from

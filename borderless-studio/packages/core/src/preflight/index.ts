@@ -76,6 +76,34 @@ export function languageProblem(spec: PlatformSpec, type: BookFormat['type'], la
   return `${spec.displayName} does not list "${base}" among the languages it supports for ${type} books.${list.note ? ' ' + list.note : ''}`;
 }
 
+/** A platform that refuses some kinds of book in a language. */
+export interface LanguageRefusal {
+  platform: PlatformId;
+  platformName: string;
+  refused: BookFormat['type'][];
+}
+
+/**
+ * Which platforms refuse a language, and for which kinds of book. Taken from
+ * the platform spec files, so it stays right when a spec is updated.
+ */
+export function languageRefusals(platforms: Partial<Record<PlatformId, PlatformSpec>>, language: string): LanguageRefusal[] {
+  const out: LanguageRefusal[] = [];
+  for (const [id, spec] of Object.entries(platforms) as [PlatformId, PlatformSpec][]) {
+    if (!spec) continue;
+    const refused = (['ebook', 'paperback', 'hardcover'] as const).filter((t) => spec.languages?.[t] && languageProblem(spec, t, language));
+    if (refused.length) out.push({ platform: id, platformName: spec.displayName, refused });
+  }
+  return out;
+}
+
+/** One sentence for the author: "Amazon KDP does not accept this language for paperbacks or hardcovers." */
+export function languageRefusalText(refusals: LanguageRefusal[], languageName: string): string {
+  const plural = { ebook: 'ebooks', paperback: 'paperbacks', hardcover: 'hardcovers' } as const;
+  const join = (xs: string[]) => (xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}`);
+  return refusals.map((r) => `${r.platformName} does not accept ${languageName} for ${join(r.refused.map((t) => plural[t]))}.`).join(' ');
+}
+
 /* ------------------------------------------------------------------ */
 /* Print interior                                                      */
 /* ------------------------------------------------------------------ */

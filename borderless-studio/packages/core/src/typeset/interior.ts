@@ -7,7 +7,8 @@
 import { PDFDocument } from 'pdf-lib';
 import type { Host } from '../host';
 import type { AssembledBook, AssembledSection, BuildWarning } from '../build/assemble';
-import { stringsFor, usesBengaliDigits } from '../build/strings';
+import { stringsFor } from '../build/strings';
+import { digitChars, digitSetFor, languageInfo } from '../i18n/languages';
 import {
   checkPageCount, minInsideMargin, paddedPageCount, pageSize, resolveMargins,
   type InteriorRules, type ResolvedMargins,
@@ -319,6 +320,8 @@ export function buildInteriorSpec(
   const bodyInfo = fontInfo(design.bodyFont);
   const headInfo = fontInfo(design.headingFont);
   const strings = stringsFor(book.language);
+  const lang = languageInfo(book.language);
+  const digitSet = digitSetFor(book.language, book.style.digits);
 
   const cfg: Record<string, unknown> = {
     meta: {
@@ -329,6 +332,10 @@ export function buildInteriorSpec(
       authorsLine: authorsLine(book),
       lang: baseLanguage(book.language),
       region: languageRegion(book.language),
+      /** Right-to-left books are bound on the right: page 1 is a left hand page. */
+      dir: lang.dir,
+      /** Joined scripts must never be letter spaced. */
+      cursive: Boolean(lang.cursive),
       keywords: [],
     },
     page: {
@@ -356,7 +363,10 @@ export function buildInteriorSpec(
     fontCaps: { body: fontCaps(design.bodyFont), heading: fontCaps(design.headingFont), sans: fontCaps(design.sansFont) },
     capHeightEm: bodyInfo?.capHeightEm ?? 0.66,
     headingCapHeightEm: headInfo?.capHeightEm ?? 0.66,
-    digits: usesBengaliDigits(book.language) ? 'bengali' : 'latin',
+    digits: digitSet,
+    digitChars: digitChars(digitSet),
+    /** Front matter pages are numbered i, ii, iii in Latin, Cyrillic, Greek and Bangla books; other scripts use their digits. */
+    romanFolios: ['latin', 'cyrillic', 'greek', 'bengali'].includes(lang.script),
     links: Boolean(opts.bookmarks),
     bookmarks: Boolean(opts.bookmarks),
     watermark: opts.watermark ?? null,

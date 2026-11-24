@@ -12,7 +12,7 @@ import { decodeImage } from '../image/prepare';
 import { decodePng, encodePng, flattenAlpha } from '../image/png';
 import type { Inline } from '../markdown/ir';
 import { parseMarkdown } from '../markdown/parse';
-import { smartenBlocks, smartenText } from '../markdown/typography';
+import { bookTextStyle, smartenBlocks, smartenText } from '../markdown/typography';
 import { authorsLine, type Book, type BookFormat } from '../model/book';
 import { finalizePrint } from '../pdf/finalize';
 import type { PdfxOptions, PdfxSummary } from '../pdf/pdfx';
@@ -54,7 +54,7 @@ const round1 = (v: number): number => Math.round(v * 10) / 10;
 
 function paragraphsOf(text: string, book: Book): Inline[][] {
   if (!text.trim()) return [];
-  const blocks = smartenBlocks(parseMarkdown(text).blocks, book.style);
+  const blocks = smartenBlocks(parseMarkdown(text).blocks, bookTextStyle(book));
   const out: Inline[][] = [];
   for (const b of blocks) if (b.t === 'p' || b.t === 'h') out.push(b.c);
   return out;
@@ -101,8 +101,8 @@ export function buildCoverSpec(input: CoverBuildInput, opts: CoverRenderOptions)
     warnings.push({ severity: 'warn', code: 'cover-contrast-back', message: 'The back cover text has weak contrast against its background; small type needs strong contrast to be readable in print.' });
   }
 
-  const title = smartenText(design.front.title.trim() || book.title, book.style);
-  const subtitle = design.front.showSubtitle ? smartenText(design.front.subtitle.trim() || book.subtitle, book.style) : '';
+  const title = smartenText(design.front.title.trim() || book.title, bookTextStyle(book));
+  const subtitle = design.front.showSubtitle ? smartenText(design.front.subtitle.trim() || book.subtitle, bookTextStyle(book)) : '';
   const author = design.front.author.trim() || authorsLine(book);
   const imprint = input.imprint ?? book.imprint;
 
@@ -182,7 +182,7 @@ export function buildCoverSpec(input: CoverBuildInput, opts: CoverRenderOptions)
       title: fontStack(design.fonts.title), body: fontStack(design.fonts.body), sans: fontStack('Source Sans 3', 'sans'),
       titleCase: design.fonts.titleCase, titleWeight: design.fonts.titleWeight,
     },
-    front: { title, subtitle, author, tagline: smartenText(design.front.tagline, book.style) },
+    front: { title, subtitle, author, tagline: smartenText(design.front.tagline, bookTextStyle(book)) },
     spine: {
       textAllowed: g.spineTextAllowed,
       title: design.spine.showTitle ? title : '',
@@ -190,7 +190,7 @@ export function buildCoverSpec(input: CoverBuildInput, opts: CoverRenderOptions)
       imprint: design.spine.showImprint ? imprint : '',
     },
     back: {
-      headline: smartenText(design.back.headline, book.style),
+      headline: smartenText(design.back.headline, bookTextStyle(book)),
       blurb: paragraphsOf(design.back.blurb, book),
       bio: paragraphsOf(design.back.bio, book),
       imprint: design.back.showImprint ? imprint : '',

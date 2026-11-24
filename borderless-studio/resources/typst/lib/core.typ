@@ -49,12 +49,33 @@
 
 // ---------------------------------------------------------------- numbers
 
-#let fmt-number(cfg, n, style: "arabic") = {
-  if style == "roman" { numbering("i", n) }
-  else if style == "roman-upper" { numbering("I", n) }
-  else if cfg.digits == "bengali" { numbering("১", n) }
-  else { str(n) }
+// Page numbers in the digits of the book's language. Roman numerals are only
+// used where the script has them (cfg.romanFolios); other books number the
+// front matter with their own digits.
+#let native-digits(cfg, n) = {
+  let chars = cfg.at("digitChars", default: none)
+  if chars == none or cfg.at("digits", default: "latin") == "latin" { str(n) }
+  else { str(n).clusters().map(c => chars.at(int(c))).join() }
 }
+
+#let fmt-number(cfg, n, style: "arabic") = {
+  let roman = cfg.at("romanFolios", default: true)
+  if style == "roman" and roman { numbering("i", n) }
+  else if style == "roman-upper" and roman { numbering("I", n) }
+  else { native-digits(cfg, n) }
+}
+
+// Letter spacing breaks the joins of Arabic, Bangla and Devanagari letters.
+// Inside a cursive book every tracked text is set back to normal spacing.
+#let untracked(cfg, body) = {
+  if cfg.meta.at("cursive", default: false) {
+    show regex("[\p{Arabic}\p{Bengali}\p{Devanagari}\p{Inherited}\u{0640}\u{200C}\u{200D}]+"): it => text(tracking: 0pt, it)
+    body
+  } else { body }
+}
+
+// The text direction of the book, for page furniture that is placed outside the text flow.
+#let book-dir(cfg) = if cfg.meta.at("dir", default: "ltr") == "rtl" { rtl } else { ltr }
 
 // ---------------------------------------------------------------- grid fitting
 

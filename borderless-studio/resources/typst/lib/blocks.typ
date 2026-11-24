@@ -154,7 +154,7 @@
   let cols = calc.max(b.head.len(), ..b.rows.map(r => r.len()), 1)
   let aligns = range(cols).map(i => {
     let a = b.align.at(i, default: none)
-    if a == "center" { center } else if a == "right" { right } else { left }
+    if a == "center" { center } else if a == "right" { end } else { start }
   })
   let cell(c) = render-inlines(cfg, c, rb: rb)
   let pad(row) = row + range(cols - row.len()).map(_ => ())
@@ -218,7 +218,7 @@
   }
   for item in b.items {
     grid(columns: (2.1em, 1fr), column-gutter: 0.3em, row-gutter: 0pt,
-      align(right, fmt-number(cfg, item.n) + "."),
+      align(end, fmt-number(cfg, item.n) + "."),
       rb(cfg, item.c, ctx: (in-note: true)),
     )
     v(0.55em, weak: true)
@@ -301,7 +301,7 @@
       })
     } else if t == "align" {
       block(width: 100%, above: blank-gap(cfg), below: blank-gap(cfg), {
-        set align(if b.align == "right" { right } else { center })
+        set align(if b.align == "right" { end } else { center })
         set par(first-line-indent: 0pt, justify: false)
         render-blocks(cfg, b.c, ctx: ctx)
       })

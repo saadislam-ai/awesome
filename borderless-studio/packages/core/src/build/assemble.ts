@@ -15,10 +15,11 @@ import { countCritic } from '../markdown/critic';
 import type { Block, Inline, ParseWarning } from '../markdown/ir';
 import { blocksText, collectImages, walkInlines } from '../markdown/ir';
 import { parseMarkdown } from '../markdown/parse';
-import { countDashes, smartenBlocks, smartenText } from '../markdown/typography';
+import { bookTextStyle, countDashes, smartenBlocks, smartenText } from '../markdown/typography';
 import { countWords } from '../util/text';
-import { chapterLabel, partLabel, stringsFor, usesBengaliDigits, type BookStrings } from './strings';
-import { toBengaliDigits } from '../util/text';
+import { alsoByTitle, bookDigits, chapterLabel, partLabel, stringsFor, type BookStrings } from './strings';
+import { languageInfo } from '../i18n/languages';
+import { designForLanguage } from '../i18n/design';
 
 export type Zone = 'front' | 'body' | 'back';
 
@@ -127,8 +128,7 @@ function formatName(format: BookFormat, s: BookStrings): string {
 /** The copyright (imprint) page, built from metadata. */
 export function copyrightBlocks(book: Book, format: BookFormat, opts: AssembleOptions, design: Design): Block[] {
   const s = stringsFor(book.language);
-  const bn = usesBengaliDigits(book.language);
-  const year = bn ? toBengaliDigits(book.copyright.year) : String(book.copyright.year);
+  const year = bookDigits(book.copyright.year, book.language, book.style.digits);
   const isbnText = opts.isbnDisplay ?? ((x: string) => x);
   const out: Block[] = [];
   const place = [book.publisherCity, book.publisherCountry].filter(Boolean).join(', ');
@@ -149,10 +149,10 @@ export function copyrightBlocks(book: Book, format: BookFormat, opts: AssembleOp
   }
   if (isbnLines.length) out.push({ t: 'p', c: isbnLines });
   const edition = book.editionStatement || `${s.firstPublished} ${year}`;
-  out.push(para(/\d{4}|[০-৯]{4}/.test(edition) ? edition : `${edition} ${year}`));
+  out.push(para(/[\p{Nd}]{4}/u.test(edition) ? edition : `${edition} ${year}`));
   for (const line of book.copyright.extraLines) if (line.trim()) out.push(para(line));
   if (format.type !== 'ebook' && s.typesetIn) out.push(para(`${s.typesetIn} ${design.bodyFont}`));
-  return smartenBlocks(out, book.style);
+  return smartenBlocks(out, bookTextStyle(book));
 }
 
 /** Split an epigraph into the quotation and its source ("- Author, Work" on the last line). */
@@ -180,9 +180,11 @@ export function assembleBook(
   opts: AssembleOptions,
 ): AssembledBook {
   const format = getFormat(book, opts.formatId);
-  const design = applyDesignOverride(book.design, format.designOverride);
+  const chosen = applyDesignOverride(book.design, format.designOverride);
+  const local = designForLanguage(chosen, book.language);
+  const design = local.design;
   const s = stringsFor(book.language);
-  const warnings: BuildWarning[] = [];
+  const warnings: BuildWarning[] = local.notes.map((message) => ({ severity: 'info' as const, code: 'language-fonts', message }));
   const sections: AssembledSection[] = [];
   const isPrint = format.type !== 'ebook';
   const stats: AssembledBook['stats'] = {
@@ -198,7 +200,7 @@ export function assembleBook(
   const included = (n: BinderNode): boolean =>
     n.include !== false && (!n.onlyFormats || n.onlyFormats.length === 0 || n.onlyFormats.includes(format.id));
 
-  const smart = (t: string) => smartenText(t, book.style);
+  const smart = (t: string) => smartenText(t, bookTextStyle(book));
 
   /** Parse one document and collect its statistics. */
   const parseDoc = (node: BinderNode): Block[] => {
@@ -216,7 +218,7 @@ export function assembleBook(
     stats.emDashes += d.em;
     stats.enDashes += d.en;
     stats.typedDashes += d.typed;
-    return smartenBlocks(parsed.blocks, book.style);
+    return smartenBlocks(parsed.blocks, bookTextStyle(book));
   };
 
   const finish = (sec: AssembledSection): void => {
@@ -264,8 +266,8 @@ export function assembleBook(
     if (numbered) {
       chapterNo++;
       sec.number = chapterNo;
-      sec.label = smart(chapterLabel(chapterNo, design.chapterOpener.numberStyle, book.language));
-      sec.tocLabel = usesBengaliDigits(book.language) ? toBengaliDigits(chapterNo) : String(chapterNo);
+      sec.label = smart(chapterLabel(chapterNo, design.chapterOpener.numberStyle, book.language, undefined, book.style.digits));
+      sec.tocLabel = bookDigits(chapterNo, book.language, book.style.digits);
       // A chapter with a number but no title of its own is known by its label.
       if (/^chapter title$/i.test(node.title) || node.title.trim() === '') sec.title = '';
       sec.head = sec.title || sec.label || `${s.chapter} ${sec.tocLabel}`;
@@ -324,7 +326,7 @@ export function assembleBook(
         const groups = opts.alsoBy ?? ((node.data?.groups as AlsoByGroup[] | undefined) ?? []);
         if (groups.every((g) => g.titles.length === 0)) return;
         const author = primaryAuthor(book);
-        sec.title = smart(node.title && node.title !== 'Also by the Author' ? node.title : `${s.alsoBy} ${author}`);
+        sec.title = smart(node.title && node.title !== 'Also by the Author' ? node.title : alsoByTitle(s, author));
         sec.data = { groups: groups.map((g) => ({ label: smart(g.label), titles: g.titles.map(smart) })) };
         sec.recto = design.chapterOpener.startOn === 'recto';
         break;
@@ -372,7 +374,7 @@ export function assembleBook(
       partNo++;
       const sec = base(node, zone, 'part');
       sec.number = partNo;
-      sec.label = smart(partLabel(partNo, design.partNumberStyle, book.language));
+      sec.label = smart(partLabel(partNo, design.partNumberStyle, book.language, book.style.digits));
       sec.head = sec.title || sec.label;
       sec.toc = true;
       sec.recto = true;
@@ -439,8 +441,9 @@ export function assembleBook(
     }
   }
   stats.images = [...images];
-  if (baseLanguage(book.language) === 'bn' && design.hyphenate) {
-    warnings.push({ severity: 'info', code: 'bn-hyphenation', message: 'Hyphenation is not available for Bangla; lines break between words.' });
+  const lang = languageInfo(book.language);
+  if (!lang.hyphenate && chosen.hyphenate) {
+    warnings.push({ severity: 'info', code: 'no-hyphenation', message: `Words are not hyphenated in ${lang.name}; lines break between words.` });
   }
   return { book, format, design, strings: s, sections: cleaned, warnings, stats };
 }
@@ -461,6 +464,6 @@ export function seriesLine(book: Book): string {
   if (!book.series) return '';
   const n = book.series.number;
   if (n === null || n === undefined) return book.series.name;
-  const num = usesBengaliDigits(book.language) ? toBengaliDigits(n) : String(n);
+  const num = bookDigits(n, book.language, book.style.digits);
   return `${book.series.name}, Book ${num}`;
 }

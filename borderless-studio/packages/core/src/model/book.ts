@@ -119,7 +119,7 @@ export const DashPolicySchema = z.object({
 export type DashPolicy = z.infer<typeof DashPolicySchema>;
 
 export const TextStyleSchema = z.object({
-  /** Spelling dictionary and consistency checks: en-AU, en-GB, en-US or bn. */
+  /** Spelling dictionary and consistency checks: en-AU, en-GB, en-US, fr, es, pt, nl, ru, bn or any dictionary added to the library. */
   spelling: z.string().default('en-AU'),
   smartQuotes: z.boolean().default(true),
   /** Primary quotation marks. Australian and British fiction often uses single. */
@@ -129,6 +129,12 @@ export const TextStyleSchema = z.object({
   ellipsis: z.enum(['character', 'spaced-dots', 'leave']).default('character'),
   /** Numbers below this are expected to be spelled out (consistency checker). */
   spellOutNumbersBelow: z.number().int().default(10),
+  /**
+   * Digits for page numbers, chapter numbers and the year. "auto" follows the
+   * language (Arabic, Persian, Bangla and Nepali books use their own digits);
+   * "latin" always prints 0 to 9; "native" uses the language's own digits.
+   */
+  digits: z.enum(['auto', 'latin', 'native']).default('auto'),
 });
 export type TextStyle = z.infer<typeof TextStyleSchema>;
 

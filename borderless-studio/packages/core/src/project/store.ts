@@ -11,6 +11,7 @@
  *   4. A document is never written if the text has not changed, and an empty
  *      string never replaces a non empty document without a snapshot.
  */
+import { applyLanguageDefaults } from '../i18n/design';
 import type { Host } from '../host';
 import { readJson, writeJson } from '../host';
 import {
@@ -121,19 +122,7 @@ export async function createBook(host: Host, opts: NewBookOptions): Promise<Proj
     createdAt: now.toISOString(),
     updatedAt: now.toISOString(),
   });
-  if ((opts.language ?? '').toLowerCase().startsWith('bn')) {
-    book.style.spelling = 'bn';
-    book.design.bodyFont = 'Noto Serif Bengali';
-    book.design.headingFont = 'Noto Serif Bengali';
-    book.design.hyphenate = false;
-    book.design.oldstyleFigures = false;
-    book.design.chapterOpener.numberStyle = 'chapter-arabic';
-    book.design.chapterOpener.numberCase = 'as-is';
-    book.design.chapterOpener.leadIn = 'none';
-    book.design.chapterOpener.titleStyle = 'regular';
-    book.design.runningHeads.style = 'plain';
-    book.design.lineHeight = 1.5;
-  }
+  applyLanguageDefaults(book);
   if (opts.formats) {
     book.formats = book.formats.map((f) => ({ ...f, ...(opts.formats!.find((o) => o.id === f.id) ?? {}) }));
   }

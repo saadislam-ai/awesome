@@ -1,19 +1,13 @@
 import { useMemo, useState } from 'react';
-import { AlertTriangle, FileUp, FolderOpen, FolderPlus, Library as LibraryIcon, Plus, Search } from 'lucide-react';
+import { AlertTriangle, FileUp, Info, FolderOpen, FolderPlus, Library as LibraryIcon, Plus, Search } from 'lucide-react';
 import { GENRES, GENRE_TEMPLATES, isStale, type BookSummary, type Genre, type PlatformId } from '@borderless/core';
 import { useStore } from '../state/store';
 import { Field, Menu, Modal, fmtNumber, timeAgo, type MenuItem } from '../ui/kit';
 import { ImportWizard } from './ImportWizard';
 import { SeriesManager } from './SeriesManager';
+import { LanguageSelect, languageNotes } from '../ui/language';
 
 const FORMAT_SHORT: Record<string, string> = { paperback: 'Paperback', hardcover: 'Hardcover', ebook: 'Ebook' };
-const LANGUAGES = [
-  { id: 'en-AU', label: 'English (Australia)' },
-  { id: 'en-GB', label: 'English (United Kingdom)' },
-  { id: 'en-US', label: 'English (United States)' },
-  { id: 'bn', label: 'Bangla (Bengali)' },
-];
-
 /** The name of an edition with its page size, unless the name already says the size ("Paperback 6 x 9"). */
 function editionChip(label: string, type: string, trim: string): string {
   if (type === 'ebook') return label;
@@ -182,19 +176,7 @@ function NewBookWizard(props: { onClose: () => void }) {
     setPaper(GENRE_TEMPLATES[g].paper);
   };
   const toggle = (p: PlatformId) => setPlatforms((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));
-  const bangla = language.startsWith('bn');
-  const langWarnings = bangla
-    ? (['kdp', 'ingramspark', 'draft2digital'] as const).filter((p) => platforms.includes(p)).flatMap((p) => {
-        const spec = specs?.platforms[p];
-        const langs = spec?.languages;
-        const out: string[] = [];
-        for (const f of ['ebook', 'paperback'] as const) {
-          const list = langs?.[f]?.supported;
-          if (Array.isArray(list) && !list.includes('bn')) out.push(`${spec!.displayName} does not list Bangla for ${f === 'ebook' ? 'ebooks' : 'print'}.`);
-        }
-        return out;
-      })
-    : [];
+  const langWarnings = languageNotes(specs?.platforms, language, platforms);
 
   const create = async () => {
     if (!library || !title.trim() || !author.trim()) return;
@@ -228,9 +210,7 @@ function NewBookWizard(props: { onClose: () => void }) {
           <Field label="Subtitle (optional)"><input className="input" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} /></Field>
           <Field label="Author"><input className="input" value={author} onChange={(e) => setAuthor(e.target.value)} /></Field>
           <Field label="Language">
-            <select className="select" value={language} onChange={(e) => setLanguage(e.target.value)}>
-              {LANGUAGES.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
-            </select>
+            <LanguageSelect value={language} onChange={setLanguage} />
           </Field>
         </div>
         <div>
@@ -267,7 +247,7 @@ function NewBookWizard(props: { onClose: () => void }) {
             </div>
           </Field>
         </div>
-        {langWarnings.map((w) => <div className="notice warn" key={w}><AlertTriangle size={15} />{w}</div>)}
+        {langWarnings.map((w) => <div className={`notice${w.warn ? ' warn' : ''}`} key={w.text}>{w.warn ? <AlertTriangle size={15} /> : <Info size={15} />}{w.text}</div>)}
         <div className="small faint">
           The book is created as a plain folder in <span className="selectable">{library?.booksDir}</span>. Each format (paperback, hardcover, ebook) will need its own ISBN.
         </div>
