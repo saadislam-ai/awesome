@@ -19,6 +19,13 @@ serde_json = "1"
 rusqlite = { version = "0.32", features = ["bundled"] }
 base64 = "0.22"
 chrono = { version = "0.4", default-features = false, features = ["clock"] }
+tauri-plugin-dialog = "2"
+# Hardware facts (memory, processor) for model recommendations.
+sysinfo = { version = "0.30", default-features = false }
+# HTTP client: talks to the local engine, and downloads models when asked to.
+# "native-certs" trusts the certificates the operating system trusts, so
+# downloads also work behind a company proxy or security software.
+ureq = { version = "2", features = ["native-certs"] }
 
 [dev-dependencies]
 tempfile = "3"

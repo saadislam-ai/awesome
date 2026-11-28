@@ -4,18 +4,29 @@
 //! original manuscript files, backups) and exposes it to the UI through a
 //! small set of commands. It makes no network connections.
 
+pub mod engine;
+pub mod gguf;
+pub mod hardware;
+pub mod models;
 pub mod store;
 
+use std::collections::HashMap;
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use base64::Engine;
+use base64::Engine as _;
 use serde::Serialize;
 use serde_json::{Map, Value as Json};
+use tauri::ipc::Channel;
 use tauri::{AppHandle, Emitter, Manager, RunEvent, State, WindowEvent};
+use tauri_plugin_dialog::DialogExt;
 
+use engine::{Engine, EngineBinary, EngineStatus, StartOptions};
+use hardware::Hardware;
+use models::ModelFile;
 use store::{BackupInfo, Statement, Store};
 
 /// Set to a file path to run the built-in self-check on launch, write its
@@ -170,10 +181,163 @@ fn selftest_finish(app: AppHandle, window: tauri::Window, report: String, passed
     }
 }
 
+// ----- Local AI: hardware, engine, models ---------------------------------
+
+/// Downloads in progress, so they can be cancelled.
+#[derive(Default)]
+struct Downloads(Mutex<HashMap<String, Arc<AtomicBool>>>);
+
+fn find_engines(app: &AppHandle, store: &Store, custom_dir: Option<&str>) -> Vec<EngineBinary> {
+    engine::locate(custom_dir, app.path().resource_dir().ok().as_deref(), store.data_dir())
+}
+
+#[tauri::command(async)]
+fn engine_find(app: AppHandle, store: State<'_, Store>, custom_dir: Option<String>) -> Vec<EngineBinary> {
+    find_engines(&app, &store, custom_dir.as_deref())
+}
+
+#[tauri::command(async)]
+fn hardware_info(app: AppHandle, store: State<'_, Store>, custom_dir: Option<String>) -> Hardware {
+    let engines = find_engines(&app, &store, custom_dir.as_deref());
+    hardware::detect(engines.first().map(|e| Path::new(&e.path)))
+}
+
+async fn blocking<T: Send + 'static>(work: impl FnOnce() -> Result<T, String> + Send + 'static) -> Result<T, String> {
+    tauri::async_runtime::spawn_blocking(work).await.map_err(|e| format!("Internal error: {e}"))?
+}
+
+#[tauri::command]
+async fn engine_start(engine: State<'_, Arc<Engine>>, options: StartOptions) -> Result<EngineStatus, String> {
+    let engine = engine.inner().clone();
+    blocking(move || engine.start(options)).await
+}
+
+#[tauri::command]
+async fn engine_stop(engine: State<'_, Arc<Engine>>) -> Result<(), String> {
+    let engine = engine.inner().clone();
+    blocking(move || {
+        engine.stop();
+        Ok(())
+    })
+    .await
+}
+
+#[tauri::command(async)]
+fn engine_status(engine: State<'_, Arc<Engine>>) -> EngineStatus {
+    engine.status()
+}
+
+/// Sends a chat request to the local engine and streams the reply back.
+#[tauri::command]
+async fn ai_chat(engine: State<'_, Arc<Engine>>, request_id: String, body: String, on_data: Channel<String>) -> Result<(), String> {
+    let engine = engine.inner().clone();
+    blocking(move || {
+        engine.chat(&request_id, &body, |data| {
+            let _ = on_data.send(data.to_string());
+        })
+    })
+    .await
+}
+
+#[tauri::command]
+fn ai_cancel(engine: State<'_, Arc<Engine>>, request_id: String) {
+    engine.cancel(&request_id);
+}
+
+#[tauri::command(async)]
+fn models_list(store: State<'_, Store>, extra_paths: Vec<String>) -> Vec<ModelFile> {
+    models::list(store.data_dir(), &extra_paths)
+}
+
+#[tauri::command]
+async fn model_download(
+    store: State<'_, Store>,
+    downloads: State<'_, Downloads>,
+    id: String,
+    url: String,
+    file_name: String,
+    on_progress: Channel<models::Progress>,
+) -> Result<String, String> {
+    let cancel = Arc::new(AtomicBool::new(false));
+    downloads.0.lock().map_err(|_| "Internal error".to_string())?.insert(id.clone(), cancel.clone());
+    let data_dir = store.data_dir().to_path_buf();
+    let result = blocking(move || {
+        models::download(&data_dir, &url, &file_name, &cancel, |progress| {
+            let _ = on_progress.send(progress);
+        })
+        .map(|path| path.to_string_lossy().into_owned())
+    })
+    .await;
+    if let Ok(mut map) = downloads.0.lock() {
+        map.remove(&id);
+    }
+    result
+}
+
+#[tauri::command]
+fn model_download_cancel(downloads: State<'_, Downloads>, id: String) {
+    if let Ok(map) = downloads.0.lock() {
+        if let Some(flag) = map.get(&id) {
+            flag.store(true, Ordering::SeqCst);
+        }
+    }
+}
+
+#[tauri::command(async)]
+fn model_remove(store: State<'_, Store>, path: String) -> Result<(), String> {
+    models::remove(store.data_dir(), &path)
+}
+
+#[tauri::command]
+async fn pick_file(app: AppHandle, title: String, extensions: Vec<String>) -> Result<Option<String>, String> {
+    blocking(move || {
+        let extensions: Vec<&str> = extensions.iter().map(String::as_str).collect();
+        let mut dialog = app.dialog().file().set_title(title);
+        if !extensions.is_empty() {
+            dialog = dialog.add_filter("Files", &extensions);
+        }
+        Ok(dialog.blocking_pick_file().and_then(|f| f.into_path().ok()).map(|p| p.to_string_lossy().into_owned()))
+    })
+    .await
+}
+
+#[tauri::command]
+async fn pick_folder(app: AppHandle, title: String) -> Result<Option<String>, String> {
+    blocking(move || Ok(app.dialog().file().set_title(title).blocking_pick_folder().and_then(|f| f.into_path().ok()).map(|p| p.to_string_lossy().into_owned())))
+        .await
+}
+
+/// Asks where to save a file, then writes it there. Returns the chosen path,
+/// or nothing when the publisher cancelled.
+#[tauri::command]
+async fn save_file(app: AppHandle, default_name: String, extension: String, base64: String) -> Result<Option<String>, String> {
+    blocking(move || {
+        // Automated tests name the destination folder instead of answering a dialog.
+        let chosen = match std::env::var("MF_EXPORT_DIR") {
+            Ok(dir) => Some(PathBuf::from(dir).join(&default_name)),
+            Err(_) => app
+                .dialog()
+                .file()
+                .set_file_name(&default_name)
+                .add_filter(extension.to_uppercase(), &[extension.as_str()])
+                .blocking_save_file()
+                .and_then(|f| f.into_path().ok()),
+        };
+        let Some(path) = chosen else { return Ok(None) };
+        let bytes = base64::engine::general_purpose::STANDARD.decode(base64.as_bytes()).map_err(|e| format!("Could not decode file data: {e}"))?;
+        fs::write(&path, bytes).map_err(|e| format!("Could not save the file: {e}"))?;
+        Ok(Some(path.to_string_lossy().into_owned()))
+    })
+    .await
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let app = tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .manage(Lifecycle::default())
+        .manage(Arc::new(Engine::default()))
+        .manage(Downloads::default())
         .setup(|app| {
             let data_dir = resolve_data_dir(app.handle());
             let store = Store::open(data_dir)?;
@@ -209,13 +373,31 @@ pub fn run() {
             app_info,
             ui_ready,
             close_now,
-            selftest_finish
+            selftest_finish,
+            engine_find,
+            hardware_info,
+            engine_start,
+            engine_stop,
+            engine_status,
+            ai_chat,
+            ai_cancel,
+            models_list,
+            model_download,
+            model_download_cancel,
+            model_remove,
+            pick_file,
+            pick_folder,
+            save_file
         ])
         .build(tauri::generate_context!())
         .expect("error while starting ManuscriptForge");
 
     app.run(|app, event| {
         if let RunEvent::Exit = event {
+            // The engine is a separate program: make sure it does not outlive the app.
+            if let Some(engine) = app.try_state::<Arc<Engine>>() {
+                engine.stop();
+            }
             // Leave one complete database file behind, safe to copy or back up.
             if let Some(store) = app.try_state::<Store>() {
                 let _ = store.checkpoint();
