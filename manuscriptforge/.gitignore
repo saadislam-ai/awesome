@@ -5,3 +5,5 @@ src-tauri/gen/
 tests/e2e/output/
 *.log
 .DS_Store
+public/pdfjs/
+docs/screenshots/

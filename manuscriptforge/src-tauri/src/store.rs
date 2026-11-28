@@ -172,6 +172,14 @@ impl Store {
         }
     }
 
+    /// Folds the write-ahead log back into `library.db`, so the database is a
+    /// single complete file whenever the app is closed.
+    pub fn checkpoint(&self) -> Result<(), String> {
+        let conn = self.conn()?;
+        conn.query_row("PRAGMA wal_checkpoint(TRUNCATE)", [], |_| Ok(()))
+            .map_err(err("Could not finish writing the database"))
+    }
+
     pub fn list_backups(&self) -> Result<Vec<BackupInfo>, String> {
         let dir = self.data_dir.join(BACKUP_DIR);
         let mut out = Vec::new();
@@ -321,6 +329,26 @@ mod tests {
         assert!(s.file_write("books/../../escape.txt", b"x").is_err());
         assert!(s.file_read("/etc/passwd").is_err());
         assert!(s.file_write("", b"x").is_err());
+    }
+
+    #[test]
+    fn checkpoint_leaves_one_complete_database_file() {
+        let (_dir, s) = store();
+        s.execute("CREATE TABLE t (id TEXT PRIMARY KEY, body TEXT)", &[]).unwrap();
+        for i in 0..200 {
+            s.execute("INSERT INTO t VALUES (?1, ?2)", &[json!(format!("row{i}")), json!("x".repeat(500))]).unwrap();
+        }
+        let wal = s.data_dir().join("library.db-wal");
+        assert!(fs::metadata(&wal).map(|m| m.len()).unwrap_or(0) > 0, "writes go to the log first");
+        s.checkpoint().unwrap();
+        assert_eq!(fs::metadata(&wal).map(|m| m.len()).unwrap_or(0), 0, "the log is empty after a checkpoint");
+
+        // Copying just library.db now carries every row.
+        let copy = s.data_dir().join("copy.db");
+        fs::copy(s.data_dir().join(DB_FILE), &copy).unwrap();
+        let conn = Connection::open(&copy).unwrap();
+        let n: i64 = conn.query_row("SELECT count(*) FROM t", [], |r| r.get(0)).unwrap();
+        assert_eq!(n, 200);
     }
 
     #[test]

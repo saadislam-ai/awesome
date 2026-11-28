@@ -45,4 +45,9 @@ export interface Platform {
   backupIfDue(): Promise<BackupInfo | null>;
   listBackups(): Promise<BackupInfo[]>;
   finishSelftest(report: string, passed: boolean): Promise<void>;
+  /**
+   * Registers work to finish before the app window closes, such as saving
+   * unsaved typing. Returns a function that removes the registration.
+   */
+  onBeforeClose(handler: () => Promise<void>): () => void;
 }

@@ -5,17 +5,22 @@
   "description": "Offline book improvement and editing studio for publishers",
   "type": "module",
   "scripts": {
+    "pdf-assets": "node scripts/copy-pdf-assets.mjs",
+    "predev": "npm run pdf-assets",
     "dev": "vite",
+    "prebuild": "npm run pdf-assets",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "node tests/e2e/run.mjs",
+    "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml --lib",
     "fixtures": "node tests/fixtures/build-fixtures.mjs",
     "tauri": "tauri",
     "app:dev": "tauri dev",
-    "app:build": "tauri build"
+    "app:build": "tauri build",
+    "test:desktop": "node tests/e2e/desktop-smoke.mjs"
   },
   "dependencies": {
     "@fontsource-variable/literata": "^5.3.0",

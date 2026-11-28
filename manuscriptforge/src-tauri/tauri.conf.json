@@ -27,7 +27,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["nsis", "msi", "dmg", "app", "deb", "appimage"],
+    "targets": "all",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -37,6 +37,9 @@
     ],
     "category": "Productivity",
     "shortDescription": "Offline book editing studio",
-    "longDescription": "ManuscriptForge is an offline book improvement and editing studio for publishers."
+    "longDescription": "ManuscriptForge is an offline book improvement and editing studio for publishers.",
+    "macOS": {
+      "signingIdentity": "-"
+    }
   }
 }

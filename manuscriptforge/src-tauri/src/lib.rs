@@ -8,12 +8,13 @@ pub mod store;
 
 use std::fs;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
 use base64::Engine;
 use serde::Serialize;
 use serde_json::{Map, Value as Json};
-use tauri::{AppHandle, Manager, State};
+use tauri::{AppHandle, Emitter, Manager, RunEvent, State, WindowEvent};
 
 use store::{BackupInfo, Statement, Store};
 
@@ -23,6 +24,16 @@ const SELFTEST_ENV: &str = "MF_SELFTEST_OUT";
 /// Overrides where the library is stored.
 const DATA_DIR_ENV: &str = "MANUSCRIPTFORGE_DATA_DIR";
 const BACKUPS_TO_KEEP: usize = 14;
+/// Sent to the UI when the user closes the window, so it can save first.
+const CLOSE_REQUESTED_EVENT: &str = "mf://close-requested";
+/// How long the UI gets to save before the window closes anyway.
+const CLOSE_GRACE: Duration = Duration::from_secs(4);
+
+#[derive(Default)]
+struct Lifecycle {
+    /// True once the UI is listening for close requests.
+    ui_ready: AtomicBool,
+}
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -132,23 +143,57 @@ fn app_info(app: AppHandle, store: State<'_, Store>) -> AppInfo {
     }
 }
 
-/// Called by the UI when a launch-time self-check finishes.
+/// The UI calls this once it can save pending work on request.
 #[tauri::command]
-fn selftest_finish(app: AppHandle, report: String, passed: bool) -> Result<(), String> {
+fn ui_ready(lifecycle: State<'_, Lifecycle>) {
+    lifecycle.ui_ready.store(true, Ordering::SeqCst);
+}
+
+/// The UI calls this after saving, in answer to a close request.
+#[tauri::command]
+fn close_now(window: tauri::Window) {
+    let _ = window.destroy();
+}
+
+/// Called by the UI when a launch-time self-check finishes. A passing run
+/// then closes the window the same way a user would, which also exercises
+/// the save-before-close path.
+#[tauri::command]
+fn selftest_finish(app: AppHandle, window: tauri::Window, report: String, passed: bool) -> Result<(), String> {
     let out = std::env::var(SELFTEST_ENV).map_err(|_| "Self-check mode is not active".to_string())?;
     fs::write(&out, report).map_err(|e| format!("Could not write the self-check report: {e}"))?;
-    app.exit(if passed { 0 } else { 1 });
-    Ok(())
+    if passed {
+        window.close().map_err(|e| format!("Could not close the window: {e}"))
+    } else {
+        app.exit(1);
+        Ok(())
+    }
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let app = tauri::Builder::default()
+        .manage(Lifecycle::default())
         .setup(|app| {
             let data_dir = resolve_data_dir(app.handle());
             let store = Store::open(data_dir)?;
             app.manage(store);
             Ok(())
+        })
+        .on_window_event(|window, event| {
+            if let WindowEvent::CloseRequested { api, .. } = event {
+                if !window.state::<Lifecycle>().ui_ready.load(Ordering::SeqCst) {
+                    return;
+                }
+                // Give the UI a moment to save unsaved typing, then close.
+                api.prevent_close();
+                let _ = window.emit(CLOSE_REQUESTED_EVENT, ());
+                let window = window.clone();
+                std::thread::spawn(move || {
+                    std::thread::sleep(CLOSE_GRACE);
+                    let _ = window.destroy();
+                });
+            }
         })
         .invoke_handler(tauri::generate_handler![
             db_execute,
@@ -162,8 +207,19 @@ pub fn run() {
             backup_if_due,
             list_backups,
             app_info,
+            ui_ready,
+            close_now,
             selftest_finish
         ])
-        .run(tauri::generate_context!())
-        .expect("error while running ManuscriptForge");
+        .build(tauri::generate_context!())
+        .expect("error while starting ManuscriptForge");
+
+    app.run(|app, event| {
+        if let RunEvent::Exit = event {
+            // Leave one complete database file behind, safe to copy or back up.
+            if let Some(store) = app.try_state::<Store>() {
+                let _ = store.checkpoint();
+            }
+        }
+    });
 }
