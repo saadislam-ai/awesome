@@ -1,3 +1,6 @@
+import { diffText } from '../core/edit/diff';
+import { editChunk } from '../core/edit/pipeline';
+import { exportBook } from '../core/export';
 import { detectChapters, importManuscript } from '../core/import';
 import { blockText, paragraph } from '../core/model/blocks';
 import { Library } from '../data/library';
@@ -105,6 +108,65 @@ export async function runSelfCheck(platform: Platform, library: Library): Promis
     expect(!!backup && backup.sizeBytes > 0, 'No backup file was written.');
     return `${backup!.name} written.`;
   });
+
+  await step('Export', async () => {
+    expect(!!bookId, 'The sample book was not created.');
+    const book = (await library.getBook(bookId!))!;
+    const chapters = (await library.getAllChapters(bookId!)).map((c) => ({ id: c.id, title: c.title, blocks: c.blocks }));
+    const result = exportBook({ title: 'self-check-export', author: '', language: book.language, chapters }, 'docx');
+    expect(result.bytes.length > 2000, 'The exported file is empty.');
+    if (!platform.info.selftest) return `A Word file of ${result.bytes.length} bytes was produced (not saved).`;
+    const saved = await platform.saveFile(result.fileName, result.extension, result.bytes);
+    expect(!!saved, 'The exported file was not saved.');
+    return `Saved ${saved}.`;
+  });
+
+  const ai = platform.ai;
+  if (ai) {
+    await step('AI engine', async () => {
+      const [hardware, engines] = await Promise.all([ai.hardware(), ai.findEngines()]);
+      const memory = `${Math.round(hardware.ramBytes / 1024 ** 3)} GB memory, ${hardware.cpuCores} cores, ${hardware.gpus.length ? hardware.gpus.map((g) => g.name).join(', ') : 'no usable graphics card'}`;
+      if (!engines.length) {
+        expect(!platform.info.selftestModel, 'A model was given for the self-check but the AI engine was not found.');
+        return `${memory}. The AI engine is not installed.`;
+      }
+      return `${memory}. Engine: llama.cpp ${engines[0].version ?? ''} (${engines[0].variant}).`;
+    });
+
+    const modelPath = platform.info.selftestModel;
+    if (modelPath) {
+      await step('AI model loads and edits', async () => {
+        const [engine] = await ai.findEngines();
+        const [model] = await ai.listModels([modelPath]);
+        expect(!!model?.meta, `The model file could not be read: ${model?.problem ?? 'not found'}`);
+        await ai.startEngine({ binary: engine.path, model: modelPath, context: 4096 });
+        try {
+          const provider = ai.provider(model.meta!.name ?? 'model');
+          let streamed = 0;
+          const original = 'Teh keeper had forgoten his lamp, and the stairs were dark.';
+          const result = await editChunk(
+            provider,
+            { items: [{ n: 1, blockIndex: 0, markup: original }], contextBefore: '', words: 11 },
+            { level: 'proofread', strength: 'medium', language: 'en', bookType: 'fiction' },
+            { onToken: () => streamed++ },
+          );
+          expect(streamed > 3, 'The reply did not arrive as a stream.');
+          const fixes = result.edits[0] ? diffText(original, result.edits[0].revised).map((h) => `${h.before} to ${h.after}`) : [];
+
+          // A long reply must stop promptly when cancelled.
+          const stop = new AbortController();
+          let pieces = 0;
+          const cancelled = await provider
+            .chat({ messages: [{ role: 'user', content: 'Count from 1 to 400, one number per line.' }], maxTokens: 1500 }, { signal: stop.signal, onToken: () => ++pieces === 10 && stop.abort() })
+            .then(() => false, (e) => (e as { name?: string })?.name === 'AbortError');
+          expect(cancelled, 'A running reply could not be cancelled.');
+          return `${model.meta!.name} (${model.meta!.quantization}) at ${result.tokensPerSecond?.toFixed(1) ?? '?'} tokens per second. Changes proposed: ${fixes.length ? fixes.join('; ') : 'none'}. Cancelling works.`;
+        } finally {
+          await ai.stopEngine();
+        }
+      });
+    }
+  }
 
   await step('Clean up', async () => {
     if (bookId) await library.deleteBook(bookId);

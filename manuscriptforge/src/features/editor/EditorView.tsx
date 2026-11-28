@@ -1,11 +1,13 @@
-import { Check, CircleAlert, Maximize2, Minimize2, Pencil, Scissors } from 'lucide-react';
+import { Check, CircleAlert, Maximize2, Minimize2, Pencil, Scissors, Sparkles } from 'lucide-react';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useAi } from '../../app/ai';
 import { useApp } from '../../app/context';
 import { BOOK_STATUSES, type Book, type BookStatus, type Chapter, type ChapterHead } from '../../core/model/book';
 import { languageName, RTL_LANGUAGES } from '../../core/text/language';
 import { formatCount } from '../../core/text/words';
 import { Button, ConfirmDialog, IconButton, Spinner } from '../../ui/components';
 import { MOD } from '../../ui/format';
+import { ImproveDialog } from '../ai/ImproveDialog';
 import { BookDetailsDialog } from '../library/BookDetailsDialog';
 import { ChapterList } from './ChapterList';
 import { RichEditor, type RichEditorHandle } from './RichEditor';
@@ -17,7 +19,14 @@ const AUTOSAVE_DELAY_MS = 700;
 const AUTO_SNAPSHOT_INTERVAL_MS = 10 * 60 * 1000;
 
 export function EditorView({ book }: { book: Book }) {
-  const { library, platform, refreshBooks, reportError, notify, focusMode, setFocusMode, pendingChapterId, clearPendingChapter } = useApp();
+  const { library, platform, refreshBooks, reportError, notify, focusMode, setFocusMode, pendingChapterId, clearPendingChapter, setView } = useApp();
+  const { edits, suggestionsVersion } = useAi();
+  const [improve, setImprove] = useState<{ selection: { from: number; to: number; words: number } | null } | null>(null);
+  const [pendingSuggestions, setPendingSuggestions] = useState(0);
+
+  useEffect(() => {
+    edits.pendingByChapter(book.id).then((counts) => setPendingSuggestions(Object.values(counts).reduce((a, b) => a + b, 0))).catch(() => undefined);
+  }, [edits, book.id, suggestionsVersion]);
   const [heads, setHeads] = useState<ChapterHead[]>([]);
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [loadCount, setLoadCount] = useState(0);
@@ -237,6 +246,11 @@ export function EditorView({ book }: { book: Book }) {
             </span>
           </div>
           <span className="grow" />
+          {pendingSuggestions > 0 && (
+            <button className="link-btn" onClick={() => setView('review')} data-testid="pending-link">
+              {pendingSuggestions} AI suggestion{pendingSuggestions === 1 ? '' : 's'} to review
+            </button>
+          )}
           <span className={`save-state save-${saveState}`} role="status" data-testid="save-state">
             {saveState === 'saved' && <><Check size={14} /> Saved</>}
             {saveState === 'dirty' && 'Unsaved changes'}
@@ -257,6 +271,20 @@ export function EditorView({ book }: { book: Book }) {
             ))}
           </select>
           <Button size="sm" icon={<Pencil size={14} />} onClick={() => setDetails(true)}>Details</Button>
+          <Button
+            size="sm"
+            variant="primary"
+            icon={<Sparkles size={14} />}
+            onClick={async () => {
+              // Read the selection before saving, then plan the job against the saved text.
+              const selection = editorRef.current?.selectionRange() ?? null;
+              await flush();
+              setHeads(await library.listChapters(book.id));
+              setImprove({ selection });
+            }}
+          >
+            Improve with AI
+          </Button>
         </header>
       )}
 
@@ -335,6 +363,9 @@ export function EditorView({ book }: { book: Book }) {
       </div>
 
       {details && <BookDetailsDialog book={book} onClose={() => setDetails(false)} />}
+      {improve && (
+        <ImproveDialog book={book} chapters={heads} currentChapterId={chapter?.id ?? null} selection={improve.selection} onClose={() => setImprove(null)} onStarted={() => setImprove(null)} />
+      )}
       {deleting && (
         <ConfirmDialog
           title="Delete this chapter?"

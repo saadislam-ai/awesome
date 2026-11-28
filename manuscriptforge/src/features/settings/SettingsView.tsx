@@ -1,6 +1,8 @@
-import { CheckCircle2, Copy, HardDrive, ShieldCheck, XCircle } from 'lucide-react';
+import { Bot, BookMarked, CheckCircle2, Copy, HardDrive, ShieldCheck, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useAi } from '../../app/ai';
 import { DEFAULT_APPEARANCE, useApp, type FontName, type ThemeName } from '../../app/context';
+import { AiSetup } from '../ai/AiSetup';
 import { runSelfCheck, type CheckReport } from '../../app/selfcheck';
 import type { BackupInfo } from '../../platform';
 import { Button, Field, Spinner } from '../../ui/components';
@@ -35,6 +37,8 @@ export function SettingsView() {
   const [checking, setChecking] = useState(false);
   const [logs, setLogs] = useState<LogRow[]>([]);
   const desktop = platform.info.kind === 'desktop';
+  const ai = useAi();
+  const [styleGuide, setStyleGuide] = useState(ai.settings.styleGuide);
 
   const loadBackups = () => platform.listBackups().then(setBackups).catch(() => setBackups([]));
   const loadLogs = () => library.listLogs(200).then(setLogs).catch(() => setLogs([]));
@@ -58,10 +62,29 @@ export function SettingsView() {
       <header className="view-header">
         <div>
           <h1>Settings</h1>
-          <p className="view-sub">Appearance, where your library lives, and tools for troubleshooting.</p>
+          <p className="view-sub">The AI editor, your style guide, appearance, and where your library lives.</p>
         </div>
       </header>
       <div className="view-scroll settings-sections">
+        <section className="card">
+          <h2><Bot size={18} /> AI editor</h2>
+          <AiSetup />
+        </section>
+
+        <section className="card">
+          <h2><BookMarked size={18} /> Style guide</h2>
+          <p>House rules that apply to every book, for example spelling variety, number style, or how dialogue is punctuated. The AI editor follows them in every job, together with each book's own instructions.</p>
+          <textarea
+            rows={6}
+            value={styleGuide}
+            aria-label="Style guide"
+            placeholder={'British spelling\nSpell out numbers under 100\nUse single quotation marks for dialogue\nNo exclamation marks in narration'}
+            onChange={(e) => setStyleGuide(e.target.value)}
+            onBlur={() => styleGuide !== ai.settings.styleGuide && ai.updateSettings({ styleGuide })}
+          />
+          <p className="fine-print">Saved when you click outside the box.</p>
+        </section>
+
         <section className="card">
           <h2>Appearance</h2>
           <div className="theme-row" role="radiogroup" aria-label="Theme">
@@ -147,7 +170,7 @@ export function SettingsView() {
 
         <section className="card">
           <h2><ShieldCheck size={18} /> Privacy</h2>
-          <p>ManuscriptForge works fully offline. This version makes no network connections at all: no telemetry, no analytics, no updates in the background. Your manuscripts never leave this computer.</p>
+          <p>ManuscriptForge works fully offline. There is no telemetry, no analytics and no background updates. The AI runs on this computer, so your manuscripts never leave it. The only time the app uses the internet is when you choose to download a model.</p>
         </section>
 
         <section className="card">
@@ -207,8 +230,8 @@ export function SettingsView() {
 
         <section className="card">
           <h2>About</h2>
-          <p>ManuscriptForge {platform.info.version} on {platform.info.os}. Milestone 1 of 6: import, library, editor and version history.</p>
-          <p className="fine-print">Coming next: local AI editing with tracked changes (2), analysis and Book Bible (3), developmental editing and expansion (4), submissions workflow (5), cloud mode and installers (6).</p>
+          <p>ManuscriptForge {platform.info.version} on {platform.info.os}. Milestone 2 of 6: local AI proofreading and line editing with tracked changes, and export.</p>
+          <p className="fine-print">Coming next: analysis and Book Bible (3), developmental editing and expansion (4), submissions workflow (5), cloud mode and signed installers (6).</p>
         </section>
       </div>
     </div>

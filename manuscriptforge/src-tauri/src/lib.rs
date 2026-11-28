@@ -54,6 +54,8 @@ struct AppInfo {
     os: String,
     arch: String,
     selftest: bool,
+    /// A model file to exercise the AI engine with during a self-check.
+    selftest_model: Option<String>,
 }
 
 #[derive(Serialize)]
@@ -151,6 +153,7 @@ fn app_info(app: AppHandle, store: State<'_, Store>) -> AppInfo {
         os: std::env::consts::OS.to_string(),
         arch: std::env::consts::ARCH.to_string(),
         selftest: std::env::var(SELFTEST_ENV).is_ok(),
+        selftest_model: std::env::var("MF_SELFTEST_MODEL").ok().filter(|p| !p.is_empty()),
     }
 }
 

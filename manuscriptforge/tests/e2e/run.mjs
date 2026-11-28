@@ -5,89 +5,16 @@
 //
 // Usage: npm run build && npm run test:e2e
 // Needs Playwright: "npm i -D playwright" (and "npx playwright install chromium").
-import { spawn } from 'node:child_process';
-import { mkdirSync, rmSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+// End-to-end test of the library, import, editor and version history in a
+// real browser engine. Run "npm run build" first.
+import { rmSync } from 'node:fs';
+import { join } from 'node:path';
+import { fixtures, out, start } from './harness.mjs';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, '..', '..');
-const fixtures = join(root, 'tests', 'fixtures', 'files');
-const out = join(here, 'output');
 rmSync(out, { recursive: true, force: true });
-mkdirSync(out, { recursive: true });
+const { page, url: URL, check, step, finish, problems, external, shot } = await start({ port: 1421 });
 
-function loadPlaywright() {
-  for (const base of [join(root, 'package.json'), '/opt/node-tools/node_modules/x.js']) {
-    try {
-      return createRequire(base)('playwright');
-    } catch {
-      // Try the next location.
-    }
-  }
-  throw new Error('Playwright is not installed. Run: npm i -D playwright');
-}
-
-const { chromium } = loadPlaywright();
-const PORT = 1421;
-const URL = `http://127.0.0.1:${PORT}/`;
-const SCALE = Number(process.env.E2E_SCALE ?? 1);
-
-const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], { cwd: root, stdio: 'pipe' });
-let serverLog = '';
-server.stdout.on('data', (d) => (serverLog += d));
-server.stderr.on('data', (d) => (serverLog += d));
-
-async function waitForServer() {
-  for (let i = 0; i < 80; i++) {
-    try {
-      const res = await fetch(URL);
-      if (res.ok) return;
-    } catch {
-      // Not up yet.
-    }
-    await new Promise((r) => setTimeout(r, 250));
-  }
-  throw new Error(`Preview server did not start:\n${serverLog}`);
-}
-
-let failures = 0;
-let stepNumber = 0;
-const problems = [];
-
-function check(condition, message) {
-  if (condition) {
-    console.log(`    ok    ${message}`);
-  } else {
-    failures++;
-    console.log(`    FAIL  ${message}`);
-  }
-}
-
-async function step(name, fn) {
-  stepNumber++;
-  console.log(`\n${String(stepNumber).padStart(2, '0')}. ${name}`);
-  try {
-    await fn();
-  } catch (e) {
-    failures++;
-    console.log(`    FAIL  ${e.message.split('\n')[0]}`);
-  }
-}
-
-const browser = await chromium.launch();
 try {
-  await waitForServer();
-  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: SCALE });
-  const page = await context.newPage();
-  page.on('pageerror', (e) => problems.push(`page error: ${e.message}`));
-  page.on('console', (m) => m.type() === 'error' && problems.push(`console error: ${m.text()}`));
-  page.on('requestfailed', (r) => problems.push(`request failed: ${r.url()}`));
-  const external = [];
-  page.on('request', (r) => !r.url().startsWith(URL) && !r.url().startsWith('data:') && !r.url().startsWith('blob:') && external.push(r.url()));
-
-  const shot = (name) => page.screenshot({ path: join(out, `${name}.png`) });
   const importFile = async (name) => {
     await page.getByTestId('import-input').setInputFiles(join(fixtures, name));
     await page.getByRole('dialog', { name: 'Review import' }).waitFor();
@@ -96,6 +23,20 @@ try {
   const editorChapters = () => page.locator('.chapter-list .chapter-title').allInnerTexts();
   const savedState = () => page.getByTestId('save-state').innerText();
   const waitSaved = () => page.waitForFunction(() => document.querySelector('[data-testid="save-state"]')?.textContent?.includes('Saved'));
+
+  await step('First launch offers to set up the AI editor, and it can be done later', async () => {
+    await page.goto(URL);
+    const setup = page.getByRole('dialog', { name: 'Set up the AI editor' });
+    await setup.waitFor();
+    check(await setup.getByText('Runs on this computer. Private and fully offline').isVisible(), 'local AI is explained as private and offline');
+    await page.getByTestId('setup-close').click();
+    await setup.waitFor({ state: 'detached' });
+    // The browser preview saves its database a moment after each change.
+    await page.waitForTimeout(900);
+    await page.reload();
+    await page.getByRole('heading', { name: 'Library', level: 1 }).waitFor();
+    check((await page.getByRole('dialog').count()) === 0, 'the set-up screen does not come back after "Set up later"');
+  });
 
   await step('The app opens to an empty library', async () => {
     await page.goto(URL);
@@ -267,7 +208,7 @@ try {
     await page.locator('.ProseMirror').click();
     await page.keyboard.press('Control+End');
     await page.keyboard.type(' And this as well.');
-    await page.getByRole('button', { name: 'Library' }).click();
+    await page.locator('.sidebar nav').getByRole('button', { name: 'Library' }).click();
     await page.getByTestId('book-card').first().click();
     await page.locator('.ProseMirror').waitFor();
     await page.locator('.chapter-item', { hasText: 'Prologue' }).click();
@@ -322,7 +263,7 @@ try {
   });
 
   await step('Themes, fonts and the self-check work in Settings', async () => {
-    await page.getByRole('button', { name: 'Settings' }).click();
+    await page.locator('.sidebar nav').getByRole('button', { name: 'Settings' }).click();
     await page.getByRole('radio', { name: 'Dark' }).click();
     check((await page.evaluate(() => document.documentElement.dataset.theme)) === 'dark', 'dark theme is applied');
     await page.getByLabel('Manuscript font').selectOption('georgia');
@@ -334,15 +275,15 @@ try {
     await result.waitFor();
     check((await result.getAttribute('data-passed')) === 'true', 'self-check passed');
     await page.getByRole('radio', { name: 'Sepia' }).click();
-    await page.getByRole('button', { name: 'Edit', exact: true }).click();
+    await page.locator('.sidebar nav').getByRole('button', { name: 'Edit', exact: true }).click();
     await page.locator('.ProseMirror').waitFor();
     await shot('09-editor-sepia');
-    await page.getByRole('button', { name: 'Settings' }).click();
+    await page.locator('.sidebar nav').getByRole('button', { name: 'Settings' }).click();
     await page.getByRole('button', { name: 'Reset appearance' }).click();
   });
 
   await step('The library is still there after closing and reopening', async () => {
-    await page.getByRole('button', { name: 'Library' }).click();
+    await page.locator('.sidebar nav').getByRole('button', { name: 'Library' }).click();
     await page.waitForTimeout(900);
     await page.reload();
     await page.getByTestId('book-card').first().waitFor();
@@ -378,9 +319,5 @@ try {
     check(external.length === 0, external.length ? `external requests: ${external.join(', ')}` : 'no requests left the app');
   });
 } finally {
-  await browser.close();
-  server.kill();
+  await finish();
 }
-
-console.log(failures ? `\n${failures} check(s) FAILED` : '\nAll end-to-end checks passed');
-process.exit(failures ? 1 : 0);

@@ -1,21 +1,25 @@
-import { BarChart3, Download, GitCompare, Keyboard, Library as LibraryIcon, PenLine, Settings, WifiOff, X } from 'lucide-react';
+import { BarChart3, Bot, Download, GitCompare, Keyboard, Library as LibraryIcon, PenLine, Settings, WifiOff, X } from 'lucide-react';
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { ImportError, importManuscript } from '../core/import';
 import type { BookCategory } from '../core/model/book';
+import { AiSetup } from '../features/ai/AiSetup';
 import { EditorView } from '../features/editor/EditorView';
+import { ExportView } from '../features/export/ExportView';
+import { ReviewView } from '../features/review/ReviewView';
 import { ImportReview, type PendingImport } from '../features/import/ImportReview';
 import { LibraryView } from '../features/library/LibraryView';
 import { SettingsView } from '../features/settings/SettingsView';
 import { Button, EmptyState, IconButton, Modal, Spinner } from '../ui/components';
 import { MOD } from '../ui/format';
+import { useAi } from './ai';
 import { useApp, type ViewName } from './context';
 
 const NAV: { view: ViewName; label: string; icon: ReactNode; milestone?: number }[] = [
   { view: 'library', label: 'Library', icon: <LibraryIcon size={18} /> },
   { view: 'analysis', label: 'Analysis', icon: <BarChart3 size={18} />, milestone: 3 },
   { view: 'edit', label: 'Edit', icon: <PenLine size={18} /> },
-  { view: 'review', label: 'Review', icon: <GitCompare size={18} />, milestone: 2 },
-  { view: 'export', label: 'Export', icon: <Download size={18} />, milestone: 2 },
+  { view: 'review', label: 'Review', icon: <GitCompare size={18} /> },
+  { view: 'export', label: 'Export', icon: <Download size={18} /> },
   { view: 'settings', label: 'Settings', icon: <Settings size={18} /> },
 ];
 
@@ -25,16 +29,6 @@ const COMING: Partial<Record<ViewName, { title: string; text: string; milestone:
     milestone: 3,
     text: 'A full report on each book: structure, pacing, consistency, readability and a Book Bible of characters, places and voice. It runs on your own computer.',
   },
-  review: {
-    title: 'Review',
-    milestone: 2,
-    text: 'Every change the AI editor proposes, shown as tracked changes that you accept or reject one by one or a chapter at a time.',
-  },
-  export: {
-    title: 'Export',
-    milestone: 2,
-    text: 'Export the finished book as Word (with real tracked changes), EPUB, PDF, Markdown or plain text.',
-  },
 };
 
 const SHORTCUTS: [string, string][] = [
@@ -42,6 +36,7 @@ const SHORTCUTS: [string, string][] = [
   [`${MOD}+K`, 'Search the library'],
   [`${MOD}+1`, 'Go to the Library'],
   [`${MOD}+2`, 'Go to the editor'],
+  [`${MOD}+3`, 'Go to Review'],
   [`${MOD}+,`, 'Open Settings'],
   [`${MOD}+S`, 'Save now (changes also save by themselves)'],
   [`${MOD}+Shift+S`, 'Save a named snapshot'],
@@ -69,8 +64,37 @@ function ComingSoon({ view }: { view: ViewName }) {
   );
 }
 
+/** The sidebar's summary of the AI: which model is ready, and any editing in progress. */
+function AiChip() {
+  const { setView } = useApp();
+  const { model, jobs } = useAi();
+  const active = jobs.find((j) => j.status === 'running' || j.status === 'queued');
+  const paused = jobs.find((j) => j.status === 'paused');
+  return (
+    <div className="ai-chip" data-testid="ai-chip" data-state={model.state}>
+      <button className="ai-chip-main" onClick={() => setView('settings')} title="Open the AI settings">
+        <Bot size={15} />
+        <span>
+          {model.state === 'none' && 'AI: no model loaded'}
+          {model.state === 'loading' && `Loading ${model.name}…`}
+          {model.state === 'ready' && `Local AI ready: ${model.name}`}
+          {model.state === 'error' && 'AI: model failed to load'}
+        </span>
+      </button>
+      {(active || paused) && (
+        <button className="ai-chip-job" onClick={() => setView('review')}>
+          {active ? `Editing: ${active.tasksDone} of ${active.tasks} passages` : 'An editing job is on hold'}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function Shell() {
   const { view, setView, currentBook, closeBook, focusMode, toasts, dismissToast, library, notify, platform } = useApp();
+  const ai = useAi();
+  const needsSetup = !ai.settings.setupDismissed && ai.model.state === 'none' && !ai.settings.lastModel && !ai.settings.serverUrl;
+  const [setupOpen, setSetupOpen] = useState(needsSetup);
   const [pending, setPending] = useState<PendingImport | null>(null);
   const [reading, setReading] = useState<string | null>(null);
   const [shelf, setShelf] = useState<BookCategory>('mine');
@@ -108,6 +132,9 @@ export function Shell() {
       } else if (e.key === '2') {
         e.preventDefault();
         setView('edit');
+      } else if (e.key === '3') {
+        e.preventDefault();
+        setView('review');
       } else if (e.key === ',') {
         e.preventDefault();
         setView('settings');
@@ -123,14 +150,14 @@ export function Shell() {
   let content: ReactNode;
   if (view === 'library') content = <LibraryView category={shelf} onCategoryChange={setShelf} onImportFile={(file, category) => void importFile(file, category)} />;
   else if (view === 'settings') content = <SettingsView />;
-  else if (view === 'edit') {
+  else if (view === 'edit' || view === 'review' || view === 'export') {
     content = currentBook ? (
-      <EditorView key={currentBook.id} book={currentBook} />
+      view === 'edit' ? <EditorView key={currentBook.id} book={currentBook} /> : view === 'review' ? <ReviewView key={currentBook.id} book={currentBook} /> : <ExportView key={currentBook.id} book={currentBook} />
     ) : (
       <div className="view">
         <div className="view-scroll">
           <EmptyState title="No book is open" action={<Button variant="primary" onClick={() => setView('library')}>Go to the Library</Button>}>
-            Open a book from the Library to read and edit it here.
+            Open a book from the Library first. Then you can edit it, review AI suggestions and export it.
           </EmptyState>
         </div>
       </div>
@@ -162,7 +189,8 @@ export function Shell() {
         )}
         <span className="grow" />
         <div className="sidebar-foot">
-          <span className="offline-chip" title="This version makes no network connections. Your manuscripts stay on this computer.">
+          <AiChip />
+          <span className="offline-chip" title="Manuscripts never leave this computer. The AI runs here too. The internet is used only if you choose to download a model.">
             <WifiOff size={14} /> Offline. Nothing leaves this computer.
           </span>
           {platform.info.kind === 'browser' && <span className="preview-chip">Browser preview</span>}
@@ -187,6 +215,53 @@ export function Shell() {
             setView('library');
           }}
         />
+      )}
+      {setupOpen && (
+        <Modal
+          title="Set up the AI editor"
+          size="lg"
+          onClose={() => {
+            ai.updateSettings({ setupDismissed: true });
+            setSetupOpen(false);
+          }}
+          footer={
+            <>
+              <span className="push-left muted">You can come back to this at any time under Settings.</span>
+              <Button
+                variant={ai.model.state === 'ready' ? 'primary' : 'default'}
+                data-testid="setup-close"
+                onClick={() => {
+                  ai.updateSettings({ setupDismissed: true });
+                  setSetupOpen(false);
+                }}
+              >
+                {ai.model.state === 'ready' ? 'Done' : 'Set up later'}
+              </Button>
+            </>
+          }
+        >
+          <div className="setup-scroll">
+            <div className="mode-choice" role="radiogroup" aria-label="Where the AI runs">
+              <label className="format-card is-active">
+                <input type="radio" name="ai-mode" checked readOnly />
+                <span>
+                  <strong>Local AI</strong>
+                  <br />
+                  <span className="muted">Runs on this computer. Private and fully offline once a model is installed.</span>
+                </span>
+              </label>
+              <label className="format-card is-disabled">
+                <input type="radio" name="ai-mode" disabled />
+                <span>
+                  <strong>Cloud AI</strong>
+                  <br />
+                  <span className="muted">Optional, with your own key. Arrives in Milestone 6.</span>
+                </span>
+              </label>
+            </div>
+            <AiSetup />
+          </div>
+        </Modal>
       )}
       {shortcuts && (
         <Modal title="Keyboard shortcuts" size="sm" onClose={() => setShortcuts(false)}>

@@ -3,6 +3,7 @@ import '@fontsource-variable/literata/wght-italic.css';
 import { Component, StrictMode, useEffect, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Shell } from './app/App';
+import { AiProvider, DEFAULT_AI_SETTINGS, type AiSettings } from './app/ai';
 import { AppProvider, applyAppearance, DEFAULT_APPEARANCE, readCachedAppearance, type Appearance } from './app/context';
 import { runSelfCheck } from './app/selfcheck';
 import type { Book } from './core/model/book';
@@ -19,6 +20,7 @@ interface Ready {
   library: Library;
   books: Book[];
   appearance: Appearance;
+  ai: AiSettings;
 }
 
 function StartupProblem({ message }: { message: string }) {
@@ -65,8 +67,9 @@ function Boot() {
       await library.init();
       const appearance = { ...DEFAULT_APPEARANCE, ...(await library.getSetting<Partial<Appearance>>('appearance', readCachedAppearance())) };
       const books = await library.listBooks();
+      const ai = { ...DEFAULT_AI_SETTINGS, ...(await library.getSetting<Partial<AiSettings>>('ai', {})) };
       if (cancelled) return;
-      setReady({ platform, library, books, appearance });
+      setReady({ platform, library, books, appearance, ai });
       void platform.backupIfDue().catch((e) => library.addLog('warn', 'backup', 'The automatic backup failed.', describeError(e)));
       if (platform.info.selftest) {
         const report = await runSelfCheck(platform, library);
@@ -84,7 +87,9 @@ function Boot() {
   if (!ready) return <div className="startup"><Spinner label="Opening your library…" /></div>;
   return (
     <AppProvider platform={ready.platform} library={ready.library} initialBooks={ready.books} initialAppearance={ready.appearance}>
-      <Shell />
+      <AiProvider initialSettings={ready.ai}>
+        <Shell />
+      </AiProvider>
     </AppProvider>
   );
 }

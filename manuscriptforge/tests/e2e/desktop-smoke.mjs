@@ -8,7 +8,7 @@
 //
 // Usage: npx tauri build --debug --no-bundle && npm run test:desktop
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync, statSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,7 +25,11 @@ if (!binary) {
 const work = mkdtempSync(join(tmpdir(), 'mf-smoke-'));
 const dataDir = join(work, 'library');
 const reportPath = join(work, 'report.json');
-const env = { ...process.env, MANUSCRIPTFORGE_DATA_DIR: dataDir, MF_SELFTEST_OUT: reportPath };
+const exportDir = join(work, 'exports');
+mkdirSync(exportDir, { recursive: true });
+// Set MF_SELFTEST_MODEL (a .gguf file) and MANUSCRIPTFORGE_LLAMA_SERVER (the
+// engine program) to also load a real model and run a real edit.
+const env = { ...process.env, MANUSCRIPTFORGE_DATA_DIR: dataDir, MF_SELFTEST_OUT: reportPath, MF_EXPORT_DIR: exportDir };
 
 let command = binary;
 let args = [];
@@ -36,7 +40,7 @@ if (process.platform === 'linux' && !process.env.DISPLAY && !process.env.WAYLAND
 }
 
 console.log(`Launching ${binary}`);
-const run = spawnSync(command, args, { env, timeout: 120_000, encoding: 'utf8' });
+const run = spawnSync(command, args, { env, timeout: 300_000, encoding: 'utf8' });
 
 const failures = [];
 const check = (ok, message) => {
@@ -61,6 +65,11 @@ check(existsSync(join(dataDir, 'library.db')) && statSync(join(dataDir, 'library
 const wal = join(dataDir, 'library.db-wal');
 check(!existsSync(wal) || statSync(wal).size === 0, 'no unfinished database log was left behind');
 check(existsSync(join(dataDir, 'backups')), 'a backup was written');
+const exported = join(exportDir, 'self-check-export.docx');
+check(existsSync(exported) && readFileSync(exported).subarray(0, 2).toString() === 'PK', 'the exported Word file was written to disk');
+if (process.env.MF_SELFTEST_MODEL) {
+  check((report?.steps ?? []).some((s) => s.name === 'AI model loads and edits' && s.ok), 'a real model was loaded and produced an edit');
+}
 
 if (failures.length && (run.stdout || run.stderr)) console.log(`\nApp output:\n${(run.stdout + run.stderr).slice(-3000)}`);
 rmSync(work, { recursive: true, force: true });

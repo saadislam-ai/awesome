@@ -62,6 +62,19 @@ export async function createBrowserPlatform(): Promise<Platform> {
     backupIfDue: async () => null,
     listBackups: async () => [],
     finishSelftest: async () => undefined,
+    ai: null,
+    saveFile: async (defaultName, _extension, bytes) => {
+      // A browser saves through a download.
+      const url = URL.createObjectURL(new Blob([bytes.slice().buffer]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = defaultName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10_000);
+      return defaultName;
+    },
     onBeforeClose: (handler) => {
       const listener = () => void handler();
       window.addEventListener('beforeunload', listener);

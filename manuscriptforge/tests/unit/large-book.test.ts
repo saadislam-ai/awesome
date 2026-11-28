@@ -3,6 +3,7 @@ import initSqlJs from 'sql.js';
 import { expect, it } from 'vitest';
 import { detectChapters, importManuscript } from '../../src/core/import';
 import { paragraph } from '../../src/core/model/blocks';
+import { EditStore } from '../../src/data/edits';
 import { Library } from '../../src/data/library';
 import { MemoryFiles } from '../../src/platform/memory';
 import { createSqlJsDb } from '../../src/platform/sqljs';
@@ -46,7 +47,8 @@ it('handles a 300,000-word book: import, save, edit, snapshot and restore', asyn
   expect(chapters).toHaveLength(100);
 
   const SQL = await initSqlJs();
-  const library = new Library(createSqlJsDb(new SQL.Database()), new MemoryFiles());
+  const db = createSqlJsDb(new SQL.Database());
+  const library = new Library(db, new MemoryFiles());
   await library.init();
   const book = await time('save to library', () =>
     library.createBook({ category: 'mine', title: 'Big Book', chapters, source: { name: 'big.docx', format: 'docx', bytes } }),
@@ -62,7 +64,16 @@ it('handles a 300,000-word book: import, save, edit, snapshot and restore', asyn
   await time('restore original', () => library.restoreVersion(book.id, original.id));
   expect((await library.getBook(book.id))!.wordCount).toBe(book.wordCount);
 
+  // Planning an AI edit of the whole book: every chapter is cut into passages and queued.
+  const edits = new EditStore(db, library);
+  const job = await time('plan whole-book edit', () => edits.createJob({ bookId: book.id, level: 'line', strength: 'medium', scope: { chapterIds: heads.map((h) => h.id) }, model: 'test' }));
+  expect(job.tasks).toBeGreaterThan(600);
+  expect(job.words).toBeGreaterThanOrEqual(300_000);
+  await time('read job progress', () => edits.getJob(job.id));
+
   console.log('300,000-word book timings (ms):', JSON.stringify(timings));
+  expect(timings['plan whole-book edit']).toBeLessThan(8000);
+  expect(timings['read job progress']).toBeLessThan(500);
   // Generous limits: these guard against accidental slow paths, not exact speed.
   expect(timings['read file']).toBeLessThan(8000);
   expect(timings['save to library']).toBeLessThan(8000);

@@ -62,6 +62,10 @@ export function runsToMarkup(runs: Run[]): string {
 }
 
 interface Piece {
+  /** Position of this piece in the markup string. */
+  start: number;
+  end: number;
+  /** The text it stands for. Empty for a marker. */
   text: string;
   /** Marks toggled by this piece, when it is a marker. */
   toggles?: MarkKey[];
@@ -69,10 +73,10 @@ interface Piece {
 
 function scan(markup: string): Piece[] {
   const pieces: Piece[] = [];
-  let literal = '';
-  const flush = () => {
-    if (literal) pieces.push({ text: literal });
-    literal = '';
+  let literalStart = -1;
+  const flush = (at: number) => {
+    if (literalStart >= 0) pieces.push({ start: literalStart, end: at, text: markup.slice(literalStart, at) });
+    literalStart = -1;
   };
   // A marker standing alone between spaces ("5 * 3") is ordinary text.
   const standsAlone = (at: number, length: number) => {
@@ -83,44 +87,22 @@ function scan(markup: string): Piece[] {
   let i = 0;
   while (i < markup.length) {
     const ch = markup[i];
-    const width = /^(\*{1,3}|__|~~)/.exec(markup.slice(i, i + 3))?.[0].length ?? 0;
+    const marker = /^(\*{1,3}|__|~~)/.exec(markup.slice(i, i + 3))?.[0] ?? '';
     if (ch === '\\' && i + 1 < markup.length && /[\\*_~]/.test(markup[i + 1])) {
-      literal += markup[i + 1];
+      flush(i);
+      pieces.push({ start: i, end: i + 2, text: markup[i + 1] });
       i += 2;
-    } else if (width && standsAlone(i, width)) {
-      literal += markup.slice(i, i + width);
-      i += width;
-    } else if (markup.startsWith('***', i)) {
-      flush();
-      pieces.push({ text: '***', toggles: ['b', 'i'] });
-      i += 3;
-    } else if (markup.startsWith('**', i)) {
-      flush();
-      pieces.push({ text: '**', toggles: ['b'] });
-      i += 2;
-    } else if (ch === '*') {
-      flush();
-      pieces.push({ text: '*', toggles: ['i'] });
-      i += 1;
-    } else if (markup.startsWith('__', i)) {
-      flush();
-      pieces.push({ text: '__', toggles: ['u'] });
-      i += 2;
-    } else if (markup.startsWith('~~', i)) {
-      flush();
-      pieces.push({ text: '~~', toggles: ['s'] });
-      i += 2;
+    } else if (marker && !standsAlone(i, marker.length)) {
+      flush(i);
+      const toggles: MarkKey[] = marker === '***' ? ['b', 'i'] : marker === '**' ? ['b'] : marker === '*' ? ['i'] : marker === '__' ? ['u'] : ['s'];
+      pieces.push({ start: i, end: i + marker.length, text: '', toggles });
+      i += marker.length;
     } else {
-      literal += ch;
-      i += 1;
+      if (literalStart < 0) literalStart = i;
+      i += marker && standsAlone(i, marker.length) ? marker.length : 1;
     }
   }
-  flush();
-  return pieces;
-}
-
-export function markupToRuns(markup: string): Run[] {
-  const pieces = scan(markup);
+  flush(markup.length);
   // A marker without a partner is ordinary text, not the start of formatting
   // that would run to the end of the paragraph.
   for (const key of ['b', 'i', 'u', 's'] as MarkKey[]) {
@@ -128,24 +110,58 @@ export function markupToRuns(markup: string): Run[] {
     if (indexes.length % 2 === 1) {
       const last = pieces[indexes[indexes.length - 1]];
       last.toggles = last.toggles!.filter((k) => k !== key);
-      if (!last.toggles.length) delete last.toggles;
-      else last.text = '';
+      if (!last.toggles.length) {
+        delete last.toggles;
+        last.text = markup.slice(last.start, last.end);
+      }
     }
   }
+  return pieces;
+}
+
+/** A stretch of text with its formatting and its position in the markup string. */
+export interface MarkupSpan extends Run {
+  start: number;
+  end: number;
+}
+
+/** The text of a paragraph in pieces, each with its formatting and where it sits in the markup. */
+export function markupSpans(markup: string): MarkupSpan[] {
   const state: Record<MarkKey, boolean> = { b: false, i: false, u: false, s: false };
-  const runs: Run[] = [];
-  for (const piece of pieces) {
+  const spans: MarkupSpan[] = [];
+  for (const piece of scan(markup)) {
     if (piece.toggles) {
       for (const key of piece.toggles) state[key] = !state[key];
       continue;
     }
     if (!piece.text) continue;
-    const run: Run = { text: piece.text };
-    if (state.b) run.b = true;
-    if (state.i) run.i = true;
-    if (state.u) run.u = true;
-    if (state.s) run.s = true;
-    runs.push(run);
+    const span: MarkupSpan = { text: piece.text, start: piece.start, end: piece.end };
+    if (state.b) span.b = true;
+    if (state.i) span.i = true;
+    if (state.u) span.u = true;
+    if (state.s) span.s = true;
+    spans.push(span);
+  }
+  return spans;
+}
+
+export function markupToRuns(markup: string): Run[] {
+  return normalizeRuns(markupSpans(markup).map(({ start: _start, end: _end, ...run }) => run));
+}
+
+/**
+ * The formatted text of one stretch of a markup string, for display. The
+ * stretch may begin or end in the middle of formatted text.
+ */
+export function sliceMarkup(spans: MarkupSpan[], from: number, to: number): Run[] {
+  const runs: Run[] = [];
+  for (const span of spans) {
+    if (span.end <= from || span.start >= to) continue;
+    const { start, end, text, ...marks } = span;
+    // An escaped character ("\*") is two characters of markup for one of text: take it whole.
+    const exact = text.length === end - start;
+    const slice = exact ? text.slice(Math.max(from, start) - start, Math.min(to, end) - start) : text;
+    if (slice) runs.push({ ...marks, text: slice });
   }
   return normalizeRuns(runs);
 }

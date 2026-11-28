@@ -460,6 +460,11 @@ export class EditStore {
     await this.revise(id, redo.revised, redo.note, redo.flags);
   }
 
+  /** Removes one suggestion from the list. The book's text is left as it is. */
+  async dismiss(id: string): Promise<void> {
+    await this.db.execute('DELETE FROM suggestions WHERE id = ?', [id]);
+  }
+
   /** Removes suggestions that are finished with: fully decided or out of date. */
   async clearResolved(bookId: string): Promise<void> {
     await this.db.execute("DELETE FROM suggestions WHERE book_id = ? AND status != 'pending'", [bookId]);

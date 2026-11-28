@@ -16,6 +16,8 @@ export interface RichEditorHandle {
   getBlocks(): Block[];
   /** Index of the stored block that contains the cursor. */
   cursorBlockIndex(): number;
+  /** The stored blocks covered by the selection, or null when nothing is selected. */
+  selectionRange(): { from: number; to: number; words: number } | null;
   focus(): void;
 }
 
@@ -116,23 +118,31 @@ export const RichEditor = forwardRef<RichEditorHandle, Props>(function RichEdito
 
   useImperativeHandle(
     ref,
-    () => ({
-      getBlocks: () => (editor ? docToBlocks(editor.getJSON() as PmNode) : initialBlocks),
-      cursorBlockIndex: () => {
-        if (!editor) return 0;
-        const { $from } = editor.state.selection;
-        const doc = editor.getJSON() as PmNode;
-        const top = $from.index(0);
+    () => {
+      /** Index of the stored block at a position in the editor's document. */
+      const blockIndexAt = (position: { index(depth: number): number; depth: number }): number => {
+        const doc = editor!.getJSON() as PmNode;
+        const top = position.index(0);
         let index = 0;
         (doc.content ?? []).slice(0, top).forEach((node) => (index += blockCount(node)));
         const node = doc.content?.[top];
-        if (node && (node.type === 'blockquote' || node.type === 'bulletList' || node.type === 'orderedList') && $from.depth >= 1) {
-          index += $from.index(1);
+        if (node && (node.type === 'blockquote' || node.type === 'bulletList' || node.type === 'orderedList') && position.depth >= 1) {
+          index += position.index(1);
         }
         return index;
+      };
+      return {
+      getBlocks: () => (editor ? docToBlocks(editor.getJSON() as PmNode) : initialBlocks),
+      cursorBlockIndex: () => (editor ? blockIndexAt(editor.state.selection.$from) : 0),
+      selectionRange: () => {
+        if (!editor || editor.state.selection.empty) return null;
+        const { $from, $to, from, to } = editor.state.selection;
+        const words = countWords(editor.state.doc.textBetween(from, to, ' '));
+        return words ? { from: blockIndexAt($from), to: blockIndexAt($to), words } : null;
       },
       focus: () => editor?.commands.focus(),
-    }),
+      };
+    },
     [editor, initialBlocks],
   );
 

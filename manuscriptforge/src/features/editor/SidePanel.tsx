@@ -1,4 +1,4 @@
-import { Camera, Eye, History, Lock, MoreHorizontal, Pencil, RotateCcw, Trash2 } from 'lucide-react';
+import { Camera, Eye, GitCompare, History, Lock, MoreHorizontal, Pencil, RotateCcw, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useApp } from '../../app/context';
 import type { Book, Version, VersionChapter } from '../../core/model/book';
@@ -6,6 +6,7 @@ import { formatCount } from '../../core/text/words';
 import { Button, ConfirmDialog, Field, Menu, Modal, Pill, Spinner } from '../../ui/components';
 import { formatDateTime, MOD } from '../../ui/format';
 import { BlocksView } from './BlocksView';
+import { CompareDialog } from './CompareDialog';
 
 type Tab = 'notes' | 'instructions' | 'history';
 
@@ -119,6 +120,7 @@ function HistoryTab({ book, versionsKey, flush, onRestored, snapshotRequest }: P
   const [restoring, setRestoring] = useState<Version | null>(null);
   const [renaming, setRenaming] = useState<Version | null>(null);
   const [deleting, setDeleting] = useState<Version | null>(null);
+  const [comparing, setComparing] = useState<Version | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
 
   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
@@ -215,6 +217,7 @@ function HistoryTab({ book, versionsKey, flush, onRestored, snapshotRequest }: P
                   trigger={<MoreHorizontal size={16} />}
                   items={[
                     { label: 'Preview', icon: <Eye size={15} />, onSelect: () => setPreview(version) },
+                    { label: 'Compare…', icon: <GitCompare size={15} />, onSelect: () => setComparing(version) },
                     { label: 'Restore…', icon: <RotateCcw size={15} />, onSelect: () => setRestoring(version) },
                     { label: 'Rename', icon: <Pencil size={15} />, disabled: version.kind === 'original', onSelect: () => { setName(version.name); setRenaming(version); } },
                     { label: 'Delete…', icon: <Trash2 size={15} />, danger: true, disabled: version.kind === 'original', onSelect: () => setDeleting(version) },
@@ -226,6 +229,7 @@ function HistoryTab({ book, versionsKey, flush, onRestored, snapshotRequest }: P
         </ol>
       )}
 
+      {comparing && versions && <CompareDialog book={book} version={comparing} versions={versions} flush={flush} onClose={() => setComparing(null)} />}
       {preview && <VersionPreview version={preview} onClose={() => setPreview(null)} onRestore={() => setRestoring(preview)} />}
       {restoring && (
         <ConfirmDialog
