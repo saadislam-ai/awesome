@@ -96,6 +96,8 @@ export interface Version {
 }
 
 export interface VersionChapter {
+  /** Id of the chapter this text belonged to, used to match chapters between versions. */
+  chapterId: string;
   position: number;
   title: string;
   wordCount: number;

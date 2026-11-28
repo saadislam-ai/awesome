@@ -331,6 +331,12 @@ export function importDocx(bytes: Uint8Array): ImportResult {
       blocks.push({ type: 'break' });
       return;
     }
+    // A paragraph removed with tracked changes: its text is deleted and so is
+    // its paragraph mark. With the deletion accepted, nothing of it remains.
+    if (!hasText && kid(kid(pPr, 'w:rPr'), 'w:del')) {
+      if (pb) pendingPb = true;
+      return;
+    }
     if (style?.isTitle && hasText && styledTitle === undefined) styledTitle = runs.map((r) => r.text).join('').replace(/\s+/g, ' ').trim();
 
     let block: DraftBlock;

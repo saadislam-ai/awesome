@@ -32,10 +32,10 @@ export function tokenize(text: string): string[] {
   return text.match(TOKEN) ?? [];
 }
 
-type Op = { type: 'equal' | 'delete' | 'insert'; a: number; b: number; count: number };
+export type Op = { type: 'equal' | 'delete' | 'insert'; a: number; b: number; count: number };
 
 /** Longest-common-subsequence diff of two token lists. */
-function diffTokens(a: string[], b: string[]): Op[] {
+export function diffTokens(a: string[], b: string[]): Op[] {
   let prefix = 0;
   while (prefix < a.length && prefix < b.length && a[prefix] === b[prefix]) prefix++;
   let suffix = 0;

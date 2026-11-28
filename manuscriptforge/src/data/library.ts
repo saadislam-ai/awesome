@@ -489,13 +489,13 @@ export class Library {
   }
 
   async getVersionChapters(versionId: string): Promise<VersionChapter[]> {
-    const rows = await this.db.select<{ position: number; title: string; word_count: number; content: string }>(
-      `SELECT vc.position, vc.title, vc.word_count, b.content
+    const rows = await this.db.select<{ chapter_id: string; position: number; title: string; word_count: number; content: string }>(
+      `SELECT vc.chapter_id, vc.position, vc.title, vc.word_count, b.content
        FROM version_chapters vc JOIN blobs b ON b.hash = vc.blob_hash
        WHERE vc.version_id = ? ORDER BY vc.position`,
       [versionId],
     );
-    return rows.map((r) => ({ position: r.position, title: r.title, wordCount: r.word_count, blocks: JSON.parse(r.content) as Block[] }));
+    return rows.map((r) => ({ chapterId: r.chapter_id, position: r.position, title: r.title, wordCount: r.word_count, blocks: JSON.parse(r.content) as Block[] }));
   }
 
   /**

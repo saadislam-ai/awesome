@@ -129,8 +129,9 @@ pub fn download(
         .timeout_read(Duration::from_secs(60))
         .redirects(8)
         .user_agent("ManuscriptForge")
-        // Honour a proxy configured through the usual environment variables.
-        .try_proxy_from_env(true)
+        // Honour a proxy configured through the usual environment variables,
+        // but never for an address on this computer.
+        .try_proxy_from_env(!url.starts_with("http://127.0.0.1:"))
         .build();
     let mut request = agent.get(url);
     if have > 0 {
