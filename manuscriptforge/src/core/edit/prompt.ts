@@ -62,6 +62,7 @@ export function buildEditMessages(chunk: Chunk, options: EditOptions): ChatMessa
     '',
     'Rules:',
     ...rules.map((rule) => `- ${rule}`),
+    ...(options.bible?.trim() ? ['', 'Facts about this book. Keep every edit consistent with them:', options.bible.trim()] : []),
     ...(custom ? ['', "The publisher's own rules for this book. Follow them even where they differ from your habits:", custom] : []),
     '',
     'Reply format. For each paragraph give the corrected text and then a note of at most 12 words saying what you changed. If a paragraph needs no change, repeat it exactly and write "no change". Output nothing else.',

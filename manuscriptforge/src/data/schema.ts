@@ -127,6 +127,61 @@ const MIGRATIONS: string[][] = [
     )`,
     `CREATE INDEX suggestions_by_chapter ON suggestions(book_id, chapter_id, block_index)`,
   ],
+  // Version 3: analysis, its findings, and the Book Bible.
+  [
+    `CREATE TABLE analyses (
+      id TEXT PRIMARY KEY,
+      book_id TEXT NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+      status TEXT NOT NULL,
+      deep INTEGER NOT NULL DEFAULT 0,
+      model TEXT NOT NULL DEFAULT '',
+      signature TEXT NOT NULL,
+      stats TEXT NOT NULL,
+      draft TEXT NOT NULL DEFAULT '{}',
+      result TEXT,
+      error TEXT,
+      created_at TEXT NOT NULL,
+      started_at TEXT,
+      finished_at TEXT
+    )`,
+    `CREATE INDEX analyses_by_book ON analyses(book_id, created_at)`,
+    `CREATE TABLE analysis_tasks (
+      id TEXT PRIMARY KEY,
+      analysis_id TEXT NOT NULL REFERENCES analyses(id) ON DELETE CASCADE,
+      position INTEGER NOT NULL,
+      kind TEXT NOT NULL,
+      status TEXT NOT NULL,
+      input TEXT NOT NULL,
+      output TEXT,
+      words INTEGER NOT NULL DEFAULT 0,
+      error TEXT,
+      tokens INTEGER NOT NULL DEFAULT 0,
+      ms INTEGER NOT NULL DEFAULT 0
+    )`,
+    `CREATE INDEX analysis_tasks_by_analysis ON analysis_tasks(analysis_id, position)`,
+    `CREATE TABLE issues (
+      id TEXT PRIMARY KEY,
+      book_id TEXT NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+      analysis_id TEXT NOT NULL REFERENCES analyses(id) ON DELETE CASCADE,
+      position INTEGER NOT NULL,
+      chapter_id TEXT,
+      block_index INTEGER,
+      category TEXT NOT NULL,
+      severity TEXT NOT NULL,
+      quote TEXT NOT NULL DEFAULT '',
+      title TEXT NOT NULL,
+      detail TEXT NOT NULL DEFAULT '',
+      suggestion TEXT NOT NULL DEFAULT '',
+      source TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open'
+    )`,
+    `CREATE INDEX issues_by_book ON issues(book_id, position)`,
+    `CREATE TABLE bibles (
+      book_id TEXT PRIMARY KEY REFERENCES books(id) ON DELETE CASCADE,
+      data TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    )`,
+  ],
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS.length;

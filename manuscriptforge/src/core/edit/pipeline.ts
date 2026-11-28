@@ -54,7 +54,7 @@ function toEdit(blockIndex: number, original: string, reply: string, note: strin
     original,
     revised,
     note: tidyNote(note) || describeChanges(diffText(original, revised)),
-    flags: checkRevision(original, revised, options.level, options.strength),
+    flags: checkRevision(original, revised, options.level, options.strength, options.names),
   };
 }
 

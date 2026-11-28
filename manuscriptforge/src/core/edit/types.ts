@@ -34,6 +34,10 @@ export interface EditOptions {
   instructions?: string;
   /** The publisher's reusable style guide. */
   styleGuide?: string;
+  /** A digest of the Book Bible: narration, voice, names and terms to keep consistent. */
+  bible?: string;
+  /** Names from the Book Bible that an edit must never alter. */
+  names?: string[];
 }
 
 /** One paragraph handed to the model. */

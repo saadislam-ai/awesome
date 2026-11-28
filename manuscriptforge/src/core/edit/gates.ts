@@ -46,10 +46,13 @@ export function isUsableRevision(original: string, revised: string): boolean {
  * person should look at before accepting it. These are warnings, not
  * verdicts: the change is still offered, with the warning attached.
  */
-export function checkRevision(original: string, revised: string, level: EditLevel, strength: EditStrength): Flag[] {
+export function checkRevision(original: string, revised: string, level: EditLevel, strength: EditStrength, knownNames: string[] = []): Flag[] {
   const flags: Flag[] = [];
   const plainBefore = markupToPlain(original);
   const plainAfter = markupToPlain(revised);
+
+  // A name recorded in the Book Bible must come through an edit letter for letter.
+  if (knownNames.some((name) => plainBefore.includes(name) && !plainAfter.includes(name))) flags.push('names');
 
   const namesBefore = properNouns(plainBefore);
   const namesAfter = properNouns(plainAfter);
@@ -57,7 +60,7 @@ export function checkRevision(original: string, revised: string, level: EditLeve
   const allBefore = plainBefore.toLowerCase();
   const lost = [...namesBefore].some((name) => !allAfter.includes(name.toLowerCase()));
   const gained = [...namesAfter].some((name) => !allBefore.includes(name.toLowerCase()));
-  if (lost || gained) flags.push('names');
+  if ((lost || gained) && !flags.includes('names')) flags.push('names');
 
   if (numbers(plainBefore).join('|') !== numbers(plainAfter).join('|')) flags.push('numbers');
 

@@ -7,6 +7,11 @@ export interface ChatRequest {
   messages: ChatMessage[];
   temperature?: number;
   maxTokens?: number;
+  /**
+   * When given, the reply must be JSON of this shape. The local engine
+   * enforces it while generating, so even small models return valid data.
+   */
+  jsonSchema?: Record<string, unknown>;
 }
 
 export interface ChatResult {
@@ -128,6 +133,7 @@ export function chatBody(request: ChatRequest, model?: string, local = false): R
     max_tokens: request.maxTokens ?? 1024,
     stream: true,
     stream_options: { include_usage: true },
+    ...(request.jsonSchema ? { response_format: { type: 'json_schema', json_schema: { name: 'reply', strict: true, schema: request.jsonSchema } } } : {}),
     // Editing needs the answer itself, not a model's visible reasoning.
     ...(local ? { cache_prompt: true, chat_template_kwargs: { enable_thinking: false } } : {}),
   };

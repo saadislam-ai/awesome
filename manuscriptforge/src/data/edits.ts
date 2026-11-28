@@ -1,4 +1,5 @@
 import { isAbort, AiError, type AiProvider } from '../core/ai/provider';
+import { bibleBrief, bibleNames, type BookBible } from '../core/analysis/bible';
 import { chunkChapter, DEFAULT_CHUNK_WORDS } from '../core/edit/chunk';
 import { applyDecisions, diffText, type ChangeKind, type Decision, type Decisions, type Hunk } from '../core/edit/diff';
 import { markupToRuns, runsToMarkup } from '../core/edit/markup';
@@ -170,6 +171,14 @@ export class EditStore {
   async createJob(input: NewJob): Promise<EditJob> {
     const book = await this.library.getBook(input.bookId);
     if (!book) throw new Error('This book no longer exists.');
+    // The Book Bible, when the book has been analysed, keeps names and voice consistent.
+    const stored = await this.db.select<{ data: string }>('SELECT data FROM bibles WHERE book_id = ?', [input.bookId]).catch(() => []);
+    let bible: BookBible | null = null;
+    try {
+      bible = stored[0] ? (JSON.parse(stored[0].data) as BookBible) : null;
+    } catch {
+      bible = null;
+    }
     const options: EditOptions = {
       level: input.level,
       strength: input.strength,
@@ -177,6 +186,7 @@ export class EditStore {
       bookType: book.bookType,
       instructions: book.instructions,
       styleGuide: input.styleGuide ?? '',
+      ...(bible ? { bible: bibleBrief(bible), names: bibleNames(bible) } : {}),
     };
     const id = newId('job');
     const now = nowIso();
@@ -223,6 +233,19 @@ export class EditStore {
       `${JOB_SELECT} WHERE j.status IN ('running', 'queued') ORDER BY CASE j.status WHEN 'running' THEN 0 ELSE 1 END, j.created_at, j.rowid LIMIT 1`,
     );
     return rows[0] ? toJob(rows[0]) : null;
+  }
+
+  // The queue treats editing jobs and analyses alike through these three methods.
+  owns(id: string): boolean {
+    return id.startsWith('job_');
+  }
+
+  nextRunnable(): Promise<EditJob | null> {
+    return this.nextRunnableJob();
+  }
+
+  setStatus(id: string, status: JobStatus, error: string | null = null): Promise<void> {
+    return this.setJobStatus(id, status, error);
   }
 
   async setJobStatus(id: string, status: JobStatus, error: string | null = null): Promise<void> {
@@ -471,113 +494,4 @@ export class EditStore {
   }
 }
 
-export interface RunnerState {
-  /** The job being worked on, if any. */
-  jobId: string | null;
-  /** Text of the reply as it streams in, for a live preview. */
-  preview: string;
-  /** Why the queue stopped, when it stopped because of a problem. */
-  problem: string | null;
-}
-
-/**
- * Works through editing jobs one passage at a time. One passage runs at
- * once (a local model serves one request at a time). The queue can be
- * paused, resumed and cancelled, and because every passage is stored in the
- * database, a job can be continued after the app has been closed.
- */
-export class JobRunner {
-  state: RunnerState = { jobId: null, preview: '', problem: null };
-  private abort: AbortController | null = null;
-  private loop: Promise<void> | null = null;
-
-  constructor(
-    private readonly store: EditStore,
-    /** Returns the model to use, or null when none is ready. */
-    private readonly getProvider: () => AiProvider | null,
-    private readonly onChange: () => void = () => undefined,
-  ) {}
-
-  get busy(): boolean {
-    return this.loop !== null;
-  }
-
-  /** Starts working if there is work and nothing is running. Safe to call at any time. */
-  kick(): void {
-    if (this.loop) return;
-    this.loop = this.run().finally(() => {
-      this.loop = null;
-      this.abort = null;
-      this.state = { ...this.state, jobId: null, preview: '' };
-      this.onChange();
-    });
-  }
-
-  /** Resolves when the queue has stopped (finished, paused or blocked). */
-  async idle(): Promise<void> {
-    while (this.loop) await this.loop;
-  }
-
-  private async run(): Promise<void> {
-    for (;;) {
-      const job = await this.store.nextRunnableJob();
-      if (!job) return;
-      const provider = this.getProvider();
-      if (!provider) {
-        this.state = { ...this.state, problem: 'No AI model is loaded. Load a model in Settings, then resume.' };
-        await this.store.setJobStatus(job.id, 'paused', this.state.problem);
-        continue;
-      }
-      if (job.status !== 'running') await this.store.setJobStatus(job.id, 'running');
-      this.state = { jobId: job.id, preview: '', problem: null };
-      this.abort = new AbortController();
-      this.onChange();
-      try {
-        const more = await this.store.runNextTask(job, provider, this.abort.signal, (text) => {
-          this.state = { ...this.state, preview: (this.state.preview + text).slice(-600) };
-          this.onChange();
-        });
-        if (!more) await this.store.setJobStatus(job.id, 'done');
-      } catch (e) {
-        if (isAbort(e)) {
-          // pause() or cancel() already recorded the new status.
-        } else if (e instanceof AiError && e.engineDown) {
-          // The engine is not answering: stop here rather than failing passage after passage.
-          this.state = { ...this.state, problem: e.message };
-          await this.store.setJobStatus(job.id, 'paused', e.message);
-        }
-        // Any other failure was recorded on the passage itself; the job moves on.
-      }
-      this.state = { ...this.state, preview: '' };
-      this.onChange();
-    }
-  }
-
-  /** Puts a job on hold. The passage in progress is stopped and will be redone on resume. */
-  async pause(jobId: string): Promise<void> {
-    await this.store.setJobStatus(jobId, 'paused');
-    if (this.state.jobId === jobId) this.abort?.abort();
-    await this.idleIfStopped(jobId);
-    this.onChange();
-  }
-
-  async resume(jobId: string): Promise<void> {
-    await this.store.setJobStatus(jobId, 'queued');
-    this.state = { ...this.state, problem: null };
-    this.kick();
-    this.onChange();
-  }
-
-  /** Stops a job for good. Suggestions it already made are kept. */
-  async cancel(jobId: string): Promise<void> {
-    await this.store.setJobStatus(jobId, 'cancelled');
-    if (this.state.jobId === jobId) this.abort?.abort();
-    await this.idleIfStopped(jobId);
-    this.onChange();
-  }
-
-  private async idleIfStopped(jobId: string): Promise<void> {
-    // Give the passage in progress a moment to wind down, so callers see a settled state.
-    for (let i = 0; i < 50 && this.state.jobId === jobId && this.loop; i++) await new Promise((resolve) => setTimeout(resolve, 10));
-  }
-}
+export { JobRunner, type RunnerState } from './runner';

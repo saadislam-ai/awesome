@@ -437,6 +437,12 @@ export class Library {
     return { rows, signature: signatureOf(rows) };
   }
 
+  /** A fingerprint of the book's current text. It changes whenever any chapter's title or text changes. */
+  async textSignature(bookId: string): Promise<string> {
+    const heads = await this.db.select<{ title: string; hash: string }>('SELECT title, hash FROM chapters WHERE book_id = ? ORDER BY position', [bookId]);
+    return signatureOf(heads);
+  }
+
   /** True when the book's text differs from every saved version. */
   async hasUnsavedChanges(bookId: string): Promise<boolean> {
     const { signature } = await this.currentState(bookId);
