@@ -64,14 +64,17 @@ jobs:
           - name: Windows
             os: windows-latest
             args: ''
+            engine_arch: x64
           - name: macOS Apple Silicon
             os: macos-latest
             target: aarch64-apple-darwin
             args: '--target aarch64-apple-darwin'
+            engine_arch: arm64
           - name: macOS Intel
             os: macos-latest
             target: x86_64-apple-darwin
             args: '--target x86_64-apple-darwin'
+            engine_arch: x64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
@@ -88,6 +91,10 @@ jobs:
           workspaces: manuscriptforge/src-tauri
           key: ${{ matrix.name }}
       - run: npm ci
+      - name: Fetch the AI engine (llama.cpp) to bundle with the app
+        run: npm run engine:fetch -- --arch ${{ matrix.engine_arch }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Build installers
         run: npx tauri build ${{ matrix.args }}
       - name: Launch the built app and run its self-check

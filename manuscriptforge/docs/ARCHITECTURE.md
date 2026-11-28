@@ -21,14 +21,18 @@ manuscriptforge/
     core/              pure logic, no UI
       model/           blocks (the manuscript format) and book types
       import/          docx, txt, md, rtf, epub, pdf, chapter detection
+      edit/            tracked-changes diff, passage chunking, prompts, reply parsing, safety checks
+      export/          docx (clean and tracked changes), epub, markdown, text
+      ai/              the provider interface and the model catalog
       text/            word counting, language detection
       util/            hashing, ids
     platform/          storage adapters: tauri (desktop), browser (tests and preview)
-    data/              schema and migrations, the Library (books, chapters, versions)
-    features/          library, import review, editor, settings
+    data/              schema and migrations, the Library, editing jobs and suggestions
+    features/          library, import review, editor, AI set-up, review, export, settings
     app/               app state, shell, self-check
     ui/                shared components and styles
-  src-tauri/           Rust shell: data folder, SQLite, files, backups, close handling
+  src-tauri/           Rust shell: data folder, SQLite, files, backups, close handling,
+                       hardware detection, model files and downloads, the engine process
   tests/
     unit/              Vitest tests
     fixtures/          sample manuscripts in every format (sources and generated files)
@@ -62,15 +66,38 @@ Keeping one small format in the middle means no part of the app depends on anoth
 
 The interface talks to storage through a small `Db` and `FileStore` interface with two implementations: the Rust shell (real SQLite and files) and an in-browser SQLite used by automated tests. Both run the same SQL.
 
+## The AI engine
+
+```
+ interface (TypeScript)                Rust shell                     llama.cpp
+ AiProvider.chat() ──invoke──▶ ai_chat ──HTTP on 127.0.0.1──▶ llama-server ──▶ GPU (Vulkan / Metal) or CPU
+        ▲                         │
+        └──── streamed reply ◀────┘  (a Tauri channel, piece by piece)
+```
+
+- The engine is llama.cpp's own `llama-server`, run as a separate program. The Rust shell starts it on a random loopback port with a random key and with networking switched off, waits until the model has loaded, streams replies back to the interface, can cancel a reply part-way, and stops the engine when the app exits.
+- Requests go through the Rust shell rather than straight from the webview. That keeps the content security policy closed (the interface cannot open network connections at all), avoids browser differences between Windows and macOS, and in Milestone 6 keeps cloud API keys out of the webview.
+- Graphics card use is left to llama.cpp's own fitting logic unless the publisher sets a number of layers or chooses "processor only". If a model fails to load, the engine's log is turned into a plain explanation (not enough memory, damaged file, graphics driver).
+- Everything that uses a model talks to one small interface, `AiProvider`. There are three implementations: the local engine, a direct HTTP one (browser preview and tests), and scripted stand-ins in unit tests. The cloud providers of Milestone 6 will be a fourth.
+
+## How an edit works
+
+1. **Plan.** `chunkChapter` cuts the chosen chapters into passages of whole paragraphs (about 450 words), each carrying the last lines before it for continuity. The passages are stored as tasks in the database, so a job can be paused, resumed, or continued after the app was closed.
+2. **Ask.** Each paragraph is sent in a light Markdown form (`*italic*`, `**bold**`) inside numbered tags, with rules that depend on the kind of edit, its strength, the book's type and language, the book's own instructions and the house style guide.
+3. **Read the reply.** The parser tolerates missing closing tags, code fences, visible "thinking" and commentary. Paragraphs that are missing, cut off by the token limit, wildly different in length, or in a different script are discarded: the author's text stays.
+4. **Check.** Italics or bold that the model dropped are put back automatically. Then each proposal is checked for changed names, numbers, quotation marks, formatting and length, and flagged where a person should look.
+5. **Suggest.** The result is stored as a suggestion: the original paragraph, the proposed one, a reason and flags. The book itself is untouched.
+6. **Decide.** The word-level diff between original and proposal gives the tracked changes. Accepting or rejecting a change rewrites just that paragraph from the original plus the decisions so far, in the same database transaction that records the decision. A snapshot is saved before the first change, so a whole review can be undone. If a paragraph was edited by hand after the suggestion was made, the suggestion is marked out of date instead of being applied.
+
 ## Long books
 
 Nothing in the app loads or processes a whole book at once except import and snapshots, and both are fast: a 300,000-word, 100-chapter book imports in well under a second and snapshots in tens of milliseconds (see `tests/unit/large-book.test.ts`). The editor works on one chapter at a time.
 
-From Milestone 2 the same chapter and scene structure is what the AI engine will chunk on, together with rolling summaries and the Book Bible, because a model can never be given a whole book in one prompt.
+The same chapter and paragraph structure is what the AI engine works on: a model is never given a whole book. Planning a line edit of a 300,000-word book (about 700 passages) takes a fraction of a second. Rolling summaries and the Book Bible, which keep distant chapters consistent, arrive in Milestone 3.
 
 ## Privacy
 
-The desktop shell exposes only its own commands, a content security policy blocks every external connection from the interface, and there is no telemetry. In Milestone 1 the app makes no network connections at all.
+The desktop shell exposes only its own commands, a content security policy blocks every external connection from the interface, and there is no telemetry. The one thing that uses the network is downloading a model, which happens only when the publisher presses Download, over https, into the library's `models` folder.
 
 ## Closing the window
 

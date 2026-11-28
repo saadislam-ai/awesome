@@ -912,16 +912,17 @@ code {
   margin-top: 14px;
 }
 
-/* Bottom left, so messages never cover the buttons of a dialog. */
+/* Top centre: the one place where no screen and no dialog keeps its buttons. */
 .toasts {
   position: fixed;
-  left: 16px;
-  bottom: 16px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 80;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 380px;
+  width: 400px;
   max-width: calc(100vw - 32px);
 }
 
@@ -2585,4 +2586,8 @@ input[type='radio'],
 input[type='checkbox'] {
   flex: none;
   accent-color: var(--accent);
+}
+
+.improve .segmented {
+  justify-self: start;
 }
