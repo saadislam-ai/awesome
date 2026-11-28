@@ -15,7 +15,7 @@ export interface ExportBook {
   chapters: ExportChapter[];
 }
 
-export type ExportFormat = 'docx' | 'docx-tracked' | 'epub' | 'md' | 'txt';
+export type ExportFormat = 'docx' | 'docx-tracked' | 'epub' | 'pdf' | 'md' | 'txt';
 
 export const EXPORT_FORMATS: { value: ExportFormat; label: string; extension: string; description: string }[] = [
   { value: 'docx', label: 'Word document', extension: 'docx', description: 'A clean manuscript in standard manuscript format.' },
@@ -26,6 +26,7 @@ export const EXPORT_FORMATS: { value: ExportFormat; label: string; extension: st
     description: 'Every difference from an earlier version shown as a tracked change that the author can accept or reject in Word.',
   },
   { value: 'epub', label: 'EPUB e-book', extension: 'epub', description: 'For e-readers and e-book stores.' },
+  { value: 'pdf', label: 'PDF', extension: 'pdf', description: 'A reading copy for proofs and for sending to authors. Looks the same on every device.' },
   { value: 'md', label: 'Markdown', extension: 'md', description: 'Plain text with simple formatting marks.' },
   { value: 'txt', label: 'Plain text', extension: 'txt', description: 'Text only, without formatting.' },
 ];

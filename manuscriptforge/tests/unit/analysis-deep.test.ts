@@ -1,7 +1,7 @@
 import initSqlJs from 'sql.js';
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { AiProvider, ChatRequest } from '../../src/core/ai/provider';
-import { bibleBrief, bibleNames } from '../../src/core/analysis/bible';
+import { HttpProvider, type AiProvider, type ChatRequest } from '../../src/core/ai/provider';
+import { bibleBrief, bibleNames, emptyBible, mergeSegment, type SegmentNotes } from '../../src/core/analysis/bible';
 import { buildSegmentRequest, parseJsonReply, segmentChapter } from '../../src/core/analysis/deep';
 import { detectChapters } from '../../src/core/import';
 import { paragraph } from '../../src/core/model/blocks';
@@ -81,7 +81,7 @@ const SYNTHESIS = {
   bookIssues: [{ type: 'character', severity: 'medium', chapter: 2, problem: 'Tomas has no motive.', suggestion: 'Add one.' }, { type: 'plot-hole', severity: 'high', chapter: 0, problem: 'Who sent the letter is never hinted.', suggestion: 'Plant a clue.' }],
 };
 
-function analyst(overrides: { failSynthesis?: boolean; onCall?: (kind: 'segment' | 'synthesis' | 'other') => void | Promise<void> } = {}): AiProvider & { requests: ChatRequest[] } {
+function analyst(overrides: { failSynthesis?: boolean; synthesis?: object; onCall?: (kind: 'segment' | 'synthesis' | 'other') => void | Promise<void> } = {}): AiProvider & { requests: ChatRequest[] } {
   const requests: ChatRequest[] = [];
   return {
     kind: 'custom', label: 'analyst', requests,
@@ -92,7 +92,7 @@ function analyst(overrides: { failSynthesis?: boolean; onCall?: (kind: 'segment'
       const kind = user.includes('Chapter notes (with') ? 'synthesis' : chapter ? 'segment' : 'other';
       await overrides.onCall?.(kind);
       if (options?.signal?.aborted) throw new DOMException('Aborted', 'AbortError');
-      if (kind === 'synthesis') return { text: overrides.failSynthesis ? 'I would rather not.' : '```json\n' + JSON.stringify(SYNTHESIS) + '\n```', completionTokens: 300 };
+      if (kind === 'synthesis') return { text: overrides.failSynthesis ? 'I would rather not.' : '```json\n' + JSON.stringify({ ...SYNTHESIS, ...overrides.synthesis }) + '\n```', completionTokens: 300 };
       if (kind === 'segment') return { text: JSON.stringify(NOTES[Number(chapter![1])]), completionTokens: 120 };
       // An editing request: return the text unchanged.
       return { text: [...user.matchAll(/<p id="(\d+)">([\s\S]*?)<\/p>/g)].map(([, id, t]) => `<p id="${id}">${t}</p>`).join('\n'), completionTokens: 50 };
@@ -110,6 +110,10 @@ async function runDeep(provider: AiProvider) {
 
 describe('the quick check', () => {
   it('finishes at once without any AI and records the voice in numbers', async () => {
+    // The check every book gets at import leaves its status alone...
+    await analyses.start(bookId, { deep: false, automatic: true });
+    expect((await library.getBook(bookId))!.status).toBe('imported');
+    // ...and one the publisher asks for moves the book on.
     const analysis = await analyses.start(bookId, { deep: false });
     expect(analysis).toMatchObject({ status: 'done', deep: false, tasks: 0, result: null });
     expect(analysis.stats.words).toBe(560);
@@ -140,7 +144,7 @@ describe('the full analysis', () => {
     expect(bible.characters.map((c) => [c.name, c.role, c.mentions, c.aliases])).toEqual([
       ['Mara Ellison', 'main', 3, ['Mara']], ['Tomas', 'main', 2, []], ['Agnes Thorne', 'minor', 1, ['Agnes']],
     ]);
-    expect(bible.characters[0].description).toContain('inherited the lighthouse key');
+    expect(bible.characters[0].description).toContain('Inherited the lighthouse key from her grandfather. Stubborn and quiet.');
     expect(bible.characters[0].arc).toBe('From avoiding her inheritance to accepting it.');
     expect(bible.relationships).toEqual([{ a: 'Mara', b: 'Tomas', relation: 'sister and brother' }]);
     expect(bible.settings.map((s) => s.name)).toEqual(['Marrow Point', 'the harbour']);
@@ -246,6 +250,42 @@ describe('the full analysis', () => {
   });
 });
 
+describe('guards against the habits of small models', () => {
+  const passage = (characters: SegmentNotes['characters']): SegmentNotes =>
+    ({ summary: '', characters, relationships: [], settings: [], events: [], terms: [], pov: '', tense: '', tension: 5, pace: 'steady', issues: [] });
+
+  it('files a character under their name, not under a description of them', () => {
+    const bible = emptyBible();
+    mergeSegment(bible, passage([{ name: 'her brother', aliases: ['Tomas', "Mara's brother"], description: 'wants to sell' }, { name: 'the harbour master', aliases: [], description: 'slow-moving' }]), 1);
+    expect(bible.characters[0]).toMatchObject({ name: 'Tomas', aliases: ['her brother', "Mara's brother"] });
+    // With no name to go by, the description is all there is.
+    expect(bible.characters[1].name).toBe('the harbour master');
+    // A later passage that uses the name finds the same entry, and a fuller name replaces a shorter one.
+    mergeSegment(bible, passage([{ name: 'Tomas Ellison', aliases: ['Tomas'], description: 'brings tea' }, { name: 'Agnes Thorne', aliases: ['the harbour master'], description: '' }]), 2);
+    expect(bible.characters.map((c) => c.name)).toEqual(['Tomas Ellison', 'Agnes Thorne']);
+    expect(bible.characters[0].mentions).toBe(2);
+  });
+
+  it('does not let whole-book findings repeat a chapter finding, pile up, or all be "important"', async () => {
+    const synthesis = {
+      summary: 'The Lighthouse at Marrow Point',
+      bookIssues: [
+        { type: 'pacing', severity: 'high', chapter: 0, problem: 'Pacing is uneven.', suggestion: 'x' },
+        { type: 'pacing', severity: 'medium', chapter: 3, problem: 'Pacing again.', suggestion: 'x' },
+        { type: 'weak-ending', severity: 'high', chapter: 4, problem: 'The ending is abrupt.', suggestion: 'x' },
+        { type: 'plot-hole', severity: 'high', chapter: 0, problem: 'Who sent the letter is never hinted.', suggestion: 'x' },
+      ],
+    };
+    const analysis = await runDeep(analyst({ synthesis }));
+    const book = (await analyses.listIssues(bookId)).filter((i) => i.source === 'ai' && i.blockIndex === null);
+    // One pacing finding, lowered from "important". The weak ending of chapter 4 was already raised when that chapter was read.
+    expect(book.map((i) => [i.category, i.severity])).toEqual([['pacing', 'medium'], ['plot-hole', 'high']]);
+    // A summary that only repeats the title is replaced by what the chapter notes say.
+    expect(analysis.result!.synthesis!.summary).toMatch(/^A letter arrives at the dark lighthouse.*Mara refuses to sell/);
+    expect((await analyses.getBible(bookId))!.summary).toBe(analysis.result!.synthesis!.summary);
+  });
+});
+
 describe('the Book Bible in later editing', () => {
   it('is sent with every editing request and protects names', async () => {
     const provider = analyst();
@@ -254,7 +294,7 @@ describe('the Book Bible in later editing', () => {
     expect(bibleNames(bible)).toEqual(expect.arrayContaining(['Mara Ellison', 'Mara', 'Tomas', 'Marrow Point']));
     const brief = bibleBrief(bible);
     expect(brief).toContain('Narration: third person, Mara, past tense.');
-    expect(brief).toContain('Mara Ellison (inherited the lighthouse key from her grandfather)');
+    expect(brief).toContain('Mara Ellison (Inherited the lighthouse key from her grandfather)');
     expect(brief).toContain("Author's voice: Plain, measured sentences");
 
     const edits = new EditStore(db, library);
@@ -320,4 +360,36 @@ describe('reading model output', () => {
     expect(children.messages[1].content).toContain('read-aloud');
     expect(Object.keys((nonfiction.schema as { properties: object }).properties)).not.toContain('pov');
   });
+});
+
+// A run against a real model, skipped unless a server is named:
+//   MF_TEST_AI_URL=http://127.0.0.1:8080 [MF_TEST_AI_KEY=...] npm test -- analysis-deep
+// It prints what the model found, for judging a model by eye, and checks only what any usable model must manage.
+describe.runIf(!!process.env.MF_TEST_AI_URL)('the full analysis with a real model', () => {
+  it('reads the sample novel and fills the Book Bible', async () => {
+    const provider = new HttpProvider({ baseUrl: process.env.MF_TEST_AI_URL!, apiKey: process.env.MF_TEST_AI_KEY, label: 'live model' });
+    const started = Date.now();
+    const analysis = await runDeep(provider);
+    const bible = (await analyses.getBible(bookId))!;
+    const issues = (await analyses.listIssues(bookId)).filter((i) => i.source === 'ai');
+    console.log(
+      [
+        `Live analysis: ${analysis.tasksDone} of ${analysis.tasks} steps in ${Math.round((Date.now() - started) / 1000)} s, ${analysis.tasksFailed} failed.`,
+        `Tension by chapter: ${analysis.result!.chapters.map((c) => c.tension).join(', ')}`,
+        `Characters: ${bible.characters.map((c) => `${c.name} [${c.role}${c.aliases.length ? `, also ${c.aliases.join('/')}` : ''}]`).join('; ')}`,
+        `Places: ${bible.settings.map((x) => x.name).join('; ')}`,
+        `Terms: ${bible.glossary.map((x) => x.term).join('; ')}`,
+        `Narration: ${bible.pov}, ${bible.tense}. Tone: ${bible.tone}`,
+        `Summary: ${bible.summary}`,
+        `Voice: ${bible.voice.description}`,
+        `Ratings: ${analysis.result!.synthesis?.ratings.map((r) => `${r.key} ${r.score}`).join(', ') ?? 'none'}`,
+        `Priorities: ${analysis.result!.synthesis?.priorities.map((x) => x.title).join(' | ') ?? 'none'}`,
+        ...issues.map((i) => `Finding [${i.severity}] ${i.title}: "${i.quote}" ${i.detail}`),
+      ].join('\n'),
+    );
+    expect(analysis.status).toBe('done');
+    expect(analysis.result!.chapters).toHaveLength(4);
+    expect(bible.characters.some((c) => /Mara/.test(c.name))).toBe(true);
+    expect(issues.every((i) => i.blockIndex === null || i.quote.length > 0)).toBe(true);
+  }, 1_200_000);
 });

@@ -118,7 +118,9 @@ function sameCharacter(a: BibleCharacter, name: string, aliases: string[]): bool
 }
 
 function addDescription(existing: string, extra: string, max = 320): string {
-  const clean = extra.trim();
+  // Notes arrive as fragments ("stubborn and quiet"): start each with a capital so they read as sentences.
+  const trimmed = extra.trim();
+  const clean = trimmed.charAt(0).toLocaleUpperCase() + trimmed.slice(1);
   if (!clean) return existing;
   if (!existing) return clean.slice(0, max);
   // Skip a note that mostly repeats what is already recorded.
@@ -127,6 +129,19 @@ function addDescription(existing: string, extra: string, max = 320): string {
   if (incoming.length && incoming.filter((w) => have.has(w)).length / incoming.length >= 0.6) return existing;
   const joined = `${existing.replace(/[.;\s]+$/, '')}. ${clean}`;
   return joined.length <= max ? joined : existing;
+}
+
+/** "Tomas" and "Agnes Thorne" are names. "her brother" and "the harbour master" are descriptions. */
+function isProperName(name: string): boolean {
+  if (/^(?:the|an?|her|his|their|my|our|your)\s/i.test(name) || /['’]s\s/.test(name)) return false;
+  // Every word capitalised, apart from the small words inside names such as "Jean de Florette".
+  return name.split(/\s+/).every((word) => /^\p{Lu}/u.test(word) || /^(?:de|del|della|di|da|van|von|der|den|la|le|du|of|bin|ibn|al|y|e)$/i.test(word));
+}
+
+/** The best name to file a character under: a real name before a description, then the fullest form. */
+function bestName(names: string[], fallback: string): string {
+  const score = (n: string) => (isProperName(n) ? 100 : 0) + n.replace(TITLES, '').trim().split(/\s+/).length;
+  return names.reduce((best, n) => (score(n) > score(best) ? n : best), fallback);
 }
 
 /** Folds the notes from one passage into the Bible being built. */
@@ -139,14 +154,17 @@ export function mergeSegment(bible: BookBible, notes: SegmentNotes, chapterNumbe
       found.mentions++;
       // Keep the fullest form of the name; shorter forms become aliases.
       const names = [found.name, name, ...found.aliases, ...incoming.aliases].map((n) => n.trim()).filter(Boolean);
-      const fullest = names.reduce((best, n) => (n.replace(TITLES, '').split(' ').length > best.replace(TITLES, '').split(' ').length ? n : best), found.name);
+      const fullest = bestName(names, found.name);
       found.aliases = [...new Set(names.filter((n) => key(n) !== key(fullest)))].slice(0, 6);
       found.name = fullest;
       found.description = addDescription(found.description, incoming.description);
     } else {
+      // A model sometimes files a character under a description ("her brother") and gives the name as an alias.
+      const aliases = incoming.aliases.map((a) => a.trim()).filter(Boolean);
+      const filedAs = isProperName(name) ? name : bestName(aliases.filter(isProperName), name);
       bible.characters.push({
-        name, aliases: [...new Set(incoming.aliases.map((a) => a.trim()).filter((a) => a && key(a) !== key(name)))].slice(0, 6), role: 'minor',
-        description: incoming.description.trim().slice(0, 320), arc: '', mentions: 1, firstChapter: chapterNumber,
+        name: filedAs, aliases: [...new Set([name, ...aliases].filter((a) => key(a) !== key(filedAs)))].slice(0, 6), role: 'minor',
+        description: addDescription('', incoming.description), arc: '', mentions: 1, firstChapter: chapterNumber,
       });
     }
   }
@@ -159,7 +177,7 @@ export function mergeSegment(bible: BookBible, notes: SegmentNotes, chapterNumbe
     if (!s.name.trim()) continue;
     const found = bible.settings.find((x) => key(x.name) === key(s.name));
     if (found) found.description = addDescription(found.description, s.description, 240);
-    else bible.settings.push({ name: s.name.trim(), description: s.description.trim().slice(0, 240) });
+    else bible.settings.push({ name: s.name.trim(), description: addDescription('', s.description, 240) });
   }
   for (const e of notes.events) {
     if (e.what.trim()) bible.timeline.push({ chapter: chapterNumber, when: e.when.trim().slice(0, 60), what: e.what.trim().slice(0, 200) });

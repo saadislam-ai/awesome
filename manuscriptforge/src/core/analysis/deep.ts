@@ -250,7 +250,14 @@ export function issueSeverity(value: string): Severity {
 }
 
 /** Only contradictions and holes in the story can be "important"; matters of taste are capped lower. */
-const MAY_BE_HIGH: IssueCategory[] = ['continuity', 'plot-hole', 'gap', 'structure', 'age-fit'];
+/** The kinds of problem that can break a book for a reader. Anything else is at most "worth fixing". */
+export const MAY_BE_HIGH: IssueCategory[] = ['continuity', 'plot-hole', 'gap', 'structure', 'age-fit'];
+
+/** The importance a model gave, lowered where the kind of problem cannot justify "important". */
+export function cappedSeverity(category: IssueCategory, value: string): Severity {
+  const severity = issueSeverity(value);
+  return severity === 'high' && !MAY_BE_HIGH.includes(category) ? 'medium' : severity;
+}
 
 export interface PlacedIssue {
   category: IssueCategory;
@@ -281,8 +288,7 @@ export function placeIssues(segment: Segment, notes: SegmentNotes, kind: BookKin
     if (!found && !['pacing', 'structure', 'gap', 'chapter-repetition', 'age-fit'].includes(category)) continue;
     if (seen.has(category)) continue;
     seen.add(category);
-    let severity = issueSeverity(raw.severity);
-    if (severity === 'high' && !MAY_BE_HIGH.includes(category)) severity = 'medium';
+    const severity = cappedSeverity(category, raw.severity);
     placed.push({ category, severity, blockIndex: found ? segment.paragraphs[found.index].index : null, quote: found ? found.text : '', problem: raw.problem, suggestion: raw.suggestion });
   }
   return placed;

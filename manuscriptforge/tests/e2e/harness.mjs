@@ -74,7 +74,9 @@ export async function start({ port, allowed = [] }) {
       await fn();
     } catch (e) {
       failures++;
-      console.log(`    FAIL  ${e.message.split('\n')[0]}`);
+      console.log(`    FAIL  ${process.env.E2E_VERBOSE ? e.message : e.message.split('\n')[0]}`);
+      // A picture of the screen at the moment a step broke saves a lot of guessing.
+      await page.screenshot({ path: join(out, `failed-step-${String(stepNumber).padStart(2, '0')}.png`) }).catch(() => undefined);
     }
   };
   const finish = async () => {

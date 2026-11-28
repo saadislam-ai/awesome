@@ -1,7 +1,7 @@
 import { AiError, isAbort, type AiProvider } from '../core/ai/provider';
 import { assignRoles, emptyBible, keepLockedEntries, mergeSegment, type BookBible } from '../core/analysis/bible';
 import {
-  analyseSegment, bookIssueCategory, DEFAULT_SEGMENT_WORDS, issueSeverity, placeIssues, segmentChapter, synthesise, type BookKind, type Segment, type Synthesis,
+  analyseSegment, bookIssueCategory, cappedSeverity, DEFAULT_SEGMENT_WORDS, placeIssues, segmentChapter, synthesise, type BookKind, type Segment, type Synthesis,
 } from '../core/analysis/deep';
 import { findIssues } from '../core/analysis/rules';
 import { computeStats, contentChapters, type AnalysisChapter } from '../core/analysis/stats';
@@ -131,7 +131,7 @@ export class AnalysisStore implements WorkSource<Analysis> {
   }
 
   /** Runs the quick check now and, for a full analysis, queues the AI reading. Replaces any earlier analysis of the book. */
-  async start(bookId: string, options: { deep: boolean; model?: string; segmentWords?: number }): Promise<Analysis> {
+  async start(bookId: string, options: { deep: boolean; model?: string; segmentWords?: number; /** Set for the check made by itself at import: the book stays "Imported". */ automatic?: boolean }): Promise<Analysis> {
     const { book, chapters } = await this.input(bookId);
     const analysisInput = { language: book.language, bookType: book.bookType, chapters };
     const stats = computeStats(analysisInput);
@@ -147,8 +147,9 @@ export class AnalysisStore implements WorkSource<Analysis> {
         params: [id, bookId, options.deep ? 'queued' : 'done', options.deep ? 1 : 0, options.model ?? '', await this.library.textSignature(bookId), JSON.stringify(stats), JSON.stringify(draft), now, options.deep ? null : now],
       },
       ...issues.map((issue, position) => issueInsert(bookId, id, position, issue)),
-      { sql: "UPDATE books SET status = 'analyzed' WHERE id = ? AND status = 'imported'", params: [bookId] },
     ];
+    // A book moves on to "Analyzed" when the publisher asks for an analysis, not for the check every import gets.
+    if (!options.automatic) statements.push({ sql: "UPDATE books SET status = 'analyzed' WHERE id = ? AND status = 'imported'", params: [bookId] });
     if (options.deep) {
       let position = 0;
       contentChapters(chapters).forEach((chapter, index) => {
@@ -189,6 +190,12 @@ export class AnalysisStore implements WorkSource<Analysis> {
   /** The current analysis of a book, if it has one. */
   async latest(bookId: string): Promise<Analysis | null> {
     const rows = await this.db.select<AnalysisRow>(`${SELECT} WHERE a.book_id = ? ORDER BY a.created_at DESC, a.rowid DESC LIMIT 1`, [bookId]);
+    return rows[0] ? toAnalysis(rows[0]) : null;
+  }
+
+  /** An analysis that is waiting, running or on hold, if there is one. */
+  async active(): Promise<Analysis | null> {
+    const rows = await this.db.select<AnalysisRow>(`${SELECT} WHERE a.status IN ('running', 'queued', 'paused') ORDER BY a.created_at, a.rowid LIMIT 1`);
     return rows[0] ? toAnalysis(rows[0]) : null;
   }
 
@@ -320,15 +327,25 @@ export class AnalysisStore implements WorkSource<Analysis> {
         // The chapter notes are still worth keeping when the final assessment fails.
         failure = e;
       }
+      // A model asked for the book in a few sentences sometimes just repeats the title: fall back on the chapter notes.
+      if (synthesis && synthesis.summary.trim().split(/\s+/).length < 8) {
+        synthesis.summary = sorted.map((c) => c.summary.split(/(?<=[.!?])\s/)[0]).filter(Boolean).join(' ').slice(0, 600);
+      }
       const position = await this.issueCount(job.id);
-      const bookIssues: Issue[] = (synthesis?.bookIssues ?? []).map((raw) => {
+      // Whole-book findings: one per kind, and not where the reading of that chapter already raised the same thing.
+      const raised = new Set((await this.db.select<{ category: string; chapter_id: string | null }>("SELECT category, chapter_id FROM issues WHERE analysis_id = ? AND source = 'ai'", [job.id])).map((r) => `${r.category}|${r.chapter_id ?? ''}`));
+      const kinds = new Set<string>();
+      const bookIssues: Issue[] = [];
+      for (const raw of synthesis?.bookIssues ?? []) {
         const category = bookIssueCategory(kind, raw.type);
         const chapter = raw.chapter ? sorted.find((c) => c.number === raw.chapter) : undefined;
-        return {
-          category, severity: issueSeverity(raw.severity), chapterId: chapter?.chapterId ?? null, blockIndex: null, quote: '',
+        if (kinds.has(category) || (chapter && raised.has(`${category}|${chapter.chapterId}`))) continue;
+        kinds.add(category);
+        bookIssues.push({
+          category, severity: cappedSeverity(category, raw.severity), chapterId: chapter?.chapterId ?? null, blockIndex: null, quote: '',
           title: `${CATEGORY_INFO[category].label}${chapter ? ` in ${chapter.title}` : ' across the book'}`, detail: raw.problem, suggestion: raw.suggestion, source: 'ai',
-        };
-      });
+        });
+      }
       await this.finish({ ...job }, synthesis, bookIssues.map((issue, i) => issueInsert(job.bookId, job.id, position + i, issue)), draft);
       await this.db.execute('UPDATE analysis_tasks SET status = ?, tokens = ?, ms = ?, error = ? WHERE id = ?', [
         failure ? 'failed' : 'done', tokens, Date.now() - started, failure ? (failure instanceof Error ? failure.message : String(failure)) : null, task.id,

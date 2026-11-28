@@ -1,5 +1,6 @@
 import { AlertTriangle, ArrowUpToLine, Scissors } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { useAi } from '../../app/ai';
 import { useApp } from '../../app/context';
 import {
   detectChapters,
@@ -39,6 +40,8 @@ const AUTO_LABELS: Record<Exclude<SplitStrategy, 'auto'>, string> = {
 
 export function ImportReview({ pending, onDone, onCancel }: { pending: PendingImport; onDone(bookId: string): void; onCancel(): void }) {
   const { library, refreshBooks, notify, reportError } = useApp();
+  const { startAnalysis, canRunAi } = useAi();
+  const [fullAnalysis, setFullAnalysis] = useState(false);
   const { result } = pending;
   const hints = useMemo(() => ({ title: result.meta.title, author: result.meta.author }), [result]);
   const initial = useMemo(() => detectChapters(result.blocks, 'auto', hints), [result, hints]);
@@ -88,6 +91,9 @@ export function ImportReview({ pending, onDone, onCancel }: { pending: PendingIm
       await refreshBooks();
       notify('success', `"${book.title}" was added to the library.`);
       onDone(book.id);
+      // Every new book gets the quick check at once, so the Analysis screen is never empty.
+      // A failure here is reported by startAnalysis and does not undo the import.
+      void startAnalysis(book.id, fullAnalysis && canRunAi, true);
     } catch (e) {
       reportError('import', e, 'The book could not be saved.');
       setSaving(false);
@@ -105,6 +111,10 @@ export function ImportReview({ pending, onDone, onCancel }: { pending: PendingIm
           <span className="push-left muted">
             {formatCount(totalWords)} words in {chapters.length} chapter{chapters.length === 1 ? '' : 's'}. The original file is kept untouched.
           </span>
+          <label className="check-inline" title={canRunAi ? 'The AI reads the whole book in the background and builds the Book Bible. You can pause it at any time.' : 'Set up an AI model under Settings to use this.'}>
+            <input type="checkbox" checked={fullAnalysis && canRunAi} disabled={!canRunAi} onChange={(e) => setFullAnalysis(e.target.checked)} data-testid="import-full-analysis" />
+            Start the full AI analysis after import
+          </label>
           <Button onClick={onCancel}>Cancel</Button>
           <Button variant="primary" onClick={save} disabled={saving || !form.title.trim()} data-testid="import-confirm">
             {saving ? 'Adding…' : 'Add to library'}

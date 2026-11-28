@@ -1,9 +1,14 @@
+import { buildReport } from '../core/analysis/report';
 import { diffText } from '../core/edit/diff';
 import { editChunk } from '../core/edit/pipeline';
 import { exportBook } from '../core/export';
+import { renderPdf, reportPdfDefinition } from '../core/export/pdf';
 import { detectChapters, importManuscript } from '../core/import';
 import { blockText, paragraph } from '../core/model/blocks';
+import { AnalysisStore } from '../data/analysis';
 import { Library } from '../data/library';
+import { JobRunner } from '../data/runner';
+import { loadPdfFonts } from '../features/export/pdf-fonts';
 import type { Platform } from '../platform';
 
 export interface CheckStep {
@@ -121,6 +126,26 @@ export async function runSelfCheck(platform: Platform, library: Library): Promis
     return `Saved ${saved}.`;
   });
 
+  const analyses = new AnalysisStore(platform.db, library);
+  const reportFor = async () => {
+    const book = (await library.getBook(bookId!))!;
+    const analysis = (await analyses.latest(bookId!))!;
+    return buildReport({
+      book: { title: book.title, author: book.author, language: book.language, bookType: book.bookType }, stats: analysis.stats, chapters: analysis.result?.chapters ?? [],
+      synthesis: analysis.result?.synthesis ?? null, issues: await analyses.listIssues(bookId!), bible: await analyses.getBible(bookId!), model: analysis.model, date: new Date(),
+    });
+  };
+
+  await step('Quick check and PDF report', async () => {
+    expect(!!bookId, 'The sample book was not created.');
+    const analysis = await analyses.start(bookId!, { deep: false });
+    expect(analysis.status === 'done' && analysis.stats.words > 20 && analysis.stats.chapters.length === 2, `Unexpected statistics: ${analysis.stats.words} words in ${analysis.stats.chapters.length} chapters.`);
+    const pdf = await renderPdf(reportPdfDefinition(await reportFor()), await loadPdfFonts());
+    expect(new TextDecoder().decode(pdf.subarray(0, 5)) === '%PDF-' && pdf.length > 10_000, 'The PDF report was not produced.');
+    if (platform.info.selftest) expect(!!(await platform.saveFile('self-check-report.pdf', 'pdf', pdf)), 'The PDF report was not saved.');
+    return `${analysis.stats.words} words analysed, ${(await analyses.listIssues(bookId!)).length} findings, PDF report of ${Math.round(pdf.length / 1024)} KB.`;
+  });
+
   const ai = platform.ai;
   if (ai) {
     await step('AI engine', async () => {
@@ -135,7 +160,8 @@ export async function runSelfCheck(platform: Platform, library: Library): Promis
 
     const modelPath = platform.info.selftestModel;
     if (modelPath) {
-      await step('AI model loads and edits', async () => {
+      await step('AI model loads, edits and analyses', async () => {
+        let analysisNote = '';
         const [engine] = await ai.findEngines();
         const [model] = await ai.listModels([modelPath]);
         expect(!!model?.meta, `The model file could not be read: ${model?.problem ?? 'not found'}`);
@@ -160,7 +186,18 @@ export async function runSelfCheck(platform: Platform, library: Library): Promis
             .chat({ messages: [{ role: 'user', content: 'Count from 1 to 400, one number per line.' }], maxTokens: 1500 }, { signal: stop.signal, onToken: () => ++pieces === 10 && stop.abort() })
             .then(() => false, (e) => (e as { name?: string })?.name === 'AbortError');
           expect(cancelled, 'A running reply could not be cancelled.');
-          return `${model.meta!.name} (${model.meta!.quantization}) at ${result.tokensPerSecond?.toFixed(1) ?? '?'} tokens per second. Changes proposed: ${fixes.length ? fixes.join('; ') : 'none'}. Cancelling works.`;
+
+          // The full analysis: the model reads the sample book and the Book Bible is written.
+          const queued = await analyses.start(bookId!, { deep: true, model: provider.label });
+          const runner = new JobRunner([analyses], () => provider);
+          runner.kick();
+          await runner.idle();
+          const analysed = (await analyses.get(queued.id))!;
+          expect(analysed.status === 'done', `The full analysis stopped early: ${analysed.error ?? runner.state.problem ?? analysed.status}`);
+          expect(analysed.tasksDone >= analysed.tasks - 1 && (analysed.result?.chapters.length ?? 0) === 2, `The model's notes could not be used for ${analysed.tasksFailed} of ${analysed.tasks} steps.`);
+          const bible = await analyses.getBible(bookId!);
+          analysisNote = ` Full analysis: ${analysed.tasksDone} of ${analysed.tasks} steps, assessment ${analysed.result?.synthesis ? 'written' : 'not usable'}, Bible summary ${bible?.summary ? 'written' : 'empty'}.`;
+          return `${model.meta!.name} (${model.meta!.quantization}) at ${result.tokensPerSecond?.toFixed(1) ?? '?'} tokens per second. Changes proposed: ${fixes.length ? fixes.join('; ') : 'none'}. Cancelling works.${analysisNote}`;
         } finally {
           await ai.stopEngine();
         }

@@ -2,7 +2,7 @@
 
 An offline book improvement and editing studio for publishers, for Windows and macOS.
 
-**Status: Milestone 2 of 6.** You can import manuscripts, manage a library, edit, keep a full version history, have a local AI model proofread or line edit a book, review every proposed change, and export.
+**Status: Milestone 3 of 6.** You can import manuscripts, manage a library, edit, keep a full version history, have a local AI model analyse a book and proofread or line edit it, review every proposed change, and export the book and its analysis report.
 
 ## What works today
 
@@ -15,7 +15,12 @@ An offline book improvement and editing studio for publishers, for Windows and m
 - **Review.** Nothing in the book changes until you accept it. Every proposed change is shown as a tracked change, inline or side by side, by word, sentence or paragraph. Accept, reject, undo, edit the proposal, or have the AI redo it with a note. Accept or reject in bulk by kind of change (spelling, punctuation, wording and so on).
 - **Safety checks.** Each proposal is checked for changed names, changed numbers, lost italics, changed quotation marks and suspicious length changes, and flagged for you. Replies that cannot be trusted are discarded and the author's text is kept.
 - **Model manager.** Detects memory and graphics card, recommends models that fit, downloads them (with pause and resume), loads them and measures their speed.
-- **Export** to Word (clean, or with real tracked changes against any earlier version), EPUB, Markdown and plain text.
+- **Analysis, quick check.** Runs by itself when a book is imported and takes about a second even for a 300,000-word book, with no AI: word, sentence and chapter counts, reading level (school grade and reading ease for English, LIX for every language), share of dialogue, a pace estimate per chapter, and language findings such as repeated words and phrases, overlong sentences, filler, adverb and passive overuse, clichés, doubled words and tense slips. Children's books also get reading age, fit to the usual length of the format, rhyme and refrains.
+- **Analysis, full.** The AI model reads the book passage by passage, keeping a running summary so that it knows what came before, and then assesses the whole. Fiction: structure, plot holes, continuity, point of view, pacing and tension by chapter, character arcs, showing versus telling, openings and endings. Non-fiction: order and flow of the argument, gaps, repetition between chapters, claims that need support, missing examples. Children's books: fit for the age group, read-aloud rhythm. It can be paused, resumed and stopped, and survives closing the app.
+- **Dashboard.** Scores, charts by chapter (tension, length, pace, reading level, dialogue), strengths and a ranked list of what to fix first. Every finding has an importance, an explanation, a suggestion and a **Show in text** button that opens the chapter with the words selected. Findings can be filtered and dismissed.
+- **Book Bible.** Characters (with other names, descriptions and arcs), relationships, places, timeline, special terms, themes, point of view, tense, tone and a Voice Profile of how the author writes. It is filled in by the full analysis, can be edited by hand (your corrections are kept when the analysis runs again), is shown beside the editor, and is given to the AI with every later editing request so that names, facts and voice stay consistent.
+- **Reports.** The whole analysis as a PDF or Word document, with the charts, ready to file or send to an author.
+- **Export** to Word (clean, or with real tracked changes against any earlier version), EPUB, PDF, Markdown and plain text.
 - **Per-book instructions and a reusable style guide** that the AI follows.
 - **Themes** (light, sepia, dark), adjustable manuscript font, size and line width.
 - **Safety.** Daily automatic backups, the original file stored untouched, and no network use except when you choose to download a model.
@@ -94,7 +99,7 @@ Close the app and copy this folder to back up or move your whole library. To sto
 ```
 npm test                 # unit tests: importers, tracked changes, editing pipeline, exports, library
 npm run test:rust        # the Rust shell: storage, model files, downloads, engine
-npm run build && npm run test:e2e                              # the interface, in a real browser engine
+npm run build && npm run test:e2e                              # the interface, in a real browser engine (library, AI editing, analysis)
 npx tauri build --debug --no-bundle && npm run test:desktop    # launches the real app and runs its self-check
 ```
 
@@ -103,7 +108,9 @@ Some tests use a real engine and model when you point to them, and are skipped o
 ```
 # Rust: start a real engine, stream a reply, cancel one, read a real model header
 MF_TEST_LLAMA_SERVER=/path/to/llama-server MF_TEST_MODEL=/path/to/model.gguf npm run test:rust
-# Desktop app: load a real model and run a real edit inside the app
+# Analysis: have a real model (any OpenAI-compatible server, such as llama-server) read the sample novel, and print what it found
+MF_TEST_AI_URL=http://127.0.0.1:8080 npm test -- analysis-deep
+# Desktop app: load a real model, run a real edit and a real analysis inside the app
 MANUSCRIPTFORGE_LLAMA_SERVER=/path/to/llama-server MF_SELFTEST_MODEL=/path/to/model.gguf npm run test:desktop
 ```
 
@@ -112,9 +119,13 @@ The app also has a self-check you can run yourself under **Settings, Self-check*
 ## Known limits in this milestone
 
 - **AI quality depends on the model.** Small models (under about 12B) catch typos but are timid or unreliable at rewording, and sometimes drop italics (the app puts those back). Use a 24B or larger model for line editing. Quality in languages other than English varies by model.
-- **Only proofreading and line editing so far.** Developmental editing and "Expand and lengthen" arrive in Milestone 4. The Book Bible that keeps long books consistent arrives in Milestone 3; until then each passage is edited with only the preceding paragraphs as context.
+- **The analysis is one reader's opinion.** Ratings, tension scores and AI findings come from the model you loaded, and a small model over-reports problems and misses subtle ones. The app guards against the worst of it (a finding must quote words that really are in the passage, or it is dropped), but treat the result as a well-read assistant's notes, not a verdict. Use a 24B or larger model for analysis you intend to act on.
+- **Continuity checking has limits.** The model reads each passage with a summary of the story so far and the list of known characters, not the full earlier text. It catches contradictions with what the summary recorded, and can miss ones that hinge on a small detail many chapters back.
+- **Word-list checks are English only** (adverbs, passive voice, filler, clichés, reading grade). Counts, LIX readability, repetition, sentence length and the whole AI analysis work in other languages.
+- **PDF files use one font family that covers Latin, Greek and Cyrillic alphabets.** For Chinese, Japanese, Korean, Arabic, Hebrew, Thai and Indic scripts the app warns you and you should export to Word or EPUB.
+- **Editing is still proofreading and line editing.** Developmental editing, "Expand and lengthen" and the fact-check panel for non-fiction arrive in Milestone 4. The submission assessment with a publish, revise or decline recommendation and the editorial letter arrive in Milestone 5.
 - **Reasons are per paragraph.** Each paragraph shows the model's one-line reason, and each change shows its kind. The model is not asked to justify every single word.
-- **No cloud AI yet** (Milestone 6), and **no PDF export yet** (Milestone 3, with the analysis reports).
+- **No cloud AI yet** (Milestone 6).
 - **If the app is force-closed** while a model is loaded, the engine program (llama-server) can stay running and hold memory until you end it in Task Manager. Closing the app normally always stops it.
 - Images are not imported. The app works on the text of a book.
 - Word footnotes become numbered notes in a "Notes" chapter. RTF footnotes are skipped, with a warning.
@@ -126,7 +137,7 @@ The app also has a self-check you can run yourself under **Settings, Self-check*
 
 1. **Done:** project setup, import, library, editor, version history.
 2. **Done:** local AI engine (llama.cpp, Vulkan), model manager, proofread and line edit with tracked changes, exports.
-3. Analysis engine, Book Bible, Voice Profile, reports, PDF export.
+3. **Done:** analysis engine, Book Bible, Voice Profile, dashboard, reports, PDF export.
 4. Developmental editing and the Expand and lengthen workflow.
 5. New Author Submissions workflow, assessments, editorial letters.
 6. Cloud mode, overnight batch mode, multilingual polish, signed installers.

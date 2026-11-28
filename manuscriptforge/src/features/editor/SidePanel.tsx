@@ -1,6 +1,8 @@
-import { Camera, Eye, GitCompare, History, Lock, MoreHorizontal, Pencil, RotateCcw, Trash2 } from 'lucide-react';
+import { Camera, Eye, GitCompare, Lock, MoreHorizontal, Pencil, RotateCcw, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useAi } from '../../app/ai';
 import { useApp } from '../../app/context';
+import type { BookBible } from '../../core/analysis/bible';
 import type { Book, Version, VersionChapter } from '../../core/model/book';
 import { formatCount } from '../../core/text/words';
 import { Button, ConfirmDialog, Field, Menu, Modal, Pill, Spinner } from '../../ui/components';
@@ -8,7 +10,7 @@ import { formatDateTime, MOD } from '../../ui/format';
 import { BlocksView } from './BlocksView';
 import { CompareDialog } from './CompareDialog';
 
-type Tab = 'notes' | 'instructions' | 'history';
+type Tab = 'notes' | 'instructions' | 'bible' | 'history';
 
 interface Props {
   book: Book;
@@ -294,6 +296,66 @@ function HistoryTab({ book, versionsKey, flush, onRestored, snapshotRequest }: P
   );
 }
 
+/** The Book Bible at a glance while editing: who is who, and how things are spelled. */
+function BibleTab({ book }: { book: Book }) {
+  const { setView } = useApp();
+  const { analyses, suggestionsVersion } = useAi();
+  const [bible, setBible] = useState<BookBible | null | undefined>(undefined);
+
+  useEffect(() => {
+    let cancelled = false;
+    analyses.getBible(book.id).then((stored) => !cancelled && setBible(stored)).catch(() => !cancelled && setBible(null));
+    return () => {
+      cancelled = true;
+    };
+  }, [analyses, book.id, suggestionsVersion]);
+
+  if (bible === undefined) return null;
+  const people = bible?.characters.filter((c) => c.name) ?? [];
+  const hasContent = !!bible && (people.length > 0 || bible.settings.length > 0 || bible.glossary.length > 0 || !!bible.summary);
+  return (
+    <div className="bible-tab" data-testid="side-bible">
+      {!hasContent && (
+        <p className="fine-print">
+          The Book Bible lists the people, places and special words of this book, so that edits stay consistent. Run the full analysis to fill it in, or add entries yourself.
+        </p>
+      )}
+      {bible?.summary && <p>{bible.summary}</p>}
+      {(bible?.pov || bible?.tense) && <p className="muted">{[bible.pov, bible.tense && `${bible.tense} tense`].filter(Boolean).join(', ')}</p>}
+      {people.length > 0 && (
+        <>
+          <h4>{book.bookType === 'nonfiction' ? 'People' : 'Characters'}</h4>
+          <dl className="bible-brief">
+            {people.slice(0, 40).map((c, i) => (
+              <div key={i}>
+                <dt>{c.name}{c.aliases.length > 0 && <span className="muted"> ({c.aliases.join(', ')})</span>}</dt>
+                {c.description && <dd>{c.description}</dd>}
+              </div>
+            ))}
+          </dl>
+        </>
+      )}
+      {bible && bible.settings.length > 0 && (
+        <>
+          <h4>Places</h4>
+          <dl className="bible-brief">
+            {bible.settings.slice(0, 30).map((s, i) => <div key={i}><dt>{s.name}</dt>{s.description && <dd>{s.description}</dd>}</div>)}
+          </dl>
+        </>
+      )}
+      {bible && bible.glossary.length > 0 && (
+        <>
+          <h4>Special words</h4>
+          <dl className="bible-brief">
+            {bible.glossary.slice(0, 40).map((t, i) => <div key={i}><dt>{t.term}</dt>{t.meaning && <dd>{t.meaning}</dd>}</div>)}
+          </dl>
+        </>
+      )}
+      <Button size="sm" onClick={() => setView('analysis')}>{hasContent ? 'Edit in Analysis' : 'Open Analysis'}</Button>
+    </div>
+  );
+}
+
 export function SidePanel(props: Props) {
   const { book, snapshotRequest } = props;
   const { library, refreshBooks, reportError } = useApp();
@@ -315,9 +377,8 @@ export function SidePanel(props: Props) {
   return (
     <aside className="side-panel" aria-label="Book panel">
       <div className="side-tabs" role="tablist">
-        {([['notes', 'Notes'], ['instructions', 'Instructions'], ['history', 'History']] as const).map(([value, label]) => (
+        {([['notes', 'Notes'], ['instructions', 'Rules'], ['bible', 'Bible'], ['history', 'History']] as const).map(([value, label]) => (
           <button key={value} role="tab" aria-selected={tab === value} className={tab === value ? 'is-active' : ''} onClick={() => setTab(value)}>
-            {value === 'history' && <History size={14} />}
             {label}
           </button>
         ))}
@@ -332,8 +393,8 @@ export function SidePanel(props: Props) {
         {tab === 'instructions' && (
           <>
             <p className="fine-print">
-              Rules the AI editor must follow for this book, for example "British spelling" or "keep the humor". AI editing arrives in the
-              next milestone, and it will read these.
+              Rules the AI must follow for this book, for example "British spelling" or "keep the humor". They are sent with every editing
+              and analysis request.
             </p>
             <AutosaveText
               key={`instructions-${book.id}`}
@@ -355,6 +416,7 @@ export function SidePanel(props: Props) {
             </label>
           </>
         )}
+        {tab === 'bible' && <BibleTab book={book} />}
         {tab === 'history' && <HistoryTab {...props} />}
       </div>
     </aside>

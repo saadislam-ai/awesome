@@ -2,11 +2,14 @@ import { Download, FileText } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useAi } from '../../app/ai';
 import { useApp } from '../../app/context';
-import { compareSummary, EXPORT_FORMATS, exportBook, type ExportChapter, type ExportFormat } from '../../core/export';
+import { compareSummary, EXPORT_FORMATS, exportBook, exportFileName, type ExportChapter, type ExportFormat } from '../../core/export';
+import { manuscriptPdfDefinition, renderPdf, unsupportedScript } from '../../core/export/pdf';
+import { blockText } from '../../core/model/blocks';
 import type { Book, Version } from '../../core/model/book';
 import { formatCount } from '../../core/text/words';
 import { Button, Field } from '../../ui/components';
 import { formatDateTime } from '../../ui/format';
+import { loadPdfFonts } from './pdf-fonts';
 
 export function ExportView({ book }: { book: Book }) {
   const { library, platform, notify, reportError, refreshBooks } = useApp();
@@ -49,13 +52,22 @@ export function ExportView({ book }: { book: Book }) {
 
   const summary = useMemo(() => (format === 'docx-tracked' && chapters && older ? compareSummary(older, chapters) : null), [format, chapters, older]);
   const chosen = EXPORT_FORMATS.find((f) => f.value === format)!;
+  // The PDF font covers Latin, Greek and Cyrillic: say so before a file with empty boxes is made.
+  const pdfProblem = useMemo(
+    () => (format === 'pdf' && chapters ? unsupportedScript(`${book.title} ${chapters.map((c) => c.blocks.slice(0, 40).map(blockText).join(' ')).join(' ')}`) : null),
+    [format, chapters, book.title],
+  );
 
   const run = async () => {
     if (!chapters) return;
     setBusy(true);
     setSaved(null);
     try {
-      const result = exportBook({ title: book.title, author: book.author, language: book.language, chapters }, format, format === 'docx-tracked' ? (older ?? undefined) : undefined);
+      const content = { title: book.title, author: book.author, language: book.language, chapters };
+      const result =
+        format === 'pdf'
+          ? { fileName: exportFileName(book.title, 'pdf'), extension: 'pdf', bytes: await renderPdf(manuscriptPdfDefinition(content), await loadPdfFonts()) }
+          : exportBook(content, format, format === 'docx-tracked' ? (older ?? undefined) : undefined);
       const path = await platform.saveFile(result.fileName, result.extension, result.bytes);
       if (path) {
         setSaved(path);
@@ -124,7 +136,11 @@ export function ExportView({ book }: { book: Book }) {
             {pending} AI suggestion{pending === 1 ? ' is' : 's are'} still waiting in Review. Undecided suggestions are not part of the export: the author's wording is used for those.
           </p>
         )}
-        <p className="fine-print">PDF export arrives in Milestone 3, together with the analysis reports.</p>
+        {pdfProblem && (
+          <p className="notice notice-warning" data-testid="pdf-warning">
+            This book contains {pdfProblem}, which the PDF font cannot print. Those characters would come out as empty boxes. Use Word or EPUB for this book.
+          </p>
+        )}
 
         <div className="row-start">
           <Button variant="primary" icon={<Download size={16} />} disabled={busy || !chapters || (format === 'docx-tracked' && !older)} onClick={() => void run()} data-testid="export-run">

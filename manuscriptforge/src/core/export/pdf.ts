@@ -139,9 +139,10 @@ function reportBlock(block: ReportBlock): Node[] {
     case 'p':
       return [{ text: block.text, margin: [0, 3, 0, 5], ...(block.muted ? { color: '#666666', fontSize: 9 } : {}) }];
     case 'bullets':
-      return [{ ul: block.items, margin: [4, 0, 0, 8] }];
+      // The PDF library rewrites the lists it is given, so it gets its own copies, never the report's.
+      return [{ ul: block.items.map((text) => ({ text })), margin: [4, 0, 0, 8] }];
     case 'numbered':
-      return [{ ol: block.items, margin: [4, 0, 0, 8] }];
+      return [{ ol: block.items.map((text) => ({ text })), margin: [4, 0, 0, 8] }];
     case 'facts':
       return [{ table: { widths: [120, '*'], body: block.rows.map(([k, v]) => [{ text: k, color: '#666666' }, v]) }, layout: 'noBorders', margin: [0, 2, 0, 8] }];
     case 'table': {

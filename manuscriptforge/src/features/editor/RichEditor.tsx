@@ -19,6 +19,8 @@ export interface RichEditorHandle {
   /** The stored blocks covered by the selection, or null when nothing is selected. */
   selectionRange(): { from: number; to: number; words: number } | null;
   focus(): void;
+  /** Scrolls to a stored block and selects the quoted words in it, if they are found. */
+  reveal(blockIndex: number | null, quote: string): void;
 }
 
 interface Props {
@@ -141,6 +143,53 @@ export const RichEditor = forwardRef<RichEditorHandle, Props>(function RichEdito
         return words ? { from: blockIndexAt($from), to: blockIndexAt($to), words } : null;
       },
       focus: () => editor?.commands.focus(),
+      reveal: (blockIndex, quote) => {
+        if (!editor) return;
+        // Walk the document's text blocks in the same order as the stored blocks.
+        const blocks: { pos: number; text: string }[] = [];
+        let counted = 0;
+        editor.state.doc.forEach((node, offset) => {
+          if (node.type.name === 'horizontalRule') {
+            counted++;
+            return;
+          }
+          if (node.isTextblock) {
+            blocks[counted++] = { pos: offset, text: node.textBetween(0, node.content.size, undefined, '\n') };
+            return;
+          }
+          node.descendants((child, childPos) => {
+            if (!child.isTextblock) return true;
+            blocks[counted++] = { pos: offset + 1 + childPos, text: child.textBetween(0, child.content.size, undefined, '\n') };
+            return false;
+          });
+        });
+        const normalise = (text: string) => text.toLowerCase().replace(/[“”„«»"]/g, '"').replace(/[‘’]/g, "'");
+        // Long quotes are stored cut short with an ellipsis: search for the part that is there.
+        const needle = normalise(quote.trim().replace(/…$/, '').trimEnd());
+        const candidates = blockIndex !== null && blocks[blockIndex] ? [blocks[blockIndex], ...blocks] : blocks;
+        let target = blockIndex !== null ? blocks[blockIndex] : undefined;
+        let from = -1;
+        if (needle) {
+          for (const block of candidates) {
+            if (!block) continue;
+            const at = normalise(block.text).indexOf(needle);
+            if (at >= 0) {
+              target = block;
+              from = at;
+              break;
+            }
+          }
+        }
+        if (!target) return;
+        const start = target.pos + 1 + Math.max(from, 0);
+        const end = from >= 0 ? start + needle.length : start;
+        editor.chain().focus().setTextSelection({ from: start, to: end }).scrollIntoView().run();
+        // Bring the passage to the middle of the screen rather than its edge.
+        window.setTimeout(() => {
+          const dom = editor.view.domAtPos(start).node;
+          (dom instanceof Element ? dom : dom.parentElement)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }, 30);
+      },
       };
     },
     [editor, initialBlocks],

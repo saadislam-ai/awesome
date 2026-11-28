@@ -19,7 +19,7 @@ const AUTOSAVE_DELAY_MS = 700;
 const AUTO_SNAPSHOT_INTERVAL_MS = 10 * 60 * 1000;
 
 export function EditorView({ book }: { book: Book }) {
-  const { library, platform, refreshBooks, reportError, notify, focusMode, setFocusMode, pendingChapterId, clearPendingChapter, setView } = useApp();
+  const { library, platform, refreshBooks, reportError, notify, focusMode, setFocusMode, pendingChapterId, pendingPassage, clearPendingChapter, setView } = useApp();
   const { edits, suggestionsVersion } = useAi();
   const [improve, setImprove] = useState<{ selection: { from: number; to: number; words: number } | null } | null>(null);
   const [pendingSuggestions, setPendingSuggestions] = useState(0);
@@ -130,12 +130,15 @@ export function EditorView({ book }: { book: Book }) {
         if (cancelled) return;
         setHeads(list);
         const first = list.find((h) => h.id === pendingChapterId) ?? list[0];
+        const passage = pendingPassage;
         clearPendingChapter();
         if (first) {
           const loaded = await library.getChapter(first.id);
           if (!cancelled && loaded) {
             setChapter(loaded);
             setLoadCount((n) => n + 1);
+            // "Show in text": once the chapter is on screen, go to the passage.
+            if (passage) window.setTimeout(() => editorRef.current?.reveal(passage.blockIndex, passage.quote), 250);
           }
         }
         const made = await library.createSnapshot(book.id, 'Auto-save', 'auto');

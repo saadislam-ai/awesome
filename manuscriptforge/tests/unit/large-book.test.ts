@@ -3,6 +3,7 @@ import initSqlJs from 'sql.js';
 import { expect, it } from 'vitest';
 import { detectChapters, importManuscript } from '../../src/core/import';
 import { paragraph } from '../../src/core/model/blocks';
+import { AnalysisStore } from '../../src/data/analysis';
 import { EditStore } from '../../src/data/edits';
 import { Library } from '../../src/data/library';
 import { MemoryFiles } from '../../src/platform/memory';
@@ -71,7 +72,20 @@ it('handles a 300,000-word book: import, save, edit, snapshot and restore', asyn
   expect(job.words).toBeGreaterThanOrEqual(300_000);
   await time('read job progress', () => edits.getJob(job.id));
 
+  // The quick check of the whole book, then planning the AI reading of it.
+  const analyses = new AnalysisStore(db, library);
+  const quick = await time('quick check', () => analyses.start(book.id, { deep: false }));
+  expect(quick.stats.words).toBeGreaterThanOrEqual(300_000);
+  expect(quick.stats.chapters).toHaveLength(100);
+  await time('list findings', () => analyses.listIssues(book.id));
+  const full = await time('plan full analysis', () => analyses.start(book.id, { deep: true, model: 'test' }));
+  // About 1,200 words per passage, plus one closing step for the whole book.
+  expect(full.tasks).toBeGreaterThan(250);
+  expect(full.tasks).toBeLessThan(420);
+
   console.log('300,000-word book timings (ms):', JSON.stringify(timings));
+  expect(timings['quick check']).toBeLessThan(15000);
+  expect(timings['plan full analysis']).toBeLessThan(20000);
   expect(timings['plan whole-book edit']).toBeLessThan(8000);
   expect(timings['read job progress']).toBeLessThan(500);
   // Generous limits: these guard against accidental slow paths, not exact speed.

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { ImportError, importManuscript } from '../core/import';
 import type { BookCategory } from '../core/model/book';
 import { AiSetup } from '../features/ai/AiSetup';
+import { AnalysisView } from '../features/analysis/AnalysisView';
 import { EditorView } from '../features/editor/EditorView';
 import { ExportView } from '../features/export/ExportView';
 import { ReviewView } from '../features/review/ReviewView';
@@ -14,22 +15,14 @@ import { MOD } from '../ui/format';
 import { useAi } from './ai';
 import { useApp, type ViewName } from './context';
 
-const NAV: { view: ViewName; label: string; icon: ReactNode; milestone?: number }[] = [
+const NAV: { view: ViewName; label: string; icon: ReactNode }[] = [
   { view: 'library', label: 'Library', icon: <LibraryIcon size={18} /> },
-  { view: 'analysis', label: 'Analysis', icon: <BarChart3 size={18} />, milestone: 3 },
+  { view: 'analysis', label: 'Analysis', icon: <BarChart3 size={18} /> },
   { view: 'edit', label: 'Edit', icon: <PenLine size={18} /> },
   { view: 'review', label: 'Review', icon: <GitCompare size={18} /> },
   { view: 'export', label: 'Export', icon: <Download size={18} /> },
   { view: 'settings', label: 'Settings', icon: <Settings size={18} /> },
 ];
-
-const COMING: Partial<Record<ViewName, { title: string; text: string; milestone: number }>> = {
-  analysis: {
-    title: 'Analysis',
-    milestone: 3,
-    text: 'A full report on each book: structure, pacing, consistency, readability and a Book Bible of characters, places and voice. It runs on your own computer.',
-  },
-};
 
 const SHORTCUTS: [string, string][] = [
   [`${MOD}+O`, 'Import a manuscript (in the Library)'],
@@ -37,6 +30,7 @@ const SHORTCUTS: [string, string][] = [
   [`${MOD}+1`, 'Go to the Library'],
   [`${MOD}+2`, 'Go to the editor'],
   [`${MOD}+3`, 'Go to Review'],
+  [`${MOD}+4`, 'Go to Analysis'],
   [`${MOD}+,`, 'Open Settings'],
   [`${MOD}+S`, 'Save now (changes also save by themselves)'],
   [`${MOD}+Shift+S`, 'Save a named snapshot'],
@@ -47,27 +41,14 @@ const SHORTCUTS: [string, string][] = [
   [`${MOD}+/`, 'Show this list'],
 ];
 
-function ComingSoon({ view }: { view: ViewName }) {
-  const info = COMING[view]!;
-  return (
-    <div className="view">
-      <header className="view-header">
-        <div>
-          <h1>{info.title}</h1>
-          <p className="view-sub">Not built yet. This arrives in Milestone {info.milestone}.</p>
-        </div>
-      </header>
-      <div className="view-scroll">
-        <EmptyState title={`${info.title} is coming in Milestone ${info.milestone}`}>{info.text}</EmptyState>
-      </div>
-    </div>
-  );
-}
-
 /** The sidebar's summary of the AI: which model is ready, and any editing in progress. */
 function AiChip() {
-  const { setView } = useApp();
-  const { model, jobs } = useAi();
+  const { setView, openBook } = useApp();
+  const openAnalysis = async (bookId: string) => {
+    await openBook(bookId);
+    setView('analysis');
+  };
+  const { model, jobs, activeAnalysis } = useAi();
   const active = jobs.find((j) => j.status === 'running' || j.status === 'queued');
   const paused = jobs.find((j) => j.status === 'paused');
   return (
@@ -84,6 +65,15 @@ function AiChip() {
       {(active || paused) && (
         <button className="ai-chip-job" onClick={() => setView('review')}>
           {active ? `Editing: ${active.tasksDone} of ${active.tasks} passages` : 'An editing job is on hold'}
+        </button>
+      )}
+      {activeAnalysis && (
+        <button className="ai-chip-job" data-testid="ai-chip-analysis" onClick={() => void openAnalysis(activeAnalysis.bookId)}>
+          {activeAnalysis.status === 'paused'
+            ? 'An analysis is on hold'
+            : activeAnalysis.status === 'queued'
+              ? 'Analysis: waiting to start'
+              : `Analysing: ${activeAnalysis.tasksDone + activeAnalysis.tasksFailed} of ${activeAnalysis.tasks} steps`}
         </button>
       )}
     </div>
@@ -135,6 +125,9 @@ export function Shell() {
       } else if (e.key === '3') {
         e.preventDefault();
         setView('review');
+      } else if (e.key === '4') {
+        e.preventDefault();
+        setView('analysis');
       } else if (e.key === ',') {
         e.preventDefault();
         setView('settings');
@@ -150,19 +143,22 @@ export function Shell() {
   let content: ReactNode;
   if (view === 'library') content = <LibraryView category={shelf} onCategoryChange={setShelf} onImportFile={(file, category) => void importFile(file, category)} />;
   else if (view === 'settings') content = <SettingsView />;
-  else if (view === 'edit' || view === 'review' || view === 'export') {
+  else {
     content = currentBook ? (
-      view === 'edit' ? <EditorView key={currentBook.id} book={currentBook} /> : view === 'review' ? <ReviewView key={currentBook.id} book={currentBook} /> : <ExportView key={currentBook.id} book={currentBook} />
+      view === 'edit' ? <EditorView key={currentBook.id} book={currentBook} />
+      : view === 'review' ? <ReviewView key={currentBook.id} book={currentBook} />
+      : view === 'analysis' ? <AnalysisView key={currentBook.id} book={currentBook} />
+      : <ExportView key={currentBook.id} book={currentBook} />
     ) : (
       <div className="view">
         <div className="view-scroll">
           <EmptyState title="No book is open" action={<Button variant="primary" onClick={() => setView('library')}>Go to the Library</Button>}>
-            Open a book from the Library first. Then you can edit it, review AI suggestions and export it.
+            Open a book from the Library first. Then you can analyse it, edit it, review AI suggestions and export it.
           </EmptyState>
         </div>
       </div>
     );
-  } else content = <ComingSoon view={view} />;
+  }
 
   return (
     <div className={`app ${focusMode && view === 'edit' ? 'is-focus' : ''}`}>
@@ -176,7 +172,6 @@ export function Shell() {
             <button key={item.view} className={`nav-item ${view === item.view ? 'is-active' : ''}`} aria-current={view === item.view ? 'page' : undefined} onClick={() => setView(item.view)}>
               {item.icon}
               <span>{item.label}</span>
-              {item.milestone && <span className="nav-soon">soon</span>}
             </button>
           ))}
         </nav>

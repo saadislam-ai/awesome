@@ -40,7 +40,8 @@ if (process.platform === 'linux' && !process.env.DISPLAY && !process.env.WAYLAND
 }
 
 console.log(`Launching ${binary}`);
-const run = spawnSync(command, args, { env, timeout: 300_000, encoding: 'utf8' });
+// With a real model the app also analyses its sample book, which takes minutes without a graphics card.
+const run = spawnSync(command, args, { env, timeout: process.env.MF_SELFTEST_MODEL ? 1_200_000 : 300_000, encoding: 'utf8' });
 
 const failures = [];
 const check = (ok, message) => {
@@ -67,8 +68,10 @@ check(!existsSync(wal) || statSync(wal).size === 0, 'no unfinished database log 
 check(existsSync(join(dataDir, 'backups')), 'a backup was written');
 const exported = join(exportDir, 'self-check-export.docx');
 check(existsSync(exported) && readFileSync(exported).subarray(0, 2).toString() === 'PK', 'the exported Word file was written to disk');
+const reportPdf = join(exportDir, 'self-check-report.pdf');
+check(existsSync(reportPdf) && readFileSync(reportPdf).subarray(0, 5).toString() === '%PDF-', 'the PDF analysis report was written to disk');
 if (process.env.MF_SELFTEST_MODEL) {
-  check((report?.steps ?? []).some((s) => s.name === 'AI model loads and edits' && s.ok), 'a real model was loaded and produced an edit');
+  check((report?.steps ?? []).some((s) => s.name === 'AI model loads, edits and analyses' && s.ok), 'a real model was loaded, produced an edit and analysed the sample book');
 }
 
 if (failures.length && (run.stdout || run.stderr)) console.log(`\nApp output:\n${(run.stdout + run.stderr).slice(-3000)}`);

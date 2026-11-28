@@ -85,7 +85,7 @@ try {
     await page.getByTestId('import-confirm').click();
     await page.getByTestId('book-card').first().click();
     await page.locator('.ProseMirror').waitFor();
-    await page.getByRole('tab', { name: 'Instructions' }).click();
+    await page.getByRole('tab', { name: 'Rules' }).click();
     await page.getByLabel('Instructions for this book').fill('Keep the old-fashioned tone');
     await page.getByRole('tab', { name: 'Notes' }).click();
     await page.getByRole('button', { name: 'Improve with AI' }).click();

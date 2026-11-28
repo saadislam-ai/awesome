@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/ai.mjs",
+    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/ai.mjs && node tests/e2e/analysis.mjs",
     "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml --lib",
     "fixtures": "node tests/fixtures/build-fixtures.mjs",
     "tauri": "tauri",

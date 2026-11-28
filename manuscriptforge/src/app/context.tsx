@@ -40,7 +40,9 @@ interface AppState {
   view: ViewName;
   setView(view: ViewName): void;
   currentBook: Book | null;
-  openBook(id: string, chapterId?: string): Promise<void>;
+  openBook(id: string, chapterId?: string, passage?: { blockIndex: number | null; quote: string }): Promise<void>;
+  /** A passage to scroll to and select when the editor opens, set by "Show in text". */
+  pendingPassage: { blockIndex: number | null; quote: string } | null;
   closeBook(): void;
   /** A chapter to show when the editor opens, set by search results. */
   pendingChapterId: string | null;
@@ -97,6 +99,7 @@ export function AppProvider({ platform, library, initialBooks, initialAppearance
   const [view, setView] = useState<ViewName>('library');
   const [currentBookId, setCurrentBookId] = useState<string | null>(null);
   const [pendingChapterId, setPendingChapterId] = useState<string | null>(null);
+  const [pendingPassage, setPendingPassage] = useState<{ blockIndex: number | null; quote: string } | null>(null);
   const [appearance, setAppearanceState] = useState(initialAppearance);
   const [focusMode, setFocusMode] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -147,10 +150,11 @@ export function AppProvider({ platform, library, initialBooks, initialAppearance
   );
 
   const openBook = useCallback(
-    async (id: string, chapterId?: string) => {
+    async (id: string, chapterId?: string, passage?: { blockIndex: number | null; quote: string }) => {
       await library.markOpened(id);
       await refreshBooks();
       setPendingChapterId(chapterId ?? null);
+      setPendingPassage(passage ?? null);
       setCurrentBookId(id);
       setView('edit');
     },
@@ -167,7 +171,11 @@ export function AppProvider({ platform, library, initialBooks, initialAppearance
 
   const value: AppState = {
     platform, library, books, refreshBooks, view, setView, currentBook, openBook, closeBook,
-    pendingChapterId, clearPendingChapter: () => setPendingChapterId(null),
+    pendingChapterId, pendingPassage,
+    clearPendingChapter: () => {
+      setPendingChapterId(null);
+      setPendingPassage(null);
+    },
     appearance, setAppearance, focusMode, setFocusMode, toasts, notify, dismissToast, reportError,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

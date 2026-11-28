@@ -14,7 +14,10 @@ export interface ExportResult {
   extension: string;
 }
 
-/** Produces the file for the chosen format. `compareTo` is needed for tracked changes. */
+/**
+ * Produces the file for the chosen format. `compareTo` is needed for tracked
+ * changes. PDF is made by `renderPdf`, which needs fonts and is asynchronous.
+ */
 export function exportBook(book: ExportBook, format: ExportFormat, compareTo?: ExportChapter[]): ExportResult {
   const encoder = new TextEncoder();
   switch (format) {
@@ -25,6 +28,8 @@ export function exportBook(book: ExportBook, format: ExportFormat, compareTo?: E
       return { fileName: exportFileName(book.title, 'docx', ' (tracked changes)'), bytes: exportDocx(book, { compareTo }), extension: 'docx' };
     case 'epub':
       return { fileName: exportFileName(book.title, 'epub'), bytes: exportEpub(book), extension: 'epub' };
+    case 'pdf':
+      throw new Error('PDF files are made with renderPdf.');
     case 'md':
       return { fileName: exportFileName(book.title, 'md'), bytes: encoder.encode(exportMarkdown(book)), extension: 'md' };
     default:

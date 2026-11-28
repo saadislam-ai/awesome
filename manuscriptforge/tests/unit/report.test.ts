@@ -150,6 +150,27 @@ describe('the analysis report', () => {
   });
 });
 
+describe('Making a PDF leaves its input alone', () => {
+  // The PDF library rewrites the document it is given. The screen still shows the
+  // same findings and the same book afterwards, so neither may be touched.
+  it('does not change the analysis the report was built from', async () => {
+    const input = await reportInput(true);
+    const report = buildReport(input);
+    const inputBefore = JSON.stringify(input);
+    const reportBefore = JSON.stringify(report);
+    await renderPdf(reportPdfDefinition(report), FONTS);
+    expect(JSON.stringify(report)).toBe(reportBefore);
+    expect(JSON.stringify(input)).toBe(inputBefore);
+  });
+
+  it('does not change the book', async () => {
+    const book = await novel();
+    const before = JSON.stringify(book);
+    await renderPdf(manuscriptPdfDefinition(book), FONTS);
+    expect(JSON.stringify(book)).toBe(before);
+  });
+});
+
 describe('PDF export of a manuscript', () => {
   it.runIf(HAS_PDFTOTEXT)('produces a reading copy whose text matches the book', async () => {
     const book = await novel();

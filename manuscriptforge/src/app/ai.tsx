@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { CatalogModel } from '../core/ai/catalog';
 import { HttpProvider, isAbort, type AiProvider } from '../core/ai/provider';
+import { AnalysisStore, type Analysis } from '../data/analysis';
 import { EditStore, JobRunner, type EditJob, type NewJob, type RunnerState } from '../data/edits';
 import type { EngineBinary, Hardware, ModelFile } from '../platform/types';
 import { describeError } from '../ui/format';
@@ -73,6 +74,13 @@ interface AiState {
   runnerState: RunnerState;
   refreshJobs(): Promise<void>;
   startJob(input: Omit<NewJob, 'model' | 'styleGuide'> & { useStyleGuide: boolean }): Promise<EditJob | null>;
+  analyses: AnalysisStore;
+  /** Runs the quick check, and queues the AI reading of the book when `deep` is set. */
+  startAnalysis(bookId: string, deep: boolean, automatic?: boolean): Promise<Analysis | null>;
+  /** True when a model is loaded, or one can be loaded on demand. */
+  canRunAi: boolean;
+  /** The analysis that is waiting, running or on hold, if any. */
+  activeAnalysis: Analysis | null;
   /** Changes whenever suggestions may have changed, so screens showing them can reload. */
   suggestionsVersion: number;
   touchSuggestions(): void;
@@ -91,7 +99,7 @@ export function modelName(model: ModelFile | undefined, path: string): string {
 }
 
 export function AiProvider({ initialSettings, children }: { initialSettings: AiSettings; children: ReactNode }) {
-  const { platform, library, notify, reportError } = useApp();
+  const { platform, library, notify, reportError, refreshBooks } = useApp();
   const host = platform.ai;
   const [settings, setSettings] = useState(initialSettings);
   const [hardware, setHardware] = useState<Hardware | null>(null);
@@ -103,6 +111,7 @@ export function AiProvider({ initialSettings, children }: { initialSettings: AiS
   const [jobs, setJobs] = useState<EditJob[]>([]);
   const [runnerState, setRunnerState] = useState<RunnerState>({ jobId: null, preview: '', problem: null });
   const [suggestionsVersion, setSuggestionsVersion] = useState(0);
+  const [activeAnalysis, setActiveAnalysis] = useState<Analysis | null>(null);
 
   const settingsRef = useRef(settings);
   settingsRef.current = settings;
@@ -137,16 +146,18 @@ export function AiProvider({ initialSettings, children }: { initialSettings: AiS
   providerRef.current = provider;
 
   const edits = useMemo(() => new EditStore(platform.db, library), [platform.db, library]);
+  const analyses = useMemo(() => new AnalysisStore(platform.db, library), [platform.db, library]);
 
   const refreshJobs = useCallback(async () => {
     setJobs(await edits.listJobs());
-  }, [edits]);
+    setActiveAnalysis(await analyses.active());
+  }, [edits, analyses]);
 
   const timers = useRef<{ state?: number; jobs?: number }>({});
   const runner = useMemo(
     () =>
       new JobRunner(
-        edits,
+        [edits, analyses],
         () => providerRef.current,
         () => {
           // The runner reports on every word of a reply: keep screen updates modest.
@@ -163,7 +174,7 @@ export function AiProvider({ initialSettings, children }: { initialSettings: AiS
           }, 250);
         },
       ),
-    [edits, refreshJobs],
+    [edits, analyses, refreshJobs],
   );
   const runnerRef = useRef<JobRunner | null>(null);
   runnerRef.current = runner;
@@ -199,8 +210,10 @@ export function AiProvider({ initialSettings, children }: { initialSettings: AiS
   useEffect(() => {
     void (async () => {
       const interrupted = await edits.recoverInterrupted();
+      const interruptedAnalyses = await analyses.recoverInterrupted();
       await refreshJobs();
       if (interrupted) notify('info', 'An AI editing job was interrupted when the app closed. Open Review to resume it.');
+      if (interruptedAnalyses) notify('info', 'An analysis was interrupted when the app closed. Open Analysis to resume it.');
     })().catch((e) => reportError('ai', e));
     void refresh();
     // Runs once when the app starts.
@@ -365,6 +378,26 @@ export function AiProvider({ initialSettings, children }: { initialSettings: AiS
     [edits, host, loadModel, notify, refreshJobs, reportError, runner],
   );
 
+  const startAnalysis = useCallback<AiState['startAnalysis']>(
+    async (bookId, deep, automatic = false) => {
+      try {
+        if (deep && !providerRef.current && host && settingsRef.current.lastModel) {
+          notify('info', 'Loading the AI model. The analysis starts when it is ready.');
+          await loadModel(settingsRef.current.lastModel);
+        }
+        const analysis = await analyses.start(bookId, { deep, model: deep ? (providerRef.current?.label ?? '') : '', automatic: automatic && !deep });
+        await Promise.all([refreshJobs(), refreshBooks()]);
+        setSuggestionsVersion((v) => v + 1);
+        if (deep) window.setTimeout(() => runner.kick(), 50);
+        return analysis;
+      } catch (e) {
+        reportError('analysis', e, 'The analysis could not be started.');
+        return null;
+      }
+    },
+    [analyses, host, loadModel, notify, refreshBooks, refreshJobs, reportError, runner],
+  );
+
   // When a model becomes ready, continue any queued work.
   useEffect(() => {
     if (provider) runner.kick();
@@ -373,7 +406,8 @@ export function AiProvider({ initialSettings, children }: { initialSettings: AiS
   const value: AiState = {
     hasEngine: !!host, settings, updateSettings, hardware, engines, models, scanning, refresh, model, provider, loadModel, unloadModel,
     measureSpeed, downloads, startDownload, addModelFile, removeModel, chooseEngineFolder, edits, runner, jobs, runnerState, refreshJobs,
-    startJob, suggestionsVersion, touchSuggestions: () => setSuggestionsVersion((v) => v + 1),
+    startJob, analyses, startAnalysis, activeAnalysis, canRunAi: model.state === 'ready' || (!!host && !!settings.lastModel),
+    suggestionsVersion, touchSuggestions: () => setSuggestionsVersion((v) => v + 1),
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

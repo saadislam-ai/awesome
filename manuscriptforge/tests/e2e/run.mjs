@@ -241,12 +241,12 @@ try {
   await step('Notes and per-book instructions are kept', async () => {
     await page.getByRole('tab', { name: 'Notes' }).click();
     await page.getByLabel('Notes').fill('Check the ship name with the author.');
-    await page.getByRole('tab', { name: 'Instructions' }).click();
+    await page.getByRole('tab', { name: 'Rules' }).click();
     await page.getByLabel('Instructions for this book').fill('British spelling');
     await page.getByLabel('Never send this book to a cloud AI').check();
     await page.getByRole('tab', { name: 'Notes' }).click();
     check((await page.getByLabel('Notes').inputValue()) === 'Check the ship name with the author.', 'notes survive switching tabs');
-    await page.getByRole('tab', { name: 'Instructions' }).click();
+    await page.getByRole('tab', { name: 'Rules' }).click();
     check((await page.getByLabel('Instructions for this book').inputValue()) === 'British spelling', 'instructions survive switching tabs');
     check(await page.getByLabel('Never send this book to a cloud AI').isChecked(), 'the cloud lock is kept');
   });
