@@ -77,6 +77,56 @@ const MIGRATIONS: string[][] = [
       detail TEXT
     )`,
   ],
+  // Version 2: AI editing jobs and the changes they propose.
+  [
+    `CREATE TABLE edit_jobs (
+      id TEXT PRIMARY KEY,
+      book_id TEXT NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+      level TEXT NOT NULL,
+      strength TEXT NOT NULL,
+      status TEXT NOT NULL,
+      scope TEXT NOT NULL,
+      options TEXT NOT NULL,
+      model TEXT NOT NULL DEFAULT '',
+      error TEXT,
+      created_at TEXT NOT NULL,
+      started_at TEXT,
+      finished_at TEXT
+    )`,
+    `CREATE INDEX edit_jobs_by_book ON edit_jobs(book_id, created_at)`,
+    `CREATE TABLE edit_tasks (
+      id TEXT PRIMARY KEY,
+      job_id TEXT NOT NULL REFERENCES edit_jobs(id) ON DELETE CASCADE,
+      chapter_id TEXT NOT NULL,
+      position INTEGER NOT NULL,
+      status TEXT NOT NULL,
+      input TEXT NOT NULL,
+      words INTEGER NOT NULL DEFAULT 0,
+      error TEXT,
+      suggestions INTEGER NOT NULL DEFAULT 0,
+      skipped INTEGER NOT NULL DEFAULT 0,
+      tokens INTEGER NOT NULL DEFAULT 0,
+      ms INTEGER NOT NULL DEFAULT 0
+    )`,
+    `CREATE INDEX edit_tasks_by_job ON edit_tasks(job_id, position)`,
+    `CREATE TABLE suggestions (
+      id TEXT PRIMARY KEY,
+      book_id TEXT NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+      chapter_id TEXT NOT NULL,
+      job_id TEXT,
+      block_index INTEGER NOT NULL,
+      level TEXT NOT NULL,
+      original TEXT NOT NULL,
+      revised TEXT NOT NULL,
+      note TEXT NOT NULL DEFAULT '',
+      flags TEXT NOT NULL DEFAULT '[]',
+      decisions TEXT NOT NULL DEFAULT '{}',
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TEXT NOT NULL,
+      resolved_at TEXT
+    )`,
+    `CREATE INDEX suggestions_by_chapter ON suggestions(book_id, chapter_id, block_index)`,
+  ],
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS.length;

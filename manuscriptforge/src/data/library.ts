@@ -316,8 +316,11 @@ export class Library {
     return rows.map((row) => ({ ...toHead(row), blocks: JSON.parse(row.content!) as Block[] }));
   }
 
-  /** Saves edited chapter text. Returns the chapter's new word count. */
-  async saveChapter(id: string, blocks: Block[]): Promise<{ wordCount: number; bookWordCount: number }> {
+  /**
+   * Saves edited chapter text. Returns the chapter's new word count.
+   * `alongside` statements are applied in the same transaction as the text.
+   */
+  async saveChapter(id: string, blocks: Block[], alongside: SqlStatement[] = []): Promise<{ wordCount: number; bookWordCount: number }> {
     const rows = await this.db.select<{ book_id: string; hash: string }>('SELECT book_id, hash FROM chapters WHERE id = ?', [id]);
     const row = rows[0];
     if (!row) throw new Error('This chapter no longer exists.');
@@ -332,7 +335,10 @@ export class Library {
         refreshTotals(row.book_id, now),
         // The first manual edit moves a freshly imported book into editing.
         { sql: "UPDATE books SET status = 'editing' WHERE id = ? AND status IN ('imported', 'analyzed')", params: [row.book_id] },
+        ...alongside,
       ]);
+    } else if (alongside.length) {
+      await this.db.batch(alongside);
     }
     const total = await this.db.select<{ word_count: number }>('SELECT word_count FROM books WHERE id = ?', [row.book_id]);
     return { wordCount: d.words, bookWordCount: total[0]?.word_count ?? 0 };
@@ -443,11 +449,13 @@ export class Library {
    * snapshots are skipped (returning null) when an identical version exists.
    */
   async createSnapshot(bookId: string, name: string, kind: VersionKind, note = ''): Promise<Version | null> {
-    const { rows, signature } = await this.currentState(bookId);
     if (kind === 'auto' || kind === 'safety') {
-      const same = await this.db.select('SELECT 1 AS found FROM versions WHERE book_id = ? AND signature = ? LIMIT 1', [bookId, signature]);
+      // A cheap check first: this runs often and usually finds nothing new to save.
+      const heads = await this.db.select<{ title: string; hash: string }>('SELECT title, hash FROM chapters WHERE book_id = ? ORDER BY position', [bookId]);
+      const same = await this.db.select('SELECT 1 AS found FROM versions WHERE book_id = ? AND signature = ? LIMIT 1', [bookId, signatureOf(heads)]);
       if (same.length) return null;
     }
+    const { rows, signature } = await this.currentState(bookId);
     const id = newId('v');
     const now = nowIso();
     const words = rows.reduce((n, r) => n + r.word_count, 0);
